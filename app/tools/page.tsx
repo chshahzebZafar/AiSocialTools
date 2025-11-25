@@ -1,0 +1,82 @@
+import Link from "next/link";
+import { socialTools } from "@/lib/social-tools";
+import type { Metadata } from "next";
+import { getOGImageUrl } from "@/lib/og-image-generator";
+
+export const metadata: Metadata = {
+  title: "All Social Media Tools - Free Online Tools Collection",
+  description: "Browse our complete collection of free social media tools. Generate content, download thumbnails, create captions, and more. All tools are 100% free with no signup required.",
+  keywords: [
+    "social media tools",
+    "free tools",
+    "all tools",
+    "tool collection",
+    "social media management tools",
+    "content creation tools"
+  ],
+  openGraph: {
+    title: "All Social Media Tools - Free Online Tools Collection",
+    description: "Browse our complete collection of free social media tools. All tools are 100% free with no signup required.",
+    type: "website",
+    url: "https://socialmediatools.com/tools",
+    siteName: "Social Media Tools",
+    images: [
+      {
+        url: getOGImageUrl("tools"),
+        width: 1200,
+        height: 630,
+        alt: "All Social Media Tools - Free Online Tools Collection",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "All Social Media Tools - Free Online Tools Collection",
+    description: "Browse our complete collection of free social media tools. All tools are 100% free with no signup required.",
+    images: [getOGImageUrl("tools")],
+  },
+  alternates: {
+    canonical: "https://socialmediatools.com/tools",
+  },
+};
+
+export default function ToolsPage() {
+  return (
+    <div className="p-4 sm:p-6 lg:p-8 max-w-6xl mx-auto w-full">
+        <div className="text-center mb-8 sm:mb-12">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-3 sm:mb-4">
+            All Social Media Tools
+          </h1>
+          <p className="text-base sm:text-lg lg:text-xl text-slate-600 max-w-2xl mx-auto px-4">
+            Browse our complete collection of free tools to help you create, manage, and optimize your social media content
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          {socialTools.map((tool) => {
+            const Icon = tool.icon;
+            return (
+              <Link
+                key={tool.id}
+                href={tool.path}
+                className="bg-white rounded-xl shadow-sm border border-slate-200 p-4 sm:p-6 hover:shadow-md transition-shadow group"
+              >
+                <div className="flex items-start gap-3 sm:gap-4">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                    <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-semibold text-sm sm:text-base text-slate-900 mb-1 group-hover:text-blue-600 transition-colors">
+                      {tool.name}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-slate-600 line-clamp-2">{tool.description}</p>
+                  </div>
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+    </div>
+  );
+}
+

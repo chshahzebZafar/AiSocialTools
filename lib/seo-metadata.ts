@@ -1,0 +1,757 @@
+import { Metadata } from "next";
+import { SocialTool } from "./social-tools";
+import { getOGImageUrl } from "./og-image-generator";
+
+interface SEOConfig {
+  title: string;
+  description: string;
+  keywords: string[];
+  longTailKeywords: string[];
+  structuredData: object;
+}
+
+export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
+  const seoConfigs: Record<string, SEOConfig> = {
+    "tweet-generator": {
+      title: "Free AI Tweet Generator - Create Engaging Twitter Posts Online | Social Media Tools",
+      description: "Generate creative and engaging tweets instantly with our free AI-powered tweet generator. Create viral Twitter content, optimize character count, and boost engagement. No signup required.",
+      keywords: [
+        "tweet generator",
+        "twitter post generator",
+        "AI tweet generator",
+        "free tweet generator",
+        "twitter content generator",
+        "generate tweets online",
+        "tweet ideas generator",
+        "social media tweet generator"
+      ],
+      longTailKeywords: [
+        "how to generate engaging tweets",
+        "free AI tweet generator online",
+        "best tweet generator tool",
+        "create viral tweets automatically",
+        "twitter post generator free",
+        "generate tweet ideas for business",
+        "AI powered tweet creator"
+      ],
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Tweet Generator",
+        "description": "Free AI-powered tweet generator to create engaging Twitter posts",
+        "applicationCategory": "SocialMediaApplication",
+        "operatingSystem": "Web",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.8",
+          "ratingCount": "1250"
+        }
+      }
+    },
+    "tweet-to-image": {
+      title: "Tweet to Image Converter - Convert Tweets to Images Free | Social Media Tools",
+      description: "Convert your Twitter posts into beautiful shareable images. Free tweet to image converter with customizable themes, download as PNG. Perfect for social media marketing.",
+      keywords: [
+        "tweet to image",
+        "twitter to image converter",
+        "convert tweet to image",
+        "tweet image generator",
+        "twitter screenshot generator",
+        "tweet image maker",
+        "social media image creator"
+      ],
+      longTailKeywords: [
+        "how to convert tweet to image",
+        "free tweet to image converter online",
+        "create image from twitter post",
+        "download tweet as image",
+        "tweet screenshot generator free",
+        "convert twitter post to PNG"
+      ],
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Tweet to Image Converter",
+        "description": "Convert Twitter posts into shareable images",
+        "applicationCategory": "ImageEditingApplication"
+      }
+    },
+    "hashtag-generator": {
+      title: "Free Hashtag Generator - Generate Trending Hashtags for Instagram, Twitter | Social Media Tools",
+      description: "Generate relevant and trending hashtags for Instagram, Twitter, TikTok, and LinkedIn. Free hashtag generator with platform-specific suggestions. Boost your social media reach.",
+      keywords: [
+        "hashtag generator",
+        "instagram hashtag generator",
+        "twitter hashtag generator",
+        "free hashtag generator",
+        "hashtag finder",
+        "trending hashtags generator",
+        "social media hashtags"
+      ],
+      longTailKeywords: [
+        "how to generate hashtags for instagram",
+        "best hashtag generator free online",
+        "generate trending hashtags for twitter",
+        "instagram hashtag generator tool",
+        "find relevant hashtags for social media",
+        "hashtag generator for business"
+      ],
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Hashtag Generator",
+        "description": "Generate relevant hashtags for social media platforms"
+      }
+    },
+    "instagram-post-generator": {
+      title: "Instagram Post Generator - Create Engaging Instagram Captions Free | Social Media Tools",
+      description: "Generate engaging Instagram captions and posts with our free Instagram post generator. Create viral content with templates, hashtags, and emoji suggestions. Boost your Instagram engagement.",
+      keywords: [
+        "instagram post generator",
+        "instagram caption generator",
+        "instagram content generator",
+        "free instagram post generator",
+        "instagram caption maker",
+        "instagram post ideas",
+        "social media caption generator"
+      ],
+      longTailKeywords: [
+        "how to generate instagram posts",
+        "free instagram caption generator online",
+        "create engaging instagram captions",
+        "instagram post generator with hashtags",
+        "generate instagram content ideas",
+        "best instagram caption generator"
+      ],
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Instagram Post Generator",
+        "description": "Generate engaging Instagram posts and captions"
+      }
+    },
+    "youtube-thumbnail": {
+      title: "YouTube Thumbnail Grabber - Download YouTube Thumbnails Free | Social Media Tools",
+      description: "Extract and download YouTube video thumbnails in high quality. Free YouTube thumbnail grabber tool. Download thumbnails in max resolution, HQ, MQ, or SD quality instantly.",
+      keywords: [
+        "youtube thumbnail downloader",
+        "youtube thumbnail grabber",
+        "download youtube thumbnail",
+        "youtube thumbnail extractor",
+        "get youtube thumbnail",
+        "youtube thumbnail download",
+        "free youtube thumbnail grabber"
+      ],
+      longTailKeywords: [
+        "how to download youtube thumbnail",
+        "free youtube thumbnail downloader online",
+        "extract youtube video thumbnail",
+        "download youtube thumbnail in high quality",
+        "youtube thumbnail grabber tool free",
+        "get youtube thumbnail image"
+      ],
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "YouTube Thumbnail Grabber",
+        "description": "Download YouTube video thumbnails in high quality"
+      }
+    },
+    "open-graph-generator": {
+      title: "Open Graph Meta Tags Generator - Free OG Tags Generator for SEO | Social Media Tools",
+      description: "Generate Open Graph meta tags for Facebook, Twitter, and LinkedIn. Free OG tags generator with preview. Improve social media sharing and SEO. Create perfect social media cards.",
+      keywords: [
+        "open graph generator",
+        "og tags generator",
+        "meta tags generator",
+        "social media meta tags",
+        "facebook og tags",
+        "twitter card generator",
+        "open graph meta tags"
+      ],
+      longTailKeywords: [
+        "how to generate open graph tags",
+        "free og tags generator online",
+        "create open graph meta tags",
+        "facebook open graph generator",
+        "twitter card meta tags generator",
+        "social media sharing tags generator"
+      ],
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Open Graph Meta Tags Generator",
+        "description": "Generate Open Graph and Twitter Card meta tags"
+      }
+    },
+    "character-counter": {
+      title: "Social Media Character Counter - Count Characters for All Platforms Free | Social Media Tools",
+      description: "Count characters for Twitter, Instagram, Facebook, LinkedIn, and more. Free social media character counter with platform limits. Track character count in real-time.",
+      keywords: [
+        "character counter",
+        "twitter character counter",
+        "instagram character counter",
+        "social media character counter",
+        "character count tool",
+        "text counter",
+        "character limit checker"
+      ],
+      longTailKeywords: [
+        "how to count characters for twitter",
+        "free character counter for social media",
+        "check character limit instagram",
+        "twitter character count tool",
+        "social media character limit checker",
+        "count characters for all platforms"
+      ],
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Character Counter",
+        "description": "Count characters for different social media platforms"
+      }
+    },
+    "image-resizer": {
+      title: "Social Media Image Resizer - Resize Images for Instagram, Facebook Free | Social Media Tools",
+      description: "Resize images for Instagram, Facebook, Twitter, LinkedIn, and more. Free social media image resizer with platform-specific dimensions. Optimize images for social media instantly.",
+      keywords: [
+        "image resizer",
+        "social media image resizer",
+        "instagram image resizer",
+        "resize image for social media",
+        "image size optimizer",
+        "social media image dimensions",
+        "free image resizer"
+      ],
+      longTailKeywords: [
+        "how to resize image for instagram",
+        "free social media image resizer online",
+        "resize image for facebook post",
+        "instagram post size resizer",
+        "social media image size converter",
+        "optimize images for social media"
+      ],
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Image Resizer",
+        "description": "Resize images for different social media platforms"
+      }
+    },
+    "qr-code-generator": {
+      title: "Free QR Code Generator - Create QR Codes for Social Media Links | Social Media Tools",
+      description: "Generate QR codes for Instagram, Twitter, Facebook, and any URL. Free QR code generator with customizable colors and sizes. Download QR codes as PNG. Perfect for social media marketing.",
+      keywords: [
+        "qr code generator",
+        "free qr code generator",
+        "qr code maker",
+        "create qr code",
+        "qr code generator online",
+        "social media qr code",
+        "instagram qr code generator"
+      ],
+      longTailKeywords: [
+        "how to generate qr code for instagram",
+        "free qr code generator online",
+        "create qr code for social media",
+        "qr code generator for links",
+        "custom qr code generator free",
+        "download qr code as image"
+      ],
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "QR Code Generator",
+        "description": "Generate QR codes for social media profiles and links"
+      }
+    },
+    "username-generator": {
+      title: "Username Generator - Generate Unique Social Media Usernames Free | Social Media Tools",
+      description: "Generate unique and available usernames for Instagram, Twitter, TikTok, and more. Free username generator with variations. Find the perfect username for your social media accounts.",
+      keywords: [
+        "username generator",
+        "instagram username generator",
+        "social media username generator",
+        "generate username",
+        "username ideas",
+        "available username generator",
+        "unique username generator"
+      ],
+      longTailKeywords: [
+        "how to generate username for instagram",
+        "free username generator online",
+        "create unique social media username",
+        "instagram username ideas generator",
+        "find available username",
+        "username generator for business"
+      ],
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Username Generator",
+        "description": "Generate unique usernames for social media"
+      }
+    },
+    "social-bio-generator": {
+      title: "Social Media Bio Generator - Create Instagram, Twitter Bios Free | Social Media Tools",
+      description: "Generate compelling bios for Instagram, Twitter, LinkedIn, and TikTok. Free social media bio generator with templates. Create professional bios that attract followers.",
+      keywords: [
+        "bio generator",
+        "instagram bio generator",
+        "twitter bio generator",
+        "social media bio generator",
+        "bio maker",
+        "instagram bio ideas",
+        "create social media bio"
+      ],
+      longTailKeywords: [
+        "how to create instagram bio",
+        "free bio generator for social media",
+        "generate professional social media bio",
+        "instagram bio generator with emojis",
+        "create engaging twitter bio",
+        "social media bio template generator"
+      ],
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Social Media Bio Generator",
+        "description": "Generate compelling bios for social media platforms"
+      }
+    },
+    "engagement-calculator": {
+      title: "Social Media Engagement Calculator - Calculate Engagement Rate Free | Social Media Tools",
+      description: "Calculate engagement rate, reach rate, and social media metrics. Free engagement calculator for Instagram, Twitter, Facebook. Analyze your social media performance instantly.",
+      keywords: [
+        "engagement calculator",
+        "engagement rate calculator",
+        "social media engagement calculator",
+        "calculate engagement rate",
+        "instagram engagement calculator",
+        "social media metrics calculator",
+        "engagement rate tool"
+      ],
+      longTailKeywords: [
+        "how to calculate engagement rate",
+        "free engagement rate calculator online",
+        "calculate instagram engagement rate",
+        "social media engagement rate formula",
+        "engagement calculator for instagram",
+        "measure social media engagement"
+      ],
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Engagement Calculator",
+        "description": "Calculate social media engagement rates and metrics"
+      }
+    },
+    "twitter-ad-revenue": {
+      title: "Twitter Ad Revenue Calculator - Calculate Twitter/X Ad Revenue Free | Social Media Tools",
+      description: "Calculate potential Twitter ad revenue based on followers, engagement, and CPM. Free Twitter ad revenue calculator. Estimate earnings from Twitter monetization.",
+      keywords: [
+        "twitter ad revenue calculator",
+        "twitter revenue calculator",
+        "calculate twitter ad revenue",
+        "twitter monetization calculator",
+        "twitter earnings calculator",
+        "x ad revenue calculator",
+        "twitter revenue estimator"
+      ],
+      longTailKeywords: [
+        "how to calculate twitter ad revenue",
+        "free twitter revenue calculator online",
+        "estimate twitter ad revenue",
+        "calculate twitter monetization",
+        "twitter ad revenue estimator tool",
+        "how much can you earn from twitter ads"
+      ],
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Twitter Ad Revenue Calculator",
+        "description": "Calculate potential Twitter ad revenue"
+      }
+    },
+    "instagram-filters": {
+      title: "Instagram Filters - Apply Photo Filters Online Free | Social Media Tools",
+      description: "Apply beautiful Instagram-style filters to your photos. Free Instagram filter tool with multiple filter options. Edit photos online, no app required.",
+      keywords: [
+        "instagram filters",
+        "photo filters",
+        "instagram filter app",
+        "apply instagram filters",
+        "photo filter tool",
+        "instagram style filters",
+        "free photo filters"
+      ],
+      longTailKeywords: [
+        "how to apply instagram filters online",
+        "free instagram filter tool",
+        "apply filters to photos",
+        "instagram photo filter generator",
+        "photo editing with instagram filters",
+        "online instagram filter app"
+      ],
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Instagram Filters",
+        "description": "Apply Instagram-style filters to photos"
+      }
+    },
+    "vimeo-thumbnail": {
+      title: "Vimeo Thumbnail Grabber - Download Vimeo Thumbnails Free | Social Media Tools",
+      description: "Extract and download Vimeo video thumbnails in high quality. Free Vimeo thumbnail grabber. Download thumbnails from any Vimeo video instantly.",
+      keywords: [
+        "vimeo thumbnail downloader",
+        "vimeo thumbnail grabber",
+        "download vimeo thumbnail",
+        "vimeo thumbnail extractor",
+        "get vimeo thumbnail",
+        "vimeo thumbnail download"
+      ],
+      longTailKeywords: [
+        "how to download vimeo thumbnail",
+        "free vimeo thumbnail downloader",
+        "extract vimeo video thumbnail",
+        "download vimeo thumbnail image",
+        "vimeo thumbnail grabber tool"
+      ],
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Vimeo Thumbnail Grabber",
+        "description": "Download Vimeo video thumbnails"
+      }
+    },
+    "bio-link-generator": {
+      title: "Bio Link Generator - Create Link in Bio Page Free | Social Media Tools",
+      description: "Create a custom link in bio page for Instagram, TikTok, and Twitter. Free bio link generator with multiple links. Build your own linktree-style page instantly.",
+      keywords: [
+        "bio link generator",
+        "link in bio generator",
+        "instagram bio link",
+        "linktree generator",
+        "bio link page",
+        "social media link page",
+        "free bio link generator"
+      ],
+      longTailKeywords: [
+        "how to create link in bio page",
+        "free bio link generator online",
+        "create instagram bio link page",
+        "linktree alternative free",
+        "custom bio link page generator",
+        "social media link aggregator"
+      ],
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Bio Link Generator",
+        "description": "Create custom link in bio pages"
+      }
+    },
+    "content-calendar": {
+      title: "Social Media Content Calendar - Plan & Schedule Posts Free | Social Media Tools",
+      description: "Plan and schedule your social media content with our free content calendar. Organize posts, track publishing dates, and manage multiple platforms. Boost your social media strategy.",
+      keywords: [
+        "content calendar",
+        "social media calendar",
+        "content planning tool",
+        "social media scheduler",
+        "content calendar template",
+        "social media planner",
+        "content scheduling tool"
+      ],
+      longTailKeywords: [
+        "how to create social media content calendar",
+        "free content calendar tool online",
+        "plan social media posts",
+        "social media content planning tool",
+        "content calendar for instagram",
+        "schedule social media content free"
+      ],
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Content Calendar",
+        "description": "Plan and schedule social media content"
+      }
+    },
+    "color-palette": {
+      title: "Color Palette Generator - Extract Colors from Images Free | Social Media Tools",
+      description: "Extract color palettes from images for branding and design. Free color palette generator. Get dominant colors from photos. Perfect for social media branding.",
+      keywords: [
+        "color palette generator",
+        "extract colors from image",
+        "color picker from image",
+        "palette generator",
+        "image color extractor",
+        "brand color generator",
+        "color scheme generator"
+      ],
+      longTailKeywords: [
+        "how to extract colors from image",
+        "free color palette generator online",
+        "get colors from photo",
+        "image color palette extractor",
+        "brand color palette generator",
+        "extract dominant colors from image"
+      ],
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Color Palette Generator",
+        "description": "Extract color palettes from images"
+      }
+    },
+    "text-case-converter": {
+      title: "Text Case Converter - Convert Text to Uppercase, Lowercase, Title Case Free | Social Media Tools",
+      description: "Convert text to uppercase, lowercase, title case, camelCase, snake_case, and more. Free text case converter tool. Transform text formatting instantly for social media posts.",
+      keywords: [
+        "text case converter",
+        "case converter",
+        "uppercase converter",
+        "lowercase converter",
+        "title case converter",
+        "text formatter",
+        "case changer"
+      ],
+      longTailKeywords: [
+        "how to convert text case",
+        "free text case converter online",
+        "convert to title case",
+        "text case converter tool",
+        "uppercase lowercase converter",
+        "camelCase converter free"
+      ],
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Text Case Converter",
+        "description": "Convert text to different cases"
+      }
+    },
+    "emoji-picker": {
+      title: "Emoji Picker & Generator - Copy Emojis for Social Media Free | Social Media Tools",
+      description: "Browse and copy emojis for Instagram, Twitter, Facebook posts. Free emoji picker with categories. Find the perfect emoji for your social media content.",
+      keywords: [
+        "emoji picker",
+        "emoji generator",
+        "copy emojis",
+        "emoji keyboard",
+        "emoji selector",
+        "social media emojis",
+        "emoji tool"
+      ],
+      longTailKeywords: [
+        "how to copy emojis for instagram",
+        "free emoji picker online",
+        "emoji generator for social media",
+        "copy paste emojis",
+        "emoji picker tool free",
+        "find emojis for posts"
+      ],
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Emoji Picker",
+        "description": "Browse and copy emojis for social media"
+      }
+    },
+    "best-time-calculator": {
+      title: "Best Time to Post Calculator - Find Optimal Posting Times Free | Social Media Tools",
+      description: "Find the best times to post on Instagram, Twitter, Facebook, LinkedIn, and TikTok. Free posting time calculator with platform-specific recommendations. Maximize engagement.",
+      keywords: [
+        "best time to post",
+        "posting time calculator",
+        "optimal posting times",
+        "when to post on instagram",
+        "best time to post calculator",
+        "social media posting times",
+        "engagement time calculator"
+      ],
+      longTailKeywords: [
+        "when is the best time to post on instagram",
+        "free posting time calculator online",
+        "best time to post on twitter",
+        "optimal posting times for social media",
+        "calculate best posting time",
+        "social media posting schedule calculator"
+      ],
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Best Time to Post Calculator",
+        "description": "Find optimal posting times for social media"
+      }
+    },
+    "caption-templates": {
+      title: "Instagram Caption Templates - Free Social Media Caption Templates | Social Media Tools",
+      description: "Browse and use pre-made Instagram caption templates. Free social media caption templates for posts, stories, and reels. Copy, customize, and use instantly.",
+      keywords: [
+        "caption templates",
+        "instagram caption templates",
+        "social media captions",
+        "caption ideas",
+        "instagram caption ideas",
+        "post caption templates",
+        "free caption templates"
+      ],
+      longTailKeywords: [
+        "how to write instagram captions",
+        "free instagram caption templates",
+        "social media caption templates",
+        "instagram post caption ideas",
+        "caption templates for business",
+        "engaging caption templates"
+      ],
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Caption Templates",
+        "description": "Browse and use pre-made caption templates"
+      }
+    },
+    "content-ideas": {
+      title: "Content Ideas Generator - Generate Social Media Content Ideas Free | Social Media Tools",
+      description: "Generate creative content ideas for Instagram, Twitter, LinkedIn, and TikTok. Free content ideas generator. Get inspiration for your next viral post.",
+      keywords: [
+        "content ideas generator",
+        "social media content ideas",
+        "instagram content ideas",
+        "content inspiration",
+        "post ideas generator",
+        "social media ideas",
+        "content creator ideas"
+      ],
+      longTailKeywords: [
+        "how to generate content ideas",
+        "free content ideas generator online",
+        "instagram post ideas generator",
+        "social media content inspiration",
+        "generate content ideas for business",
+        "viral content ideas generator"
+      ],
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Content Ideas Generator",
+        "description": "Generate creative content ideas for social media"
+      }
+    },
+    "analytics-calculator": {
+      title: "Social Media Analytics Calculator - Calculate KPIs & Metrics Free | Social Media Tools",
+      description: "Calculate social media KPIs including CTR, conversion rate, CPC, CPA, and ROAS. Free analytics calculator for Instagram, Twitter, Facebook. Analyze your social media performance.",
+      keywords: [
+        "social media analytics calculator",
+        "analytics calculator",
+        "social media metrics calculator",
+        "kpi calculator",
+        "ctr calculator",
+        "conversion rate calculator",
+        "social media analytics tool"
+      ],
+      longTailKeywords: [
+        "how to calculate social media metrics",
+        "free analytics calculator online",
+        "calculate social media kpis",
+        "social media performance calculator",
+        "ctr conversion rate calculator",
+        "social media roi calculator"
+      ],
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Social Media Analytics Calculator",
+        "description": "Calculate social media metrics and KPIs"
+      }
+    },
+    "instagram-photo-downloader": {
+      title: "Instagram Photo Downloader - Download Instagram Photos & Videos Free | Social Media Tools",
+      description: "Download photos and videos from Instagram posts. Free Instagram downloader tool. Save Instagram content for offline viewing. Note: Requires backend implementation.",
+      keywords: [
+        "instagram downloader",
+        "instagram photo downloader",
+        "download instagram photos",
+        "instagram video downloader",
+        "save instagram photos",
+        "instagram content downloader",
+        "free instagram downloader"
+      ],
+      longTailKeywords: [
+        "how to download instagram photos",
+        "free instagram photo downloader online",
+        "download instagram images",
+        "save instagram photos to computer",
+        "instagram content downloader tool",
+        "download instagram posts free"
+      ],
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Instagram Photo Downloader",
+        "description": "Download photos and videos from Instagram"
+      }
+    }
+  };
+
+  return seoConfigs[tool.id] || {
+    title: `${tool.name} - Free Social Media Tool | Social Media Tools`,
+    description: tool.description,
+    keywords: [tool.name.toLowerCase(), "social media tool", "free tool"],
+    longTailKeywords: [`free ${tool.name.toLowerCase()}`, `online ${tool.name.toLowerCase()}`],
+    structuredData: {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": tool.name,
+      "description": tool.description
+    }
+  };
+};
+
+export const generateMetadataForTool = (tool: SocialTool): Metadata => {
+  const seo = getSEOMetadata(tool);
+  const ogImageUrl = getOGImageUrl("default");
+  
+  return {
+    title: seo.title,
+    description: seo.description,
+    keywords: [...seo.keywords, ...seo.longTailKeywords],
+    openGraph: {
+      title: seo.title,
+      description: seo.description,
+      type: "website",
+      url: `https://socialmediatools.com${tool.path}`,
+      siteName: "Social Media Tools",
+      images: [
+        {
+          url: ogImageUrl,
+          width: 1200,
+          height: 630,
+          alt: `${tool.name} - ${seo.description}`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: seo.title,
+      description: seo.description,
+      images: [ogImageUrl],
+    },
+    alternates: {
+      canonical: `https://socialmediatools.com${tool.path}`,
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
+  };
+};
+

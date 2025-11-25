@@ -1,36 +1,121 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Social Media Tools Website
+
+A modern, SEO-optimized Next.js application showcasing the best social media management tools. Built with Next.js 16, TypeScript, and Tailwind CSS.
+
+## Features
+
+- ✅ **SEO Optimized**: Server-side rendering, meta tags, structured data (JSON-LD), sitemap, and robots.txt
+- ✅ **Modern UI**: Beautiful, responsive design with Tailwind CSS
+- ✅ **Performance**: Static site generation for fast page loads
+- ✅ **Tool Listings**: Comprehensive list of social media tools with ratings and features
+- ✅ **Dynamic Pages**: Individual pages for each tool with detailed information
+- ✅ **Recommended Tools**: Highlighted recommended tools section
+- ✅ **Category Filtering**: Browse tools by category
+
+## Recommended Tools Included
+
+The application includes 8 recommended tools to get started:
+
+1. **Buffer** - Social media scheduling and management
+2. **Hootsuite** - Comprehensive social media management
+3. **Canva** - Graphic design for social media
+4. **Later** - Visual social media scheduler
+5. **Linktree** - Link in bio tool
+6. **Grammarly** - Writing assistant
+7. **CapCut** - Video editing for social media
+8. **Unsplash** - Free stock photos
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js 18+ 
+- npm or yarn
+
+### Installation
+
+1. Install dependencies:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Run the development server:
+```bash
+npm run dev
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Build for Production
 
-## Learn More
+```bash
+npm run build
+npm start
+```
 
-To learn more about Next.js, take a look at the following resources:
+## SEO Features
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Server-Side Rendering (SSR)**: All pages are pre-rendered for optimal SEO
+- **Meta Tags**: Comprehensive Open Graph and Twitter Card support
+- **Structured Data**: JSON-LD schema markup for better search engine understanding
+- **Sitemap**: Automatically generated sitemap.xml
+- **Robots.txt**: Properly configured robots.txt
+- **Semantic HTML**: Clean, semantic markup
+- **Performance**: Optimized images and code splitting
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Project Structure
 
-## Deploy on Vercel
+```
+├── app/
+│   ├── layout.tsx          # Root layout with SEO metadata
+│   ├── page.tsx            # Homepage with tools listing
+│   ├── tools/
+│   │   └── [id]/
+│   │       └── page.tsx    # Dynamic tool detail pages
+│   ├── sitemap.ts          # Sitemap generation
+│   ├── robots.ts           # Robots.txt generation
+│   └── not-found.tsx       # 404 page
+├── lib/
+│   └── tools.ts            # Tools data and utilities
+└── public/                 # Static assets
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Adding New Tools
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Edit `lib/tools.ts` to add new social media tools. Each tool should include:
+
+- Name and description
+- Category
+- Website URL
+- Pricing information
+- Features list
+- Rating
+- Recommended flag
+
+## Customization
+
+### Update Site Metadata
+
+Edit `app/layout.tsx` to update:
+- Site title and description
+- Open Graph images
+- Twitter card settings
+- Verification codes
+
+### Update Domain
+
+Replace `https://socialmediatools.com` with your actual domain in:
+- `app/layout.tsx` (metadata)
+- `app/sitemap.ts` (sitemap URL)
+- `app/robots.ts` (sitemap URL)
+
+## Technologies Used
+
+- **Next.js 16** - React framework with App Router
+- **TypeScript** - Type safety
+- **Tailwind CSS** - Utility-first CSS framework
+- **Lucide React** - Icon library
+
+## License
+
+MIT
