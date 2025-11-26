@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Free Social Media Tools - Create, Manage & Optimize Your Social Media Content",
+  title: "Free Social Media Tools - Create & Manage Content",
   description: "Powerful free social media tools for content creation, management, and optimization. Generate tweets, create Instagram posts, download thumbnails, and more. 100% free, no signup required.",
   keywords: [
     "social media tools",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     "social media analytics"
   ],
   openGraph: {
-    title: "Free Social Media Tools - Create, Manage & Optimize Your Social Media Content",
+    title: "Free Social Media Tools - Create & Manage Content",
     description: "Powerful free social media tools for content creation, management, and optimization. 100% free, no signup required.",
     type: "website",
     url: "https://socialmediatools.netlify.app",
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free Social Media Tools - Create, Manage & Optimize Your Social Media Content",
+    title: "Free Social Media Tools - Create & Manage Content",
     description: "Powerful free social media tools for content creation, management, and optimization. 100% free, no signup required.",
     images: [getOGImageUrl("home")],
   },

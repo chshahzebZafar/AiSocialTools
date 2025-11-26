@@ -13,7 +13,7 @@ interface SEOConfig {
 export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
   const seoConfigs: Record<string, SEOConfig> = {
     "tweet-generator": {
-      title: "Free AI Tweet Generator - Create Engaging Twitter Posts Online | Social Media Tools",
+      title: "Free AI Tweet Generator - Create Engaging Tweets",
       description: "Generate creative and engaging tweets instantly with our free AI-powered tweet generator. Create viral Twitter content, optimize character count, and boost engagement. No signup required.",
       keywords: [
         "tweet generator",
@@ -55,7 +55,7 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
       }
     },
     "tweet-to-image": {
-      title: "Tweet to Image Converter - Convert Tweets to Images Free | Social Media Tools",
+      title: "Tweet to Image Converter - Convert Tweets to Images",
       description: "Convert your Twitter posts into beautiful shareable images. Free tweet to image converter with customizable themes, download as PNG. Perfect for social media marketing.",
       keywords: [
         "tweet to image",
@@ -83,7 +83,7 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
       }
     },
     "hashtag-generator": {
-      title: "Free Hashtag Generator - Generate Trending Hashtags for Instagram, Twitter | Social Media Tools",
+      title: "Free Hashtag Generator - Trending Hashtags",
       description: "Generate relevant and trending hashtags for Instagram, Twitter, TikTok, and LinkedIn. Free hashtag generator with platform-specific suggestions. Boost your social media reach.",
       keywords: [
         "hashtag generator",
@@ -110,7 +110,7 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
       }
     },
     "instagram-post-generator": {
-      title: "Instagram Post Generator - Create Engaging Instagram Captions Free | Social Media Tools",
+      title: "Instagram Post Generator - Create Engaging Captions",
       description: "Generate engaging Instagram captions and posts with our free Instagram post generator. Create viral content with templates, hashtags, and emoji suggestions. Boost your Instagram engagement.",
       keywords: [
         "instagram post generator",
@@ -137,7 +137,7 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
       }
     },
     "youtube-thumbnail": {
-      title: "YouTube Thumbnail Grabber - Download YouTube Thumbnails Free | Social Media Tools",
+      title: "YouTube Thumbnail Grabber - Download Thumbnails Free",
       description: "Extract and download YouTube video thumbnails in high quality. Free YouTube thumbnail grabber tool. Download thumbnails in max resolution, HQ, MQ, or SD quality instantly.",
       keywords: [
         "youtube thumbnail downloader",
@@ -164,7 +164,7 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
       }
     },
     "open-graph-generator": {
-      title: "Open Graph Meta Tags Generator - Free OG Tags Generator for SEO | Social Media Tools",
+      title: "Open Graph Generator - Free OG Tags for SEO",
       description: "Generate Open Graph meta tags for Facebook, Twitter, and LinkedIn. Free OG tags generator with preview. Improve social media sharing and SEO. Create perfect social media cards.",
       keywords: [
         "open graph generator",
@@ -191,7 +191,7 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
       }
     },
     "character-counter": {
-      title: "Social Media Character Counter - Count Characters for All Platforms Free | Social Media Tools",
+      title: "Character Counter - Count Text for All Platforms",
       description: "Count characters for Twitter, Instagram, Facebook, LinkedIn, and more. Free social media character counter with platform limits. Track character count in real-time.",
       keywords: [
         "character counter",
@@ -218,7 +218,7 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
       }
     },
     "image-resizer": {
-      title: "Social Media Image Resizer - Resize Images for Instagram, Facebook Free | Social Media Tools",
+      title: "Image Resizer - Resize for Instagram & Facebook",
       description: "Resize images for Instagram, Facebook, Twitter, LinkedIn, and more. Free social media image resizer with platform-specific dimensions. Optimize images for social media instantly.",
       keywords: [
         "image resizer",
@@ -245,7 +245,7 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
       }
     },
     "qr-code-generator": {
-      title: "Free QR Code Generator - Create QR Codes for Social Media Links | Social Media Tools",
+      title: "Free QR Code Generator - Create QR Codes for Links",
       description: "Generate QR codes for Instagram, Twitter, Facebook, and any URL. Free QR code generator with customizable colors and sizes. Download QR codes as PNG. Perfect for social media marketing.",
       keywords: [
         "qr code generator",
@@ -272,7 +272,7 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
       }
     },
     "username-generator": {
-      title: "Username Generator - Generate Unique Social Media Usernames Free | Social Media Tools",
+      title: "Username Generator - Generate Unique Usernames Free",
       description: "Generate unique and available usernames for Instagram, Twitter, TikTok, and more. Free username generator with variations. Find the perfect username for your social media accounts.",
       keywords: [
         "username generator",
@@ -299,7 +299,7 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
       }
     },
     "social-bio-generator": {
-      title: "Social Media Bio Generator - Create Instagram, Twitter Bios Free | Social Media Tools",
+      title: "Bio Generator - Create Instagram & Twitter Bios",
       description: "Generate compelling bios for Instagram, Twitter, LinkedIn, and TikTok. Free social media bio generator with templates. Create professional bios that attract followers.",
       keywords: [
         "bio generator",
@@ -326,7 +326,7 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
       }
     },
     "engagement-calculator": {
-      title: "Social Media Engagement Calculator - Calculate Engagement Rate Free | Social Media Tools",
+      title: "Engagement Calculator - Calculate Engagement Rate",
       description: "Calculate engagement rate, reach rate, and social media metrics. Free engagement calculator for Instagram, Twitter, Facebook. Analyze your social media performance instantly.",
       keywords: [
         "engagement calculator",
@@ -353,7 +353,7 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
       }
     },
     "twitter-ad-revenue": {
-      title: "Twitter Ad Revenue Calculator - Calculate Twitter/X Ad Revenue Free | Social Media Tools",
+      title: "Twitter Ad Revenue Calculator - Calculate Revenue",
       description: "Calculate potential Twitter ad revenue based on followers, engagement, and CPM. Free Twitter ad revenue calculator. Estimate earnings from Twitter monetization.",
       keywords: [
         "twitter ad revenue calculator",
@@ -380,7 +380,7 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
       }
     },
     "instagram-filters": {
-      title: "Instagram Filters - Apply Photo Filters Online Free | Social Media Tools",
+      title: "Instagram Filters - Apply Photo Filters Online",
       description: "Apply beautiful Instagram-style filters to your photos. Free Instagram filter tool with multiple filter options. Edit photos online, no app required.",
       keywords: [
         "instagram filters",
@@ -407,7 +407,7 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
       }
     },
     "vimeo-thumbnail": {
-      title: "Vimeo Thumbnail Grabber - Download Vimeo Thumbnails Free | Social Media Tools",
+      title: "Vimeo Thumbnail Grabber - Download Thumbnails Free",
       description: "Extract and download Vimeo video thumbnails in high quality. Free Vimeo thumbnail grabber. Download thumbnails from any Vimeo video instantly.",
       keywords: [
         "vimeo thumbnail downloader",
@@ -432,7 +432,7 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
       }
     },
     "bio-link-generator": {
-      title: "Bio Link Generator - Create Link in Bio Page Free | Social Media Tools",
+      title: "Bio Link Generator - Create Link in Bio Page",
       description: "Create a custom link in bio page for Instagram, TikTok, and Twitter. Free bio link generator with multiple links. Build your own linktree-style page instantly.",
       keywords: [
         "bio link generator",
@@ -459,7 +459,7 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
       }
     },
     "content-calendar": {
-      title: "Social Media Content Calendar - Plan & Schedule Posts Free | Social Media Tools",
+      title: "Content Calendar - Plan & Schedule Posts",
       description: "Plan and schedule your social media content with our free content calendar. Organize posts, track publishing dates, and manage multiple platforms. Boost your social media strategy.",
       keywords: [
         "content calendar",
@@ -486,7 +486,7 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
       }
     },
     "color-palette": {
-      title: "Color Palette Generator - Extract Colors from Images Free | Social Media Tools",
+      title: "Color Palette Generator - Extract Colors from Images",
       description: "Extract color palettes from images for branding and design. Free color palette generator. Get dominant colors from photos. Perfect for social media branding.",
       keywords: [
         "color palette generator",
@@ -513,7 +513,7 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
       }
     },
     "text-case-converter": {
-      title: "Text Case Converter - Convert Text to Uppercase, Lowercase, Title Case Free | Social Media Tools",
+      title: "Text Case Converter - Uppercase, Lowercase & More",
       description: "Convert text to uppercase, lowercase, title case, camelCase, snake_case, and more. Free text case converter tool. Transform text formatting instantly for social media posts.",
       keywords: [
         "text case converter",
@@ -540,7 +540,7 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
       }
     },
     "emoji-picker": {
-      title: "Emoji Picker & Generator - Copy Emojis for Social Media Free | Social Media Tools",
+      title: "Emoji Picker - Copy Emojis for Social Media",
       description: "Browse and copy emojis for Instagram, Twitter, Facebook posts. Free emoji picker with categories. Find the perfect emoji for your social media content.",
       keywords: [
         "emoji picker",
@@ -567,7 +567,7 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
       }
     },
     "best-time-calculator": {
-      title: "Best Time to Post Calculator - Find Optimal Posting Times Free | Social Media Tools",
+      title: "Best Time to Post Calculator - Find Optimal Times",
       description: "Find the best times to post on Instagram, Twitter, Facebook, LinkedIn, and TikTok. Free posting time calculator with platform-specific recommendations. Maximize engagement.",
       keywords: [
         "best time to post",
@@ -594,7 +594,7 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
       }
     },
     "caption-templates": {
-      title: "Instagram Caption Templates - Free Social Media Caption Templates | Social Media Tools",
+      title: "Instagram Caption Templates - Free Templates",
       description: "Browse and use pre-made Instagram caption templates. Free social media caption templates for posts, stories, and reels. Copy, customize, and use instantly.",
       keywords: [
         "caption templates",
@@ -621,7 +621,7 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
       }
     },
     "content-ideas": {
-      title: "Content Ideas Generator - Generate Social Media Content Ideas Free | Social Media Tools",
+      title: "Content Ideas Generator - Generate Content Ideas",
       description: "Generate creative content ideas for Instagram, Twitter, LinkedIn, and TikTok. Free content ideas generator. Get inspiration for your next viral post.",
       keywords: [
         "content ideas generator",
@@ -648,7 +648,7 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
       }
     },
     "analytics-calculator": {
-      title: "Social Media Analytics Calculator - Calculate KPIs & Metrics Free | Social Media Tools",
+      title: "Analytics Calculator - Calculate KPIs & Metrics",
       description: "Calculate social media KPIs including CTR, conversion rate, CPC, CPA, and ROAS. Free analytics calculator for Instagram, Twitter, Facebook. Analyze your social media performance.",
       keywords: [
         "social media analytics calculator",
@@ -675,7 +675,7 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
       }
     },
     "instagram-photo-downloader": {
-      title: "Instagram Photo Downloader - Download Instagram Photos & Videos Free | Social Media Tools",
+      title: "Instagram Photo Downloader - Download Photos & Videos",
       description: "Download photos and videos from Instagram posts. Free Instagram downloader tool. Save Instagram content for offline viewing. Note: Requires backend implementation.",
       keywords: [
         "instagram downloader",
@@ -704,7 +704,7 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
   };
 
   return seoConfigs[tool.id] || {
-    title: `${tool.name} - Free Social Media Tool | Social Media Tools`,
+    title: `${tool.name} - Free Social Media Tool`,
     description: tool.description,
     keywords: [tool.name.toLowerCase(), "social media tool", "free tool"],
     longTailKeywords: [`free ${tool.name.toLowerCase()}`, `online ${tool.name.toLowerCase()}`],
