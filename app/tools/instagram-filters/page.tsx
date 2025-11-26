@@ -8,6 +8,7 @@ import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { getSEOMetadata } from "@/lib/seo-metadata";
+import ShareButtons from "@/components/ShareButtons";
 
 export default function InstagramFiltersPage() {
   const tool = getToolById("instagram-filters");
@@ -85,10 +86,16 @@ export default function InstagramFiltersPage() {
           <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
             <Filter className="w-6 h-6 text-white" />
           </div>
-          <div>
+          <div className="flex-1">
             <h1 className="text-3xl font-bold text-slate-900">Instagram Filters - Apply Photo Filters Online Free</h1>
             <p className="text-slate-600">Apply beautiful Instagram-style filters to your photos. Free Instagram filter tool with multiple filter options. Edit photos online, no app required.</p>
           </div>
+        </div>
+        <div className="mt-4">
+          <ShareButtons
+            title="Instagram Filters"
+            text="Check out this free Instagram filters tool!"
+          />
         </div>
       </div>
 

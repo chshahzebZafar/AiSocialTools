@@ -7,6 +7,7 @@ import ToolSEO from "@/components/ToolSEO";
 import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
+import ShareButtons from "@/components/ShareButtons";
 
 export default function FacebookThumbnailPage() {
   const tool = getToolById("facebook-thumbnail");
@@ -99,10 +100,16 @@ export default function FacebookThumbnailPage() {
             <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center">
               <Facebook className="w-6 h-6 text-white" />
             </div>
-            <div>
+            <div className="flex-1">
               <h1 className="text-3xl font-bold text-slate-900">Facebook Thumbnails Downloader</h1>
               <p className="text-slate-600">Download and save any Facebook video thumbnail of the highest possible quality</p>
             </div>
+          </div>
+          <div className="mt-4">
+            <ShareButtons
+              title="Facebook Thumbnail Grabber"
+              text="Check out this free Facebook thumbnail grabber tool!"
+            />
           </div>
         </div>
 

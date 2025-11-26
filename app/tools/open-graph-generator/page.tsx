@@ -8,6 +8,7 @@ import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { getSEOMetadata } from "@/lib/seo-metadata";
+import ShareButtons from "@/components/ShareButtons";
 
 export default function OpenGraphGeneratorPage() {
   const tool = getToolById("open-graph-generator");
@@ -71,10 +72,16 @@ export default function OpenGraphGeneratorPage() {
           <div className="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center">
             <Share2 className="w-6 h-6 text-white" />
           </div>
-          <div>
+          <div className="flex-1">
             <h1 className="text-3xl font-bold text-slate-900">Open Graph Meta Tags Generator - Free OG Tags Generator for SEO</h1>
             <p className="text-slate-600">Generate Open Graph meta tags for Facebook, Twitter, and LinkedIn. Free OG tags generator with preview. Improve social media sharing and SEO. Create perfect social media cards.</p>
           </div>
+        </div>
+        <div className="mt-4">
+          <ShareButtons
+            title="Open Graph Meta Tags Generator"
+            text="Check out this free Open Graph meta tags generator tool!"
+          />
         </div>
       </div>
 
@@ -176,6 +183,15 @@ export default function OpenGraphGeneratorPage() {
               <Copy className="w-5 h-5" />
             </button>
           </div>
+          {generateMetaTags() && (
+            <div className="mb-4 pb-4 border-b border-slate-200">
+              <ShareButtons
+                title="Open Graph Meta Tags"
+                text="Check out these Open Graph meta tags I generated!"
+                resultText={generateMetaTags()}
+              />
+            </div>
+          )}
           <div className="bg-slate-900 rounded-lg p-4 overflow-x-auto">
             <pre className="text-green-400 text-sm">
               <code>{generateMetaTags() || "Fill in the form to generate meta tags"}</code>

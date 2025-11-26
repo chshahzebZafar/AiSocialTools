@@ -70,7 +70,7 @@ export default function Breadcrumbs() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
       <nav
-        className="flex items-center gap-2 text-sm text-slate-600 mb-4 px-4 sm:px-6 lg:px-8 pt-4"
+        className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 mb-4 px-4 sm:px-6 lg:px-8 pt-4"
         aria-label="Breadcrumb"
       >
         <ol className="flex items-center gap-2 flex-wrap">
@@ -81,22 +81,22 @@ export default function Breadcrumbs() {
                 {index === 0 ? (
                   <Link
                     href={crumb.href}
-                    className="flex items-center gap-1 hover:text-slate-900 transition-colors"
+                    className="flex items-center gap-1 hover:text-slate-900 dark:hover:text-slate-100 transition-colors"
                     aria-label="Home"
                   >
                     <Home className="w-4 h-4" />
                   </Link>
                 ) : (
                   <>
-                    <ChevronRight className="w-4 h-4 text-slate-400" />
+                    <ChevronRight className="w-4 h-4 text-slate-400 dark:text-slate-500" />
                     {isLast ? (
-                      <span className="text-slate-900 font-medium" aria-current="page">
+                      <span className="text-slate-900 dark:text-slate-100 font-medium" aria-current="page">
                         {crumb.label}
                       </span>
                     ) : (
                       <Link
                         href={crumb.href}
-                        className="hover:text-slate-900 transition-colors"
+                        className="hover:text-slate-900 dark:hover:text-slate-100 transition-colors"
                       >
                         {crumb.label}
                       </Link>

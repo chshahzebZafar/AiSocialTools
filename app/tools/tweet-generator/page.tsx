@@ -6,6 +6,7 @@ import { getToolById } from "@/lib/social-tools";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { getSEOMetadata } from "@/lib/seo-metadata";
+import ShareButtons from "@/components/ShareButtons";
 
 export default function TweetGeneratorPage() {
   const tool = getToolById("tweet-generator");
@@ -64,7 +65,7 @@ export default function TweetGeneratorPage() {
             <div className="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center">
               <Twitter className="w-6 h-6 text-white" />
             </div>
-            <div>
+            <div className="flex-1">
               <h1 className="text-3xl font-bold text-slate-900">
                 Free AI Tweet Generator - Create Engaging Twitter Posts Online
               </h1>
@@ -73,6 +74,12 @@ export default function TweetGeneratorPage() {
                 Create viral Twitter content, optimize character count, and boost engagement. No signup required.
               </p>
             </div>
+          </div>
+          <div className="mt-4">
+            <ShareButtons
+              title="Free AI Tweet Generator"
+              text="Check out this free AI tweet generator tool!"
+            />
           </div>
         </div>
 
@@ -126,6 +133,13 @@ export default function TweetGeneratorPage() {
                 <Download className="w-5 h-5" />
               </button>
             </div>
+          </div>
+          <div className="mb-4 pb-4 border-b border-slate-200">
+            <ShareButtons
+              title="Generated Tweet"
+              text="Check out this tweet I generated!"
+              resultText={generatedTweet}
+            />
           </div>
           <div className="bg-slate-50 rounded-lg p-4 border border-slate-200">
             <p className="text-slate-800 whitespace-pre-wrap">{generatedTweet}</p>

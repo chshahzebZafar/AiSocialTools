@@ -7,6 +7,7 @@ import ToolSEO from "@/components/ToolSEO";
 import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
+import ShareButtons from "@/components/ShareButtons";
 
 // Handwriting fonts from Google Fonts
 const handwritingFonts = [
@@ -21,7 +22,6 @@ const handwritingFonts = [
   { name: "Amatic SC", value: "Amatic SC", category: "Handwriting" },
   { name: "Caveat Brush", value: "Caveat Brush", category: "Handwriting" },
   { name: "Gloria Hallelujah", value: "Gloria Hallelujah", category: "Handwriting" },
-  { name: "Kalam", value: "Kalam", category: "Handwriting" },
 ];
 
 // Paper texture presets
@@ -457,6 +457,12 @@ export default function TextToHandwritingPage() {
                 Convert your text into beautiful handwriting with custom fonts, colors, and backgrounds
               </p>
             </div>
+          </div>
+          <div className="mt-4">
+            <ShareButtons
+              title="Text to Handwriting Converter"
+              text="Check out this free text to handwriting converter tool!"
+            />
           </div>
         </div>
 

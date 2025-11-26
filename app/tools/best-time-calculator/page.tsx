@@ -8,6 +8,7 @@ import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { getSEOMetadata } from "@/lib/seo-metadata";
+import ShareButtons from "@/components/ShareButtons";
 
 export default function BestTimeCalculatorPage() {
   const tool = getToolById("best-time-calculator");
@@ -53,10 +54,16 @@ export default function BestTimeCalculatorPage() {
           <div className="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center">
             <Clock className="w-6 h-6 text-white" />
           </div>
-          <div>
+          <div className="flex-1">
             <h1 className="text-3xl font-bold text-slate-900">Best Time to Post Calculator - Find Optimal Posting Times Free</h1>
             <p className="text-slate-600">Find the best times to post on Instagram, Twitter, Facebook, LinkedIn, and TikTok. Free posting time calculator with platform-specific recommendations. Maximize engagement.</p>
           </div>
+        </div>
+        <div className="mt-4">
+          <ShareButtons
+            title="Best Time to Post Calculator"
+            text="Check out this free posting time calculator tool!"
+          />
         </div>
       </div>
 

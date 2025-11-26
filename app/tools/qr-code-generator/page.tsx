@@ -9,6 +9,7 @@ import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { getSEOMetadata } from "@/lib/seo-metadata";
+import ShareButtons from "@/components/ShareButtons";
 
 export default function QRCodeGeneratorPage() {
   const tool = getToolById("qr-code-generator");
@@ -81,10 +82,16 @@ export default function QRCodeGeneratorPage() {
           <div className="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center">
             <QrCode className="w-6 h-6 text-white" />
           </div>
-          <div>
+          <div className="flex-1">
             <h1 className="text-3xl font-bold text-slate-900">Free QR Code Generator - Create QR Codes for Social Media Links</h1>
             <p className="text-slate-600">Generate QR codes for Instagram, Twitter, Facebook, and any URL. Free QR code generator with customizable colors and sizes. Download QR codes as PNG. Perfect for social media marketing.</p>
           </div>
+        </div>
+        <div className="mt-4">
+          <ShareButtons
+            title="Free QR Code Generator"
+            text="Check out this free QR code generator tool!"
+          />
         </div>
       </div>
 
@@ -206,7 +213,7 @@ export default function QRCodeGeneratorPage() {
               />
             </div>
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-2 mb-4">
             <button
               onClick={downloadQR}
               className="flex-1 bg-green-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-green-700 transition-colors flex items-center justify-center gap-2"
@@ -221,6 +228,12 @@ export default function QRCodeGeneratorPage() {
               <Copy className="w-4 h-4" />
               Copy
             </button>
+          </div>
+          <div className="pt-4 border-t border-slate-200">
+            <ShareButtons
+              title="QR Code Generator"
+              text={`Check out this QR code I generated for: ${url}`}
+            />
           </div>
         </div>
       </div>

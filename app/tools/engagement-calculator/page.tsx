@@ -8,6 +8,7 @@ import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { getSEOMetadata } from "@/lib/seo-metadata";
+import ShareButtons from "@/components/ShareButtons";
 
 export default function EngagementCalculatorPage() {
   const tool = getToolById("engagement-calculator");
@@ -65,10 +66,16 @@ export default function EngagementCalculatorPage() {
           <div className="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center">
             <TrendingUp className="w-6 h-6 text-white" />
           </div>
-          <div>
+          <div className="flex-1">
             <h1 className="text-3xl font-bold text-slate-900">Social Media Engagement Calculator - Calculate Engagement Rate Free</h1>
             <p className="text-slate-600">Calculate engagement rate, reach rate, and social media metrics. Free engagement calculator for Instagram, Twitter, Facebook. Analyze your social media performance instantly.</p>
           </div>
+        </div>
+        <div className="mt-4">
+          <ShareButtons
+            title="Social Media Engagement Calculator"
+            text="Check out this free engagement calculator tool!"
+          />
         </div>
       </div>
 
@@ -160,10 +167,18 @@ export default function EngagementCalculatorPage() {
 
         <div className="space-y-6">
           <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-            <h2 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
-              <BarChart3 className="w-5 h-5 text-green-600" />
-              Calculated Metrics
-            </h2>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-semibold text-slate-900 flex items-center gap-2">
+                <BarChart3 className="w-5 h-5 text-green-600" />
+                Calculated Metrics
+              </h2>
+              {(followers || likes || comments || shares || saves) && (
+                <ShareButtons
+                  title="Engagement Calculator Results"
+                  text={`My engagement rate: ${metrics.engagementRate}% | Total engagements: ${metrics.totalEngagements}`}
+                />
+              )}
+            </div>
             <div className="space-y-4">
               <div className="bg-green-50 rounded-lg p-4 border border-green-200">
                 <p className="text-sm text-green-700 mb-1">Engagement Rate</p>

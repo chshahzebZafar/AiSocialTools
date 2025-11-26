@@ -8,6 +8,7 @@ import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { getSEOMetadata } from "@/lib/seo-metadata";
+import ShareButtons from "@/components/ShareButtons";
 
 export default function InstagramPostGeneratorPage() {
   const tool = getToolById("instagram-post-generator");
@@ -58,10 +59,16 @@ export default function InstagramPostGeneratorPage() {
           <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
             <Instagram className="w-6 h-6 text-white" />
           </div>
-          <div>
+          <div className="flex-1">
             <h1 className="text-3xl font-bold text-slate-900">Instagram Post Generator - Create Engaging Instagram Captions Free</h1>
             <p className="text-slate-600">Generate engaging Instagram captions and posts with our free Instagram post generator. Create viral content with templates, hashtags, and emoji suggestions. Boost your Instagram engagement.</p>
           </div>
+        </div>
+        <div className="mt-4">
+          <ShareButtons
+            title="Instagram Post Generator"
+            text="Check out this free Instagram post generator tool!"
+          />
         </div>
       </div>
 
@@ -122,6 +129,15 @@ export default function InstagramPostGeneratorPage() {
               </button>
             )}
           </div>
+          {generatedPost && (
+            <div className="mb-4 pb-4 border-b border-slate-200">
+              <ShareButtons
+                title="Generated Instagram Post"
+                text="Check out this Instagram post I generated!"
+                resultText={generatedPost}
+              />
+            </div>
+          )}
           <div className="bg-slate-50 rounded-lg p-4 border border-slate-200 min-h-[300px]">
             {generatedPost ? (
               <p className="text-slate-800 whitespace-pre-wrap">{generatedPost}</p>

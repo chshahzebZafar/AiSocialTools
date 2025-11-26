@@ -8,6 +8,7 @@ import ToolSEO from "@/components/ToolSEO";
 import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
+import ShareButtons from "@/components/ShareButtons";
 
 const countryCodes = [
   { name: "Afghanistan", code: "93", flag: "🇦🇫" },
@@ -411,6 +412,12 @@ export default function WhatsAppChatPage() {
                 Create clickable links to start conversations instantly.
               </p>
             </div>
+          </div>
+          <div className="mt-4">
+            <ShareButtons
+              title="WhatsApp Chat Link Generator"
+              text="Check out this free WhatsApp chat link generator tool!"
+            />
           </div>
         </div>
 

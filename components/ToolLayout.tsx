@@ -39,7 +39,7 @@ export default function ToolLayout({
   }, [sidebarOpen]);
 
   return (
-    <div className="flex flex-col min-h-screen bg-slate-50">
+    <div className="flex flex-col min-h-screen bg-slate-50 dark:bg-slate-950">
       {/* Main Header - Full width */}
       <Header />
 

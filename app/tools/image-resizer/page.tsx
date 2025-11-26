@@ -8,6 +8,7 @@ import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { getSEOMetadata } from "@/lib/seo-metadata";
+import ShareButtons from "@/components/ShareButtons";
 
 interface PlatformSize {
   name: string;
@@ -94,10 +95,16 @@ export default function ImageResizerPage() {
           <div className="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center">
             <Maximize2 className="w-6 h-6 text-white" />
           </div>
-          <div>
+          <div className="flex-1">
             <h1 className="text-3xl font-bold text-slate-900">Social Media Image Resizer - Resize Images for Instagram, Facebook Free</h1>
             <p className="text-slate-600">Resize images for Instagram, Facebook, Twitter, LinkedIn, and more. Free social media image resizer with platform-specific dimensions. Optimize images for social media instantly.</p>
           </div>
+        </div>
+        <div className="mt-4">
+          <ShareButtons
+            title="Social Media Image Resizer"
+            text="Check out this free image resizer tool!"
+          />
         </div>
       </div>
 

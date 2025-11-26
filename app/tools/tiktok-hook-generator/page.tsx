@@ -7,6 +7,7 @@ import ToolSEO from "@/components/ToolSEO";
 import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
+import ShareButtons from "@/components/ShareButtons";
 
 interface GeneratedHook {
   hook: string;
@@ -336,7 +337,7 @@ export default function TikTokHookGeneratorPage() {
             <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-purple-600 rounded-lg flex items-center justify-center">
               <Video className="w-6 h-6 text-white" />
             </div>
-            <div>
+            <div className="flex-1">
               <h1 className="text-3xl font-bold text-slate-900">
                 TikTok Hook & Idea Generator - Free TikTok Hook Generator
               </h1>
@@ -345,6 +346,12 @@ export default function TikTokHookGeneratorPage() {
                 Create engaging hooks that capture attention and boost your views.
               </p>
             </div>
+          </div>
+          <div className="mt-4">
+            <ShareButtons
+              title="TikTok Hook Generator"
+              text="Check out this free TikTok hook generator tool!"
+            />
           </div>
         </div>
 
@@ -529,13 +536,20 @@ export default function TikTokHookGeneratorPage() {
               <h2 className="text-lg font-semibold text-slate-900">
                 Generated Hooks ({generatedHooks.length})
               </h2>
-              <button
-                onClick={copyAll}
-                className="px-4 py-2 bg-pink-100 text-pink-700 rounded-lg font-medium hover:bg-pink-200 transition-colors flex items-center gap-2"
-              >
-                <Copy className="w-4 h-4" />
-                Copy All
-              </button>
+              <div className="flex items-center gap-2">
+                <ShareButtons
+                  title="TikTok Hooks"
+                  text={`Check out these ${generatedHooks.length} TikTok hooks I generated for ${niche}!`}
+                  resultText={generatedHooks.map((h, i) => `Hook #${i + 1}\n${h.hook}${h.contentIdea ? `\n\nContent Idea: ${h.contentIdea}` : ''}${h.cta ? `\n\nCTA: ${h.cta}` : ''}${h.hashtags ? `\n\n${h.hashtags.join(' ')}` : ''}`).join('\n\n---\n\n')}
+                />
+                <button
+                  onClick={copyAll}
+                  className="px-4 py-2 bg-pink-100 text-pink-700 rounded-lg font-medium hover:bg-pink-200 transition-colors flex items-center gap-2"
+                >
+                  <Copy className="w-4 h-4" />
+                  Copy All
+                </button>
+              </div>
             </div>
             <div className="space-y-6">
               {generatedHooks.map((hook, index) => (

@@ -8,6 +8,7 @@ import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { getSEOMetadata } from "@/lib/seo-metadata";
+import ShareButtons from "@/components/ShareButtons";
 
 export default function UsernameGeneratorPage() {
   const tool = getToolById("username-generator");
@@ -92,10 +93,16 @@ export default function UsernameGeneratorPage() {
           <div className="w-12 h-12 bg-indigo-500 rounded-lg flex items-center justify-center">
             <User className="w-6 h-6 text-white" />
           </div>
-          <div>
+          <div className="flex-1">
             <h1 className="text-3xl font-bold text-slate-900">Username Generator - Generate Unique Social Media Usernames Free</h1>
             <p className="text-slate-600">Generate unique and available usernames for social media</p>
           </div>
+        </div>
+        <div className="mt-4">
+          <ShareButtons
+            title="Username Generator"
+            text="Check out this free username generator tool!"
+          />
         </div>
       </div>
 
@@ -139,9 +146,16 @@ export default function UsernameGeneratorPage() {
 
       {generatedUsernames.length > 0 && (
         <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-          <h2 className="text-lg font-semibold text-slate-900 mb-4">
-            Generated Usernames ({generatedUsernames.length})
-          </h2>
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg font-semibold text-slate-900">
+              Generated Usernames ({generatedUsernames.length})
+            </h2>
+            <ShareButtons
+              title="Generated Usernames"
+              text={`Check out these ${generatedUsernames.length} usernames I generated!`}
+              resultText={generatedUsernames.join(", ")}
+            />
+          </div>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
             {generatedUsernames.map((username, index) => (
               <button

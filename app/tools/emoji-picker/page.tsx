@@ -8,6 +8,7 @@ import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { getSEOMetadata } from "@/lib/seo-metadata";
+import ShareButtons from "@/components/ShareButtons";
 
 const emojiCategories = {
   "Smileys & People": ["😀", "😃", "😄", "😁", "😆", "😅", "🤣", "😂", "🙂", "🙃", "😉", "😊", "😇", "🥰", "😍", "🤩", "😘", "😗", "😚", "😙", "😋", "😛", "😜", "🤪", "😝", "🤑", "🤗", "🤭", "🤫", "🤔"],
@@ -67,10 +68,16 @@ export default function EmojiPickerPage() {
           <div className="w-12 h-12 bg-yellow-500 rounded-lg flex items-center justify-center">
             <Smile className="w-6 h-6 text-white" />
           </div>
-          <div>
+          <div className="flex-1">
             <h1 className="text-3xl font-bold text-slate-900">Emoji Picker & Generator - Copy Emojis for Social Media Free</h1>
             <p className="text-slate-600">Browse and copy emojis for Instagram, Twitter, Facebook posts. Free emoji picker with categories. Find the perfect emoji for your social media content.</p>
           </div>
+        </div>
+        <div className="mt-4">
+          <ShareButtons
+            title="Emoji Picker & Generator"
+            text="Check out this free emoji picker tool!"
+          />
         </div>
       </div>
 

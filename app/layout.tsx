@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
+import { ThemeProvider } from "@/components/ThemeProvider";
 import { getOGImageUrl } from "@/lib/og-image-generator";
 
 const geistSans = Geist({
@@ -76,14 +77,35 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  const theme = localStorage.getItem('theme') || 'system';
+                  let resolvedTheme = theme;
+                  if (theme === 'system') {
+                    resolvedTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                  }
+                  const root = document.documentElement;
+                  root.classList.remove('light', 'dark');
+                  root.classList.add(resolvedTheme);
+                  root.setAttribute('data-theme', resolvedTheme);
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

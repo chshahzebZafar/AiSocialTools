@@ -8,6 +8,7 @@ import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { getSEOMetadata } from "@/lib/seo-metadata";
+import ShareButtons from "@/components/ShareButtons";
 
 export default function TweetToImagePage() {
   const tool = getToolById("tweet-to-image");
@@ -49,7 +50,7 @@ export default function TweetToImagePage() {
             <div className="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center">
               <FileImage className="w-6 h-6 text-white" />
             </div>
-            <div>
+            <div className="flex-1">
               <h1 className="text-3xl font-bold text-slate-900">
                 Tweet to Image Converter - Convert Tweets to Images Free
               </h1>
@@ -58,6 +59,12 @@ export default function TweetToImagePage() {
                 with customizable themes, download as PNG. Perfect for social media marketing.
               </p>
             </div>
+          </div>
+          <div className="mt-4">
+            <ShareButtons
+              title="Tweet to Image Converter"
+              text="Check out this free tweet to image converter tool!"
+            />
           </div>
         </div>
 

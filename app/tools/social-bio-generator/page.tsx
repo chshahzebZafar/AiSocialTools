@@ -8,6 +8,7 @@ import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { getSEOMetadata } from "@/lib/seo-metadata";
+import ShareButtons from "@/components/ShareButtons";
 
 export default function SocialBioGeneratorPage() {
   const tool = getToolById("social-bio-generator");
@@ -78,10 +79,16 @@ export default function SocialBioGeneratorPage() {
           <div className="w-12 h-12 bg-pink-500 rounded-lg flex items-center justify-center">
             <FileText className="w-6 h-6 text-white" />
           </div>
-          <div>
+          <div className="flex-1">
             <h1 className="text-3xl font-bold text-slate-900">Social Media Bio Generator - Create Instagram, Twitter Bios Free</h1>
             <p className="text-slate-600">Generate compelling bios for Instagram, Twitter, LinkedIn, and TikTok. Free social media bio generator with templates. Create professional bios that attract followers.</p>
           </div>
+        </div>
+        <div className="mt-4">
+          <ShareButtons
+            title="Social Media Bio Generator"
+            text="Check out this free social media bio generator tool!"
+          />
         </div>
       </div>
 
@@ -196,9 +203,18 @@ export default function SocialBioGeneratorPage() {
             )}
           </div>
           {generatedBio && (
-            <p className="text-xs text-slate-500 mt-2">
-              Character count: {generatedBio.length}
-            </p>
+            <>
+              <p className="text-xs text-slate-500 mt-2">
+                Character count: {generatedBio.length}
+              </p>
+              <div className="mt-4 pt-4 border-t border-slate-200">
+                <ShareButtons
+                  title="Generated Social Media Bio"
+                  text="Check out this social media bio I generated!"
+                  resultText={generatedBio}
+                />
+              </div>
+            </>
           )}
         </div>
       </div>

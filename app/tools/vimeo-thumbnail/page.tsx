@@ -8,6 +8,7 @@ import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { getSEOMetadata } from "@/lib/seo-metadata";
+import ShareButtons from "@/components/ShareButtons";
 
 export default function VimeoThumbnailPage() {
   const tool = getToolById("vimeo-thumbnail");
@@ -86,10 +87,16 @@ export default function VimeoThumbnailPage() {
           <div className="w-12 h-12 bg-cyan-500 rounded-lg flex items-center justify-center">
             <ImageIcon className="w-6 h-6 text-white" />
           </div>
-          <div>
+          <div className="flex-1">
             <h1 className="text-3xl font-bold text-slate-900">Vimeo Thumbnails Downloader</h1>
             <p className="text-slate-600">Download and save any Vimeo video thumbnail of the highest possible quality</p>
           </div>
+        </div>
+        <div className="mt-4">
+          <ShareButtons
+            title="Vimeo Thumbnail Grabber"
+            text="Check out this free Vimeo thumbnail grabber tool!"
+          />
         </div>
       </div>
 

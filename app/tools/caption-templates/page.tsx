@@ -8,6 +8,7 @@ import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { getSEOMetadata } from "@/lib/seo-metadata";
+import ShareButtons from "@/components/ShareButtons";
 
 interface Template {
   name: string;
@@ -100,10 +101,16 @@ export default function CaptionTemplatesPage() {
           <div className="w-12 h-12 bg-pink-500 rounded-lg flex items-center justify-center">
             <FileText className="w-6 h-6 text-white" />
           </div>
-          <div>
+          <div className="flex-1">
             <h1 className="text-3xl font-bold text-slate-900">Instagram Caption Templates - Free Social Media Caption Templates</h1>
             <p className="text-slate-600">Browse and use pre-made Instagram caption templates. Free social media caption templates for posts, stories, and reels. Copy, customize, and use instantly.</p>
           </div>
+        </div>
+        <div className="mt-4">
+          <ShareButtons
+            title="Instagram Caption Templates"
+            text="Check out these free Instagram caption templates!"
+          />
         </div>
       </div>
 
@@ -173,9 +180,18 @@ export default function CaptionTemplatesPage() {
             rows={12}
           />
           {filledCaption && (
-            <p className="text-xs text-slate-500 mt-2">
-              Character count: {filledCaption.length}
-            </p>
+            <>
+              <p className="text-xs text-slate-500 mt-2">
+                Character count: {filledCaption.length}
+              </p>
+              <div className="mt-4 pt-4 border-t border-slate-200">
+                <ShareButtons
+                  title="Instagram Caption"
+                  text="Check out this Instagram caption I created!"
+                  resultText={filledCaption}
+                />
+              </div>
+            </>
           )}
         </div>
       </div>

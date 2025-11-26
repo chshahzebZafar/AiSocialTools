@@ -96,7 +96,7 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-slate-50">
+    <div className="flex flex-col min-h-screen bg-slate-50 dark:bg-slate-950">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
@@ -109,20 +109,20 @@ export default function Home() {
       
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 py-12 sm:py-16 lg:py-24">
+        <section className="bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 py-12 sm:py-16 lg:py-24">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center">
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm rounded-full text-sm font-medium text-slate-700 mb-6 shadow-sm">
-                <Sparkles className="w-4 h-4 text-purple-600" />
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-full text-sm font-medium text-slate-700 dark:text-slate-300 mb-6 shadow-sm">
+                <Sparkles className="w-4 h-4 text-purple-600 dark:text-purple-400" />
                 <span>100% Free • No Signup Required</span>
               </div>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 mb-6">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-slate-100 mb-6">
                 Powerful Social Media Tools
-                <span className="block bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                <span className="block bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
                   For Everyone
                 </span>
               </h1>
-              <p className="text-lg sm:text-xl text-slate-600 max-w-3xl mx-auto mb-8 leading-relaxed">
+              <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto mb-8 leading-relaxed">
                 Create, manage, and optimize your social media content with our comprehensive suite of free tools. 
                 No credit card, no signup, just powerful tools at your fingertips.
               </p>
@@ -146,92 +146,92 @@ export default function Home() {
         </section>
 
         {/* Stats Section */}
-        <section className="py-12 sm:py-16 bg-white border-b border-slate-200">
+        <section className="py-12 sm:py-16 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               <div className="text-center">
-                <div className="text-3xl sm:text-4xl font-bold text-blue-600 mb-2">{socialTools.length}+</div>
-                <div className="text-sm sm:text-base text-slate-600">Free Tools</div>
+                <div className="text-3xl sm:text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2">{socialTools.length}+</div>
+                <div className="text-sm sm:text-base text-slate-600 dark:text-slate-400">Free Tools</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl sm:text-4xl font-bold text-purple-600 mb-2">100%</div>
-                <div className="text-sm sm:text-base text-slate-600">Free Forever</div>
+                <div className="text-3xl sm:text-4xl font-bold text-purple-600 dark:text-purple-400 mb-2">100%</div>
+                <div className="text-sm sm:text-base text-slate-600 dark:text-slate-400">Free Forever</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl sm:text-4xl font-bold text-pink-600 mb-2">0</div>
-                <div className="text-sm sm:text-base text-slate-600">Signup Required</div>
+                <div className="text-3xl sm:text-4xl font-bold text-pink-600 dark:text-pink-400 mb-2">0</div>
+                <div className="text-sm sm:text-base text-slate-600 dark:text-slate-400">Signup Required</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl sm:text-4xl font-bold text-indigo-600 mb-2">∞</div>
-                <div className="text-sm sm:text-base text-slate-600">Unlimited Uses</div>
+                <div className="text-3xl sm:text-4xl font-bold text-indigo-600 dark:text-indigo-400 mb-2">∞</div>
+                <div className="text-sm sm:text-base text-slate-600 dark:text-slate-400">Unlimited Uses</div>
               </div>
             </div>
           </div>
         </section>
 
         {/* Features Section */}
-        <section className="py-12 sm:py-16 lg:py-20 bg-slate-50">
+        <section className="py-12 sm:py-16 lg:py-20 bg-slate-50 dark:bg-slate-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
+              <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-slate-100 mb-4">
                 Why Choose Our Tools?
               </h2>
-              <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+              <p className="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
                 Everything you need to succeed on social media, completely free
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-              <div className="bg-white rounded-xl p-6 shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
-                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                  <Zap className="w-6 h-6 text-blue-600" />
+              <div className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-sm border border-slate-200 dark:border-slate-700 hover:shadow-md transition-shadow">
+                <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center mb-4">
+                  <Zap className="w-6 h-6 text-blue-600 dark:text-blue-400" />
                 </div>
-                <h3 className="text-xl font-semibold text-slate-900 mb-2">Lightning Fast</h3>
-                <p className="text-slate-600">
+                <h3 className="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-2">Lightning Fast</h3>
+                <p className="text-slate-600 dark:text-slate-300">
                   Get results instantly. No waiting, no processing delays. All tools work in real-time.
                 </p>
               </div>
-              <div className="bg-white rounded-xl p-6 shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
-                <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
-                  <Shield className="w-6 h-6 text-purple-600" />
+              <div className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-sm border border-slate-200 dark:border-slate-700 hover:shadow-md transition-shadow">
+                <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center mb-4">
+                  <Shield className="w-6 h-6 text-purple-600 dark:text-purple-400" />
                 </div>
-                <h3 className="text-xl font-semibold text-slate-900 mb-2">100% Private</h3>
-                <p className="text-slate-600">
+                <h3 className="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-2">100% Private</h3>
+                <p className="text-slate-600 dark:text-slate-300">
                   Your data stays yours. We don't collect, store, or share any of your personal information.
                 </p>
               </div>
-              <div className="bg-white rounded-xl p-6 shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
-                <div className="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center mb-4">
-                  <Heart className="w-6 h-6 text-pink-600" />
+              <div className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-sm border border-slate-200 dark:border-slate-700 hover:shadow-md transition-shadow">
+                <div className="w-12 h-12 bg-pink-100 dark:bg-pink-900/30 rounded-lg flex items-center justify-center mb-4">
+                  <Heart className="w-6 h-6 text-pink-600 dark:text-pink-400" />
                 </div>
-                <h3 className="text-xl font-semibold text-slate-900 mb-2">Completely Free</h3>
-                <p className="text-slate-600">
+                <h3 className="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-2">Completely Free</h3>
+                <p className="text-slate-600 dark:text-slate-300">
                   No hidden costs, no premium tiers, no credit card required. Everything is free forever.
                 </p>
               </div>
-              <div className="bg-white rounded-xl p-6 shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
-                <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-4">
-                  <TrendingUp className="w-6 h-6 text-indigo-600" />
+              <div className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-sm border border-slate-200 dark:border-slate-700 hover:shadow-md transition-shadow">
+                <div className="w-12 h-12 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg flex items-center justify-center mb-4">
+                  <TrendingUp className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
                 </div>
-                <h3 className="text-xl font-semibold text-slate-900 mb-2">Regular Updates</h3>
-                <p className="text-slate-600">
+                <h3 className="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-2">Regular Updates</h3>
+                <p className="text-slate-600 dark:text-slate-300">
                   We continuously add new tools and improve existing ones based on user feedback.
                 </p>
               </div>
-              <div className="bg-white rounded-xl p-6 shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
-                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
-                  <Users className="w-6 h-6 text-green-600" />
+              <div className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-sm border border-slate-200 dark:border-slate-700 hover:shadow-md transition-shadow">
+                <div className="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center mb-4">
+                  <Users className="w-6 h-6 text-green-600 dark:text-green-400" />
                 </div>
-                <h3 className="text-xl font-semibold text-slate-900 mb-2">Easy to Use</h3>
-                <p className="text-slate-600">
+                <h3 className="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-2">Easy to Use</h3>
+                <p className="text-slate-600 dark:text-slate-300">
                   Intuitive interfaces designed for everyone. No technical skills required.
                 </p>
               </div>
-              <div className="bg-white rounded-xl p-6 shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
-                <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
-                  <Clock className="w-6 h-6 text-orange-600" />
+              <div className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-sm border border-slate-200 dark:border-slate-700 hover:shadow-md transition-shadow">
+                <div className="w-12 h-12 bg-orange-100 dark:bg-orange-900/30 rounded-lg flex items-center justify-center mb-4">
+                  <Clock className="w-6 h-6 text-orange-600 dark:text-orange-400" />
                 </div>
-                <h3 className="text-xl font-semibold text-slate-900 mb-2">No Signup</h3>
-                <p className="text-slate-600">
+                <h3 className="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-2">No Signup</h3>
+                <p className="text-slate-600 dark:text-slate-300">
                   Start using any tool immediately. No account creation, no email verification needed.
                 </p>
               </div>
@@ -240,13 +240,13 @@ export default function Home() {
         </section>
 
         {/* Featured Tools Section */}
-        <section className="py-12 sm:py-16 lg:py-20 bg-white">
+        <section className="py-12 sm:py-16 lg:py-20 bg-white dark:bg-slate-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
+              <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-slate-100 mb-4">
                 Explore Our Tools
               </h2>
-              <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+              <p className="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
                 Discover powerful tools to enhance your social media presence
               </p>
             </div>
@@ -257,7 +257,7 @@ export default function Home() {
                   <Link
                     key={tool.id}
                     href={tool.path}
-                    className="bg-white rounded-xl shadow-sm border border-slate-200 p-4 sm:p-6 hover:shadow-lg transition-all group hover:border-blue-300"
+                    className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-4 sm:p-6 hover:shadow-lg transition-all group hover:border-blue-300 dark:hover:border-blue-600"
                   >
                     <div className="flex items-start gap-3 sm:gap-4">
                       <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
@@ -265,13 +265,13 @@ export default function Home() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-1">
-                          <h3 className="font-semibold text-sm sm:text-base text-slate-900 group-hover:text-blue-600 transition-colors">
+                          <h3 className="font-semibold text-sm sm:text-base text-slate-900 dark:text-slate-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                             {tool.name}
                           </h3>
-                          <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-blue-600 transition-colors opacity-0 group-hover:opacity-100" />
+                          <ArrowRight className="w-4 h-4 text-slate-400 dark:text-slate-500 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors opacity-0 group-hover:opacity-100" />
                         </div>
-                        <p className="text-xs sm:text-sm text-slate-600 line-clamp-2">{tool.description}</p>
-                        <span className="inline-block mt-2 text-xs px-2 py-1 bg-slate-100 text-slate-600 rounded">
+                        <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 line-clamp-2">{tool.description}</p>
+                        <span className="inline-block mt-2 text-xs px-2 py-1 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded">
                           {tool.category}
                         </span>
                       </div>
@@ -283,7 +283,7 @@ export default function Home() {
             <div className="text-center">
               <Link
                 href="/tools"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-slate-100 text-slate-700 rounded-lg font-medium hover:bg-slate-200 transition-colors"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-lg font-medium hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
               >
                 View All Tools
                 <ArrowRight className="w-4 h-4" />
@@ -293,12 +293,12 @@ export default function Home() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-r from-blue-600 to-purple-600">
+        <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-700 dark:to-purple-700">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
               Ready to Boost Your Social Media?
             </h2>
-            <p className="text-lg sm:text-xl text-blue-100 mb-8">
+            <p className="text-lg sm:text-xl text-blue-100 dark:text-blue-200 mb-8">
               Start using our free tools today. No signup, no credit card, just powerful tools at your fingertips.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

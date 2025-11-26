@@ -8,6 +8,7 @@ import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { getSEOMetadata } from "@/lib/seo-metadata";
+import ShareButtons from "@/components/ShareButtons";
 
 export default function AnalyticsCalculatorPage() {
   const tool = getToolById("analytics-calculator");
@@ -59,10 +60,16 @@ export default function AnalyticsCalculatorPage() {
           <div className="w-12 h-12 bg-indigo-500 rounded-lg flex items-center justify-center">
             <BarChart3 className="w-6 h-6 text-white" />
           </div>
-          <div>
+          <div className="flex-1">
             <h1 className="text-3xl font-bold text-slate-900">Social Media Analytics Calculator - Calculate KPIs & Metrics Free</h1>
             <p className="text-slate-600">Calculate social media KPIs including CTR, conversion rate, CPC, CPA, and ROAS. Free analytics calculator for Instagram, Twitter, Facebook. Analyze your social media performance.</p>
           </div>
+        </div>
+        <div className="mt-4">
+          <ShareButtons
+            title="Social Media Analytics Calculator"
+            text="Check out this free analytics calculator tool!"
+          />
         </div>
       </div>
 

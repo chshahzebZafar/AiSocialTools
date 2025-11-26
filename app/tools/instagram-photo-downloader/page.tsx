@@ -8,6 +8,7 @@ import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { getSEOMetadata } from "@/lib/seo-metadata";
+import ShareButtons from "@/components/ShareButtons";
 
 export default function InstagramPhotoDownloaderPage() {
   const tool = getToolById("instagram-photo-downloader");
@@ -62,10 +63,16 @@ export default function InstagramPhotoDownloaderPage() {
           <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
             <Download className="w-6 h-6 text-white" />
           </div>
-          <div>
+          <div className="flex-1">
             <h1 className="text-3xl font-bold text-slate-900">Instagram Photo Downloader - Download Instagram Photos & Videos Free</h1>
             <p className="text-slate-600">Download photos and videos from Instagram posts. Free Instagram downloader tool. Save Instagram content for offline viewing. Note: Requires backend implementation.</p>
           </div>
+        </div>
+        <div className="mt-4">
+          <ShareButtons
+            title="Instagram Photo Downloader"
+            text="Check out this free Instagram photo downloader tool!"
+          />
         </div>
       </div>
 

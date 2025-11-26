@@ -8,6 +8,7 @@ import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { getSEOMetadata } from "@/lib/seo-metadata";
+import ShareButtons from "@/components/ShareButtons";
 
 export default function BioLinkGeneratorPage() {
   const tool = getToolById("bio-link-generator");
@@ -112,10 +113,16 @@ ${linksHTML}
           <div className="w-12 h-12 bg-indigo-500 rounded-lg flex items-center justify-center">
             <LinkIcon className="w-6 h-6 text-white" />
           </div>
-          <div>
+          <div className="flex-1">
             <h1 className="text-3xl font-bold text-slate-900">Bio Link Generator - Create Link in Bio Page Free</h1>
             <p className="text-slate-600">Create a custom link in bio page for Instagram, TikTok, and Twitter. Free bio link generator with multiple links. Build your own linktree-style page instantly.</p>
           </div>
+        </div>
+        <div className="mt-4">
+          <ShareButtons
+            title="Bio Link Generator"
+            text="Check out this free bio link generator tool!"
+          />
         </div>
       </div>
 
@@ -204,6 +211,14 @@ ${linksHTML}
               </button>
             </div>
           </div>
+          {links.filter(l => l.title && l.url).length > 0 && (
+            <div className="mb-4 pb-4 border-b border-slate-200">
+              <ShareButtons
+                title="Bio Link Generator"
+                text={`Check out my bio link page: ${bioTitle}`}
+              />
+            </div>
+          )}
           <div className="bg-slate-50 rounded-lg p-4 border border-slate-200 min-h-[300px]">
             {links.filter(l => l.title && l.url).length > 0 ? (
               <div>

@@ -12,10 +12,23 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* Dark mode support for Tailwind CSS 4 */
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+  }
+}
+
+/* Ensure dark mode classes work with Tailwind CSS 4 */
+.dark {
+  color-scheme: dark;
+}
+
+/* Force dark mode to work with class strategy */
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    color-scheme: dark;
   }
 }
 

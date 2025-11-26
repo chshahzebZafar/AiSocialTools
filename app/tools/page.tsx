@@ -44,10 +44,10 @@ export default function ToolsPage() {
   return (
     <div className="p-4 sm:p-6 lg:p-8 max-w-6xl mx-auto w-full">
         <div className="text-center mb-8 sm:mb-12">
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-3 sm:mb-4">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 dark:text-slate-100 mb-3 sm:mb-4">
             All Social Media Tools
           </h1>
-          <p className="text-base sm:text-lg lg:text-xl text-slate-600 max-w-2xl mx-auto px-4">
+          <p className="text-base sm:text-lg lg:text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto px-4">
             Browse our complete collection of free tools to help you create, manage, and optimize your social media content
           </p>
         </div>
@@ -59,17 +59,17 @@ export default function ToolsPage() {
               <Link
                 key={tool.id}
                 href={tool.path}
-                className="bg-white rounded-xl shadow-sm border border-slate-200 p-4 sm:p-6 hover:shadow-md transition-shadow group"
+                className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-4 sm:p-6 hover:shadow-md transition-shadow group"
               >
                 <div className="flex items-start gap-3 sm:gap-4">
                   <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
                     <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-semibold text-sm sm:text-base text-slate-900 mb-1 group-hover:text-blue-600 transition-colors">
+                    <h3 className="font-semibold text-sm sm:text-base text-slate-900 dark:text-slate-100 mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                       {tool.name}
                     </h3>
-                    <p className="text-xs sm:text-sm text-slate-600 line-clamp-2">{tool.description}</p>
+                    <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 line-clamp-2">{tool.description}</p>
                   </div>
                 </div>
               </Link>

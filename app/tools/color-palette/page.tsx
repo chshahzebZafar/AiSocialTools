@@ -8,6 +8,7 @@ import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { getSEOMetadata } from "@/lib/seo-metadata";
+import ShareButtons from "@/components/ShareButtons";
 
 export default function ColorPalettePage() {
   const tool = getToolById("color-palette");
@@ -84,10 +85,16 @@ export default function ColorPalettePage() {
           <div className="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center">
             <Palette className="w-6 h-6 text-white" />
           </div>
-          <div>
+          <div className="flex-1">
             <h1 className="text-3xl font-bold text-slate-900">Color Palette Generator - Extract Colors from Images Free</h1>
             <p className="text-slate-600">Extract color palettes from images for branding and design. Free color palette generator. Get dominant colors from photos. Perfect for social media branding.</p>
           </div>
+        </div>
+        <div className="mt-4">
+          <ShareButtons
+            title="Color Palette Generator"
+            text="Check out this free color palette generator tool!"
+          />
         </div>
       </div>
 

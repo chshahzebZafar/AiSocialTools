@@ -8,6 +8,7 @@ import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { getSEOMetadata } from "@/lib/seo-metadata";
+import ShareButtons from "@/components/ShareButtons";
 
 export default function HashtagGeneratorPage() {
   const tool = getToolById("hashtag-generator");
@@ -93,22 +94,28 @@ export default function HashtagGeneratorPage() {
             <div className="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center">
               <Hash className="w-6 h-6 text-white" />
             </div>
-            <div>
-              <h1 className="text-3xl font-bold text-slate-900">
+            <div className="flex-1">
+              <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100">
                 Free Hashtag Generator - Generate Trending Hashtags for Instagram, Twitter
               </h1>
-              <p className="text-slate-600">
+              <p className="text-slate-600 dark:text-slate-300">
                 Generate relevant and trending hashtags for Instagram, Twitter, TikTok, and LinkedIn. 
                 Free hashtag generator with platform-specific suggestions. Boost your social media reach instantly.
               </p>
             </div>
           </div>
+          <div className="mt-4">
+            <ShareButtons
+              title="Free Hashtag Generator"
+              text="Check out this free hashtag generator tool!"
+            />
+          </div>
         </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-6">
+      <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 mb-6">
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-2">
+            <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
               Keyword or Topic
             </label>
             <input
@@ -116,18 +123,18 @@ export default function HashtagGeneratorPage() {
               value={keyword}
               onChange={(e) => setKeyword(e.target.value)}
               placeholder="e.g., fitness, travel, business"
-              className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+              className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-2">
+            <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
               Platform
             </label>
             <select
               value={platform}
               onChange={(e) => setPlatform(e.target.value)}
-              className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+              className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100"
             >
               <option value="instagram">Instagram (up to 30)</option>
               <option value="twitter">Twitter (up to 3)</option>
@@ -146,27 +153,34 @@ export default function HashtagGeneratorPage() {
       </div>
 
       {generatedHashtags.length > 0 && (
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold text-slate-900">
+            <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">
               Generated Hashtags ({generatedHashtags.length})
             </h2>
             <div className="flex gap-2">
               <button
                 onClick={copyHashtags}
-                className="p-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors"
+                className="p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors"
                 title="Copy all"
               >
                 <Copy className="w-5 h-5" />
               </button>
               <button
                 onClick={downloadHashtags}
-                className="p-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors"
+                className="p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors"
                 title="Download"
               >
                 <Download className="w-5 h-5" />
               </button>
             </div>
+          </div>
+          <div className="mb-4 pb-4 border-b border-slate-200 dark:border-slate-700">
+            <ShareButtons
+              title="Generated Hashtags"
+              text={`Check out these ${generatedHashtags.length} hashtags I generated!`}
+              resultText={generatedHashtags.join(" ")}
+            />
           </div>
           <div className="flex flex-wrap gap-2">
             {generatedHashtags.map((tag, index) => (
@@ -176,7 +190,7 @@ export default function HashtagGeneratorPage() {
                   navigator.clipboard.writeText(tag);
                   alert(`Copied: ${tag}`);
                 }}
-                className="px-3 py-1.5 bg-purple-50 text-purple-700 rounded-full text-sm hover:bg-purple-100 transition-colors"
+                className="px-3 py-1.5 bg-purple-50 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full text-sm hover:bg-purple-100 dark:hover:bg-purple-900/50 transition-colors"
               >
                 {tag}
               </button>
@@ -185,9 +199,9 @@ export default function HashtagGeneratorPage() {
         </div>
       )}
 
-      <div className="mt-8 bg-purple-50 rounded-xl p-6 border border-purple-200">
-        <h2 className="font-semibold text-purple-900 mb-2 text-lg">💡 Hashtag Tips</h2>
-        <ul className="text-sm text-purple-800 space-y-1">
+      <div className="mt-8 bg-purple-50 dark:bg-purple-900/20 rounded-xl p-6 border border-purple-200 dark:border-purple-800">
+        <h2 className="font-semibold text-purple-900 dark:text-purple-200 mb-2 text-lg">💡 Hashtag Tips</h2>
+        <ul className="text-sm text-purple-800 dark:text-purple-300 space-y-1">
           <li>• Instagram: Use 5-10 relevant hashtags for best reach</li>
           <li>• Twitter: Limit to 1-2 hashtags per tweet</li>
           <li>• Mix popular and niche hashtags for better visibility</li>

@@ -8,6 +8,7 @@ import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { getSEOMetadata } from "@/lib/seo-metadata";
+import ShareButtons from "@/components/ShareButtons";
 
 interface CalendarEvent {
   id: string;
@@ -82,10 +83,16 @@ export default function ContentCalendarPage() {
           <div className="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center">
             <Calendar className="w-6 h-6 text-white" />
           </div>
-          <div>
+          <div className="flex-1">
             <h1 className="text-3xl font-bold text-slate-900">Social Media Content Calendar - Plan & Schedule Posts Free</h1>
             <p className="text-slate-600">Plan and schedule your social media content with our free content calendar. Organize posts, track publishing dates, and manage multiple platforms. Boost your social media strategy.</p>
           </div>
+        </div>
+        <div className="mt-4">
+          <ShareButtons
+            title="Social Media Content Calendar"
+            text="Check out this free content calendar tool!"
+          />
         </div>
       </div>
 

@@ -53,48 +53,48 @@ export default function FAQPage() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <div className="flex flex-col min-h-screen bg-slate-50">
+    <div className="flex flex-col min-h-screen bg-slate-50 dark:bg-slate-950">
       <Header />
       <main className="flex-1">
         <Breadcrumbs />
         <div className="p-4 sm:p-6 lg:p-8 max-w-4xl mx-auto w-full">
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 sm:p-8">
+        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 sm:p-8">
           <div className="flex items-center gap-3 mb-8">
             <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
               <HelpCircle className="w-6 h-6 text-white" />
             </div>
-            <h1 className="text-3xl font-bold text-slate-900">Frequently Asked Questions</h1>
+            <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100">Frequently Asked Questions</h1>
           </div>
 
           <div className="space-y-4">
             {faqs.map((faq, index) => (
               <div
                 key={index}
-                className="border border-slate-200 rounded-lg overflow-hidden"
+                className="border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden"
               >
                 <button
                   onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                  className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-slate-50 transition-colors"
+                  className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
                 >
-                  <span className="font-semibold text-slate-900 pr-4">{faq.question}</span>
+                  <span className="font-semibold text-slate-900 dark:text-slate-100 pr-4">{faq.question}</span>
                   <ChevronDown
-                    className={`w-5 h-5 text-slate-500 flex-shrink-0 transition-transform ${
+                    className={`w-5 h-5 text-slate-500 dark:text-slate-400 flex-shrink-0 transition-transform ${
                       openIndex === index ? "rotate-180" : ""
                     }`}
                   />
                 </button>
                 {openIndex === index && (
-                  <div className="px-6 py-4 bg-slate-50 border-t border-slate-200">
-                    <p className="text-slate-700 leading-relaxed">{faq.answer}</p>
+                  <div className="px-6 py-4 bg-slate-50 dark:bg-slate-700/50 border-t border-slate-200 dark:border-slate-700">
+                    <p className="text-slate-700 dark:text-slate-300 leading-relaxed">{faq.answer}</p>
                   </div>
                 )}
               </div>
             ))}
           </div>
 
-          <div className="mt-8 pt-6 border-t border-slate-200">
-            <h2 className="text-xl font-bold text-slate-900 mb-4">Still have questions?</h2>
-            <p className="text-slate-700 mb-4">
+          <div className="mt-8 pt-6 border-t border-slate-200 dark:border-slate-700">
+            <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">Still have questions?</h2>
+            <p className="text-slate-700 dark:text-slate-300 mb-4">
               Can't find the answer you're looking for? Please get in touch with our friendly team.
             </p>
             <a

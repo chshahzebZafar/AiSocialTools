@@ -8,6 +8,7 @@ import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { getSEOMetadata } from "@/lib/seo-metadata";
+import ShareButtons from "@/components/ShareButtons";
 
 export default function YouTubeThumbnailPage() {
   const tool = getToolById("youtube-thumbnail");
@@ -82,10 +83,16 @@ export default function YouTubeThumbnailPage() {
           <div className="w-12 h-12 bg-red-500 rounded-lg flex items-center justify-center">
             <Youtube className="w-6 h-6 text-white" />
           </div>
-          <div>
+          <div className="flex-1">
             <h1 className="text-3xl font-bold text-slate-900">YouTube Thumbnail Grabber - Download YouTube Thumbnails Free</h1>
             <p className="text-slate-600">Extract and download YouTube video thumbnails in high quality. Free YouTube thumbnail grabber tool. Download thumbnails in max resolution, HQ, MQ, or SD quality instantly.</p>
           </div>
+        </div>
+        <div className="mt-4">
+          <ShareButtons
+            title="YouTube Thumbnail Grabber"
+            text="Check out this free YouTube thumbnail grabber tool!"
+          />
         </div>
       </div>
 

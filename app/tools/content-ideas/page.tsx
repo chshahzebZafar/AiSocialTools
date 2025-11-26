@@ -8,6 +8,7 @@ import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { getSEOMetadata } from "@/lib/seo-metadata";
+import ShareButtons from "@/components/ShareButtons";
 
 const contentIdeas = {
   instagram: [
@@ -86,10 +87,16 @@ export default function ContentIdeasPage() {
           <div className="w-12 h-12 bg-yellow-500 rounded-lg flex items-center justify-center">
             <Lightbulb className="w-6 h-6 text-white" />
           </div>
-          <div>
+          <div className="flex-1">
             <h1 className="text-3xl font-bold text-slate-900">Content Ideas Generator - Generate Social Media Content Ideas Free</h1>
             <p className="text-slate-600">Generate creative content ideas for Instagram, Twitter, LinkedIn, and TikTok. Free content ideas generator. Get inspiration for your next viral post.</p>
           </div>
+        </div>
+        <div className="mt-4">
+          <ShareButtons
+            title="Content Ideas Generator"
+            text="Check out this free content ideas generator tool!"
+          />
         </div>
       </div>
 
@@ -119,9 +126,16 @@ export default function ContentIdeasPage() {
 
       {generatedIdeas.length > 0 && (
         <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-          <h2 className="text-lg font-semibold text-slate-900 mb-4">
-            Generated Ideas ({generatedIdeas.length})
-          </h2>
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg font-semibold text-slate-900">
+              Generated Ideas ({generatedIdeas.length})
+            </h2>
+            <ShareButtons
+              title="Content Ideas"
+              text={`Check out these ${generatedIdeas.length} content ideas I generated for ${platform}!`}
+              resultText={generatedIdeas.join("\n")}
+            />
+          </div>
           <div className="space-y-3">
             {generatedIdeas.map((idea, index) => (
               <div

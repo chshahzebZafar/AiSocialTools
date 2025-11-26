@@ -30,13 +30,13 @@ export default function ToolFAQ({ tool }: ToolFAQProps) {
   ];
 
   return (
-    <div className="mt-8 bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-      <h2 className="text-2xl font-bold text-slate-900 mb-4">Frequently Asked Questions</h2>
+    <div className="mt-8 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+      <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-4">Frequently Asked Questions</h2>
       <div className="space-y-4">
         {faqs.map((faq, index) => (
-          <div key={index} className="border-b border-slate-200 last:border-0 pb-4 last:pb-0">
-            <h3 className="font-semibold text-slate-900 mb-2">{faq.question}</h3>
-            <p className="text-slate-600 text-sm leading-relaxed">{faq.answer}</p>
+          <div key={index} className="border-b border-slate-200 dark:border-slate-700 last:border-0 pb-4 last:pb-0">
+            <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-2">{faq.question}</h3>
+            <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">{faq.answer}</p>
           </div>
         ))}
       </div>
