@@ -34,9 +34,7 @@ export default function ToolSEO({ tool }: ToolSEOProps) {
           }
         }
       ]
-    },
-    // Ensure URL is always present
-    ...(seo.structuredData.url ? {} : { url: `https://socialmediatools.netlify.app${tool.path}` })
+    }
   };
 
   // HowTo schema for usage instructions
