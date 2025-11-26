@@ -7,7 +7,7 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: '/api/',
     },
-    sitemap: 'https://socialmediatools.com/sitemap.xml',
+    sitemap: 'https://socialmediatools.netlify.app/sitemap.xml',
   }
 }
 

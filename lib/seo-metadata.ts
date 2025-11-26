@@ -39,6 +39,7 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
         "@type": "WebApplication",
         "name": "Tweet Generator",
         "description": "Free AI-powered tweet generator to create engaging Twitter posts",
+        "url": "https://socialmediatools.netlify.app/tools/tweet-generator",
         "applicationCategory": "SocialMediaApplication",
         "operatingSystem": "Web",
         "offers": {
@@ -711,7 +712,15 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
       "@context": "https://schema.org",
       "@type": "WebApplication",
       "name": tool.name,
-      "description": tool.description
+      "description": tool.description,
+      "url": `https://socialmediatools.netlify.app${tool.path}`,
+      "applicationCategory": "SocialMediaApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
     }
   };
 };
@@ -728,7 +737,7 @@ export const generateMetadataForTool = (tool: SocialTool): Metadata => {
       title: seo.title,
       description: seo.description,
       type: "website",
-      url: `https://socialmediatools.com${tool.path}`,
+      url: `https://socialmediatools.netlify.app${tool.path}`,
       siteName: "Social Media Tools",
       images: [
         {
@@ -746,7 +755,7 @@ export const generateMetadataForTool = (tool: SocialTool): Metadata => {
       images: [ogImageUrl],
     },
     alternates: {
-      canonical: `https://socialmediatools.com${tool.path}`,
+      canonical: `https://socialmediatools.netlify.app${tool.path}`,
     },
     robots: {
       index: true,

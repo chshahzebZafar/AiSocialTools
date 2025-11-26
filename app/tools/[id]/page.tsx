@@ -32,11 +32,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title: `${tool.name} - Social Media Tool Review`,
       description: tool.description,
       type: 'website',
-      url: `https://socialmediatools.com/tools/${id}`,
+      url: `https://socialmediatools.netlify.app/tools/${id}`,
       siteName: "Social Media Tools",
       images: [
         {
-          url: "https://socialmediatools.com/og-default.png",
+          url: "https://socialmediatools.netlify.app/og-default.png",
           width: 1200,
           height: 630,
           alt: `${tool.name} - ${tool.description}`,
@@ -47,7 +47,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       card: 'summary_large_image',
       title: `${tool.name} - Social Media Tool Review`,
       description: tool.description,
-      images: ["https://socialmediatools.com/og-default.png"],
+      images: ["https://socialmediatools.netlify.app/og-default.png"],
+    },
+    alternates: {
+      canonical: `https://socialmediatools.netlify.app/tools/${id}`,
     },
   };
 }

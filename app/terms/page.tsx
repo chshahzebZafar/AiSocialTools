@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     title: "Terms of Service - Social Media Tools",
     description: "Read our terms of service. Learn about usage rights, restrictions, and guidelines for using our free social media tools.",
     type: "website",
-    url: "https://socialmediatools.com/terms",
+    url: "https://socialmediatools.netlify.app/terms",
     siteName: "Social Media Tools",
     images: [
       {
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     images: [getOGImageUrl("default")],
   },
   alternates: {
-    canonical: "https://socialmediatools.com/terms",
+    canonical: "https://socialmediatools.netlify.app/terms",
   },
   robots: {
     index: true,

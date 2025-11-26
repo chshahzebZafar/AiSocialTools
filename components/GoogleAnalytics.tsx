@@ -27,6 +27,7 @@ export default function GoogleAnalytics({ gaId }: GoogleAnalyticsProps) {
             gtag('js', new Date());
             gtag('config', '${gaId}', {
               page_path: window.location.pathname,
+              send_page_view: true
             });
           `,
         }}

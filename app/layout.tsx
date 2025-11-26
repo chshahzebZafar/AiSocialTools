@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import { ThemeProvider } from "@/components/ThemeProvider";
@@ -8,11 +9,15 @@ import { getOGImageUrl } from "@/lib/og-image-generator";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
+  preload: true,
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
+  preload: true,
 });
 
 export const metadata: Metadata = {
@@ -28,7 +33,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://socialmediatools.com",
+    url: "https://socialmediatools.netlify.app",
     siteName: "Social Media Tools",
     title: "Social Media Tools - Best Tools for Social Media Management",
     description: "Discover the best social media tools for scheduling, analytics, design, and management.",
@@ -59,7 +64,7 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: "https://socialmediatools.com",
+    canonical: "https://socialmediatools.netlify.app",
   },
   verification: {
     // Add your verification codes here when available
@@ -68,7 +73,10 @@ export const metadata: Metadata = {
     // yandex: "your-yandex-verification-code",
     // bing: "your-bing-verification-code",
   },
-  metadataBase: new URL("https://socialmediatools.com"),
+  metadataBase: new URL("https://socialmediatools.netlify.app"),
+  other: {
+    "theme-color": "#3b82f6",
+  },
 };
 
 export default function RootLayout({
@@ -79,8 +87,15 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
-        <script
+        {/* Resource hints for performance */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        
+        {/* Non-blocking theme initialization */}
+        <Script
+          id="theme-init"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
@@ -99,6 +114,7 @@ export default function RootLayout({
             `,
           }}
         />
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}

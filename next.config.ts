@@ -13,6 +13,18 @@ const nextConfig: NextConfig = {
   // Compression
   compress: true,
   
+  // Redirects for URL canonicalization
+  async redirects() {
+    return [
+      // Remove trailing slashes (except for root)
+      {
+        source: '/:path+/',
+        destination: '/:path+',
+        permanent: true,
+      },
+    ];
+  },
+
   // Headers for SEO and Security
   async headers() {
     return [

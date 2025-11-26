@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     title: "FAQ - Frequently Asked Questions | Social Media Tools",
     description: "Frequently asked questions about Social Media Tools. Learn about our free tools, privacy, usage, and more.",
     type: "website",
-    url: "https://socialmediatools.com/faq",
+    url: "https://socialmediatools.netlify.app/faq",
     siteName: "Social Media Tools",
     images: [
       {
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     images: [getOGImageUrl("default")],
   },
   alternates: {
-    canonical: "https://socialmediatools.com/faq",
+    canonical: "https://socialmediatools.netlify.app/faq",
   },
 };
 

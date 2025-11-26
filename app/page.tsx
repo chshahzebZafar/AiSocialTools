@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     title: "Free Social Media Tools - Create, Manage & Optimize Your Social Media Content",
     description: "Powerful free social media tools for content creation, management, and optimization. 100% free, no signup required.",
     type: "website",
-    url: "https://socialmediatools.com",
+    url: "https://socialmediatools.netlify.app",
     siteName: "Social Media Tools",
     images: [
       {
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     images: [getOGImageUrl("home")],
   },
   alternates: {
-    canonical: "https://socialmediatools.com",
+    canonical: "https://socialmediatools.netlify.app",
   },
   robots: {
     index: true,
@@ -67,14 +67,27 @@ export default function Home() {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Social Media Tools",
-    url: "https://socialmediatools.com",
-    logo: "https://socialmediatools.com/og-default.png",
+    url: "https://socialmediatools.netlify.app",
+    logo: {
+      "@type": "ImageObject",
+      url: "https://socialmediatools.netlify.app/og-default.png",
+      width: 1200,
+      height: 630
+    },
     description: "Free social media tools for content creation, management, and optimization",
     sameAs: [],
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "Customer Service",
-      url: "https://socialmediatools.com/contact",
+      url: "https://socialmediatools.netlify.app/contact",
+    },
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: "https://socialmediatools.netlify.app/tools?q={search_term_string}",
+      },
+      "query-input": "required name=search_term_string",
     },
   };
 
@@ -83,13 +96,13 @@ export default function Home() {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: "Social Media Tools",
-    url: "https://socialmediatools.com",
+    url: "https://socialmediatools.netlify.app",
     description: "Free social media tools for content creation, management, and optimization",
     potentialAction: {
       "@type": "SearchAction",
       target: {
         "@type": "EntryPoint",
-        urlTemplate: "https://socialmediatools.com/tools?q={search_term_string}",
+        urlTemplate: "https://socialmediatools.netlify.app/tools?q={search_term_string}",
       },
       "query-input": "required name=search_term_string",
     },

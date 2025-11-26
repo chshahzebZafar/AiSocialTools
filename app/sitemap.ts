@@ -3,7 +3,7 @@ import { socialTools } from '@/lib/social-tools'
 import { socialMediaTools } from '@/lib/tools'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://socialmediatools.com'
+  const baseUrl = 'https://socialmediatools.netlify.app'
   
   const toolPages = socialTools.map((tool) => ({
     url: `${baseUrl}${tool.path}`,

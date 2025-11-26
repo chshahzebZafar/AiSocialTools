@@ -123,14 +123,40 @@ export default function TextToHandwritingPage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const watermarkImageInputRef = useRef<HTMLInputElement>(null);
 
-  // Load Google Fonts
+  // Load Google Fonts asynchronously (non-blocking)
   useEffect(() => {
+    // Preconnect to Google Fonts for faster loading
+    const preconnect = document.createElement("link");
+    preconnect.rel = "preconnect";
+    preconnect.href = "https://fonts.googleapis.com";
+    document.head.appendChild(preconnect);
+    
+    const preconnect2 = document.createElement("link");
+    preconnect2.rel = "preconnect";
+    preconnect2.href = "https://fonts.gstatic.com";
+    preconnect2.crossOrigin = "anonymous";
+    document.head.appendChild(preconnect2);
+    
+    // Load fonts asynchronously with display=swap
     const link = document.createElement("link");
     link.href = `https://fonts.googleapis.com/css2?${handwritingFonts.map(f => `family=${f.value.replace(/\s+/g, '+')}`).join('&')}&display=swap`;
     link.rel = "stylesheet";
+    link.media = "print"; // Load asynchronously
+    link.onload = () => {
+      link.media = "all";
+    };
     document.head.appendChild(link);
+    
     return () => {
-      document.head.removeChild(link);
+      if (document.head.contains(link)) {
+        document.head.removeChild(link);
+      }
+      if (document.head.contains(preconnect)) {
+        document.head.removeChild(preconnect);
+      }
+      if (document.head.contains(preconnect2)) {
+        document.head.removeChild(preconnect2);
+      }
     };
   }, []);
 

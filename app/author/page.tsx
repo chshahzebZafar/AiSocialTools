@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     title: "About the Author - Social Media Tools Creator",
     description: "Meet the creator behind Social Media Tools. Learn about the story, mission, and values behind our free social media tools platform.",
     type: "website",
-    url: "https://socialmediatools.com/author",
+    url: "https://socialmediatools.netlify.app/author",
     siteName: "Social Media Tools",
     images: [
       {
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     images: [getOGImageUrl("default")],
   },
   alternates: {
-    canonical: "https://socialmediatools.com/author",
+    canonical: "https://socialmediatools.netlify.app/author",
   },
 };
 

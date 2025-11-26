@@ -127,7 +127,7 @@ export default function InstagramPhotoDownloaderPage() {
               <div key={index} className="relative group">
                 <img
                   src={url}
-                  alt={`Media ${index + 1}`}
+                  alt={`Instagram media ${index + 1} - Downloadable photo or video`}
                   className="w-full rounded-lg border border-slate-200"
                 />
                 <button

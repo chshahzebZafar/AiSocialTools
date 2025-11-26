@@ -13,7 +13,7 @@ export default function ToolSEO({ tool }: ToolSEOProps) {
   const structuredData = {
     ...seo.structuredData,
     "@context": "https://schema.org",
-    url: `https://socialmediatools.com${tool.path}`,
+    url: `https://socialmediatools.netlify.app${tool.path}`,
     mainEntity: {
       "@type": "FAQPage",
       mainEntity: [
@@ -34,7 +34,9 @@ export default function ToolSEO({ tool }: ToolSEOProps) {
           }
         }
       ]
-    }
+    },
+    // Ensure URL is always present
+    ...(seo.structuredData.url ? {} : { url: `https://socialmediatools.netlify.app${tool.path}` })
   };
 
   // HowTo schema for usage instructions
@@ -43,6 +45,8 @@ export default function ToolSEO({ tool }: ToolSEOProps) {
     "@type": "HowTo",
     name: `How to Use ${tool.name}`,
     description: `Learn how to use ${tool.name} to ${tool.description.toLowerCase()}`,
+    url: `https://socialmediatools.netlify.app${tool.path}`,
+    totalTime: "PT2M",
     step: [
       {
         "@type": "HowToStep",

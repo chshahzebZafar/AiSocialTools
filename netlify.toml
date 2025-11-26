@@ -1,0 +1,53 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+# Redirects for URL canonicalization
+[[redirects]]
+  from = "/*"
+  to = "/:splat"
+  status = 200
+  force = false
+
+# Redirect trailing slashes to non-trailing (except root)
+[[redirects]]
+  from = "/:path+/"
+  to = "/:path+"
+  status = 301
+  force = true
+
+# Ensure HTTPS (Netlify handles this automatically, but explicit is better)
+[[redirects]]
+  from = "http://socialmediatools.netlify.app/*"
+  to = "https://socialmediatools.netlify.app/:splat"
+  status = 301
+  force = true
+
+# Headers for SEO
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+
+# Cache static assets
+[[headers]]
+  for = "/_next/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Don't cache HTML
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+

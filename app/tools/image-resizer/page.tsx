@@ -220,7 +220,7 @@ export default function ImageResizerPage() {
               <div className="relative rounded-lg overflow-hidden border border-slate-200 bg-slate-50 flex items-center justify-center p-4">
                 <img
                   src={resizedImage}
-                  alt="Resized"
+                  alt={`Resized image for ${useCustom ? `${customWidth} × ${customHeight}` : selectedSize.name} social media platform`}
                   className="max-w-full max-h-96"
                 />
               </div>
