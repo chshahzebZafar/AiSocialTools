@@ -64,10 +64,10 @@ export default function ContactPage() {
                   Send us an email and we'll get back to you as soon as possible.
                 </p>
                 <a
-                  href="mailto:your.email@example.com"
+                  href="mailto:shahzaibzafar093@gmail.com"
                   className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium"
                 >
-                  your.email@example.com
+                  shahzaibzafar093@gmail.com
                 </a>
               </div>
 
@@ -78,10 +78,10 @@ export default function ContactPage() {
                   Have suggestions for new tools or improvements? We're all ears!
                 </p>
                 <a
-                  href="mailto:feedback@example.com"
+                  href="mailto:shahzaibzafar093@gmail.com"
                   className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 font-medium"
                 >
-                  feedback@example.com
+                  shahzaibzafar093@gmail.com
                 </a>
               </div>
             </div>

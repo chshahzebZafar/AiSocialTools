@@ -700,6 +700,41 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
         "name": "Instagram Photo Downloader",
         "description": "Download photos and videos from Instagram"
       }
+    },
+    "svg-pattern-generator": {
+      title: "SVG Pattern Generator - Create Beautiful Patterns",
+      description: "Generate stunning SVG patterns including mandalas, dots, grids, waves, and hexagons. Customize colors, size, spacing, rotation, and export for social media. Free pattern generator tool.",
+      keywords: [
+        "svg pattern generator",
+        "mandala generator",
+        "pattern generator",
+        "svg patterns",
+        "geometric patterns",
+        "pattern maker",
+        "free pattern generator"
+      ],
+      longTailKeywords: [
+        "how to create svg patterns",
+        "free svg pattern generator online",
+        "generate mandala patterns",
+        "create geometric patterns",
+        "svg pattern maker tool",
+        "pattern generator for social media"
+      ],
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "SVG Pattern Generator",
+        "description": "Generate beautiful SVG patterns for social media",
+        "url": "https://socialmediatools.netlify.app/tools/svg-pattern-generator",
+        "applicationCategory": "DesignApplication",
+        "operatingSystem": "Web",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      }
     }
   };
 

@@ -50,7 +50,7 @@ export default function AuthorPage() {
                 <User className="w-12 h-12 text-white" />
               </div>
               <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-2">
-                About the Author
+                Shahzeb Zafar
               </h1>
               <p className="text-lg text-slate-600">
                 Creator & Developer of Social Media Tools
@@ -139,17 +139,17 @@ export default function AuthorPage() {
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <a
-                    href="/contact"
+                    href="mailto:shahzaibzafar093@gmail.com"
                     className="flex items-center gap-3 p-4 bg-blue-50 hover:bg-blue-100 rounded-lg border border-blue-200 transition-colors group"
                   >
                     <Mail className="w-5 h-5 text-blue-600 group-hover:scale-110 transition-transform" />
                     <div>
                       <div className="font-semibold text-slate-900">Email Me</div>
-                      <div className="text-sm text-slate-600">Get in touch</div>
+                      <div className="text-sm text-slate-600">shahzaibzafar093@gmail.com</div>
                     </div>
                   </a>
                   <a
-                    href="https://buymeacoffee.com/yourusername"
+                    href="https://buymeacoffee.com/shahzebzafar"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 p-4 bg-yellow-50 hover:bg-yellow-100 rounded-lg border border-yellow-200 transition-colors group"
@@ -168,7 +168,16 @@ export default function AuthorPage() {
                 <h2 className="text-2xl font-bold text-slate-900 mb-4">Connect With Me</h2>
                 <div className="flex flex-wrap gap-3">
                   <a
-                    href="https://github.com/yourusername"
+                    href="https://shahzebzafar.netlify.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 px-4 py-2 bg-purple-100 hover:bg-purple-200 rounded-lg text-purple-700 transition-colors"
+                  >
+                    <span>🌐</span>
+                    <span>Website</span>
+                  </a>
+                  <a
+                    href="https://github.com/chshahzebZafar/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-2 px-4 py-2 bg-slate-100 hover:bg-slate-200 rounded-lg text-slate-700 transition-colors"
@@ -177,7 +186,7 @@ export default function AuthorPage() {
                     <span>GitHub</span>
                   </a>
                   <a
-                    href="https://twitter.com/yourusername"
+                    href="https://x.com/SHAHZEBZAFAR99"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-2 px-4 py-2 bg-blue-100 hover:bg-blue-200 rounded-lg text-blue-700 transition-colors"
@@ -186,7 +195,7 @@ export default function AuthorPage() {
                     <span>Twitter</span>
                   </a>
                   <a
-                    href="https://linkedin.com/in/yourusername"
+                    href="https://www.linkedin.com/in/shahzaib-zafer/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-2 px-4 py-2 bg-blue-100 hover:bg-blue-200 rounded-lg text-blue-700 transition-colors"

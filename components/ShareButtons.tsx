@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Share2, MessageCircle, Twitter, Facebook, Link as LinkIcon, Check } from "lucide-react";
 
 interface ShareButtonsProps {
@@ -19,6 +19,15 @@ export default function ShareButtons({
   className = "",
 }: ShareButtonsProps) {
   const [copied, setCopied] = useState(false);
+  const [canUseNativeShare, setCanUseNativeShare] = useState(false);
+  
+  // Check for native share API only on client side after hydration
+  useEffect(() => {
+    setCanUseNativeShare(
+      typeof navigator !== "undefined" && typeof navigator.share === "function"
+    );
+  }, []);
+  
   const shareUrl = url || (typeof window !== "undefined" ? window.location.href : "");
   const shareText = resultText || text;
   const fullText = `${shareText}\n\n${shareUrl}`;
@@ -173,12 +182,13 @@ export default function ShareButtons({
       </button>
 
       {/* Native Share (mobile) */}
-      {typeof navigator !== "undefined" && typeof navigator.share === "function" && (
+      {canUseNativeShare && (
         <button
           onClick={handleNativeShare}
           className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg transition-colors text-sm font-medium sm:hidden"
           title="Share"
           aria-label="Share"
+          suppressHydrationWarning
         >
           <Share2 className="w-4 h-4" />
         </button>

@@ -19,7 +19,14 @@ export default function Footer() {
               <span>Made with</span>
               <Heart className="w-4 h-4 text-red-500 fill-red-500" />
               <span>by</span>
-              <span className="text-white font-medium">Your Name</span>
+              <a 
+                href="https://shahzebzafar.netlify.app/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-white font-medium hover:text-blue-400 transition-colors"
+              >
+                Shahzeb Zafar
+              </a>
             </div>
           </div>
 
@@ -76,7 +83,7 @@ export default function Footer() {
             <ul className="space-y-3">
               <li>
                 <a
-                  href="https://buymeacoffee.com/yourusername"
+                  href="https://buymeacoffee.com/shahzebzafar"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-slate-400 hover:text-yellow-400 transition-colors text-sm group"
@@ -87,7 +94,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="mailto:your.email@example.com"
+                  href="mailto:shahzaibzafar093@gmail.com"
                   className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors text-sm"
                 >
                   <Mail className="w-4 h-4" />
@@ -96,7 +103,18 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="https://github.com/yourusername"
+                  href="https://shahzebzafar.netlify.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-slate-400 hover:text-purple-400 transition-colors text-sm"
+                >
+                  <span>🌐</span>
+                  <span>Website</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://github.com/chshahzebZafar/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors text-sm"
@@ -107,7 +125,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="https://twitter.com/yourusername"
+                  href="https://x.com/SHAHZEBZAFAR99"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-slate-400 hover:text-blue-400 transition-colors text-sm"
@@ -118,7 +136,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="https://linkedin.com/in/yourusername"
+                  href="https://www.linkedin.com/in/shahzaib-zafer/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-slate-400 hover:text-blue-500 transition-colors text-sm"

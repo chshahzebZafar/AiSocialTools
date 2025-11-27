@@ -27,9 +27,9 @@ export const metadata: Metadata = {
   },
   description: "Free online social media tools - Generate tweets, create Instagram posts, download thumbnails, and more. All tools are free to use.",
   keywords: ["social media tools", "social media management", "scheduling tools", "social media analytics", "content creation tools"],
-  authors: [{ name: "Social Media Tools" }],
-  creator: "Social Media Tools",
-  publisher: "Social Media Tools",
+  authors: [{ name: "Shahzeb Zafar" }],
+  creator: "Shahzeb Zafar",
+  publisher: "Shahzeb Zafar",
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -118,6 +118,7 @@ export default function RootLayout({
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        suppressHydrationWarning
       >
         <ThemeProvider>
           {children}

@@ -10,6 +10,10 @@ interface RelatedToolsProps {
 }
 
 export default function RelatedTools({ currentTool, limit = 4 }: RelatedToolsProps) {
+  if (!currentTool || !currentTool.category) {
+    return null;
+  }
+
   const relatedTools = getToolsByCategory(currentTool.category)
     .filter(tool => tool.id !== currentTool.id)
     .slice(0, limit);

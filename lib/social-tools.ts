@@ -26,7 +26,8 @@ import {
   Video,
   MessageCircle,
   Facebook,
-  PenTool
+  PenTool,
+  Sparkles
 } from "lucide-react";
 
 export interface SocialTool {
@@ -270,6 +271,14 @@ export const socialTools: SocialTool[] = [
     icon: PenTool,
     path: "/tools/text-to-handwriting",
     category: "Content"
+  },
+  {
+    id: "svg-pattern-generator",
+    name: "SVG Pattern Generator",
+    description: "Create beautiful SVG patterns including mandalas, dots, grids, waves, and hexagons",
+    icon: Sparkles,
+    path: "/tools/svg-pattern-generator",
+    category: "Design"
   }
 ];
 
