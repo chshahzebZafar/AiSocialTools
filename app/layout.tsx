@@ -67,9 +67,7 @@ export const metadata: Metadata = {
     canonical: "https://socialmediatools.netlify.app",
   },
   verification: {
-    // Add your verification codes here when available
-    // Google Search Console verification code
-    google: process.env.NEXT_PUBLIC_GOOGLE_VERIFICATION || "",
+    google: "rSzbil6iTeObZLttAxiRP7L7aYbEX8BtQEta8AzxfHk",
     // yandex: "your-yandex-verification-code",
     // bing: "your-bing-verification-code",
   },
