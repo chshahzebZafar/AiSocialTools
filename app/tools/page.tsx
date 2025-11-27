@@ -41,8 +41,39 @@ export const metadata: Metadata = {
 };
 
 export default function ToolsPage() {
+  // ItemList schema for SEO
+  const itemListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "All Social Media Tools",
+    description: "Complete collection of free social media tools for content creation, management, and optimization",
+    url: "https://socialmediatools.netlify.app/tools",
+    numberOfItems: socialTools.length,
+    itemListElement: socialTools.map((tool, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      item: {
+        "@type": "WebApplication",
+        name: tool.name,
+        description: tool.description,
+        url: `https://socialmediatools.netlify.app${tool.path}`,
+        applicationCategory: "SocialMediaApplication",
+        operatingSystem: "Web Browser",
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "USD"
+        }
+      }
+    }))
+  };
+
   return (
     <div className="p-4 sm:p-6 lg:p-8 max-w-6xl mx-auto w-full">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
+      />
         <div className="text-center mb-8 sm:mb-12">
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 dark:text-slate-100 mb-3 sm:mb-4">
             All Social Media Tools

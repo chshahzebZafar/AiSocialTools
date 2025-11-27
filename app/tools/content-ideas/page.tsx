@@ -81,6 +81,29 @@ export default function ContentIdeasPage() {
   return (
     <>
       {tool && <ToolSEO tool={tool} />}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            name: "Content Ideas Generator",
+            url: "https://socialmediatools.netlify.app/tools/content-ideas",
+            description: "Free AI content ideas generator for Instagram, Twitter, LinkedIn, and TikTok. Generate creative content ideas to inspire your next viral post.",
+            applicationCategory: "Utility",
+            operatingSystem: "Web Browser",
+            offers: {
+              "@type": "Offer",
+              price: "0",
+              priceCurrency: "USD"
+            },
+            creator: {
+              "@type": "Person",
+              name: "Shahzeb Zafar"
+            }
+          }),
+        }}
+      />
       <div className="p-8 max-w-4xl mx-auto">
       <div className="mb-8">
         <div className="flex items-center gap-3 mb-4">

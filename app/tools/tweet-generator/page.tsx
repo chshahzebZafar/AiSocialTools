@@ -59,6 +59,29 @@ export default function TweetGeneratorPage() {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(seo.structuredData) }}
         />
       )}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            name: "Tweet Generator",
+            url: "https://socialmediatools.netlify.app/tools/tweet-generator",
+            description: "Free AI tweet generator for Twitter/X. Generate engaging tweets, threads, and Twitter content that captures attention and drives engagement.",
+            applicationCategory: "Utility",
+            operatingSystem: "Web Browser",
+            offers: {
+              "@type": "Offer",
+              price: "0",
+              priceCurrency: "USD"
+            },
+            creator: {
+              "@type": "Person",
+              name: "Shahzeb Zafar"
+            }
+          }),
+        }}
+      />
       <div className="p-8 max-w-4xl mx-auto">
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-4">

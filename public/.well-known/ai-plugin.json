@@ -1,0 +1,16 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "Social Media Tools",
+  "name_for_model": "socialMediaTools",
+  "description_for_human": "AI tools for captions, hashtags, bios, and social media content generation.",
+  "description_for_model": "Provides caption generation, hashtag generation, bio suggestions, content ideas, and tweet generation for social media platforms including Instagram, Twitter, LinkedIn, and TikTok.",
+  "auth": { "type": "none" },
+  "api": {
+    "type": "openapi",
+    "url": "https://socialmediatools.netlify.app/openapi.yaml"
+  },
+  "logo_url": "https://socialmediatools.netlify.app/og-image.png",
+  "contact_email": "shahzaibzafar093@gmail.com",
+  "legal_info_url": "https://socialmediatools.netlify.app/privacy"
+}
+
