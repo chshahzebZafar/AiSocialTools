@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Lightbulb, RefreshCw, Copy } from "lucide-react";
+import Link from "next/link";
 import { getToolById } from "@/lib/social-tools";
 import ToolSEO from "@/components/ToolSEO";
 import ToolFAQ from "@/components/ToolFAQ";
@@ -111,8 +112,23 @@ export default function ContentIdeasPage() {
             <Lightbulb className="w-6 h-6 text-white" />
           </div>
           <div className="flex-1">
-            <h1 className="text-3xl font-bold text-slate-900">Content Ideas Generator - Generate Social Media Content Ideas Free</h1>
-            <p className="text-slate-600">Generate creative content ideas for Instagram, Twitter, LinkedIn, and TikTok. Free content ideas generator. Get inspiration for your next viral post.</p>
+            <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100">Content Ideas Generator - Generate Social Media Content Ideas Free</h1>
+            <p className="text-slate-600 dark:text-slate-300">
+              Generate creative content ideas for Instagram, Twitter, LinkedIn, and TikTok. Free content ideas generator. Get inspiration for your next viral post.
+              {" "}
+              <Link href="/tools/tweet-generator" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">
+                Turn ideas into tweets
+              </Link>
+              {" "}with our Tweet Generator, create{" "}
+              <Link href="/tools/social-bio-generator" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">
+                compelling bios
+              </Link>
+              {" "}for your profile, or{" "}
+              <Link href="/tools/hashtag-generator" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">
+                find the perfect hashtags
+              </Link>
+              {" "}to maximize reach.
+            </p>
           </div>
         </div>
         <div className="mt-4">

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { FileText, Copy, Download } from "lucide-react";
+import Link from "next/link";
 import { getToolById } from "@/lib/social-tools";
 import ToolSEO from "@/components/ToolSEO";
 import ToolFAQ from "@/components/ToolFAQ";
@@ -103,8 +104,19 @@ export default function SocialBioGeneratorPage() {
             <FileText className="w-6 h-6 text-white" />
           </div>
           <div className="flex-1">
-            <h1 className="text-3xl font-bold text-slate-900">Social Media Bio Generator - Create Instagram, Twitter Bios Free</h1>
-            <p className="text-slate-600">Generate compelling bios for Instagram, Twitter, LinkedIn, and TikTok. Free social media bio generator with templates. Create professional bios that attract followers.</p>
+            <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100">Social Media Bio Generator - Create Instagram, Twitter Bios Free</h1>
+            <p className="text-slate-600 dark:text-slate-300">
+              Generate compelling bios for Instagram, Twitter, LinkedIn, and TikTok. Free social media bio generator with templates. Create professional bios that attract followers.
+              {" "}
+              <Link href="/tools/content-ideas" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">
+                Use with our Content Ideas Generator
+              </Link>
+              {" "}to brainstorm content, or{" "}
+              <Link href="/tools/hashtag-generator" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">
+                add trending hashtags
+              </Link>
+              {" "}to maximize your profile visibility.
+            </p>
           </div>
         </div>
         <div className="mt-4">

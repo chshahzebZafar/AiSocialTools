@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Hash, Copy, Download } from "lucide-react";
+import Link from "next/link";
 import { getToolById } from "@/lib/social-tools";
 import ToolSEO from "@/components/ToolSEO";
 import ToolFAQ from "@/components/ToolFAQ";
@@ -124,6 +125,15 @@ export default function HashtagGeneratorPage() {
               <p className="text-slate-600 dark:text-slate-300">
                 Generate relevant and trending hashtags for Instagram, Twitter, TikTok, and LinkedIn. 
                 Free hashtag generator with platform-specific suggestions. Boost your social media reach instantly.
+                {" "}
+                <Link href="/tools/tweet-generator" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">
+                  Pair with our Tweet Generator
+                </Link>
+                {" "}or{" "}
+                <Link href="/tools/content-ideas" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">
+                  Content Ideas Generator
+                </Link>
+                {" "}for complete social media content creation.
               </p>
             </div>
           </div>

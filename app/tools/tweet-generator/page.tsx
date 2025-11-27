@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Twitter, Copy, RefreshCw, Download } from "lucide-react";
+import Link from "next/link";
 import { getToolById } from "@/lib/social-tools";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
@@ -89,12 +90,21 @@ export default function TweetGeneratorPage() {
               <Twitter className="w-6 h-6 text-white" />
             </div>
             <div className="flex-1">
-              <h1 className="text-3xl font-bold text-slate-900">
+              <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100">
                 Free AI Tweet Generator - Create Engaging Twitter Posts Online
               </h1>
-              <p className="text-slate-600">
+              <p className="text-slate-600 dark:text-slate-300">
                 Generate creative and engaging tweets instantly with our free AI-powered tweet generator. 
                 Create viral Twitter content, optimize character count, and boost engagement. No signup required.
+                {" "}
+                <Link href="/tools/hashtag-generator" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">
+                  Add trending hashtags
+                </Link>
+                {" "}with our Hashtag Generator, or{" "}
+                <Link href="/tools/content-ideas" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">
+                  get content ideas
+                </Link>
+                {" "}to keep your Twitter feed fresh and engaging.
               </p>
             </div>
           </div>
@@ -164,9 +174,9 @@ export default function TweetGeneratorPage() {
               resultText={generatedTweet}
             />
           </div>
-          <div className="bg-slate-50 rounded-lg p-4 border border-slate-200">
-            <p className="text-slate-800 whitespace-pre-wrap">{generatedTweet}</p>
-            <p className="text-xs text-slate-500 mt-2">
+          <div className="bg-slate-50 dark:bg-slate-700/50 rounded-lg p-4 border border-slate-200 dark:border-slate-600">
+            <p className="text-slate-800 dark:text-slate-200 whitespace-pre-wrap">{generatedTweet}</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">
               Character count: {generatedTweet.length} / 280
             </p>
           </div>
