@@ -12,8 +12,15 @@ import {
   ArrowRight, 
   TrendingUp,
   Users,
-  Clock
+  Clock,
+  Coffee,
+  Github,
+  Twitter,
+  Linkedin,
+  Globe,
+  QrCode
 } from "lucide-react";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Free Social Media Tools - Create & Manage Content",
@@ -393,6 +400,150 @@ export default function Home() {
               >
                 Learn More
               </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* Support Author Section */}
+        <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 border-t border-amber-200 dark:border-slate-700">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-amber-200 dark:border-slate-700 overflow-hidden">
+              <div className="bg-gradient-to-r from-amber-500 via-orange-500 to-yellow-500 p-6 sm:p-8 text-center">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full mb-4">
+                  <Heart className="w-8 h-8 text-white fill-white" />
+                </div>
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-3">
+                  Love These Tools? Support the Creator! 💝
+                </h2>
+                <p className="text-lg text-white/90 max-w-2xl mx-auto">
+                  These tools are completely free and will always be. If they've helped you, consider supporting the developer to keep them running and add more amazing features!
+                </p>
+              </div>
+
+              <div className="p-6 sm:p-8 lg:p-12">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+                  {/* Left Side - QR Code & Quick Support */}
+                  <div className="space-y-6">
+                    <div className="text-center lg:text-left">
+                      <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-slate-100 mb-3 flex items-center justify-center lg:justify-start gap-2">
+                        <QrCode className="w-6 h-6 text-amber-600 dark:text-amber-400" />
+                        Scan to Support
+                      </h3>
+                      <p className="text-slate-600 dark:text-slate-300 mb-4">
+                        Scan the QR code with your phone to support via your preferred payment method
+                      </p>
+                      <div className="flex justify-center lg:justify-start">
+                        <div className="relative w-48 h-48 sm:w-56 sm:h-56 bg-white dark:bg-slate-700 rounded-xl p-4 shadow-lg border-2 border-amber-200 dark:border-amber-800">
+                          <Image
+                            src="/qr-code.png"
+                            alt="Support QR Code"
+                            fill
+                            className="object-contain rounded-lg"
+                            priority
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Buy Me a Coffee Button */}
+                    <div className="flex justify-center lg:justify-start">
+                      <a
+                        href="https://buymeacoffee.com/shahzebzafar"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-3 px-6 py-4 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-lg font-semibold hover:from-amber-600 hover:to-orange-600 transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
+                      >
+                        <Coffee className="w-5 h-5" />
+                        <span>Buy Me a Coffee</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </a>
+                    </div>
+                  </div>
+
+                  {/* Right Side - Social Links & Info */}
+                  <div className="space-y-6">
+                    <div>
+                      <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-slate-100 mb-4 flex items-center gap-2">
+                        <Globe className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                        Connect & Follow
+                      </h3>
+                      <p className="text-slate-600 dark:text-slate-300 mb-6">
+                        Follow the creator on social media for updates, new tools, and tips!
+                      </p>
+                      <div className="grid grid-cols-2 gap-3">
+                        <a
+                          href="https://shahzebzafar.netlify.app/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-3 p-4 bg-slate-100 dark:bg-slate-700 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors group"
+                        >
+                          <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <Globe className="w-5 h-5 text-white" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <div className="font-semibold text-slate-900 dark:text-slate-100 text-sm">Website</div>
+                            <div className="text-xs text-slate-600 dark:text-slate-400 truncate">Portfolio</div>
+                          </div>
+                        </a>
+                        <a
+                          href="https://github.com/chshahzebZafar/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-3 p-4 bg-slate-100 dark:bg-slate-700 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors group"
+                        >
+                          <div className="w-10 h-10 bg-gradient-to-br from-slate-700 to-slate-900 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <Github className="w-5 h-5 text-white" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <div className="font-semibold text-slate-900 dark:text-slate-100 text-sm">GitHub</div>
+                            <div className="text-xs text-slate-600 dark:text-slate-400 truncate">@chshahzebZafar</div>
+                          </div>
+                        </a>
+                        <a
+                          href="https://x.com/SHAHZEBZAFAR99"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-3 p-4 bg-slate-100 dark:bg-slate-700 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors group"
+                        >
+                          <div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <Twitter className="w-5 h-5 text-white" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <div className="font-semibold text-slate-900 dark:text-slate-100 text-sm">Twitter/X</div>
+                            <div className="text-xs text-slate-600 dark:text-slate-400 truncate">@SHAHZEBZAFAR99</div>
+                          </div>
+                        </a>
+                        <a
+                          href="https://www.linkedin.com/in/shahzaib-zafer/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-3 p-4 bg-slate-100 dark:bg-slate-700 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors group"
+                        >
+                          <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-700 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <Linkedin className="w-5 h-5 text-white" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <div className="font-semibold text-slate-900 dark:text-slate-100 text-sm">LinkedIn</div>
+                            <div className="text-xs text-slate-600 dark:text-slate-400 truncate">Connect</div>
+                          </div>
+                        </a>
+                      </div>
+                    </div>
+
+                    <div className="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 rounded-lg p-4 border border-amber-200 dark:border-amber-800">
+                      <div className="flex items-start gap-3">
+                        <Sparkles className="w-5 h-5 text-amber-600 dark:text-amber-400 mt-0.5 flex-shrink-0" />
+                        <div>
+                          <h4 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">Your Support Matters!</h4>
+                          <p className="text-sm text-slate-700 dark:text-slate-300">
+                            Every contribution helps maintain these free tools, add new features, and keep the servers running. Thank you for your support! 🙏
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
