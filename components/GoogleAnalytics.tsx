@@ -7,7 +7,10 @@ interface GoogleAnalyticsProps {
 }
 
 export default function GoogleAnalytics({ gaId }: GoogleAnalyticsProps) {
-  if (!gaId || gaId === "G-XXXXXXXXXX") {
+  // Use provided ID or fallback to environment variable or default
+  const trackingId = gaId || process.env.NEXT_PUBLIC_GA_ID || "G-N8JJCJ62N7";
+  
+  if (!trackingId || trackingId === "G-XXXXXXXXXX") {
     return null;
   }
 
@@ -15,7 +18,7 @@ export default function GoogleAnalytics({ gaId }: GoogleAnalyticsProps) {
     <>
       <Script
         strategy="afterInteractive"
-        src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+        src={`https://www.googletagmanager.com/gtag/js?id=${trackingId}`}
       />
       <Script
         id="google-analytics"
@@ -25,7 +28,7 @@ export default function GoogleAnalytics({ gaId }: GoogleAnalyticsProps) {
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', '${gaId}', {
+            gtag('config', '${trackingId}', {
               page_path: window.location.pathname,
               send_page_view: true
             });

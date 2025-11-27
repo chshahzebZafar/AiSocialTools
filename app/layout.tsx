@@ -113,7 +113,7 @@ export default function RootLayout({
             `,
           }}
         />
-        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || "G-N8JJCJ62N7"} />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
