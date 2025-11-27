@@ -433,13 +433,12 @@ export default function Home() {
                         Scan the QR code with your phone to support via your preferred payment method
                       </p>
                       <div className="flex justify-center lg:justify-start">
-                        <div className="relative w-48 h-48 sm:w-56 sm:h-56 bg-white dark:bg-slate-700 rounded-xl p-4 shadow-lg border-2 border-amber-200 dark:border-amber-800">
-                          <Image
+                        <div className="bg-white dark:bg-slate-700 rounded-xl p-4 shadow-lg border-2 border-amber-200 dark:border-amber-800 flex items-center justify-center">
+                          <img
                             src="/qr-code.png"
-                            alt="Support QR Code"
-                            fill
-                            className="object-contain rounded-lg"
-                            priority
+                            alt="Support QR Code - Scan to support the creator"
+                            className="w-48 h-48 sm:w-56 sm:h-56 object-contain rounded-lg"
+                            loading="eager"
                           />
                         </div>
                       </div>
