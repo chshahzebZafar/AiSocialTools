@@ -10,6 +10,7 @@ import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { getSEOMetadata } from "@/lib/seo-metadata";
 import ShareButtons from "@/components/ShareButtons";
+import { ToolComments } from "@/components/ToolComments";
 
 export default function HashtagGeneratorPage() {
   const tool = getToolById("hashtag-generator");
@@ -246,6 +247,7 @@ export default function HashtagGeneratorPage() {
       {tool && <ToolFAQ tool={tool} />}
       {tool && <RelatedTools currentTool={tool} />}
       {tool && <ToolDetailsSection tool={tool} />}
+      {tool && <ToolComments toolId={tool.id} />}
     </div>
     </>
   );

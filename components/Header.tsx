@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { socialTools } from "@/lib/social-tools";
 import ThemeToggle from "./ThemeToggle";
+import { AuthButtons } from "./AuthButtons";
 
 export default function Header() {
   const pathname = usePathname();
@@ -243,8 +244,11 @@ export default function Header() {
             )}
           </div>
 
-          {/* Theme Toggle & Mobile Search & Menu Button */}
+          {/* Auth, Theme Toggle & Mobile Search & Menu Button */}
           <div className="flex items-center gap-2">
+            <div className="hidden md:flex items-center gap-2">
+              <AuthButtons />
+            </div>
             <ThemeToggle />
             <div className="flex items-center gap-2 lg:hidden">
               <button
