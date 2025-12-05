@@ -10,6 +10,7 @@ import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { ToolComments } from "@/components/ToolComments";
 import { getSEOMetadata } from "@/lib/seo-metadata";
 import ShareButtons from "@/components/ShareButtons";
+import { FavoriteButton } from "@/components/FavoriteButton";
 
 export default function InstagramPostGeneratorPage() {
   const tool = getToolById("instagram-post-generator");
@@ -65,7 +66,8 @@ export default function InstagramPostGeneratorPage() {
             <p className="text-slate-600">Generate engaging Instagram captions and posts with our free Instagram post generator. Create viral content with templates, hashtags, and emoji suggestions. Boost your Instagram engagement.</p>
           </div>
         </div>
-        <div className="mt-4">
+        <div className="mt-4 flex items-center gap-3 flex-wrap">
+          <FavoriteButton toolId="instagram-post-generator" />
           <ShareButtons
             title="Instagram Post Generator"
             text="Check out this free Instagram post generator tool!"

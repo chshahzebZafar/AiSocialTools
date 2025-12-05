@@ -27,7 +27,11 @@ import {
   MessageCircle,
   Facebook,
   PenTool,
-  Sparkles
+  Sparkles,
+  File,
+  FileType,
+  Image as ImageLucide,
+  FileCheck
 } from "lucide-react";
 
 export interface SocialTool {
@@ -279,6 +283,46 @@ export const socialTools: SocialTool[] = [
     icon: Sparkles,
     path: "/tools/svg-pattern-generator",
     category: "Design"
+  },
+  {
+    id: "image-to-pdf",
+    name: "Image to PDF Converter",
+    description: "Convert images (JPG, PNG, GIF) to PDF files. Merge multiple images into one PDF document.",
+    icon: ImageLucide,
+    path: "/tools/image-to-pdf",
+    category: "Converters"
+  },
+  {
+    id: "word-to-pdf",
+    name: "Word/Text to PDF Converter",
+    description: "Convert text documents to PDF format. Create professional PDFs from your text content.",
+    icon: FileType,
+    path: "/tools/word-to-pdf",
+    category: "Converters"
+  },
+  {
+    id: "pdf-to-image",
+    name: "PDF to Image Converter",
+    description: "Extract images from PDF files or convert PDF pages to images (PNG, JPG).",
+    icon: FileImage,
+    path: "/tools/pdf-to-image",
+    category: "Converters"
+  },
+  {
+    id: "pdf-merger",
+    name: "PDF Merger",
+    description: "Merge multiple PDF files into one document. Combine PDFs easily and quickly.",
+    icon: FileCheck,
+    path: "/tools/pdf-merger",
+    category: "Converters"
+  },
+  {
+    id: "pdf-splitter",
+    name: "PDF Splitter",
+    description: "Split PDF files into multiple documents. Extract specific pages from PDF files.",
+    icon: File,
+    path: "/tools/pdf-splitter",
+    category: "Converters"
   }
 ];
 

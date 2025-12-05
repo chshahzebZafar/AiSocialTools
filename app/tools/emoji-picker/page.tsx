@@ -10,6 +10,7 @@ import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { ToolComments } from "@/components/ToolComments";
 import { getSEOMetadata } from "@/lib/seo-metadata";
 import ShareButtons from "@/components/ShareButtons";
+import { FavoriteButton } from "@/components/FavoriteButton";
 
 const emojiCategories = {
   "Smileys & People": ["😀", "😃", "😄", "😁", "😆", "😅", "🤣", "😂", "🙂", "🙃", "😉", "😊", "😇", "🥰", "😍", "🤩", "😘", "😗", "😚", "😙", "😋", "😛", "😜", "🤪", "😝", "🤑", "🤗", "🤭", "🤫", "🤔"],
@@ -74,7 +75,8 @@ export default function EmojiPickerPage() {
             <p className="text-slate-600">Browse and copy emojis for Instagram, Twitter, Facebook posts. Free emoji picker with categories. Find the perfect emoji for your social media content.</p>
           </div>
         </div>
-        <div className="mt-4">
+        <div className="mt-4 flex items-center gap-3 flex-wrap">
+          {tool && <FavoriteButton toolId={tool.id} />}
           <ShareButtons
             title="Emoji Picker & Generator"
             text="Check out this free emoji picker tool!"

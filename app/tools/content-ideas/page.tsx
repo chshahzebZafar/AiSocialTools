@@ -10,6 +10,7 @@ import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { getSEOMetadata } from "@/lib/seo-metadata";
 import ShareButtons from "@/components/ShareButtons";
+import { FavoriteButton } from "@/components/FavoriteButton";
 import { ToolComments } from "@/components/ToolComments";
 
 const contentIdeas = {
@@ -132,7 +133,8 @@ export default function ContentIdeasPage() {
             </p>
           </div>
         </div>
-        <div className="mt-4">
+        <div className="mt-4 flex items-center gap-3 flex-wrap">
+          {tool && <FavoriteButton toolId={tool.id} />}
           <ShareButtons
             title="Content Ideas Generator"
             text="Check out this free content ideas generator tool!"

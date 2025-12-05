@@ -10,6 +10,7 @@ import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { getSEOMetadata } from "@/lib/seo-metadata";
 import ShareButtons from "@/components/ShareButtons";
+import { FavoriteButton } from "@/components/FavoriteButton";
 import { ToolComments } from "@/components/ToolComments";
 
 export default function SocialBioGeneratorPage() {
@@ -120,7 +121,8 @@ export default function SocialBioGeneratorPage() {
             </p>
           </div>
         </div>
-        <div className="mt-4">
+        <div className="mt-4 flex items-center gap-3 flex-wrap">
+          {tool && <FavoriteButton toolId={tool.id} />}
           <ShareButtons
             title="Social Media Bio Generator"
             text="Check out this free social media bio generator tool!"
@@ -243,7 +245,8 @@ export default function SocialBioGeneratorPage() {
               <p className="text-xs text-slate-500 mt-2">
                 Character count: {generatedBio.length}
               </p>
-              <div className="mt-4 pt-4 border-t border-slate-200">
+              <div className="mt-4 pt-4 border-t border-slate-200 flex items-center gap-3 flex-wrap">
+                {tool && <FavoriteButton toolId={tool.id} />}
                 <ShareButtons
                   title="Generated Social Media Bio"
                   text="Check out this social media bio I generated!"

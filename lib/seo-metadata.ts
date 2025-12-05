@@ -735,6 +735,181 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
           "priceCurrency": "USD"
         }
       }
+    },
+    "image-to-pdf": {
+      title: "Image to PDF Converter - Convert Images to PDF Free",
+      description: "Convert JPG, PNG, GIF images to PDF format. Merge multiple images into one PDF document. Free image to PDF converter. No signup required.",
+      keywords: [
+        "image to pdf",
+        "jpg to pdf",
+        "png to pdf",
+        "convert image to pdf",
+        "image pdf converter",
+        "merge images to pdf",
+        "free image to pdf converter"
+      ],
+      longTailKeywords: [
+        "how to convert image to pdf",
+        "free image to pdf converter online",
+        "convert jpg to pdf",
+        "merge multiple images into pdf",
+        "image to pdf converter tool",
+        "convert png to pdf free"
+      ],
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Image to PDF Converter",
+        "description": "Convert images to PDF format and merge multiple images into one PDF",
+        "url": "https://socialmediatools.netlify.app/tools/image-to-pdf",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Web",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      }
+    },
+    "word-to-pdf": {
+      title: "Word/Text to PDF Converter - Create PDF from Text",
+      description: "Convert text documents to PDF format. Create professional PDFs from your text content. Free word to PDF converter. No signup required.",
+      keywords: [
+        "word to pdf",
+        "text to pdf",
+        "convert word to pdf",
+        "word pdf converter",
+        "text pdf converter",
+        "document to pdf",
+        "free word to pdf converter"
+      ],
+      longTailKeywords: [
+        "how to convert word to pdf",
+        "free word to pdf converter online",
+        "convert text document to pdf",
+        "word document to pdf converter",
+        "text to pdf converter tool",
+        "create pdf from text free"
+      ],
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Word/Text to PDF Converter",
+        "description": "Convert text documents and Word content to PDF format",
+        "url": "https://socialmediatools.netlify.app/tools/word-to-pdf",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Web",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      }
+    },
+    "pdf-to-image": {
+      title: "PDF to Image Converter - Extract Images from PDF",
+      description: "Extract images from PDF files or convert PDF pages to images (PNG, JPG). Free PDF to image converter. Download PDF pages as images.",
+      keywords: [
+        "pdf to image",
+        "pdf to png",
+        "pdf to jpg",
+        "extract images from pdf",
+        "pdf image converter",
+        "convert pdf to image",
+        "free pdf to image converter"
+      ],
+      longTailKeywords: [
+        "how to convert pdf to image",
+        "free pdf to image converter online",
+        "extract images from pdf file",
+        "pdf to png converter",
+        "convert pdf pages to images",
+        "pdf image extractor tool"
+      ],
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "PDF to Image Converter",
+        "description": "Extract images from PDF files or convert PDF pages to images",
+        "url": "https://socialmediatools.netlify.app/tools/pdf-to-image",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Web",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      }
+    },
+    "pdf-merger": {
+      title: "PDF Merger - Merge Multiple PDFs into One",
+      description: "Merge multiple PDF files into one document. Combine PDFs easily and quickly. Free PDF merger tool. No signup required.",
+      keywords: [
+        "pdf merger",
+        "merge pdf",
+        "combine pdf files",
+        "pdf combiner",
+        "merge multiple pdfs",
+        "pdf merge tool",
+        "free pdf merger"
+      ],
+      longTailKeywords: [
+        "how to merge pdf files",
+        "free pdf merger online",
+        "combine multiple pdf files",
+        "merge pdf documents",
+        "pdf merger tool free",
+        "combine pdfs into one file"
+      ],
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "PDF Merger",
+        "description": "Merge multiple PDF files into one document",
+        "url": "https://socialmediatools.netlify.app/tools/pdf-merger",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Web",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      }
+    },
+    "pdf-splitter": {
+      title: "PDF Splitter - Split PDF Files into Multiple Documents",
+      description: "Split PDF files into multiple documents. Extract specific pages from PDF files. Free PDF splitter tool. No signup required.",
+      keywords: [
+        "pdf splitter",
+        "split pdf",
+        "extract pages from pdf",
+        "pdf page extractor",
+        "split pdf file",
+        "pdf split tool",
+        "free pdf splitter"
+      ],
+      longTailKeywords: [
+        "how to split pdf file",
+        "free pdf splitter online",
+        "extract pages from pdf",
+        "split pdf into multiple files",
+        "pdf page extractor tool",
+        "divide pdf file into pages"
+      ],
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "PDF Splitter",
+        "description": "Split PDF files into multiple documents or extract specific pages",
+        "url": "https://socialmediatools.netlify.app/tools/pdf-splitter",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Web",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      }
     }
   };
 

@@ -10,6 +10,7 @@ import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { ToolComments } from "@/components/ToolComments";
 import { getSEOMetadata } from "@/lib/seo-metadata";
 import ShareButtons from "@/components/ShareButtons";
+import { FavoriteButton } from "@/components/FavoriteButton";
 
 export default function BioLinkGeneratorPage() {
   const tool = getToolById("bio-link-generator");
@@ -119,7 +120,8 @@ ${linksHTML}
             <p className="text-slate-600">Create a custom link in bio page for Instagram, TikTok, and Twitter. Free bio link generator with multiple links. Build your own linktree-style page instantly.</p>
           </div>
         </div>
-        <div className="mt-4">
+        <div className="mt-4 flex items-center gap-3 flex-wrap">
+          {tool && <FavoriteButton toolId={tool.id} />}
           <ShareButtons
             title="Bio Link Generator"
             text="Check out this free bio link generator tool!"

@@ -9,6 +9,7 @@ import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { ToolComments } from "@/components/ToolComments";
 import ShareButtons from "@/components/ShareButtons";
+import { FavoriteButton } from "@/components/FavoriteButton";
 
 // Handwriting fonts from Google Fonts
 const handwritingFonts = [
@@ -485,8 +486,9 @@ export default function TextToHandwritingPage() {
               </p>
             </div>
           </div>
-          <div className="mt-4">
-            <ShareButtons
+          <div className="mt-4 flex items-center gap-3 flex-wrap">
+            {tool && <FavoriteButton toolId={tool.id} />}
+          <ShareButtons
               title="Text to Handwriting Converter"
               text="Check out this free text to handwriting converter tool!"
             />

@@ -11,6 +11,7 @@ import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { ToolComments } from "@/components/ToolComments";
 import { getSEOMetadata } from "@/lib/seo-metadata";
 import ShareButtons from "@/components/ShareButtons";
+import { FavoriteButton } from "@/components/FavoriteButton";
 
 export default function QRCodeGeneratorPage() {
   const tool = getToolById("qr-code-generator");
@@ -230,7 +231,8 @@ export default function QRCodeGeneratorPage() {
               Copy
             </button>
           </div>
-          <div className="pt-4 border-t border-slate-200">
+          <div className="pt-4 border-t border-slate-200 flex items-center gap-3 flex-wrap">
+            {tool && <FavoriteButton toolId={tool.id} />}
             <ShareButtons
               title="QR Code Generator"
               text={`Check out this QR code I generated for: ${url}`}

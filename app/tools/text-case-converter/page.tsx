@@ -10,6 +10,7 @@ import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { ToolComments } from "@/components/ToolComments";
 import { getSEOMetadata } from "@/lib/seo-metadata";
 import ShareButtons from "@/components/ShareButtons";
+import { FavoriteButton } from "@/components/FavoriteButton";
 
 export default function TextCaseConverterPage() {
   const tool = getToolById("text-case-converter");
@@ -78,7 +79,8 @@ export default function TextCaseConverterPage() {
             <p className="text-slate-600">Convert text to uppercase, lowercase, title case, camelCase, snake_case, and more. Free text case converter tool. Transform text formatting instantly for social media posts.</p>
           </div>
         </div>
-        <div className="mt-4">
+        <div className="mt-4 flex items-center gap-3 flex-wrap">
+          {tool && <FavoriteButton toolId={tool.id} />}
           <ShareButtons
             title="Text Case Converter"
             text="Check out this free text case converter tool!"
@@ -100,7 +102,8 @@ export default function TextCaseConverterPage() {
       </div>
 
       {text && (
-        <div className="mb-4 pb-4 border-b border-slate-200">
+        <div className="mb-4 pb-4 border-b border-slate-200 flex items-center gap-3 flex-wrap">
+          {tool && <FavoriteButton toolId={tool.id} />}
           <ShareButtons
             title="Text Case Converter"
             text="Check out this text case converter tool!"

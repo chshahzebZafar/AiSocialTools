@@ -10,6 +10,7 @@ import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { ToolComments } from "@/components/ToolComments";
 import ShareButtons from "@/components/ShareButtons";
+import { FavoriteButton } from "@/components/FavoriteButton";
 
 const countryCodes = [
   { name: "Afghanistan", code: "93", flag: "🇦🇫" },
@@ -414,8 +415,9 @@ export default function WhatsAppChatPage() {
               </p>
             </div>
           </div>
-          <div className="mt-4">
-            <ShareButtons
+          <div className="mt-4 flex items-center gap-3 flex-wrap">
+            {tool && <FavoriteButton toolId={tool.id} />}
+          <ShareButtons
               title="WhatsApp Chat Link Generator"
               text="Check out this free WhatsApp chat link generator tool!"
             />

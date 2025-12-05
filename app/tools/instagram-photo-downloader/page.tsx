@@ -9,6 +9,7 @@ import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { getSEOMetadata } from "@/lib/seo-metadata";
 import ShareButtons from "@/components/ShareButtons";
+import { FavoriteButton } from "@/components/FavoriteButton";
 import { ToolComments } from "@/components/ToolComments";
 
 export default function InstagramPhotoDownloaderPage() {
@@ -69,7 +70,8 @@ export default function InstagramPhotoDownloaderPage() {
             <p className="text-slate-600">Download photos and videos from Instagram posts. Free Instagram downloader tool. Save Instagram content for offline viewing. Note: Requires backend implementation.</p>
           </div>
         </div>
-        <div className="mt-4">
+        <div className="mt-4 flex items-center gap-3 flex-wrap">
+          {tool && <FavoriteButton toolId={tool.id} />}
           <ShareButtons
             title="Instagram Photo Downloader"
             text="Check out this free Instagram photo downloader tool!"

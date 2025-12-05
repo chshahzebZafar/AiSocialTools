@@ -10,6 +10,7 @@ import ToolFAQ from "@/components/ToolFAQ";
 import { ToolComments } from "@/components/ToolComments";
 import { getSEOMetadata } from "@/lib/seo-metadata";
 import ShareButtons from "@/components/ShareButtons";
+import { FavoriteButton } from "@/components/FavoriteButton";
 
 export default function TweetGeneratorPage() {
   const tool = getToolById("tweet-generator");
@@ -110,7 +111,8 @@ export default function TweetGeneratorPage() {
               </p>
             </div>
           </div>
-          <div className="mt-4">
+          <div className="mt-4 flex items-center gap-3 flex-wrap">
+            <FavoriteButton toolId="tweet-generator" />
             <ShareButtons
               title="Free AI Tweet Generator"
               text="Check out this free AI tweet generator tool!"

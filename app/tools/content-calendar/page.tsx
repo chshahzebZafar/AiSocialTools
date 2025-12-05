@@ -10,6 +10,7 @@ import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { ToolComments } from "@/components/ToolComments";
 import { getSEOMetadata } from "@/lib/seo-metadata";
 import ShareButtons from "@/components/ShareButtons";
+import { FavoriteButton } from "@/components/FavoriteButton";
 
 interface CalendarEvent {
   id: string;
@@ -89,7 +90,8 @@ export default function ContentCalendarPage() {
             <p className="text-slate-600">Plan and schedule your social media content with our free content calendar. Organize posts, track publishing dates, and manage multiple platforms. Boost your social media strategy.</p>
           </div>
         </div>
-        <div className="mt-4">
+        <div className="mt-4 flex items-center gap-3 flex-wrap">
+          {tool && <FavoriteButton toolId={tool.id} />}
           <ShareButtons
             title="Social Media Content Calendar"
             text="Check out this free content calendar tool!"

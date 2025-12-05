@@ -9,6 +9,7 @@ import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { ToolComments } from "@/components/ToolComments";
 import ShareButtons from "@/components/ShareButtons";
+import { FavoriteButton } from "@/components/FavoriteButton";
 
 export default function FacebookThumbnailPage() {
   const tool = getToolById("facebook-thumbnail");
@@ -106,8 +107,9 @@ export default function FacebookThumbnailPage() {
               <p className="text-slate-600">Download and save any Facebook video thumbnail of the highest possible quality</p>
             </div>
           </div>
-          <div className="mt-4">
-            <ShareButtons
+          <div className="mt-4 flex items-center gap-3 flex-wrap">
+            {tool && <FavoriteButton toolId={tool.id} />}
+          <ShareButtons
               title="Facebook Thumbnail Grabber"
               text="Check out this free Facebook thumbnail grabber tool!"
             />

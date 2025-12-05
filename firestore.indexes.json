@@ -37,6 +37,16 @@
           "order": "DESCENDING"
         }
       ]
+    },
+    {
+      "collectionGroup": "favorites",
+      "queryScope": "COLLECTION_GROUP",
+      "fields": [
+        {
+          "fieldPath": "addedAt",
+          "order": "DESCENDING"
+        }
+      ]
     }
   ],
   "fieldOverrides": []

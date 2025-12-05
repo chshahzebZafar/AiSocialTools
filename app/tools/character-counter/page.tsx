@@ -9,6 +9,7 @@ import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { getSEOMetadata } from "@/lib/seo-metadata";
 import ShareButtons from "@/components/ShareButtons";
+import { FavoriteButton } from "@/components/FavoriteButton";
 import { ToolComments } from "@/components/ToolComments";
 
 interface PlatformLimit {
@@ -66,7 +67,8 @@ export default function CharacterCounterPage() {
             <p className="text-slate-600">Count characters for Twitter, Instagram, Facebook, LinkedIn, and more. Free social media character counter with platform limits. Track character count in real-time.</p>
           </div>
         </div>
-        <div className="mt-4">
+        <div className="mt-4 flex items-center gap-3 flex-wrap">
+          {tool && <FavoriteButton toolId={tool.id} />}
           <ShareButtons
             title="Social Media Character Counter"
             text="Check out this free character counter tool!"

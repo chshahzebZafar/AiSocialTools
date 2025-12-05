@@ -48,6 +48,26 @@ service cloud.firestore {
       allow update, delete: if request.auth != null && 
                                request.auth.uid == resource.data.userId;
     }
+
+    // Favorites collection - users can manage their own favorites
+    // CollectionGroup query support for favorites
+    match /{path=**}/favorites/{toolId} {
+      // Allow read for collection group queries
+      // The specific path rule below will enforce user ownership for writes
+      allow read: if request.auth != null;
+    }
+    
+    // Specific path rule for favorites write operations
+    match /users/{userId}/favorites/{toolId} {
+      // Users can only read their own favorites
+      allow read: if request.auth != null && request.auth.uid == userId;
+      // Users can only create favorites for themselves
+      allow create: if request.auth != null && request.auth.uid == userId;
+      // Users can only delete their own favorites
+      allow delete: if request.auth != null && request.auth.uid == userId;
+      // Allow updates in case setDoc is used on existing document
+      allow update: if request.auth != null && request.auth.uid == userId;
+    }
   }
 }
 

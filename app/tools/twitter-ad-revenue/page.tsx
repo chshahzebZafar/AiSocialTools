@@ -10,6 +10,7 @@ import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { ToolComments } from "@/components/ToolComments";
 import { getSEOMetadata } from "@/lib/seo-metadata";
 import ShareButtons from "@/components/ShareButtons";
+import { FavoriteButton } from "@/components/FavoriteButton";
 
 export default function TwitterAdRevenuePage() {
   const tool = getToolById("twitter-ad-revenue");
@@ -59,7 +60,8 @@ export default function TwitterAdRevenuePage() {
             <p className="text-slate-600">Calculate potential Twitter ad revenue based on followers, engagement, and CPM. Free Twitter ad revenue calculator. Estimate earnings from Twitter monetization.</p>
           </div>
         </div>
-        <div className="mt-4">
+        <div className="mt-4 flex items-center gap-3 flex-wrap">
+          {tool && <FavoriteButton toolId={tool.id} />}
           <ShareButtons
             title="Twitter Ad Revenue Calculator"
             text="Check out this free Twitter ad revenue calculator tool!"

@@ -1,10 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Sidebar from "./Sidebar";
-import Footer from "./Footer";
-import Header from "./Header";
-import Breadcrumbs from "./Breadcrumbs";
+import Sidebar from "@/components/Sidebar";
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import { X } from "lucide-react";
 
 export default function ToolLayout({

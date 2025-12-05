@@ -10,6 +10,7 @@ import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { ToolComments } from "@/components/ToolComments";
 import { getSEOMetadata } from "@/lib/seo-metadata";
 import ShareButtons from "@/components/ShareButtons";
+import { FavoriteButton } from "@/components/FavoriteButton";
 
 export default function OpenGraphGeneratorPage() {
   const tool = getToolById("open-graph-generator");
@@ -78,7 +79,8 @@ export default function OpenGraphGeneratorPage() {
             <p className="text-slate-600">Generate Open Graph meta tags for Facebook, Twitter, and LinkedIn. Free OG tags generator with preview. Improve social media sharing and SEO. Create perfect social media cards.</p>
           </div>
         </div>
-        <div className="mt-4">
+        <div className="mt-4 flex items-center gap-3 flex-wrap">
+          {tool && <FavoriteButton toolId={tool.id} />}
           <ShareButtons
             title="Open Graph Meta Tags Generator"
             text="Check out this free Open Graph meta tags generator tool!"

@@ -10,6 +10,7 @@ import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { ToolComments } from "@/components/ToolComments";
 import { getSEOMetadata } from "@/lib/seo-metadata";
 import ShareButtons from "@/components/ShareButtons";
+import { FavoriteButton } from "@/components/FavoriteButton";
 
 export default function ColorPalettePage() {
   const tool = getToolById("color-palette");
@@ -91,7 +92,8 @@ export default function ColorPalettePage() {
             <p className="text-slate-600">Extract color palettes from images for branding and design. Free color palette generator. Get dominant colors from photos. Perfect for social media branding.</p>
           </div>
         </div>
-        <div className="mt-4">
+        <div className="mt-4 flex items-center gap-3 flex-wrap">
+          {tool && <FavoriteButton toolId={tool.id} />}
           <ShareButtons
             title="Color Palette Generator"
             text="Check out this free color palette generator tool!"

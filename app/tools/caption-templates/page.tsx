@@ -10,6 +10,7 @@ import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { ToolComments } from "@/components/ToolComments";
 import { getSEOMetadata } from "@/lib/seo-metadata";
 import ShareButtons from "@/components/ShareButtons";
+import { FavoriteButton } from "@/components/FavoriteButton";
 
 interface Template {
   name: string;
@@ -107,7 +108,8 @@ export default function CaptionTemplatesPage() {
             <p className="text-slate-600">Browse and use pre-made Instagram caption templates. Free social media caption templates for posts, stories, and reels. Copy, customize, and use instantly.</p>
           </div>
         </div>
-        <div className="mt-4">
+        <div className="mt-4 flex items-center gap-3 flex-wrap">
+          {tool && <FavoriteButton toolId={tool.id} />}
           <ShareButtons
             title="Instagram Caption Templates"
             text="Check out these free Instagram caption templates!"
