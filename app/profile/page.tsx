@@ -3,7 +3,7 @@
 import { useAuth } from "@/components/AuthProvider";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import {
@@ -36,8 +36,8 @@ interface BugReportDoc {
 }
 
 export default function ProfilePage() {
+  const router = useRouter();
   const { user, loading, logout } = useAuth();
-  const [shouldRedirect, setShouldRedirect] = useState(false);
   const [activeTab, setActiveTab] = useState<TabKey>("overview");
   const [comments, setComments] = useState<CommentDoc[]>([]);
   const [bugs, setBugs] = useState<BugReportDoc[]>([]);
@@ -46,11 +46,12 @@ export default function ProfilePage() {
   const [commentsError, setCommentsError] = useState<string | null>(null);
   const [bugsError, setBugsError] = useState<string | null>(null);
 
+  // Handle redirect in useEffect to avoid calling it during render
   useEffect(() => {
     if (!loading && !user) {
-      setShouldRedirect(true);
+      router.push("/");
     }
-  }, [loading, user]);
+  }, [loading, user, router]);
 
   useEffect(() => {
     if (!user || !isFirebaseReady || !firestore) {
@@ -176,10 +177,6 @@ export default function ProfilePage() {
   // Hooks must be called before any conditional returns
   const recentComments = useMemo(() => comments.slice(0, 10), [comments]);
   const recentBugs = useMemo(() => bugs.slice(0, 10), [bugs]);
-
-  if (shouldRedirect) {
-    redirect("/");
-  }
 
   if (loading || !user) {
     return (
@@ -519,7 +516,10 @@ export default function ProfilePage() {
             </Link>
             <button
               type="button"
-              onClick={logout}
+              onClick={async () => {
+                await logout();
+                router.push("/");
+              }}
               className="inline-flex items-center px-4 py-2 rounded-lg bg-red-600 text-white text-sm font-medium hover:bg-red-700 transition-colors"
             >
               Logout
