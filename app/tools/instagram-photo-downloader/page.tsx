@@ -9,6 +9,7 @@ import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { getSEOMetadata } from "@/lib/seo-metadata";
 import ShareButtons from "@/components/ShareButtons";
+import { ToolComments } from "@/components/ToolComments";
 
 export default function InstagramPhotoDownloaderPage() {
   const tool = getToolById("instagram-photo-downloader");
@@ -155,6 +156,7 @@ export default function InstagramPhotoDownloaderPage() {
         </ul>
       </div>
 
+      {tool && <ToolComments toolId={tool.id} />}
       {tool && <ToolFAQ tool={tool} />}
       {tool && <RelatedTools currentTool={tool} />}
       {tool && <ToolDetailsSection tool={tool} />}

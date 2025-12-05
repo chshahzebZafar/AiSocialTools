@@ -8,6 +8,7 @@ import ToolSEO from "@/components/ToolSEO";
 import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
+import { ToolComments } from "@/components/ToolComments";
 import ShareButtons from "@/components/ShareButtons";
 
 const countryCodes = [
@@ -711,6 +712,7 @@ export default function WhatsAppChatPage() {
           </div>
         </div>
 
+        {tool && <ToolComments toolId={tool.id} />}
         {tool && <ToolFAQ tool={tool} />}
         {tool && <RelatedTools currentTool={tool} />}
         {tool && <ToolDetailsSection tool={tool} />}

@@ -57,14 +57,28 @@ export function AuthButtons() {
         onClick={() => router.push("/profile")}
         className="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-200 hover:underline"
       >
-        {user.photoURL && (
+        {user.photoURL ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={user.photoURL}
             alt={user.displayName || "User avatar"}
-            className="w-6 h-6 rounded-full"
+            className="w-6 h-6 rounded-full object-cover border border-slate-200 dark:border-slate-700"
+            onError={(e) => {
+              const img = e.currentTarget;
+              img.style.display = "none";
+              const fallback = img.nextElementSibling as HTMLElement;
+              if (fallback) {
+                fallback.style.display = "flex";
+              }
+            }}
           />
-        )}
+        ) : null}
+        <div
+          className="w-6 h-6 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 dark:from-blue-600 dark:to-purple-700 flex items-center justify-center text-xs font-semibold text-white shadow-sm"
+          style={{ display: user.photoURL ? "none" : "flex" }}
+        >
+          {(user.displayName || user.email || "U").charAt(0).toUpperCase()}
+        </div>
         <span className="font-medium">
           {user.displayName || user.email || "Profile"}
         </span>

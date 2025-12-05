@@ -7,6 +7,7 @@ import ToolSEO from "@/components/ToolSEO";
 import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
+import { ToolComments } from "@/components/ToolComments";
 import ShareButtons from "@/components/ShareButtons";
 
 export default function FacebookThumbnailPage() {
@@ -262,6 +263,7 @@ export default function FacebookThumbnailPage() {
           </div>
         </div>
 
+        {tool && <ToolComments toolId={tool.id} />}
         {tool && <ToolFAQ tool={tool} />}
         {tool && <RelatedTools currentTool={tool} />}
         {tool && <ToolDetailsSection tool={tool} />}

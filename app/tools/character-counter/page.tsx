@@ -9,6 +9,7 @@ import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { getSEOMetadata } from "@/lib/seo-metadata";
 import ShareButtons from "@/components/ShareButtons";
+import { ToolComments } from "@/components/ToolComments";
 
 interface PlatformLimit {
   name: string;
@@ -162,6 +163,7 @@ export default function CharacterCounterPage() {
         </div>
       </div>
 
+      {tool && <ToolComments toolId={tool.id} />}
       {tool && <ToolFAQ tool={tool} />}
       {tool && <RelatedTools currentTool={tool} />}
       {tool && <ToolDetailsSection tool={tool} />}

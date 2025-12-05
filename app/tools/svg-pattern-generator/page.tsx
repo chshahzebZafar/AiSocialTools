@@ -10,6 +10,7 @@ import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { getSEOMetadata } from "@/lib/seo-metadata";
 import ShareButtons from "@/components/ShareButtons";
+import { ToolComments } from "@/components/ToolComments";
 import PatternPreview from "@/components/PatternPreview";
 import PatternControls from "@/components/PatternControls";
 import { PatternType, PatternConfig, GradientConfig, GradientType } from "@/lib/patterns";
@@ -275,9 +276,10 @@ export default function SVGPatternGeneratorPage() {
         {/* Tool Details */}
         {tool && (
           <>
-            <ToolDetailsSection tool={tool} />
+            <ToolComments toolId={tool.id} />
             <ToolFAQ tool={tool} />
             <RelatedTools currentTool={tool} />
+            <ToolDetailsSection tool={tool} />
           </>
         )}
       </div>

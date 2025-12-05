@@ -244,10 +244,10 @@ export default function HashtagGeneratorPage() {
         </ul>
       </div>
 
+      {tool && <ToolComments toolId={tool.id} />}
       {tool && <ToolFAQ tool={tool} />}
       {tool && <RelatedTools currentTool={tool} />}
       {tool && <ToolDetailsSection tool={tool} />}
-      {tool && <ToolComments toolId={tool.id} />}
     </div>
     </>
   );

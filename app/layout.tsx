@@ -121,9 +121,9 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <AuthProvider>
-          <ThemeProvider>
-            {children}
-          </ThemeProvider>
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
         </AuthProvider>
       </body>
     </html>
