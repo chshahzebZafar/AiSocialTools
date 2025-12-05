@@ -8,7 +8,7 @@ interface GoogleAnalyticsProps {
 
 export default function GoogleAnalytics({ gaId }: GoogleAnalyticsProps) {
   // Use provided ID or fallback to environment variable or default
-  const trackingId = gaId || process.env.NEXT_PUBLIC_GA_ID || "G-N8JJCJ62N7";
+  const trackingId = gaId || process.env.NEXT_PUBLIC_GA_ID || "G-KPXLX0R9XK";
   
   if (!trackingId || trackingId === "G-XXXXXXXXXX") {
     return null;
