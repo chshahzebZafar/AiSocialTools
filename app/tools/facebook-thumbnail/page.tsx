@@ -155,8 +155,9 @@ export default function FacebookThumbnailPage() {
             <div className="mb-4">
               <img
                 src={thumbnailUrl}
-                alt="Facebook Thumbnail"
+                alt="Facebook video thumbnail preview - Download thumbnail image in high quality"
                 className="w-full rounded-lg border border-slate-200"
+                loading="lazy"
                 onError={() => {
                   setError("Failed to load thumbnail.");
                   setThumbnailUrl("");

@@ -1,9 +1,11 @@
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import BlogSlider from "@/components/BlogSlider";
 import { socialTools } from "@/lib/social-tools";
 import type { Metadata } from "next";
 import { getOGImageUrl } from "@/lib/og-image-generator";
+import { getSiteLinksSearchBoxSchema, getAuthorSchema } from "@/lib/enhanced-schemas";
 import { 
   Sparkles, 
   Zap, 
@@ -23,18 +25,29 @@ import {
 import Image from "next/image";
 
 export const metadata: Metadata = {
-  title: "Free Social Media Tools - Create & Manage Content",
-  description: "Powerful free social media tools for content creation, management, and optimization. Generate tweets, create Instagram posts, download thumbnails, and more. 100% free, no signup required.",
+  title: "Best Free Social Media Tools Online - No Signup Required 2025",
+  description: "Discover the best free social media tools online for 2025. Generate tweets, create Instagram posts, download YouTube thumbnails, generate hashtags, and more. 100% free online tools with no signup required. Perfect for content creators, marketers, and social media managers.",
   keywords: [
-    "social media tools",
     "free social media tools",
-    "social media management",
+    "social media tools online",
+    "best social media tools",
+    "free online tools",
+    "social media management tools",
     "content creation tools",
-    "tweet generator",
-    "instagram tools",
-    "youtube thumbnail downloader",
-    "hashtag generator",
-    "social media analytics"
+    "tweet generator free",
+    "instagram tools online",
+    "youtube thumbnail downloader free",
+    "hashtag generator online",
+    "social media analytics tools",
+    "free tools no signup",
+    "online social media tools",
+    "social media content generator",
+    "free instagram tools",
+    "twitter tools free",
+    "social media toolkit",
+    "content creator tools",
+    "social media marketing tools",
+    "free tools for creators"
   ],
   openGraph: {
     title: "Free Social Media Tools - Create & Manage Content",
@@ -103,28 +116,25 @@ export default function Home() {
     },
   };
 
-  // WebSite schema with search action
-  const websiteSchema = {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: "Social Media Tools",
-    url: "https://socialmediatools.netlify.app",
-    description: "Free social media tools for content creation, management, and optimization",
-    potentialAction: {
-      "@type": "SearchAction",
-      target: {
-        "@type": "EntryPoint",
-        urlTemplate: "https://socialmediatools.netlify.app/tools?q={search_term_string}",
-      },
-      "query-input": "required name=search_term_string",
-    },
-  };
+  // WebSite schema with search action (Enhanced with SiteLinks SearchBox)
+  const websiteSchema = getSiteLinksSearchBoxSchema();
 
-  // FAQ schema for homepage
+  // Author Schema
+  const authorSchema = getAuthorSchema();
+
+  // FAQ schema for homepage - optimized for voice search and question-based queries
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     mainEntity: [
+      {
+        "@type": "Question",
+        name: "What are the best free social media tools online?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "The best free social media tools online include tweet generators, Instagram post generators, YouTube thumbnail downloaders, hashtag generators, bio generators, and content calendars. All our tools are 100% free with no signup required, making them perfect for content creators, marketers, and social media managers."
+        }
+      },
       {
         "@type": "Question",
         name: "Are these social media tools really free?",
@@ -138,7 +148,15 @@ export default function Home() {
         name: "Do I need to create an account to use these tools?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "No, you don't need to create an account or sign up to use any of our tools. All tools work directly in your browser without requiring any registration or login."
+          text: "No, you don't need to create an account or sign up to use any of our tools. All tools work directly in your browser without requiring any registration or login. This makes them the best free social media tools online with no signup required."
+        }
+      },
+      {
+        "@type": "Question",
+        name: "What are the best free online tools for social media in 2025?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "The best free online tools for social media in 2025 include AI tweet generators, Instagram caption generators, YouTube thumbnail downloaders, hashtag generators, engagement calculators, and content calendars. Our collection features over 30 free tools that work instantly with no signup required."
         }
       },
       {
@@ -147,6 +165,14 @@ export default function Home() {
         acceptedAnswer: {
           "@type": "Answer",
           text: "We offer a comprehensive suite of social media tools including content generators (tweets, captions, hashtags, bios), thumbnail downloaders (YouTube, Vimeo, Facebook), analytics calculators, image tools (resizer, filters, QR codes), and many more specialized tools for social media management."
+        }
+      },
+      {
+        "@type": "Question",
+        name: "How do I use free social media tools online?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Using our free social media tools online is simple - just visit any tool page, start using it immediately without signup, and get instant results. All tools work directly in your browser with no installation or registration required."
         }
       },
       {
@@ -172,6 +198,14 @@ export default function Home() {
           "@type": "Answer",
           text: "Our tools support all major social media platforms including Instagram, Twitter/X, LinkedIn, TikTok, Facebook, YouTube, and more. Many tools are platform-specific, while others work across multiple platforms."
         }
+      },
+      {
+        "@type": "Question",
+        name: "What is the best free tweet generator online?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Our free AI tweet generator is one of the best free tweet generators online. It creates engaging tweets instantly, optimizes character count, and helps boost engagement - all without requiring any signup."
+        }
       }
     ]
   };
@@ -190,6 +224,10 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(authorSchema) }}
+      />
       <Header />
       
       <main className="flex-1">
@@ -202,14 +240,13 @@ export default function Home() {
                 <span>100% Free • No Signup Required</span>
               </div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-slate-100 mb-6">
-                Powerful Social Media Tools
+                Best Free Social Media Tools Online
                 <span className="block bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
-                  For Everyone
+                  No Signup Required - 2025
                 </span>
               </h1>
               <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto mb-8 leading-relaxed">
-                Create, manage, and optimize your social media content with our comprehensive suite of free tools. 
-                No credit card, no signup, just powerful tools at your fingertips.
+                Discover the best free social media tools online for content creation, management, and optimization. Generate tweets, create Instagram posts, download YouTube thumbnails, generate hashtags, and more. All tools are 100% free with no signup required - perfect for content creators, marketers, and social media managers.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
@@ -259,10 +296,10 @@ export default function Home() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-slate-100 mb-4">
-                Why Choose Our Tools?
+                Why Choose Our Free Social Media Tools?
               </h2>
               <p className="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
-                Everything you need to succeed on social media, completely free
+                Everything you need to succeed on social media - the best free online tools for content creators, marketers, and social media managers. All tools work instantly with no signup required.
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
@@ -324,15 +361,18 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Blog Section */}
+        <BlogSlider />
+
         {/* Featured Tools Section */}
         <section className="py-12 sm:py-16 lg:py-20 bg-white dark:bg-slate-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-slate-100 mb-4">
-                Explore Our Tools
+                Explore Our Free Social Media Tools
               </h2>
               <p className="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
-                Discover powerful tools to enhance your social media presence
+                Discover powerful free online tools to enhance your social media presence. Generate content, download thumbnails, create captions, and optimize your social media strategy - all for free with no signup required.
               </p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-8">
@@ -353,7 +393,12 @@ export default function Home() {
                           <h3 className="font-semibold text-sm sm:text-base text-slate-900 dark:text-slate-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                             {tool.name}
                           </h3>
-                          <ArrowRight className="w-4 h-4 text-slate-400 dark:text-slate-500 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors opacity-0 group-hover:opacity-100" />
+                          {tool.isNew && (
+                            <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-gradient-to-r from-green-500 to-emerald-600 text-white animate-pulse">
+                              New
+                            </span>
+                          )}
+                          <ArrowRight className="w-4 h-4 text-slate-400 dark:text-slate-500 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors opacity-0 group-hover:opacity-100 ml-auto" />
                         </div>
                         <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 line-clamp-2">{tool.description}</p>
                         <span className="inline-block mt-2 text-xs px-2 py-1 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded">
@@ -381,10 +426,10 @@ export default function Home() {
         <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-700 dark:to-purple-700">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-              Ready to Boost Your Social Media?
+              Ready to Boost Your Social Media Presence?
             </h2>
             <p className="text-lg sm:text-xl text-blue-100 dark:text-blue-200 mb-8">
-              Start using our free tools today. No signup, no credit card, just powerful tools at your fingertips.
+              Start using the best free social media tools online today. No signup required, no credit card needed - just powerful tools at your fingertips. Perfect for content creators, marketers, and social media managers.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link

@@ -122,20 +122,22 @@ export default function HashtagGeneratorPage() {
             </div>
             <div className="flex-1">
               <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100">
-                Free Hashtag Generator - Generate Trending Hashtags for Instagram, Twitter
+                Best Free Hashtag Generator Online - Boost Your Social Media Reach 2025
               </h1>
-              <p className="text-slate-600 dark:text-slate-300">
-                Generate relevant and trending hashtags for Instagram, Twitter, TikTok, and LinkedIn. 
-                Free hashtag generator with platform-specific suggestions. Boost your social media reach instantly.
-                {" "}
+              <p className="text-slate-600 dark:text-slate-300 text-lg leading-relaxed">
+                Hashtags are the secret weapon of social media success, but finding the right ones shouldn't be a guessing game. 
+                Our intelligent hashtag generator analyzes your content and delivers platform-optimized hashtags that actually 
+                work. Get discovered by your target audience on Instagram, Twitter, TikTok, and LinkedIn—no more posting into 
+                the void. Our tool suggests trending, niche, and branded hashtags tailored to your content, helping you reach 
+                thousands more people with every post.{" "}
                 <Link href="/tools/tweet-generator" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">
-                  Pair with our Tweet Generator
+                  Create compelling tweets
                 </Link>
                 {" "}or{" "}
                 <Link href="/tools/content-ideas" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">
-                  Content Ideas Generator
+                  generate fresh content ideas
                 </Link>
-                {" "}for complete social media content creation.
+                {" "}to complete your social media toolkit. Start growing your audience today—completely free.
               </p>
             </div>
           </div>
@@ -235,14 +237,34 @@ export default function HashtagGeneratorPage() {
         </div>
       )}
 
-      <div className="mt-8 bg-purple-50 dark:bg-purple-900/20 rounded-xl p-6 border border-purple-200 dark:border-purple-800">
-        <h2 className="font-semibold text-purple-900 dark:text-purple-200 mb-2 text-lg">💡 Hashtag Tips</h2>
-        <ul className="text-sm text-purple-800 dark:text-purple-300 space-y-1">
-          <li>• Instagram: Use 5-10 relevant hashtags for best reach</li>
-          <li>• Twitter: Limit to 1-2 hashtags per tweet</li>
-          <li>• Mix popular and niche hashtags for better visibility</li>
-          <li>• Research trending hashtags in your niche</li>
-          <li>• Avoid banned or spam hashtags</li>
+      <div className="mt-8 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl p-6 border border-purple-200 dark:border-purple-800">
+        <h2 className="font-semibold text-purple-900 dark:text-purple-200 mb-3 text-lg flex items-center gap-2">
+          <span>💡</span> Hashtag Strategy That Actually Works
+        </h2>
+        <p className="text-sm text-purple-800 dark:text-purple-300 mb-3">
+          Not all hashtags are created equal. Here's how to use them strategically:
+        </p>
+        <ul className="text-sm text-purple-800 dark:text-purple-300 space-y-2">
+          <li className="flex items-start gap-2">
+            <span className="font-bold">•</span>
+            <span><strong>Instagram:</strong> Use 5-10 hashtags, mixing popular (1M+ posts) with niche (10K-100K posts) for maximum discoverability.</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="font-bold">•</span>
+            <span><strong>Twitter/X:</strong> Keep it to 1-2 hashtags max. Too many hashtags can actually hurt your engagement rate.</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="font-bold">•</span>
+            <span><strong>The 70-20-10 rule:</strong> 70% niche hashtags, 20% moderately popular, 10% trending. This balance helps you reach the right audience.</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="font-bold">•</span>
+            <span><strong>Research before you post:</strong> Check if hashtags are banned or associated with spam. Our tool helps you avoid these pitfalls.</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="font-bold">•</span>
+            <span><strong>Create branded hashtags:</strong> Build your own community with a unique hashtag. Track it to see how your audience engages.</span>
+          </li>
         </ul>
       </div>
 

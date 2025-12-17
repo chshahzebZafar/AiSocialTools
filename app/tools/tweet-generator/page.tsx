@@ -94,20 +94,21 @@ export default function TweetGeneratorPage() {
             </div>
             <div className="flex-1">
               <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100">
-                Free AI Tweet Generator - Create Engaging Twitter Posts Online
+                Best Free AI Tweet Generator Online - Create Viral Twitter Content 2025
               </h1>
-              <p className="text-slate-600 dark:text-slate-300">
-                Generate creative and engaging tweets instantly with our free AI-powered tweet generator. 
-                Create viral Twitter content, optimize character count, and boost engagement. No signup required.
-                {" "}
+              <p className="text-slate-600 dark:text-slate-300 text-lg leading-relaxed">
+                Stop struggling with writer's block. Our free AI-powered tweet generator transforms your ideas into 
+                engaging, shareable Twitter content in seconds. Whether you're building your personal brand, promoting 
+                your business, or just want to go viral, we help you craft tweets that capture attention and drive 
+                engagement—all without spending hours brainstorming.{" "}
                 <Link href="/tools/hashtag-generator" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">
-                  Add trending hashtags
+                  Boost your reach with trending hashtags
                 </Link>
-                {" "}with our Hashtag Generator, or{" "}
+                {" "}or{" "}
                 <Link href="/tools/content-ideas" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">
-                  get content ideas
+                  discover fresh content ideas
                 </Link>
-                {" "}to keep your Twitter feed fresh and engaging.
+                {" "}to keep your Twitter strategy ahead of the curve. No signup, no credit card, just powerful AI at your fingertips.
               </p>
             </div>
           </div>
@@ -187,14 +188,34 @@ export default function TweetGeneratorPage() {
         </div>
       )}
 
-      <div className="mt-8 bg-blue-50 rounded-xl p-6 border border-blue-200">
-        <h2 className="font-semibold text-blue-900 mb-2 text-lg">💡 Tips for Better Tweets</h2>
-        <ul className="text-sm text-blue-800 space-y-1">
-          <li>• Keep it concise and engaging</li>
-          <li>• Use relevant hashtags (1-3 max)</li>
-          <li>• Include a call-to-action</li>
-          <li>• Add emojis for visual appeal</li>
-          <li>• Ask questions to encourage engagement</li>
+      <div className="mt-8 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-6 border border-blue-200 dark:border-blue-800">
+        <h2 className="font-semibold text-blue-900 dark:text-blue-200 mb-3 text-lg flex items-center gap-2">
+          <span>💡</span> Pro Tips for Tweets That Get Noticed
+        </h2>
+        <p className="text-sm text-blue-800 dark:text-blue-300 mb-3">
+          Want your tweets to stand out in the noise? Here's what works:
+        </p>
+        <ul className="text-sm text-blue-800 dark:text-blue-300 space-y-2">
+          <li className="flex items-start gap-2">
+            <span className="font-bold">•</span>
+            <span><strong>Hook them in the first 3 words:</strong> Your opening line determines if people keep reading. Make it count.</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="font-bold">•</span>
+            <span><strong>Use 1-2 strategic hashtags:</strong> Quality over quantity. Choose hashtags your audience actually follows.</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="font-bold">•</span>
+            <span><strong>End with a question or CTA:</strong> Give people a reason to engage. Ask for their thoughts or invite them to share.</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="font-bold">•</span>
+            <span><strong>Emojis are your friend:</strong> A well-placed emoji can increase engagement by 25%. Use them strategically, not excessively.</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="font-bold">•</span>
+            <span><strong>Timing matters:</strong> Post when your audience is most active. Use our Best Time Calculator to find your sweet spot.</span>
+          </li>
         </ul>
       </div>
 

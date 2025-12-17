@@ -211,7 +211,12 @@ export default function Sidebar({ onClose }: SidebarProps) {
                               }`}
                             >
                               <Icon className="w-4 h-4 flex-shrink-0" />
-                              <span className="text-sm truncate">{tool.name}</span>
+                              <span className="text-sm truncate flex-1">{tool.name}</span>
+                              {tool.isNew && (
+                                <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-medium bg-gradient-to-r from-green-500 to-emerald-600 text-white flex-shrink-0">
+                                  New
+                                </span>
+                              )}
                             </Link>
                           </li>
                         );
@@ -271,7 +276,12 @@ export default function Sidebar({ onClose }: SidebarProps) {
                             }`}
                           >
                             <Icon className="w-4 h-4 flex-shrink-0" />
-                            <span className="text-sm truncate">{tool.name}</span>
+                            <span className="text-sm truncate flex-1">{tool.name}</span>
+                            {tool.isNew && (
+                              <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-medium bg-gradient-to-r from-green-500 to-emerald-600 text-white flex-shrink-0">
+                                New
+                              </span>
+                            )}
                           </Link>
                         </li>
                       );

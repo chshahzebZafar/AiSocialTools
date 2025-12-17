@@ -59,10 +59,10 @@ export default function ToolsPage() {
         />
         <div className="text-center mb-8 sm:mb-12">
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 dark:text-slate-100 mb-3 sm:mb-4">
-            All Social Media Tools
+            All Free Social Media Tools - Complete Collection 2025
           </h1>
           <p className="text-base sm:text-lg lg:text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto px-4">
-            Browse our complete collection of free tools to help you create, manage, and optimize your social media content
+            Browse our complete collection of the best free social media tools online. Generate content, download thumbnails, create captions, and optimize your social media strategy - all tools are 100% free with no signup required.
           </p>
         </div>
 
@@ -109,6 +109,11 @@ export default function ToolsPage() {
                         <h3 className="font-semibold text-sm sm:text-base text-slate-900 dark:text-slate-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                           {tool.name}
                         </h3>
+                        {tool.isNew && (
+                          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-gradient-to-r from-green-500 to-emerald-600 text-white animate-pulse">
+                            New
+                          </span>
+                        )}
                       </div>
                       <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 line-clamp-2 mb-2">
                         {tool.description}

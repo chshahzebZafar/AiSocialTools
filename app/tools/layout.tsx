@@ -2,15 +2,21 @@ import type { Metadata } from "next";
 import { getOGImageUrl } from "@/lib/og-image-generator";
 
 export const metadata: Metadata = {
-  title: "All Social Media Tools - Free Online Tools Collection",
-  description: "Browse our complete collection of free social media tools. Generate content, download thumbnails, create captions, and more. All tools are 100% free with no signup required.",
+  title: "All Free Social Media Tools - Complete Online Tools Collection 2025",
+  description: "Browse our complete collection of the best free social media tools online. Generate tweets, create Instagram posts, download YouTube thumbnails, generate hashtags, create captions, and more. All tools are 100% free with no signup required - perfect for content creators and marketers.",
   keywords: [
-    "social media tools",
-    "free tools",
-    "all tools",
-    "tool collection",
-    "social media management tools",
-    "content creation tools"
+    "all social media tools",
+    "free social media tools list",
+    "complete tools collection",
+    "best free tools online",
+    "social media management tools free",
+    "content creation tools online",
+    "free online tools no signup",
+    "social media toolkit",
+    "all free tools",
+    "social media tools collection",
+    "free tools for creators",
+    "online social media tools"
   ],
   openGraph: {
     title: "All Social Media Tools - Free Online Tools Collection",

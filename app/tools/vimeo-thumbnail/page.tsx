@@ -134,8 +134,9 @@ export default function VimeoThumbnailPage() {
           <div className="mb-4">
             <img
               src={thumbnailUrl}
-              alt="Vimeo Thumbnail"
+              alt="Vimeo video thumbnail preview - Download in high quality"
               className="w-full rounded-lg border border-slate-200"
+              loading="lazy"
               onError={() => {
                 setError("Failed to load thumbnail.");
                 setThumbnailUrl("");

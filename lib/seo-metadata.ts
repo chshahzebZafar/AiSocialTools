@@ -13,26 +13,38 @@ interface SEOConfig {
 export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
   const seoConfigs: Record<string, SEOConfig> = {
     "tweet-generator": {
-      title: "Free AI Tweet Generator - Create Engaging Tweets",
-      description: "Generate creative and engaging tweets instantly with our free AI-powered tweet generator. Create viral Twitter content, optimize character count, and boost engagement. No signup required.",
+      title: "Best Free AI Tweet Generator Online - Create Engaging Tweets 2025",
+      description: "Generate creative and engaging tweets instantly with the best free AI-powered tweet generator online. Create viral Twitter content, optimize character count, and boost engagement. No signup required - perfect for content creators and marketers.",
       keywords: [
         "tweet generator",
         "twitter post generator",
         "AI tweet generator",
         "free tweet generator",
+        "best tweet generator",
         "twitter content generator",
         "generate tweets online",
         "tweet ideas generator",
-        "social media tweet generator"
+        "social media tweet generator",
+        "free twitter post generator",
+        "online tweet generator",
+        "tweet generator tool",
+        "create tweets online",
+        "twitter content creator",
+        "free AI tweet maker"
       ],
       longTailKeywords: [
         "how to generate engaging tweets",
-        "free AI tweet generator online",
-        "best tweet generator tool",
+        "best free AI tweet generator online",
+        "best tweet generator tool free",
         "create viral tweets automatically",
-        "twitter post generator free",
+        "twitter post generator free online",
         "generate tweet ideas for business",
-        "AI powered tweet creator"
+        "AI powered tweet creator free",
+        "how to create engaging twitter posts",
+        "free tweet generator no signup",
+        "best twitter content generator",
+        "online tweet generator free",
+        "what is the best tweet generator"
       ],
       structuredData: {
         "@context": "https://schema.org",
@@ -83,24 +95,35 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
       }
     },
     "hashtag-generator": {
-      title: "Free Hashtag Generator - Trending Hashtags",
-      description: "Generate relevant and trending hashtags for Instagram, Twitter, TikTok, and LinkedIn. Free hashtag generator with platform-specific suggestions. Boost your social media reach.",
+      title: "Best Free Hashtag Generator Online - Trending Hashtags 2025",
+      description: "Generate relevant and trending hashtags for Instagram, Twitter, TikTok, and LinkedIn with the best free hashtag generator online. Platform-specific suggestions to boost your social media reach. No signup required.",
       keywords: [
         "hashtag generator",
         "instagram hashtag generator",
         "twitter hashtag generator",
         "free hashtag generator",
+        "best hashtag generator",
         "hashtag finder",
         "trending hashtags generator",
-        "social media hashtags"
+        "social media hashtags",
+        "hashtag generator online",
+        "free hashtag tool",
+        "instagram hashtags generator",
+        "tiktok hashtag generator",
+        "hashtag generator free online"
       ],
       longTailKeywords: [
         "how to generate hashtags for instagram",
-        "best hashtag generator free online",
+        "best free hashtag generator online",
         "generate trending hashtags for twitter",
-        "instagram hashtag generator tool",
+        "instagram hashtag generator tool free",
         "find relevant hashtags for social media",
-        "hashtag generator for business"
+        "hashtag generator for business",
+        "how to find best hashtags for instagram",
+        "free hashtag generator no signup",
+        "best hashtag generator 2025",
+        "online hashtag generator free",
+        "what are the best hashtags for instagram"
       ],
       structuredData: {
         "@context": "https://schema.org",
@@ -110,24 +133,34 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
       }
     },
     "instagram-post-generator": {
-      title: "Instagram Post Generator - Create Engaging Captions",
-      description: "Generate engaging Instagram captions and posts with our free Instagram post generator. Create viral content with templates, hashtags, and emoji suggestions. Boost your Instagram engagement.",
+      title: "Best Free Instagram Post Generator Online - Create Engaging Captions 2025",
+      description: "Generate engaging Instagram captions and posts with the best free Instagram post generator online. Create viral content with templates, hashtags, and emoji suggestions. Boost your Instagram engagement - no signup required.",
       keywords: [
         "instagram post generator",
         "instagram caption generator",
         "instagram content generator",
         "free instagram post generator",
+        "best instagram post generator",
         "instagram caption maker",
         "instagram post ideas",
-        "social media caption generator"
+        "social media caption generator",
+        "instagram caption generator free",
+        "online instagram post generator",
+        "free instagram caption tool",
+        "instagram content creator"
       ],
       longTailKeywords: [
         "how to generate instagram posts",
-        "free instagram caption generator online",
+        "best free instagram caption generator online",
         "create engaging instagram captions",
         "instagram post generator with hashtags",
         "generate instagram content ideas",
-        "best instagram caption generator"
+        "best instagram caption generator free",
+        "how to create instagram captions",
+        "free instagram post generator no signup",
+        "best instagram post generator 2025",
+        "online instagram caption generator",
+        "what is the best instagram caption generator"
       ],
       structuredData: {
         "@context": "https://schema.org",
@@ -137,8 +170,8 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
       }
     },
     "youtube-thumbnail": {
-      title: "YouTube Thumbnail Grabber - Download Thumbnails Free",
-      description: "Extract and download YouTube video thumbnails in high quality. Free YouTube thumbnail grabber tool. Download thumbnails in max resolution, HQ, MQ, or SD quality instantly.",
+      title: "Best Free YouTube Thumbnail Downloader Online - Download HD Thumbnails 2025",
+      description: "Extract and download YouTube video thumbnails in high quality with the best free YouTube thumbnail downloader online. Download thumbnails in max resolution, HQ, MQ, or SD quality instantly. No signup required.",
       keywords: [
         "youtube thumbnail downloader",
         "youtube thumbnail grabber",
@@ -146,15 +179,25 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
         "youtube thumbnail extractor",
         "get youtube thumbnail",
         "youtube thumbnail download",
-        "free youtube thumbnail grabber"
+        "free youtube thumbnail grabber",
+        "best youtube thumbnail downloader",
+        "youtube thumbnail downloader free",
+        "online youtube thumbnail downloader",
+        "free youtube thumbnail tool",
+        "download youtube thumbnail hd"
       ],
       longTailKeywords: [
         "how to download youtube thumbnail",
-        "free youtube thumbnail downloader online",
+        "best free youtube thumbnail downloader online",
         "extract youtube video thumbnail",
         "download youtube thumbnail in high quality",
         "youtube thumbnail grabber tool free",
-        "get youtube thumbnail image"
+        "get youtube thumbnail image",
+        "how to get youtube thumbnail url",
+        "free youtube thumbnail downloader no signup",
+        "best youtube thumbnail downloader 2025",
+        "online youtube thumbnail extractor free",
+        "download youtube thumbnail hd quality"
       ],
       structuredData: {
         "@context": "https://schema.org",

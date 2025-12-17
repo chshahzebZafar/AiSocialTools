@@ -4,6 +4,28 @@ const nextConfig: NextConfig = {
   // Enable static optimization
   output: 'standalone',
   
+  // Turbopack configuration (Next.js 16+)
+  // Empty config to silence warning - webpack config is still needed for FFmpeg.wasm
+  turbopack: {},
+  
+  // Webpack configuration for FFmpeg.wasm
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+        path: false,
+        crypto: false,
+      };
+    }
+    // Ignore dynamic import warnings for FFmpeg
+    config.module = {
+      ...config.module,
+      unknownContextCritical: false,
+    };
+    return config;
+  },
+  
   // Image optimization
   images: {
     formats: ['image/avif', 'image/webp'],
@@ -25,16 +47,18 @@ const nextConfig: NextConfig = {
     ];
   },
 
-  // Headers for SEO and Security
+  // Headers for SEO, Security, and Performance
   async headers() {
     return [
       {
         source: '/:path*',
         headers: [
+          // DNS and Performance
           {
             key: 'X-DNS-Prefetch-Control',
             value: 'on'
           },
+          // Security Headers
           {
             key: 'X-Frame-Options',
             value: 'SAMEORIGIN'
@@ -44,16 +68,50 @@ const nextConfig: NextConfig = {
             value: 'nosniff'
           },
           {
+            key: 'X-XSS-Protection',
+            value: '1; mode=block'
+          },
+          {
             key: 'Referrer-Policy',
             value: 'origin-when-cross-origin'
           },
           {
             key: 'Permissions-Policy',
-            value: 'camera=(), microphone=(), geolocation=()'
+            value: 'camera=(), microphone=(), geolocation=(), interest-cohort=()'
           },
           {
             key: 'Strict-Transport-Security',
-            value: 'max-age=31536000; includeSubDomains'
+            value: 'max-age=31536000; includeSubDomains; preload'
+          },
+          // Content Security Policy
+          {
+            key: 'Content-Security-Policy',
+            value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com; frame-src 'self';"
+          },
+          // Cache Control for static assets
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable'
+          }
+        ],
+      },
+      // Different cache headers for HTML pages
+      {
+        source: '/:path*.html',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=3600, must-revalidate'
+          }
+        ],
+      },
+      // Cache headers for API routes
+      {
+        source: '/api/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'no-store, max-age=0'
           }
         ],
       },

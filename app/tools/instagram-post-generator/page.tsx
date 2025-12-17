@@ -62,8 +62,15 @@ export default function InstagramPostGeneratorPage() {
             <Instagram className="w-6 h-6 text-white" />
           </div>
           <div className="flex-1">
-            <h1 className="text-3xl font-bold text-slate-900">Instagram Post Generator - Create Engaging Instagram Captions Free</h1>
-            <p className="text-slate-600">Generate engaging Instagram captions and posts with our free Instagram post generator. Create viral content with templates, hashtags, and emoji suggestions. Boost your Instagram engagement.</p>
+            <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100">Best Free Instagram Post Generator Online - Create Viral Captions 2025</h1>
+            <p className="text-slate-600 dark:text-slate-300 text-lg leading-relaxed">
+              Your photos are stunning, but your captions are falling flat? We've got you covered. Our Instagram post generator 
+              transforms your ideas into captions that stop the scroll and drive engagement. Choose from proven templates, add 
+              trending hashtags, and sprinkle in the perfect emojis—all in one place. Whether you're an influencer building your 
+              brand, a business connecting with customers, or a creator sharing your passion, our tool helps you craft captions 
+              that get likes, comments, and shares. No more staring at a blank screen. Start creating Instagram content that 
+              converts—100% free, no signup required.
+            </p>
           </div>
         </div>
         <div className="mt-4 flex items-center gap-3 flex-wrap">

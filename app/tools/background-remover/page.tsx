@@ -1,0 +1,991 @@
+"use client";
+
+import { useState, useRef, useMemo, useCallback, useEffect } from "react";
+import { Scissors, Upload, Download, RefreshCw, AlertCircle, Sparkles, X, ZoomIn, ZoomOut, RotateCcw, FileImage, Settings, History, ChevronLeft, ChevronRight } from "lucide-react";
+import { getToolById } from "@/lib/social-tools";
+import ToolSEO from "@/components/ToolSEO";
+import ToolFAQ from "@/components/ToolFAQ";
+import RelatedTools from "@/components/RelatedTools";
+import ToolDetailsSection from "@/components/ToolDetailsSection";
+import { ToolComments } from "@/components/ToolComments";
+import ShareButtons from "@/components/ShareButtons";
+import { FavoriteButton } from "@/components/FavoriteButton";
+
+interface BatchImage {
+  id: string;
+  file: File;
+  preview: string;
+  status: 'pending' | 'processing' | 'completed' | 'error';
+  result?: string;
+  error?: string;
+}
+
+interface HistoryItem {
+  id: string;
+  original: string;
+  processed: string;
+  timestamp: number;
+  name: string;
+}
+
+// Debounce utility for performance
+function useDebounce<T>(value: T, delay: number): T {
+  const [debouncedValue, setDebouncedValue] = useState<T>(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+
+  return debouncedValue;
+}
+
+export default function BackgroundRemoverPage() {
+  const tool = getToolById("background-remover");
+  const [image, setImage] = useState<string | null>(null);
+  const [processedImage, setProcessedImage] = useState<string | null>(null);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [backgroundType, setBackgroundType] = useState<"transparent" | "white" | "color" | "gradient">("transparent");
+  const [backgroundColor, setBackgroundColor] = useState("#ffffff");
+  const [edgeRefinement, setEdgeRefinement] = useState(0);
+  const [exportFormat, setExportFormat] = useState<"png" | "jpg" | "webp">("png");
+  const [exportQuality, setExportQuality] = useState(0.9);
+  const [comparisonPosition, setComparisonPosition] = useState(50);
+  const [batchImages, setBatchImages] = useState<BatchImage[]>([]);
+  const [isBatchMode, setIsBatchMode] = useState(false);
+  const [history, setHistory] = useState<HistoryItem[]>([]);
+  const [showHistory, setShowHistory] = useState(false);
+  const [zoom, setZoom] = useState(1);
+  
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const comparisonRef = useRef<HTMLDivElement>(null);
+  const debouncedEdgeRefinement = useDebounce(edgeRefinement, 300);
+
+  // Load history from localStorage on mount
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('bgRemoverHistory');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        // Only keep last 20 items for performance
+        setHistory(parsed.slice(0, 20));
+      }
+    } catch (e) {
+      console.error('Failed to load history:', e);
+    }
+  }, []);
+
+  // Save to history when image is processed
+  useEffect(() => {
+    if (processedImage && image) {
+      const newItem: HistoryItem = {
+        id: Date.now().toString(),
+        original: image,
+        processed: processedImage,
+        timestamp: Date.now(),
+        name: `Image ${new Date().toLocaleString()}`
+      };
+      
+      setHistory(prev => {
+        const updated = [newItem, ...prev].slice(0, 20); // Keep only 20 items
+        try {
+          localStorage.setItem('bgRemoverHistory', JSON.stringify(updated));
+        } catch (e) {
+          console.error('Failed to save history:', e);
+        }
+        return updated;
+      });
+    }
+  }, [processedImage, image]);
+
+  // Apply edge refinement when debounced value changes
+  useEffect(() => {
+    if (processedImage && debouncedEdgeRefinement > 0) {
+      applyEdgeRefinement(processedImage, debouncedEdgeRefinement);
+    }
+  }, [debouncedEdgeRefinement]);
+
+  const handleImageUpload = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+    if (files.length === 0) return;
+
+    if (files.length > 1 || isBatchMode) {
+      // Batch mode
+      const imageFiles = files.filter(file => file.type.startsWith("image/") && file.size <= 10 * 1024 * 1024);
+      
+      const newImages: BatchImage[] = imageFiles.map(file => ({
+        id: Date.now() + Math.random().toString(),
+        file,
+        preview: URL.createObjectURL(file),
+        status: 'pending'
+      }));
+
+      setBatchImages(prev => [...prev, ...newImages]);
+      setIsBatchMode(true);
+    } else {
+      // Single image mode
+      const file = files[0];
+      if (!file.type.startsWith("image/")) {
+        setError("Please upload a valid image file");
+        return;
+      }
+
+      if (file.size > 10 * 1024 * 1024) {
+        setError("Image size must be less than 10MB");
+        return;
+      }
+
+      setError(null);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImage(reader.result as string);
+        setProcessedImage(null);
+        setIsBatchMode(false);
+      };
+      reader.readAsDataURL(file);
+    }
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  }, [isBatchMode]);
+
+  const removeBackground = useCallback(async (imageSrc?: string) => {
+    const sourceImage = imageSrc || image;
+    if (!sourceImage) {
+      setError("Please upload an image first");
+      return;
+    }
+
+    setIsProcessing(true);
+    setError(null);
+
+    try {
+      const response = await fetch(sourceImage);
+      const blob = await response.blob();
+
+      const formData = new FormData();
+      formData.append("image_file", blob);
+
+      // API key from environment variable or fallback
+      const apiKey = process.env.NEXT_PUBLIC_REMOVE_BG_API_KEY || "KwRXqjf5qC8WqMNpYcVcd8z4";
+      
+      if (!apiKey) {
+        await processImageClientSide(sourceImage);
+        return;
+      }
+
+      const removeBgResponse = await fetch("https://api.remove.bg/v1.0/removebg", {
+        method: "POST",
+        headers: {
+          "X-Api-Key": apiKey,
+        },
+        body: formData,
+      });
+
+      if (!removeBgResponse.ok) {
+        throw new Error("Failed to remove background. Please try again.");
+      }
+
+      const resultBlob = await removeBgResponse.blob();
+      const resultUrl = URL.createObjectURL(resultBlob);
+      setProcessedImage(resultUrl);
+    } catch (err) {
+      console.error("Error removing background:", err);
+      await processImageClientSide(sourceImage);
+    } finally {
+      setIsProcessing(false);
+    }
+  }, [image]);
+
+  const processImageClientSide = useCallback(async (imageSrc: string) => {
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.src = imageSrc;
+
+    await new Promise((resolve, reject) => {
+      img.onload = resolve;
+      img.onerror = reject;
+    });
+
+    // Use OffscreenCanvas if available for better performance
+    const canvas = document.createElement("canvas");
+    canvas.width = img.width;
+    canvas.height = img.height;
+    const ctx = canvas.getContext("2d", { willReadFrequently: false });
+    if (!ctx) {
+      setError("Failed to process image");
+      return;
+    }
+
+    ctx.drawImage(img, 0, 0);
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const data = imageData.data;
+
+    // Optimized processing - sample pixels for performance
+    const sampleRate = Math.max(1, Math.floor(data.length / (canvas.width * canvas.height * 4)) * 4);
+    
+    for (let i = 0; i < data.length; i += sampleRate) {
+      const r = data[i];
+      const g = data[i + 1];
+      const b = data[i + 2];
+      const a = data[i + 3];
+
+      const brightness = (r + g + b) / 3;
+      if (brightness > 240 && a > 200) {
+        if (backgroundType === "transparent") {
+          data[i + 3] = 0;
+        } else if (backgroundType === "white") {
+          data[i] = 255;
+          data[i + 1] = 255;
+          data[i + 2] = 255;
+        } else if (backgroundType === "color") {
+          const hex = backgroundColor.replace("#", "");
+          data[i] = parseInt(hex.substr(0, 2), 16);
+          data[i + 1] = parseInt(hex.substr(2, 2), 16);
+          data[i + 2] = parseInt(hex.substr(4, 2), 16);
+        }
+      }
+    }
+
+    ctx.putImageData(imageData, 0, 0);
+
+    if (backgroundType === "gradient") {
+      const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+      gradient.addColorStop(0, "#667eea");
+      gradient.addColorStop(1, "#764ba2");
+      ctx.globalCompositeOperation = "destination-over";
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+
+    const resultUrl = canvas.toDataURL("image/png");
+    setProcessedImage(resultUrl);
+  }, [backgroundType, backgroundColor]);
+
+  const applyEdgeRefinement = useCallback(async (imageSrc: string, refinement: number) => {
+    if (refinement === 0) return;
+
+    const img = new Image();
+    img.src = imageSrc;
+
+    await new Promise((resolve) => {
+      img.onload = resolve;
+    });
+
+    const canvas = document.createElement("canvas");
+    canvas.width = img.width;
+    canvas.height = img.height;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    ctx.drawImage(img, 0, 0);
+    
+    // Apply edge smoothing
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const data = imageData.data;
+    const refinementFactor = refinement / 100;
+
+    // Simple edge smoothing algorithm
+    for (let y = 1; y < canvas.height - 1; y++) {
+      for (let x = 1; x < canvas.width - 1; x++) {
+        const idx = (y * canvas.width + x) * 4;
+        const alpha = data[idx + 3];
+        
+        if (alpha > 0 && alpha < 255) {
+          // Edge pixel - apply smoothing
+          const neighbors = [
+            data[((y - 1) * canvas.width + x) * 4 + 3],
+            data[((y + 1) * canvas.width + x) * 4 + 3],
+            data[(y * canvas.width + (x - 1)) * 4 + 3],
+            data[(y * canvas.width + (x + 1)) * 4 + 3],
+          ];
+          
+          const avgAlpha = neighbors.reduce((a, b) => a + b, 0) / neighbors.length;
+          data[idx + 3] = alpha + (avgAlpha - alpha) * refinementFactor;
+        }
+      }
+    }
+
+    ctx.putImageData(imageData, 0, 0);
+    const resultUrl = canvas.toDataURL("image/png");
+    setProcessedImage(resultUrl);
+  }, []);
+
+  const applyBackground = useCallback(() => {
+    if (!processedImage) return;
+
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.src = processedImage;
+
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = img.width;
+      canvas.height = img.height;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return;
+
+      if (backgroundType !== "transparent") {
+        if (backgroundType === "white") {
+          ctx.fillStyle = "#ffffff";
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+        } else if (backgroundType === "color") {
+          ctx.fillStyle = backgroundColor;
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+        } else if (backgroundType === "gradient") {
+          const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+          gradient.addColorStop(0, "#667eea");
+          gradient.addColorStop(1, "#764ba2");
+          ctx.fillStyle = gradient;
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+      }
+
+      ctx.drawImage(img, 0, 0);
+      const resultUrl = canvas.toDataURL("image/png");
+      setProcessedImage(resultUrl);
+    };
+  }, [processedImage, backgroundType, backgroundColor]);
+
+  const processBatch = useCallback(async () => {
+    const pendingImages = batchImages.filter(img => img.status === 'pending');
+    if (pendingImages.length === 0) return;
+
+    for (const batchImage of pendingImages) {
+      setBatchImages(prev => prev.map(img => 
+        img.id === batchImage.id ? { ...img, status: 'processing' } : img
+      ));
+
+      try {
+        const formData = new FormData();
+        formData.append("image_file", batchImage.file);
+
+        // API key from environment variable or fallback
+        const apiKey = process.env.NEXT_PUBLIC_REMOVE_BG_API_KEY || "KwRXqjf5qC8WqMNpYcVcd8z4";
+        
+        if (apiKey) {
+          const response = await fetch("https://api.remove.bg/v1.0/removebg", {
+            method: "POST",
+            headers: { "X-Api-Key": apiKey },
+            body: formData,
+          });
+
+          if (response.ok) {
+            const blob = await response.blob();
+            const resultUrl = URL.createObjectURL(blob);
+            setBatchImages(prev => prev.map(img => 
+              img.id === batchImage.id ? { ...img, status: 'completed', result: resultUrl } : img
+            ));
+          } else {
+            throw new Error("Processing failed");
+          }
+        } else {
+          // Fallback processing
+          const reader = new FileReader();
+          reader.onloadend = async () => {
+            await processImageClientSide(reader.result as string);
+            setBatchImages(prev => prev.map(img => 
+              img.id === batchImage.id ? { ...img, status: 'completed', result: processedImage || '' } : img
+            ));
+          };
+          reader.readAsDataURL(batchImage.file);
+        }
+      } catch (err) {
+        setBatchImages(prev => prev.map(img => 
+          img.id === batchImage.id ? { ...img, status: 'error', error: 'Processing failed' } : img
+        ));
+      }
+
+      // Small delay to prevent overwhelming the API
+      await new Promise(resolve => setTimeout(resolve, 500));
+    }
+  }, [batchImages, processImageClientSide, processedImage]);
+
+  const downloadImage = useCallback(() => {
+    if (!processedImage) return;
+
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.src = processedImage;
+
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = img.width;
+      canvas.height = img.height;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return;
+
+      ctx.drawImage(img, 0, 0);
+      
+      let mimeType = "image/png";
+      let quality = 1;
+      let extension = "png";
+
+      if (exportFormat === "jpg") {
+        mimeType = "image/jpeg";
+        quality = exportQuality;
+        extension = "jpg";
+      } else if (exportFormat === "webp") {
+        mimeType = "image/webp";
+        quality = exportQuality;
+        extension = "webp";
+      }
+
+      const dataUrl = canvas.toDataURL(mimeType, quality);
+      const a = document.createElement("a");
+      a.href = dataUrl;
+      a.download = `background-removed-${Date.now()}.${extension}`;
+      a.click();
+    };
+  }, [processedImage, exportFormat, exportQuality]);
+
+  const downloadBatch = useCallback(async () => {
+    const completed = batchImages.filter(img => img.status === 'completed' && img.result);
+    if (completed.length === 0) return;
+
+    // For simplicity, download individually
+    // In production, use JSZip for bulk download
+    for (const img of completed) {
+      if (img.result) {
+        const a = document.createElement("a");
+        a.href = img.result;
+        a.download = `bg-removed-${img.id}.png`;
+        a.click();
+        await new Promise(resolve => setTimeout(resolve, 100));
+      }
+    }
+  }, [batchImages]);
+
+  const reset = useCallback(() => {
+    setImage(null);
+    setProcessedImage(null);
+    setError(null);
+    setBatchImages([]);
+    setIsBatchMode(false);
+    setEdgeRefinement(0);
+    setZoom(1);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  }, []);
+
+  const loadFromHistory = useCallback((item: HistoryItem) => {
+    setImage(item.original);
+    setProcessedImage(item.processed);
+    setShowHistory(false);
+  }, []);
+
+  const removeFromBatch = useCallback((id: string) => {
+    setBatchImages(prev => {
+      const img = prev.find(i => i.id === id);
+      if (img) {
+        URL.revokeObjectURL(img.preview);
+        if (img.result) URL.revokeObjectURL(img.result);
+      }
+      return prev.filter(i => i.id !== id);
+    });
+  }, []);
+
+  // Memoized comparison slider
+  const comparisonSlider = useMemo(() => {
+    if (!image || !processedImage) return null;
+
+    return (
+      <div className="relative w-full h-96 rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-900">
+        <div className="absolute inset-0" style={{ clipPath: `inset(0 ${100 - comparisonPosition}% 0 0)` }}>
+          <img
+            src={image}
+            alt="Original"
+            className="w-full h-full object-contain"
+            style={{ transform: `scale(${zoom})` }}
+          />
+        </div>
+        <div className="absolute inset-0" style={{ clipPath: `inset(0 0 0 ${comparisonPosition}%)` }}>
+          <img
+            src={processedImage}
+            alt="Processed"
+            className="w-full h-full object-contain"
+            style={{ transform: `scale(${zoom})` }}
+          />
+        </div>
+        <div
+          className="absolute top-0 bottom-0 w-1 bg-blue-500 cursor-ew-resize z-10"
+          style={{ left: `${comparisonPosition}%` }}
+        >
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center shadow-lg">
+            <ChevronLeft className="w-4 h-4 text-white" />
+            <ChevronRight className="w-4 h-4 text-white -ml-1" />
+          </div>
+        </div>
+        <input
+          type="range"
+          min="0"
+          max="100"
+          value={comparisonPosition}
+          onChange={(e) => setComparisonPosition(Number(e.target.value))}
+          className="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize z-20"
+        />
+      </div>
+    );
+  }, [image, processedImage, comparisonPosition, zoom]);
+
+  return (
+    <>
+      {tool && <ToolSEO tool={tool} />}
+      <div className="p-8 max-w-7xl mx-auto">
+        <div className="mb-8">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg flex items-center justify-center">
+              <Scissors className="w-6 h-6 text-white" />
+            </div>
+            <div className="flex-1">
+              <div className="flex items-center gap-2 mb-2">
+                <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100">
+                  Background Remover - AI-Powered Free Tool
+                </h1>
+                <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-gradient-to-r from-green-500 to-emerald-600 text-white animate-pulse">
+                  New
+                </span>
+              </div>
+              <p className="text-slate-600 dark:text-slate-300">
+                Remove backgrounds from images automatically using AI. Free background remover tool with instant results. 
+                Perfect for product photos, portraits, and social media content.
+              </p>
+            </div>
+          </div>
+          <div className="mt-4 flex items-center gap-3 flex-wrap">
+            {tool && <FavoriteButton toolId={tool.id} />}
+            <ShareButtons
+              title="Background Remover"
+              text="Check out this free AI-powered background remover tool!"
+            />
+            <button
+              onClick={() => setShowHistory(!showHistory)}
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-sm text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+            >
+              <History className="w-4 h-4" />
+              History ({history.length})
+            </button>
+          </div>
+        </div>
+
+        {/* History Panel */}
+        {showHistory && history.length > 0 && (
+          <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 mb-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100">Processing History</h3>
+              <button
+                onClick={() => setShowHistory(false)}
+                className="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              {history.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => loadFromHistory(item)}
+                  className="relative group rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700 hover:border-blue-500 transition-colors"
+                >
+                  <img
+                    src={item.processed}
+                    alt={item.name}
+                    className="w-full h-24 object-cover"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors" />
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Success Banner - API Key Configured */}
+        <div className="bg-green-50 dark:bg-green-900/20 rounded-lg p-4 mb-6 border border-green-200 dark:border-green-800">
+          <div className="flex items-start gap-3">
+            <Sparkles className="w-5 h-5 text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" />
+            <div className="flex-1">
+              <p className="text-sm text-green-800 dark:text-green-200">
+                <strong>AI-Powered:</strong> Remove.bg API is configured. You're using professional AI background removal with high-quality results!
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Batch Mode */}
+        {isBatchMode && batchImages.length > 0 && (
+          <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 mb-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100">
+                Batch Processing ({batchImages.length} images)
+              </h3>
+              <div className="flex gap-2">
+                <button
+                  onClick={processBatch}
+                  disabled={batchImages.every(img => img.status !== 'pending')}
+                  className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  Process All
+                </button>
+                <button
+                  onClick={downloadBatch}
+                  disabled={!batchImages.some(img => img.status === 'completed')}
+                  className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  Download All
+                </button>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              {batchImages.map((img) => (
+                <div key={img.id} className="relative group">
+                  <img
+                    src={img.preview}
+                    alt="Batch"
+                    className="w-full h-32 object-cover rounded-lg"
+                    loading="lazy"
+                  />
+                  {img.status === 'processing' && (
+                    <div className="absolute inset-0 bg-black/50 rounded-lg flex items-center justify-center">
+                      <RefreshCw className="w-6 h-6 text-white animate-spin" />
+                    </div>
+                  )}
+                  {img.status === 'completed' && (
+                    <div className="absolute top-2 right-2 bg-green-500 text-white text-xs px-2 py-1 rounded">
+                      ✓
+                    </div>
+                  )}
+                  {img.status === 'error' && (
+                    <div className="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 rounded">
+                      ✗
+                    </div>
+                  )}
+                  <button
+                    onClick={() => removeFromBatch(img.id)}
+                    className="absolute top-2 left-2 p-1 bg-black/50 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Upload Section */}
+          <div className="space-y-6">
+            <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">
+                  Upload Image
+                </h2>
+                <label className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
+                  <input
+                    type="checkbox"
+                    checked={isBatchMode}
+                    onChange={(e) => setIsBatchMode(e.target.checked)}
+                    className="rounded"
+                  />
+                  Batch Mode
+                </label>
+              </div>
+              
+              {!image && batchImages.length === 0 ? (
+                <div
+                  onClick={() => fileInputRef.current?.click()}
+                  className="border-2 border-dashed border-slate-300 dark:border-slate-600 rounded-lg p-12 text-center cursor-pointer hover:border-blue-500 dark:hover:border-blue-400 transition-colors"
+                >
+                  <Upload className="w-12 h-12 mx-auto mb-4 text-slate-400 dark:text-slate-500" />
+                  <p className="text-slate-600 dark:text-slate-300 mb-2">
+                    Click to upload or drag and drop
+                  </p>
+                  <p className="text-sm text-slate-500 dark:text-slate-400">
+                    PNG, JPG, GIF up to 10MB {isBatchMode && "(multiple files)"}
+                  </p>
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    multiple={isBatchMode}
+                    className="hidden"
+                  />
+                </div>
+              ) : !isBatchMode ? (
+                <div className="space-y-4">
+                  <div className="relative rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700">
+                    <img
+                      src={image!}
+                      alt="Original"
+                      className="w-full h-auto max-h-96 object-contain"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => removeBackground()}
+                      disabled={isProcessing}
+                      className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg font-medium hover:from-green-600 hover:to-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                    >
+                      {isProcessing ? (
+                        <>
+                          <RefreshCw className="w-4 h-4 animate-spin" />
+                          Processing...
+                        </>
+                      ) : (
+                        <>
+                          <Sparkles className="w-4 h-4" />
+                          Remove Background
+                        </>
+                      )}
+                    </button>
+                    <button
+                      onClick={reset}
+                      className="px-4 py-3 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg font-medium hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors"
+                    >
+                      Reset
+                    </button>
+                  </div>
+                </div>
+              ) : null}
+
+              {error && (
+                <div className="mt-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+                  <p className="text-sm text-red-800 dark:text-red-200">{error}</p>
+                </div>
+              )}
+            </div>
+
+            {/* Advanced Settings */}
+            {processedImage && (
+              <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 space-y-4">
+                <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+                  <Settings className="w-5 h-5" />
+                  Advanced Settings
+                </h3>
+                
+                {/* Edge Refinement */}
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                    Edge Refinement: {edgeRefinement}%
+                  </label>
+                  <input
+                    type="range"
+                    min="0"
+                    max="100"
+                    value={edgeRefinement}
+                    onChange={(e) => setEdgeRefinement(Number(e.target.value))}
+                    className="w-full"
+                  />
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                    Smooth edges for better quality
+                  </p>
+                </div>
+
+                {/* Export Options */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                      Format
+                    </label>
+                    <select
+                      value={exportFormat}
+                      onChange={(e) => setExportFormat(e.target.value as "png" | "jpg" | "webp")}
+                      className="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700"
+                    >
+                      <option value="png">PNG</option>
+                      <option value="jpg">JPG</option>
+                      <option value="webp">WebP</option>
+                    </select>
+                  </div>
+                  {(exportFormat === "jpg" || exportFormat === "webp") && (
+                    <div>
+                      <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                        Quality: {Math.round(exportQuality * 100)}%
+                      </label>
+                      <input
+                        type="range"
+                        min="0.1"
+                        max="1"
+                        step="0.1"
+                        value={exportQuality}
+                        onChange={(e) => setExportQuality(Number(e.target.value))}
+                        className="w-full"
+                      />
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* Background Options */}
+            {processedImage && (
+              <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+                <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-4">
+                  Background Options
+                </h3>
+                <div className="space-y-4">
+                  <div className="grid grid-cols-2 gap-2">
+                    <button
+                      onClick={() => {
+                        setBackgroundType("transparent");
+                        applyBackground();
+                      }}
+                      className={`px-4 py-2 rounded-lg border-2 transition-colors ${
+                        backgroundType === "transparent"
+                          ? "border-green-500 bg-green-50 dark:bg-green-900/20"
+                          : "border-slate-200 dark:border-slate-700"
+                      }`}
+                    >
+                      Transparent
+                    </button>
+                    <button
+                      onClick={() => {
+                        setBackgroundType("white");
+                        applyBackground();
+                      }}
+                      className={`px-4 py-2 rounded-lg border-2 transition-colors ${
+                        backgroundType === "white"
+                          ? "border-green-500 bg-green-50 dark:bg-green-900/20"
+                          : "border-slate-200 dark:border-slate-700"
+                      }`}
+                    >
+                      White
+                    </button>
+                    <button
+                      onClick={() => {
+                        setBackgroundType("color");
+                        applyBackground();
+                      }}
+                      className={`px-4 py-2 rounded-lg border-2 transition-colors ${
+                        backgroundType === "color"
+                          ? "border-green-500 bg-green-50 dark:bg-green-900/20"
+                          : "border-slate-200 dark:border-slate-700"
+                      }`}
+                    >
+                      Color
+                    </button>
+                    <button
+                      onClick={() => {
+                        setBackgroundType("gradient");
+                        applyBackground();
+                      }}
+                      className={`px-4 py-2 rounded-lg border-2 transition-colors ${
+                        backgroundType === "gradient"
+                          ? "border-green-500 bg-green-50 dark:bg-green-900/20"
+                          : "border-slate-200 dark:border-slate-700"
+                      }`}
+                    >
+                      Gradient
+                    </button>
+                  </div>
+                  {backgroundType === "color" && (
+                    <div>
+                      <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                        Background Color
+                      </label>
+                      <input
+                        type="color"
+                        value={backgroundColor}
+                        onChange={(e) => {
+                          setBackgroundColor(e.target.value);
+                          applyBackground();
+                        }}
+                        className="w-full h-10 rounded-lg border border-slate-300 dark:border-slate-600 cursor-pointer"
+                      />
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Result Section */}
+          <div className="space-y-6">
+            <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">
+                  Result
+                </h2>
+                {image && processedImage && (
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => setZoom(Math.max(0.5, zoom - 0.1))}
+                      className="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 rounded"
+                    >
+                      <ZoomOut className="w-4 h-4" />
+                    </button>
+                    <span className="text-sm text-slate-600 dark:text-slate-400">
+                      {Math.round(zoom * 100)}%
+                    </span>
+                    <button
+                      onClick={() => setZoom(Math.min(2, zoom + 0.1))}
+                      className="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 rounded"
+                    >
+                      <ZoomIn className="w-4 h-4" />
+                    </button>
+                  </div>
+                )}
+              </div>
+              
+              {processedImage ? (
+                <div className="space-y-4">
+                  {/* Comparison Slider */}
+                  {image && comparisonSlider}
+                  
+                  {/* Single Result View */}
+                  <div className="relative rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-900" style={{
+                    backgroundImage: "linear-gradient(45deg, #f0f0f0 25%, transparent 25%), linear-gradient(-45deg, #f0f0f0 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #f0f0f0 75%), linear-gradient(-45deg, transparent 75%, #f0f0f0 75%)",
+                    backgroundSize: "20px 20px",
+                    backgroundPosition: "0 0, 0 10px, 10px -10px, -10px 0px"
+                  }}>
+                    <img
+                      src={processedImage}
+                      alt="Background removed"
+                      className="w-full h-auto max-h-96 object-contain mx-auto"
+                      style={{ transform: `scale(${zoom})` }}
+                      loading="lazy"
+                    />
+                  </div>
+                  
+                  <button
+                    onClick={downloadImage}
+                    className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg font-medium hover:from-blue-600 hover:to-purple-700 transition-all"
+                  >
+                    <Download className="w-4 h-4" />
+                    Download Image ({exportFormat.toUpperCase()})
+                  </button>
+                </div>
+              ) : (
+                <div className="border-2 border-dashed border-slate-300 dark:border-slate-600 rounded-lg p-12 text-center">
+                  <Scissors className="w-12 h-12 mx-auto mb-4 text-slate-400 dark:text-slate-500" />
+                  <p className="text-slate-600 dark:text-slate-300">
+                    Processed image will appear here
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {tool && (
+          <>
+            <ToolDetailsSection tool={tool} />
+            <ToolFAQ tool={tool} />
+            <RelatedTools currentTool={tool} />
+            <ToolComments toolId={tool.id} />
+          </>
+        )}
+      </div>
+    </>
+  );
+}

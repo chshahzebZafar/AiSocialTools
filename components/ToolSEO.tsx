@@ -2,6 +2,11 @@
 
 import { SocialTool } from "@/lib/social-tools";
 import { getSEOMetadata } from "@/lib/seo-metadata";
+import { 
+  getReviewSchema, 
+  getEnhancedFAQSchema, 
+  getEnhancedHowToSchema 
+} from "@/lib/enhanced-schemas";
 
 interface ToolSEOProps {
   tool: SocialTool;
@@ -10,68 +15,21 @@ interface ToolSEOProps {
 export default function ToolSEO({ tool }: ToolSEOProps) {
   const seo = getSEOMetadata(tool);
 
+  // Enhanced WebApplication schema
   const structuredData = {
     ...seo.structuredData,
     "@context": "https://schema.org",
     url: `https://socialmediatools.netlify.app${tool.path}`,
-    mainEntity: {
-      "@type": "FAQPage",
-      mainEntity: [
-        {
-          "@type": "Question",
-          name: `How to use ${tool.name}?`,
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: `Our ${tool.name.toLowerCase()} is a free online tool that helps you ${tool.description.toLowerCase()}. Simply use the interface above to get started.`
-          }
-        },
-        {
-          "@type": "Question",
-          name: `Is ${tool.name} free?`,
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: `Yes, ${tool.name} is completely free to use. No signup or credit card required.`
-          }
-        }
-      ]
-    }
   };
 
-  // HowTo schema for usage instructions
-  const howToSchema = {
-    "@context": "https://schema.org",
-    "@type": "HowTo",
-    name: `How to Use ${tool.name}`,
-    description: `Learn how to use ${tool.name} to ${tool.description.toLowerCase()}`,
-    url: `https://socialmediatools.netlify.app${tool.path}`,
-    totalTime: "PT2M",
-    step: [
-      {
-        "@type": "HowToStep",
-        position: 1,
-        name: "Access the Tool",
-        text: `Navigate to ${tool.name} using the interface above.`,
-      },
-      {
-        "@type": "HowToStep",
-        position: 2,
-        name: "Enter Your Input",
-        text: `Enter the required information or content in the input fields.`,
-      },
-      {
-        "@type": "HowToStep",
-        position: 3,
-        name: "Generate Results",
-        text: `Click the generate button to create your output.`,
-      },
-      {
-        "@type": "HowToStep",
-        position: 4,
-        name: "Copy or Download",
-        text: `Copy the results to your clipboard or download them for later use.`,
-      },
-    ],
-  };
+  // Enhanced FAQ Schema with 7 questions
+  const faqSchema = getEnhancedFAQSchema(tool);
+
+  // Enhanced HowTo Schema
+  const howToSchema = getEnhancedHowToSchema(tool);
+
+  // Review/Rating Schema
+  const reviewSchema = getReviewSchema(tool, 4.8, 1250);
 
   return (
     <>
@@ -81,7 +39,15 @@ export default function ToolSEO({ tool }: ToolSEOProps) {
       />
       <script
         type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewSchema) }}
       />
     </>
   );

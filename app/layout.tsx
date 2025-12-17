@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
+import PerformanceMonitor from "@/components/PerformanceMonitor";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { AuthProvider } from "@/components/AuthProvider";
 import { getOGImageUrl } from "@/lib/og-image-generator";
@@ -23,11 +24,24 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Social Media Tools - Free Online Tools for Social Media",
-    template: "%s | Social Media Tools"
+    default: "Best Free Social Media Tools Online - No Signup Required 2025",
+    template: "%s | Best Free Social Media Tools"
   },
-  description: "Free online social media tools - Generate tweets, create Instagram posts, download thumbnails, and more. All tools are free to use.",
-  keywords: ["social media tools", "social media management", "scheduling tools", "social media analytics", "content creation tools"],
+  description: "Discover the best free social media tools online for 2025. Generate tweets, create Instagram posts, download YouTube thumbnails, generate hashtags, and more. All tools are 100% free with no signup required - perfect for content creators and marketers.",
+  keywords: [
+    "free social media tools",
+    "best social media tools",
+    "social media tools online",
+    "free online tools",
+    "social media management tools",
+    "content creation tools",
+    "free tools no signup",
+    "online social media tools",
+    "social media toolkit",
+    "free tools for creators",
+    "social media marketing tools",
+    "best free tools 2025"
+  ],
   authors: [{ name: "Shahzeb Zafar" }],
   creator: "Shahzeb Zafar",
   publisher: "Shahzeb Zafar",
@@ -70,7 +84,7 @@ export const metadata: Metadata = {
   verification: {
     google: "rSzbil6iTeObZLttAxiRP7L7aYbEX8BtQEta8AzxfHk",
     // yandex: "your-yandex-verification-code",
-    // bing: "your-bing-verification-code",
+    // Add Bing verification when available: bing: "your-bing-verification-code",
   },
   metadataBase: new URL("https://socialmediatools.netlify.app"),
   other: {
@@ -91,6 +105,8 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+        <link rel="preconnect" href="https://www.google-analytics.com" />
         
         {/* Non-blocking theme initialization */}
         <Script
@@ -115,6 +131,7 @@ export default function RootLayout({
           }}
         />
         <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || "G-KPXLX0R9XK"} />
+        <PerformanceMonitor />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}

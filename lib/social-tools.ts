@@ -31,7 +31,8 @@ import {
   File,
   FileType,
   Image as ImageLucide,
-  FileCheck
+  FileCheck,
+  Scissors
 } from "lucide-react";
 
 export interface SocialTool {
@@ -41,6 +42,7 @@ export interface SocialTool {
   icon: React.ComponentType<{ className?: string }>;
   path: string;
   category: string;
+  isNew?: boolean;
 }
 
 export const socialTools: SocialTool[] = [
@@ -139,6 +141,24 @@ export const socialTools: SocialTool[] = [
     icon: Maximize2,
     path: "/tools/image-resizer",
     category: "Design"
+  },
+  {
+    id: "background-remover",
+    name: "Background Remover",
+    description: "Remove backgrounds from images automatically using AI. Free background remover tool with instant results.",
+    icon: Scissors,
+    path: "/tools/background-remover",
+    category: "Design",
+    isNew: true
+  },
+  {
+    id: "video-to-gif",
+    name: "Video to GIF Converter",
+    description: "Convert video clips to animated GIFs. Free video to GIF converter with frame rate control, quality optimization, and size reduction.",
+    icon: Video,
+    path: "/tools/video-to-gif",
+    category: "Converters",
+    isNew: true
   },
   {
     id: "bio-link-generator",
@@ -323,6 +343,15 @@ export const socialTools: SocialTool[] = [
     icon: File,
     path: "/tools/pdf-splitter",
     category: "Converters"
+  },
+  {
+    id: "image-upscaler",
+    name: "AI Image Upscaler",
+    description: "Upscale and enhance images using AI. Increase image resolution up to 8x with noise reduction and sharpness enhancement.",
+    icon: Maximize2,
+    path: "/tools/image-upscaler",
+    category: "Design",
+    isNew: true
   }
 ];
 
