@@ -10,8 +10,42 @@ interface ToolFAQProps {
 export default function ToolFAQ({ tool }: ToolFAQProps) {
   const seo = getSEOMetadata(tool);
 
-  // Custom FAQs for Facebook Thumbnail tool
+  // Custom FAQs for tools
   const customFAQs: Record<string, Array<{ question: string; answer: string }>> = {
+    "tweet-generator": [
+      {
+        question: "What is an Online Tweet Generator?",
+        answer: "An Online Tweet Generator is a free web-based tool that allows you to create realistic-looking fake Twitter/X tweets. It's designed for entertainment purposes, allowing you to make jokes with friends, create mockups for presentations, or generate social media content ideas. The tool mimics Twitter's actual interface to create authentic-looking tweet images."
+      },
+      {
+        question: "Is the Tweet Generator free to use?",
+        answer: "Yes, our Tweet Generator is completely free to use. No signup, no credit card, no hidden fees. You can generate unlimited fake tweets and download them as images without any restrictions."
+      },
+      {
+        question: "Can I use generated tweets for commercial purposes?",
+        answer: "You can use generated tweets for personal entertainment, presentations, and design mockups. However, you must follow our usage policy: never use generated tweets to spread false information, harass others, or present them as genuine Twitter posts. Always disclose that the tweets are mockups when sharing."
+      },
+      {
+        question: "What image formats are supported?",
+        answer: "You can upload images in any common format (JPG, PNG, GIF, WebP) for both avatars and tweet images. The tool supports up to 4 images per tweet. When exporting, you can download your tweet as PNG or JPG format with customizable quality settings."
+      },
+      {
+        question: "How do I make my fake tweet look more realistic?",
+        answer: "To make your fake tweet look more realistic, use appropriate engagement metrics (likes, retweets, replies), add a verified badge if needed, include location information, use proper date formatting, and upload relevant images. Our tool also offers theme customization and font size adjustments to match Twitter's actual interface."
+      },
+      {
+        question: "Can I customize the colors and styling?",
+        answer: "Yes! Our Tweet Generator includes advanced settings where you can customize font size, background colors, text colors, and choose between light and dark themes. You can also select export format (PNG or JPG) and adjust quality settings for optimal results."
+      },
+      {
+        question: "Are the generated tweets real Twitter posts?",
+        answer: "No, the generated tweets are completely fake and created using our tool. They are not real Twitter posts and should never be presented as such. The tool is designed for entertainment and mockup purposes only. Always make it clear to viewers that generated tweets are not genuine."
+      },
+      {
+        question: "What's the difference between this tool and Twitter?",
+        answer: "This is a mockup generator that creates images of tweets, not actual Twitter posts. Unlike real Twitter, you can customize all aspects including engagement metrics, dates, and content. Real Twitter has algorithms for image cropping and verification processes that this tool doesn't replicate - it's designed for creating fake tweets for entertainment purposes."
+      }
+    ],
     "facebook-thumbnail": [
       {
         question: "Is it possible to download thumbnails from Facebook?",
