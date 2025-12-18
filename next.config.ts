@@ -53,7 +53,7 @@ const nextConfig: NextConfig = {
       {
         source: '/:path*',
         headers: [
-          // DNS and Performance
+          // DNS and Performance - Critical for Core Web Vitals
           {
             key: 'X-DNS-Prefetch-Control',
             value: 'on'
@@ -88,7 +88,7 @@ const nextConfig: NextConfig = {
             key: 'Content-Security-Policy',
             value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com; frame-src 'self';"
           },
-          // Cache Control for static assets
+          // Cache Control for static assets - Optimized for performance
           {
             key: 'Cache-Control',
             value: 'public, max-age=31536000, immutable'

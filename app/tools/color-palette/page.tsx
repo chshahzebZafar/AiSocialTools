@@ -39,7 +39,7 @@ export default function ColorPalettePage() {
 
     img.onload = () => {
       const canvas = document.createElement("canvas");
-      const ctx = canvas.getContext("2d");
+      const ctx = canvas.getContext("2d") as CanvasRenderingContext2D | null;
       if (!ctx) return;
 
       canvas.width = img.width;

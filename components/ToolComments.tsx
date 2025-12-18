@@ -125,20 +125,24 @@ export function ToolComments({ toolId }: ToolCommentsProps) {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    // Auth is temporarily disabled - comments cannot be posted
     if (!user || !text.trim() || !isFirebaseReady || !firestore) return;
+
+    // Type guard - user should never be truthy when auth is disabled
+    if (!user || typeof user !== 'object' || !('uid' in user)) return;
 
     setSubmitting(true);
     try {
       // Store comment under user's subcollection: users/{userId}/toolComments/{commentId}
       // This organizes all comments by user for easy future extension
-      const userCommentsRef = collection(firestore, "users", user.uid, "toolComments");
+      const userCommentsRef = collection(firestore, "users", (user as any).uid, "toolComments");
       await addDoc(userCommentsRef, {
         toolId,
         text: text.trim(),
-        userId: user.uid,
-        userName: user.displayName || user.email || "Anonymous",
+        userId: (user as any).uid,
+        userName: (user as any).displayName || (user as any).email || "Anonymous",
         // Normalize avatar: only save if it's a valid non-empty URL
-        userAvatar: user.photoURL && user.photoURL.trim() !== "" ? user.photoURL : null,
+        userAvatar: (user as any).photoURL && (user as any).photoURL.trim() !== "" ? (user as any).photoURL : null,
         createdAt: serverTimestamp(),
       });
       setText("");
@@ -211,9 +215,14 @@ export function ToolComments({ toolId }: ToolCommentsProps) {
           </h2>
         </div>
 
-        <div className="mb-4">
-          <AuthButtons />
-        </div>
+        {/* Auth is temporarily disabled - comments are view-only */}
+        {!user && (
+          <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+            <p className="text-sm text-blue-800 dark:text-blue-200">
+              💬 Comments are view-only. Authentication is temporarily disabled.
+            </p>
+          </div>
+        )}
 
         {user && (
           <form onSubmit={handleSubmit} className="mb-6 space-y-3">
@@ -284,7 +293,8 @@ export function ToolComments({ toolId }: ToolCommentsProps) {
             </p>
           ) : (
             comments.map((comment) => {
-              const isOwner = user?.uid === comment.userId;
+              // Auth is temporarily disabled - no editing/deleting
+              const isOwner = false; // user?.uid === comment.userId;
               const isEditing = editingId === comment.id;
               const isDeleting = deletingId === comment.id;
 
@@ -331,7 +341,8 @@ export function ToolComments({ toolId }: ToolCommentsProps) {
                             ).toLocaleString()}
                           </span>
                         )}
-                        {isOwner && !isEditing && (
+                        {/* Edit/Delete buttons disabled - auth is temporarily disabled */}
+                        {false && isOwner && !isEditing && (
                           <div className="flex items-center gap-1">
                             <button
                               onClick={() => handleEditStart(comment)}

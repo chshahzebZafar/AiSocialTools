@@ -218,7 +218,7 @@ export default function BackgroundRemoverPage() {
     const canvas = document.createElement("canvas");
     canvas.width = img.width;
     canvas.height = img.height;
-    const ctx = canvas.getContext("2d", { willReadFrequently: false });
+    const ctx = canvas.getContext("2d", { willReadFrequently: false }) as CanvasRenderingContext2D | null;
     if (!ctx) {
       setError("Failed to process image");
       return;
@@ -282,7 +282,7 @@ export default function BackgroundRemoverPage() {
     const canvas = document.createElement("canvas");
     canvas.width = img.width;
     canvas.height = img.height;
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d") as CanvasRenderingContext2D | null;
     if (!ctx) return;
 
     ctx.drawImage(img, 0, 0);
@@ -329,7 +329,7 @@ export default function BackgroundRemoverPage() {
       const canvas = document.createElement("canvas");
       canvas.width = img.width;
       canvas.height = img.height;
-      const ctx = canvas.getContext("2d");
+      const ctx = canvas.getContext("2d") as CanvasRenderingContext2D | null;
       if (!ctx) return;
 
       if (backgroundType !== "transparent") {
@@ -419,7 +419,7 @@ export default function BackgroundRemoverPage() {
       const canvas = document.createElement("canvas");
       canvas.width = img.width;
       canvas.height = img.height;
-      const ctx = canvas.getContext("2d");
+      const ctx = canvas.getContext("2d") as CanvasRenderingContext2D | null;
       if (!ctx) return;
 
       ctx.drawImage(img, 0, 0);

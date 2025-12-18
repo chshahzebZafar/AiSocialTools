@@ -182,28 +182,28 @@ export function getEnhancedHowToSchema(tool: SocialTool) {
         "position": 1,
         "name": "Visit the Tool Page",
         "text": `Navigate to the ${tool.name} page on our website.`,
-        "image": `https://socialmediatools.netlify.app${tool.image || '/og-image.png'}`
+        "image": "https://socialmediatools.netlify.app/og-image.png"
       },
       {
         "@type": "HowToStep",
         "position": 2,
         "name": "Enter Your Input",
         "text": "Enter your content, text, or data in the input field provided.",
-        "image": `https://socialmediatools.netlify.app${tool.image || '/og-image.png'}`
+        "image": "https://socialmediatools.netlify.app/og-image.png"
       },
       {
         "@type": "HowToStep",
         "position": 3,
         "name": "Generate or Process",
         "text": "Click the generate or process button to create your output.",
-        "image": `https://socialmediatools.netlify.app${tool.image || '/og-image.png'}`
+        "image": "https://socialmediatools.netlify.app/og-image.png"
       },
       {
         "@type": "HowToStep",
         "position": 4,
         "name": "Copy or Download",
         "text": "Copy your result or download it directly. No signup required!",
-        "image": `https://socialmediatools.netlify.app${tool.image || '/og-image.png'}`
+        "image": "https://socialmediatools.netlify.app/og-image.png"
       }
     ],
     "totalTime": "PT2M",

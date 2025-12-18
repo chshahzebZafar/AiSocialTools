@@ -6,6 +6,7 @@ import GoogleAnalytics from "@/components/GoogleAnalytics";
 import PerformanceMonitor from "@/components/PerformanceMonitor";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { AuthProvider } from "@/components/AuthProvider";
+// Auth diagnostics removed - auth is temporarily disabled
 import { getOGImageUrl } from "@/lib/og-image-generator";
 
 const geistSans = Geist({
@@ -100,13 +101,18 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* Resource hints for performance */}
+        {/* Resource hints for performance - Optimized for Core Web Vitals */}
         <link rel="manifest" href="/manifest.json" />
+        {/* Font preloading - Critical for LCP */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* Analytics preconnect - Non-blocking */}
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
         <link rel="preconnect" href="https://www.google-analytics.com" />
+        {/* Hreflang tags for international SEO (prepared for future expansion) */}
+        <link rel="alternate" hrefLang="en" href="https://socialmediatools.netlify.app" />
+        <link rel="alternate" hrefLang="x-default" href="https://socialmediatools.netlify.app" />
         
         {/* Non-blocking theme initialization */}
         <Script
@@ -138,9 +144,9 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <AuthProvider>
-        <ThemeProvider>
-          {children}
-        </ThemeProvider>
+          <ThemeProvider>
+            {children}
+          </ThemeProvider>
         </AuthProvider>
       </body>
     </html>

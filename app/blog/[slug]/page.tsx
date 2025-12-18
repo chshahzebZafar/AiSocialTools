@@ -8,6 +8,7 @@ import type { Metadata } from "next";
 import { getOGImageUrl } from "@/lib/og-image-generator";
 import ShareButtons from "@/components/ShareButtons";
 import { getEnhancedArticleSchema } from "@/lib/enhanced-schemas";
+import { generateBreadcrumbSchema, getBlogBreadcrumbs } from "@/lib/seo-utils";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -164,6 +165,9 @@ export default async function BlogPostPage({ params }: PageProps) {
 
   // Enhanced Article Schema
   const articleSchema = getEnhancedArticleSchema(post);
+  
+  // Breadcrumb Schema
+  const breadcrumbSchema = generateBreadcrumbSchema(getBlogBreadcrumbs(post));
 
   return (
     <div className="flex flex-col min-h-screen bg-slate-50 dark:bg-slate-950">
@@ -171,6 +175,11 @@ export default async function BlogPostPage({ params }: PageProps) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+      {/* Breadcrumb Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <Header />
       <main className="flex-1">

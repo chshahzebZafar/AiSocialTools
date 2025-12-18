@@ -5,6 +5,7 @@ import { useState, useMemo } from "react";
 import { socialTools } from "@/lib/social-tools";
 import { ChevronDown } from "lucide-react";
 import ToolLayout from "@/components/ToolLayout";
+import { generateCollectionPageSchema, generateBreadcrumbSchema, getStaticPageBreadcrumbs } from "@/lib/seo-utils";
 
 export default function ToolsPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
@@ -23,7 +24,19 @@ export default function ToolsPage() {
     return socialTools.filter(tool => tool.category === selectedCategory);
   }, [selectedCategory]);
 
-  // ItemList schema for SEO
+  // Enhanced CollectionPage schema for SEO
+  const collectionPageSchema = generateCollectionPageSchema(
+    "All Social Media Tools",
+    "Complete collection of free social media tools for content creation, management, and optimization. Generate tweets, create Instagram posts, download YouTube thumbnails, generate hashtags, and more.",
+    "https://socialmediatools.netlify.app/tools",
+    socialTools.map((tool) => ({
+      name: tool.name,
+      url: `https://socialmediatools.netlify.app${tool.path}`,
+      description: tool.description,
+    }))
+  );
+
+  // ItemList schema for SEO (backward compatibility)
   const itemListSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
@@ -50,12 +63,26 @@ export default function ToolsPage() {
     }))
   };
 
+  // Breadcrumb Schema
+  const breadcrumbSchema = generateBreadcrumbSchema(getStaticPageBreadcrumbs("All Tools", "/tools"));
+
   return (
     <ToolLayout>
       <div className="p-4 sm:p-6 lg:p-8 max-w-6xl mx-auto w-full">
+        {/* CollectionPage Schema */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionPageSchema) }}
+        />
+        {/* ItemList Schema (backward compatibility) */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
+        />
+        {/* Breadcrumb Schema */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
         />
         <div className="text-center mb-8 sm:mb-12">
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 dark:text-slate-100 mb-3 sm:mb-4">

@@ -16,7 +16,7 @@ interface HistoryItem {
   original: string;
   upscaled: string;
   timestamp: number;
-  scale: number;
+  scale: 2 | 4 | 8;
   name: string;
 }
 
@@ -208,7 +208,7 @@ export default function ImageUpscalerPage() {
       willReadFrequently: false,
       imageSmoothingEnabled: true,
       imageSmoothingQuality: "high"
-    });
+    }) as CanvasRenderingContext2D | null;
     
     if (!ctx) {
       throw new Error("Failed to get canvas context");

@@ -41,12 +41,13 @@ export function FavoriteButton({ toolId, className = "" }: FavoriteButtonProps) 
     }
   };
 
+  // Auth is temporarily disabled - show disabled button
   if (!user) {
     return (
       <button
-        onClick={handleClick}
-        className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-sm text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors ${className}`}
-        title="Sign in to add favorites"
+        disabled
+        className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-sm text-slate-400 dark:text-slate-500 opacity-50 cursor-not-allowed ${className}`}
+        title="Authentication is temporarily disabled"
       >
         <Heart className="w-4 h-4" />
         <span>Add to Favorites</span>

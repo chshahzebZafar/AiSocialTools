@@ -226,7 +226,7 @@ export default function TextToHandwritingPage() {
       });
 
       if (canvasRef.current) {
-        const ctx = canvasRef.current.getContext("2d");
+        const ctx = canvasRef.current.getContext("2d") as CanvasRenderingContext2D | null;
         if (ctx) {
           canvasRef.current.width = canvas.width;
           canvasRef.current.height = canvas.height;

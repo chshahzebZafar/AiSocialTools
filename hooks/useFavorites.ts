@@ -17,13 +17,21 @@ export function useFavorites() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Auth is temporarily disabled - no favorites to load
     if (!user || !firestore) {
       setFavorites([]);
       setLoading(false);
       return;
     }
 
-    const favoritesRef = collection(firestore, `users/${user.uid}/favorites`);
+    // Type guard - user should never be truthy when auth is disabled
+    if (!user || typeof user !== 'object' || !('uid' in user)) {
+      setFavorites([]);
+      setLoading(false);
+      return;
+    }
+
+    const favoritesRef = collection(firestore, `users/${(user as any).uid}/favorites`);
     const q = query(favoritesRef, orderBy("addedAt", "desc"));
 
     const unsubscribe = onSnapshot(
@@ -51,7 +59,8 @@ export function useFavorites() {
   }, [user]);
 
   const toggleFavorite = async (toolId: string): Promise<boolean> => {
-    if (!user) {
+    // Auth is temporarily disabled
+    if (!user || typeof user !== 'object' || !('uid' in user)) {
       throw new Error("User must be logged in to add favorites");
     }
 
@@ -59,10 +68,10 @@ export function useFavorites() {
     
     try {
       if (currentlyFavorite) {
-        await removeFromFavorites(user.uid, toolId);
+        await removeFromFavorites((user as any).uid, toolId);
         return false;
       } else {
-        await addToFavorites(user.uid, toolId);
+        await addToFavorites((user as any).uid, toolId);
         return true;
       }
     } catch (error) {

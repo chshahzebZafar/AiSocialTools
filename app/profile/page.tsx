@@ -46,15 +46,23 @@ export default function ProfilePage() {
   const [commentsError, setCommentsError] = useState<string | null>(null);
   const [bugsError, setBugsError] = useState<string | null>(null);
 
-  // Handle redirect in useEffect to avoid calling it during render
-  useEffect(() => {
-    if (!loading && !user) {
-      router.push("/");
-    }
-  }, [loading, user, router]);
+  // Auth is temporarily disabled - show message instead of redirecting
+  // useEffect(() => {
+  //   if (!loading && !user) {
+  //     router.push("/");
+  //   }
+  // }, [loading, user, router]);
 
   useEffect(() => {
+    // Auth is temporarily disabled - no user data to load
     if (!user || !isFirebaseReady || !firestore) {
+      setLoadingComments(false);
+      setLoadingBugs(false);
+      return;
+    }
+
+    // Type guard - user should never be truthy when auth is disabled, but TypeScript needs this
+    if (!user || typeof user !== 'object' || !('uid' in user)) {
       setLoadingComments(false);
       setLoadingBugs(false);
       return;
@@ -65,7 +73,7 @@ export default function ProfilePage() {
     const toolCommentsGroup = collectionGroup(firestore, "toolComments");
     const commentsQuery = query(
       toolCommentsGroup,
-      where("userId", "==", user.uid),
+      where("userId", "==", (user as any).uid),
       orderBy("createdAt", "desc")
     );
 
@@ -118,7 +126,7 @@ export default function ProfilePage() {
     const bugsRef = collection(firestore, "toolBugReports");
     const bugsQuery = query(
       bugsRef,
-      where("userId", "==", user.uid),
+      where("userId", "==", (user as any).uid),
       orderBy("createdAt", "desc")
     );
 
@@ -178,12 +186,24 @@ export default function ProfilePage() {
   const recentComments = useMemo(() => comments.slice(0, 10), [comments]);
   const recentBugs = useMemo(() => bugs.slice(0, 10), [bugs]);
 
-  if (loading || !user) {
+  // Auth is temporarily disabled
+  if (!user) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-950">
-        <p className="text-slate-500 dark:text-slate-400 text-sm">
-          Loading profile...
-        </p>
+        <div className="text-center max-w-md mx-auto p-6">
+          <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Profile Page
+          </h1>
+          <p className="text-slate-600 dark:text-slate-400 mb-4">
+            Authentication is temporarily disabled. This feature will be available again soon.
+          </p>
+          <button
+            onClick={() => router.push("/")}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 transition-colors"
+          >
+            Go to Home
+          </button>
+        </div>
       </div>
     );
   }
@@ -470,11 +490,11 @@ export default function ProfilePage() {
 
         <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm mb-6">
           <div className="flex items-center gap-4">
-            {user.photoURL ? (
+            {(user as any)?.photoURL ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
-                src={user.photoURL}
-                alt={user.displayName || user.email || "User avatar"}
+                src={(user as any).photoURL}
+                alt={(user as any)?.displayName || (user as any)?.email || "User avatar"}
                 className="w-16 h-16 rounded-full object-cover border-2 border-slate-200 dark:border-slate-700 shadow-sm"
                 onError={(e) => {
                   const img = e.currentTarget;
@@ -488,21 +508,21 @@ export default function ProfilePage() {
             ) : null}
             <div
               className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 dark:from-blue-600 dark:to-purple-700 flex items-center justify-center text-2xl font-semibold text-white shadow-md"
-              style={{ display: user.photoURL ? "none" : "flex" }}
+              style={{ display: (user as any)?.photoURL ? "none" : "flex" }}
             >
-              {(user.displayName || user.email || "U").charAt(0).toUpperCase()}
+              {((user as any)?.displayName || (user as any)?.email || "U").charAt(0).toUpperCase()}
             </div>
             <div>
               <p className="text-lg font-semibold text-slate-900 dark:text-slate-50">
-                {user.displayName || "Anonymous User"}
+                {(user as any)?.displayName || "Anonymous User"}
               </p>
-              {user.email && (
+              {(user as any)?.email && (
                 <p className="text-sm text-slate-600 dark:text-slate-300">
-                  {user.email}
+                  {(user as any).email}
                 </p>
               )}
               <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-                UID: {user.uid}
+                UID: {(user as any)?.uid || "N/A"}
               </p>
             </div>
           </div>

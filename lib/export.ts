@@ -39,7 +39,7 @@ export async function downloadPng(
       const canvas = document.createElement('canvas');
       canvas.width = width;
       canvas.height = height;
-      const ctx = canvas.getContext('2d');
+      const ctx = canvas.getContext('2d') as CanvasRenderingContext2D | null;
 
       if (!ctx) {
         reject(new Error('Could not get canvas context'));

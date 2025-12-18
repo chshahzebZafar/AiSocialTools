@@ -11,6 +11,7 @@ import { ToolComments } from "@/components/ToolComments";
 import { getSEOMetadata } from "@/lib/seo-metadata";
 import ShareButtons from "@/components/ShareButtons";
 import { FavoriteButton } from "@/components/FavoriteButton";
+import ToolSEO from "@/components/ToolSEO";
 
 export default function TweetGeneratorPage() {
   const tool = getToolById("tweet-generator");

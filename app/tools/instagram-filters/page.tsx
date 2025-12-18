@@ -60,7 +60,7 @@ export default function InstagramFiltersPage() {
       const canvas = document.createElement("canvas");
       canvas.width = img.width;
       canvas.height = img.height;
-      const ctx = canvas.getContext("2d");
+      const ctx = canvas.getContext("2d") as CanvasRenderingContext2D | null;
       
       if (ctx) {
         ctx.drawImage(img, 0, 0);
