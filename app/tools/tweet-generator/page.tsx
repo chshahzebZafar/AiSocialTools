@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Twitter, Copy, Download, Upload, Image as ImageIcon, MoreHorizontal, Bookmark, Share2, MessageCircle, Repeat2, Heart, BarChart3, MapPin, X, Settings, Palette, Type, ImagePlus, Trash2, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { getToolById } from "@/lib/social-tools";
@@ -32,6 +32,7 @@ export default function TweetGeneratorPage() {
   const [retweetCount, setRetweetCount] = useState(0);
   const [likeCount, setLikeCount] = useState(0);
   const [viewCount, setViewCount] = useState(0);
+  const [isMounted, setIsMounted] = useState(false);
   
   // Advanced features
   const [exportFormat, setExportFormat] = useState<"png" | "jpg">("png");
@@ -43,6 +44,11 @@ export default function TweetGeneratorPage() {
   const [showQuoteTweet, setShowQuoteTweet] = useState(false);
   const [quoteTweetText, setQuoteTweetText] = useState("");
   const [quoteTweetAuthor, setQuoteTweetAuthor] = useState("");
+
+  // Fix hydration by only rendering time-dependent content on client
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const handleAvatarUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -136,15 +142,24 @@ export default function TweetGeneratorPage() {
   };
 
   const formatTimeAgo = (dateString: string) => {
-    const date = new Date(dateString);
-    const now = new Date();
-    const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
+    // Return original date string during SSR to avoid hydration mismatch
+    if (typeof window === "undefined") {
+      return dateString;
+    }
     
-    if (diffInSeconds < 60) return `${diffInSeconds}s`;
-    if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)}m`;
-    if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)}h`;
-    if (diffInSeconds < 604800) return `${Math.floor(diffInSeconds / 86400)}d`;
-    return dateString;
+    try {
+      const date = new Date(dateString);
+      const now = new Date();
+      const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
+      
+      if (diffInSeconds < 60) return `${diffInSeconds}s`;
+      if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)}m`;
+      if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)}h`;
+      if (diffInSeconds < 604800) return `${Math.floor(diffInSeconds / 86400)}d`;
+      return dateString;
+    } catch {
+      return dateString;
+    }
   };
 
   const downloadImage = async () => {
@@ -319,7 +334,9 @@ export default function TweetGeneratorPage() {
                         </>
                       )}
                       <span className="text-slate-500 dark:text-slate-400">·</span>
-                      <span className="text-slate-500 dark:text-slate-400 text-sm">{formatTimeAgo(tweetDate)}</span>
+                      <span className="text-slate-500 dark:text-slate-400 text-sm">
+                        {isMounted ? formatTimeAgo(tweetDate) : tweetDate}
+                      </span>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
