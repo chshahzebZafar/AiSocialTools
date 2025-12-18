@@ -282,8 +282,8 @@ export const socialTools: SocialTool[] = [
   },
   {
     id: "facebook-thumbnail",
-    name: "Facebook Thumbnail Grabber",
-    description: "Download and save any Facebook video thumbnail of the highest possible quality",
+    name: "Facebook Thumbnail Downloader",
+    description: "Free online tool to download high-resolution thumbnails from Facebook videos, reels, stories, groups, images, and carousel posts. Extract thumbnail sprites and HD images instantly.",
     icon: Facebook,
     path: "/tools/facebook-thumbnail",
     category: "Facebook"
