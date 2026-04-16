@@ -113,7 +113,9 @@ export default function RootLayout({
         {/* Hreflang tags for international SEO (prepared for future expansion) */}
         <link rel="alternate" hrefLang="en" href="https://socialmediatools.netlify.app" />
         <link rel="alternate" hrefLang="x-default" href="https://socialmediatools.netlify.app" />
-        
+        <script  async   src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1544013803258168"   crossOrigin="anonymous" />
+        {/* <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1544013803258168" crossorigin="anonymous"></script> */}
+
         {/* Non-blocking theme initialization */}
         <Script
           id="theme-init"
