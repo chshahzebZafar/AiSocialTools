@@ -242,7 +242,7 @@ export default function Home() {
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-slate-100 mb-6">
                 Best Free Social Media Tools Online
                 <span className="block bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
-                  No Signup Required - 2025
+                  No Signup Required - 2026
                 </span>
               </h1>
               <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto mb-8 leading-relaxed">
