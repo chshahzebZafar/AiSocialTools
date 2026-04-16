@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
   // Empty config to silence warning - webpack config is still needed for FFmpeg.wasm
   turbopack: {},
   
-  // Webpack configuration for FFmpeg.wasm
+  // Webpack configuration for FFmpeg.wasm and pdfjs
   webpack: (config, { isServer }) => {
     if (!isServer) {
       config.resolve.fallback = {
@@ -18,7 +18,7 @@ const nextConfig: NextConfig = {
         crypto: false,
       };
     }
-    // Ignore dynamic import warnings for FFmpeg
+    // Ignore dynamic import warnings for FFmpeg and pdfjs
     config.module = {
       ...config.module,
       unknownContextCritical: false,
@@ -86,7 +86,7 @@ const nextConfig: NextConfig = {
           // Content Security Policy
           {
             key: 'Content-Security-Policy',
-            value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com; frame-src 'self';"
+            value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://cdn.jsdelivr.net https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://cdn.jsdelivr.net https://unpkg.com; frame-src 'self'; worker-src 'self' blob: https://cdn.jsdelivr.net https://unpkg.com;"
           },
           // Cache Control for static assets - Optimized for performance
           {

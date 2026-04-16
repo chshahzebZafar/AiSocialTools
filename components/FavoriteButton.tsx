@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { Heart } from "lucide-react";
 import { useFavorites } from "@/hooks/useFavorites";
 import { useAuth } from "@/components/AuthProvider";
 import { useRouter } from "next/navigation";
@@ -10,6 +9,24 @@ interface FavoriteButtonProps {
   toolId: string;
   className?: string;
 }
+
+// Simple SVG fallback for Heart icon
+const HeartIcon = ({ className, filled = false }: { className?: string; filled?: boolean }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="16"
+    height="16"
+    viewBox="0 0 24 24"
+    fill={filled ? "currentColor" : "none"}
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+  </svg>
+);
 
 export function FavoriteButton({ toolId, className = "" }: FavoriteButtonProps) {
   const { user } = useAuth();
@@ -49,7 +66,7 @@ export function FavoriteButton({ toolId, className = "" }: FavoriteButtonProps) 
         className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-sm text-slate-400 dark:text-slate-500 opacity-50 cursor-not-allowed ${className}`}
         title="Authentication is temporarily disabled"
       >
-        <Heart className="w-4 h-4" />
+        <HeartIcon className="w-4 h-4" />
         <span>Add to Favorites</span>
       </button>
     );
@@ -66,7 +83,7 @@ export function FavoriteButton({ toolId, className = "" }: FavoriteButtonProps) 
       } ${isToggling ? "opacity-50 cursor-not-allowed" : ""} ${className}`}
       title={favorite ? "Remove from favorites" : "Add to favorites"}
     >
-      <Heart className={`w-4 h-4 ${favorite ? "fill-current" : ""}`} />
+      <HeartIcon className="w-4 h-4" filled={favorite} />
       <span>{favorite ? "Favorited" : "Add to Favorites"}</span>
     </button>
   );

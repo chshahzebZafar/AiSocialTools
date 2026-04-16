@@ -66,6 +66,7 @@ export default function PerformanceMonitor() {
               event_category: "Performance",
               value: Math.round(pageLoadTime),
               non_interaction: true,
+              
             });
 
             (window as any).gtag("event", "dom_content_loaded", {
