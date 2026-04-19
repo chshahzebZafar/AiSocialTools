@@ -25,7 +25,7 @@ export default function TweetGeneratorPage() {
   const [name, setName] = useState("John Doe");
   const [username, setUsername] = useState("johndoe");
   const [isVerified, setIsVerified] = useState(false);
-  const [tweetDate, setTweetDate] = useState("December 18, 2025 5:40 PM");
+  const [tweetDate, setTweetDate] = useState("December 18, 2026 5:40 PM");
   const [tweetText, setTweetText] = useState("This is a sample tweet. @mentions, #hashtags, https://links.com are all automatically converted.");
   const [location, setLocation] = useState("");
   const [replyCount, setReplyCount] = useState(0);
@@ -581,7 +581,7 @@ export default function TweetGeneratorPage() {
                 value={tweetDate}
                 onChange={(e) => setTweetDate(e.target.value)}
                 className="w-full px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-blue-500"
-                placeholder="December 18, 2025 5:40 PM"
+                placeholder="December 18, 2026 5:40 PM"
               />
             </div>
 

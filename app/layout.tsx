@@ -25,10 +25,10 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Best Free Social Media Tools Online - No Signup Required 2025",
+    default: "Best Free Social Media Tools Online - No Signup Required 2026",
     template: "%s | Best Free Social Media Tools"
   },
-  description: "Discover the best free social media tools online for 2025. Generate tweets, create Instagram posts, download YouTube thumbnails, generate hashtags, and more. All tools are 100% free with no signup required - perfect for content creators and marketers.",
+  description: "Discover the best free social media tools online for 2026. Generate tweets, create Instagram posts, download YouTube thumbnails, generate hashtags, and more. All tools are 100% free with no signup required - perfect for content creators and marketers.",
   keywords: [
     "free social media tools",
     "best social media tools",
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     "social media toolkit",
     "free tools for creators",
     "social media marketing tools",
-    "best free tools 2025"
+    "best free tools 2026"
   ],
   authors: [{ name: "Shahzeb Zafar" }],
   creator: "Shahzeb Zafar",

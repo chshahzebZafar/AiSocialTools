@@ -122,7 +122,7 @@ export default function HashtagGeneratorPage() {
             </div>
             <div className="flex-1">
               <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100">
-                Best Free Hashtag Generator Online - Boost Your Social Media Reach 2025
+                Best Free Hashtag Generator Online - Boost Your Social Media Reach 2026
               </h1>
               <p className="text-slate-600 dark:text-slate-300 text-lg leading-relaxed">
                 Hashtags are the secret weapon of social media success, but finding the right ones shouldn't be a guessing game. 

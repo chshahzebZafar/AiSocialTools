@@ -32,7 +32,8 @@ import {
   FileType,
   Image as ImageLucide,
   FileCheck,
-  Scissors
+  Scissors,
+  Pin
 } from "lucide-react";
 
 export interface SocialTool {
@@ -351,6 +352,15 @@ export const socialTools: SocialTool[] = [
     icon: Maximize2,
     path: "/tools/image-upscaler",
     category: "Design",
+    isNew: true
+  },
+  {
+    id: "pinterest-video-downloader",
+    name: "Pinterest Video Downloader",
+    description: "Download videos and images from Pinterest pins. Free Pinterest downloader tool. Save Pinterest content for offline viewing.",
+    icon: Pin,
+    path: "/tools/pinterest-video-downloader",
+    category: "Pinterest",
     isNew: true
   }
 ];

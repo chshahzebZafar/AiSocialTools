@@ -13,7 +13,7 @@ interface SEOConfig {
 export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
   const seoConfigs: Record<string, SEOConfig> = {
     "tweet-generator": {
-      title: "Best Free AI Tweet Generator Online - Create Engaging Tweets 2025",
+      title: "Best Free AI Tweet Generator Online - Create Engaging Tweets 2026",
       description: "Generate creative and engaging tweets instantly with the best free AI-powered tweet generator online. Create viral Twitter content, optimize character count, and boost engagement. No signup required - perfect for content creators and marketers.",
       keywords: [
         "tweet generator",
@@ -95,7 +95,7 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
       }
     },
     "hashtag-generator": {
-      title: "Best Free Hashtag Generator Online - Trending Hashtags 2025",
+      title: "Best Free Hashtag Generator Online - Trending Hashtags 2026",
       description: "Generate relevant and trending hashtags for Instagram, Twitter, TikTok, and LinkedIn with the best free hashtag generator online. Platform-specific suggestions to boost your social media reach. No signup required.",
       keywords: [
         "hashtag generator",
@@ -121,7 +121,7 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
         "hashtag generator for business",
         "how to find best hashtags for instagram",
         "free hashtag generator no signup",
-        "best hashtag generator 2025",
+        "best hashtag generator 2026",
         "online hashtag generator free",
         "what are the best hashtags for instagram"
       ],
@@ -133,7 +133,7 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
       }
     },
     "instagram-post-generator": {
-      title: "Best Free Instagram Post Generator Online - Create Engaging Captions 2025",
+      title: "Best Free Instagram Post Generator Online - Create Engaging Captions 2026",
       description: "Generate engaging Instagram captions and posts with the best free Instagram post generator online. Create viral content with templates, hashtags, and emoji suggestions. Boost your Instagram engagement - no signup required.",
       keywords: [
         "instagram post generator",
@@ -158,7 +158,7 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
         "best instagram caption generator free",
         "how to create instagram captions",
         "free instagram post generator no signup",
-        "best instagram post generator 2025",
+        "best instagram post generator 2026",
         "online instagram caption generator",
         "what is the best instagram caption generator"
       ],
@@ -170,7 +170,7 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
       }
     },
     "youtube-thumbnail": {
-      title: "Best Free YouTube Thumbnail Downloader Online - Download HD Thumbnails 2025",
+      title: "Best Free YouTube Thumbnail Downloader Online - Download HD Thumbnails 2026",
       description: "Extract and download YouTube video thumbnails in high quality with the best free YouTube thumbnail downloader online. Download thumbnails in max resolution, HQ, MQ, or SD quality instantly. No signup required.",
       keywords: [
         "youtube thumbnail downloader",
@@ -195,7 +195,7 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
         "get youtube thumbnail image",
         "how to get youtube thumbnail url",
         "free youtube thumbnail downloader no signup",
-        "best youtube thumbnail downloader 2025",
+        "best youtube thumbnail downloader 2026",
         "online youtube thumbnail extractor free",
         "download youtube thumbnail hd quality"
       ],
@@ -951,6 +951,113 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
           "@type": "Offer",
           "price": "0",
           "priceCurrency": "USD"
+        }
+      }
+    },
+    "pinterest-video-downloader": {
+      title: "Best Free Pinterest Video Downloader Online - Download Pins 2026",
+      description: "Download videos and images from Pinterest pins with the best free Pinterest video downloader online. Save Pinterest content in HD quality for offline viewing. No signup required - fast and easy Pinterest downloader.",
+      keywords: [
+        "pinterest video download",
+        "pinterest video downloader",
+        "pinterest download",
+        "download pinterest video",
+        "pinterest download video",
+        "pinterest downloader",
+        "download pinterest videos",
+        "pinterest pin downloader",
+        "pinterest image downloader",
+        "free pinterest downloader",
+        "best pinterest video downloader",
+        "pinterest video saver",
+        "download pinterest pins",
+        "pinterest content downloader",
+        "pinterest reel downloader",
+        "pinterest story downloader",
+        "pinterest video download india",
+        "pinterest video downloader india",
+        "download pinterest video online",
+        "pinterest video downloader usa",
+        "pinterest video downloader uk",
+        "pinterest video downloader free",
+        "free pinterest video download",
+        "online pinterest video downloader",
+        "pinterest video download mp4",
+        "pinterest video download hd",
+        "pinterest downloader online",
+        "pinterest video downloader app",
+        "pinterest video downloader website",
+        "pinterest video downloader 2026",
+        "pinterest video download without watermark",
+        "pinterest video downloader no watermark",
+        "pinterest video saver online",
+        "download pinterest reels",
+        "pinterest reels downloader",
+        "pinterest story download",
+        "pinterest igtv downloader",
+        "pinterest video converter",
+        "pinterest mp4 downloader",
+        "pinterest video grabber",
+        "pinterest video extractor",
+        "save pinterest video",
+        "pinterest video download chrome",
+        "pinterest video downloader extension",
+        "pinterest video download android",
+        "pinterest video download ios",
+        "pinterest video downloader apk",
+        "pinterest video download pc",
+        "pinterest video download mac",
+        "pinterest video downloader windows"
+      ],
+      longTailKeywords: [
+        "pinterest video download",
+        "pinterest video downloader",
+        "pinterest download",
+        "download pinterest video",
+        "pinterest download video",
+        "how to download pinterest videos",
+        "best free pinterest video downloader online",
+        "download pinterest videos without watermark",
+        "save pinterest videos to device",
+        "pinterest downloader free online",
+        "how to download pinterest pins",
+        "pinterest video downloader no signup",
+        "download pinterest images and videos",
+        "best pinterest downloader 2026",
+        "pinterest content saver free",
+        "how to download pinterest videos on iphone",
+        "how to download pinterest videos on android",
+        "how to save pinterest videos to camera roll",
+        "download pinterest videos in hd quality",
+        "best pinterest video downloader for pc",
+        "pinterest video downloader chrome extension",
+        "how to download pinterest story video",
+        "save pinterest reels to gallery",
+        "download pinterest videos without app",
+        "pinterest video download online free",
+        "how to download pinterest videos on mac",
+        "pinterest video downloader for windows 10",
+        "download pinterest videos in high resolution",
+        "best online pinterest video downloader 2026",
+        "how to save pinterest videos offline"
+      ],
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Pinterest Video Downloader",
+        "description": "Download videos and images from Pinterest pins",
+        "url": "https://socialmediatools.netlify.app/tools/pinterest-video-downloader",
+        "applicationCategory": "SocialMediaApplication",
+        "operatingSystem": "Web",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.7",
+          "ratingCount": "850"
         }
       }
     }

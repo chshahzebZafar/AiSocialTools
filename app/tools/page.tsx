@@ -86,7 +86,7 @@ export default function ToolsPage() {
         />
         <div className="text-center mb-8 sm:mb-12">
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 dark:text-slate-100 mb-3 sm:mb-4">
-            All Free Social Media Tools - Complete Collection 2025
+            All Free Social Media Tools - Complete Collection 2026
           </h1>
           <p className="text-base sm:text-lg lg:text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto px-4">
             Browse our complete collection of the best free social media tools online. Generate content, download thumbnails, create captions, and optimize your social media strategy - all tools are 100% free with no signup required.

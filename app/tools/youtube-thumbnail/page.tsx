@@ -87,7 +87,7 @@ export default function YouTubeThumbnailPage() {
             <Youtube className="w-6 h-6 text-white" />
           </div>
           <div className="flex-1">
-            <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100">Best Free YouTube Thumbnail Downloader Online - Download HD Thumbnails 2025</h1>
+            <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100">Best Free YouTube Thumbnail Downloader Online - Download HD Thumbnails 2026</h1>
             <p className="text-slate-600 dark:text-slate-300">
               Extract and download YouTube video thumbnails in high quality with the best free YouTube thumbnail downloader online. 
               Download thumbnails in max resolution (1280x720), HQ, MQ, or SD quality instantly. Perfect for content creators, 

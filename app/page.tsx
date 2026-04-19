@@ -25,8 +25,8 @@ import {
 import Image from "next/image";
 
 export const metadata: Metadata = {
-  title: "Best Free Social Media Tools Online - No Signup Required 2025",
-  description: "Discover the best free social media tools online for 2025. Generate tweets, create Instagram posts, download YouTube thumbnails, generate hashtags, and more. 100% free online tools with no signup required. Perfect for content creators, marketers, and social media managers.",
+  title: "Best Free Social Media Tools Online - No Signup Required 2026",
+  description: "Discover the best free social media tools online for 2026. Generate tweets, create Instagram posts, download YouTube thumbnails, generate hashtags, and more. 100% free online tools with no signup required. Perfect for content creators, marketers, and social media managers.",
   keywords: [
     "free social media tools",
     "social media tools online",
@@ -153,10 +153,10 @@ export default function Home() {
       },
       {
         "@type": "Question",
-        name: "What are the best free online tools for social media in 2025?",
+        name: "What are the best free online tools for social media in 2026?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "The best free online tools for social media in 2025 include AI tweet generators, Instagram caption generators, YouTube thumbnail downloaders, hashtag generators, engagement calculators, and content calendars. Our collection features over 30 free tools that work instantly with no signup required."
+          text: "The best free online tools for social media in 2026 include AI tweet generators, Instagram caption generators, YouTube thumbnail downloaders, hashtag generators, engagement calculators, and content calendars. Our collection features over 30 free tools that work instantly with no signup required."
         }
       },
       {

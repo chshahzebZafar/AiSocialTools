@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { getOGImageUrl } from "@/lib/og-image-generator";
 
 export const metadata: Metadata = {
-  title: "All Free Social Media Tools - Complete Online Tools Collection 2025",
+  title: "All Free Social Media Tools - Complete Online Tools Collection 2026",
   description: "Browse our complete collection of the best free social media tools online. Generate tweets, create Instagram posts, download YouTube thumbnails, generate hashtags, create captions, and more. All tools are 100% free with no signup required - perfect for content creators and marketers.",
   keywords: [
     "all social media tools",
