@@ -101,6 +101,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Favicon - PNG format */}
+        <link rel="icon" type="image/png" href="/favicon.png" />
+        
         {/* Resource hints for performance - Optimized for Core Web Vitals */}
         <link rel="manifest" href="/manifest.json" />
         {/* Font preloading - Critical for LCP */}
