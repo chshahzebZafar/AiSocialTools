@@ -59,17 +59,33 @@ export default function PinterestVideoDownloaderPage() {
     }
 
     try {
-      // Note: Pinterest's API requires authentication. This is a client-side only solution
-      // that would need a backend service for actual implementation.
-      // For demonstration, we'll show the expected structure.
+      // Call the backend API to extract Pinterest data
+      const response = await fetch('/api/pinterest-download', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ url: pinUrl }),
+      });
 
-      setTimeout(() => {
-        setError("This feature requires a backend service. Pinterest content is protected and cannot be downloaded directly from the browser due to CORS and authentication requirements.");
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        setError(data.error || 'Failed to extract content. Please check the URL and try again.');
         setLoading(false);
-      }, 1000);
+        return;
+      }
+
+      setPinData({
+        type: data.type,
+        downloadUrl: data.downloadUrl,
+        thumbnailUrl: data.thumbnailUrl,
+        title: data.title,
+        description: data.description,
+      });
 
     } catch (err) {
-      setError("Failed to extract pin data. Please check the URL and try again.");
+      setError("Failed to extract pin data. Please check your internet connection and try again.");
       setLoading(false);
     }
   };
@@ -97,7 +113,7 @@ export default function PinterestVideoDownloaderPage() {
             </div>
             <div className="flex-1">
               <h1 className="text-3xl font-bold text-slate-900">Pinterest Video Downloader - Download Pinterest Videos & Images Free</h1>
-              <p className="text-slate-600">Download videos and images from Pinterest pins. Free Pinterest downloader tool. Save Pinterest content for offline viewing. Note: Requires backend implementation.</p>
+              <p className="text-slate-600">Download videos and images from Pinterest pins. Free Pinterest downloader tool. Save Pinterest content in HD quality for offline viewing. No signup required.</p>
             </div>
           </div>
           <div className="mt-4 flex items-center gap-3 flex-wrap">
@@ -200,19 +216,19 @@ export default function PinterestVideoDownloaderPage() {
           </div>
         )}
 
-        <div className="mt-8 bg-red-50 rounded-xl p-6 border border-red-200">
-          <h3 className="font-semibold text-red-900 mb-2">Implementation Guide</h3>
-          <p className="text-sm text-red-800 mb-3">
-            This tool requires backend implementation. Here are your options:
+        <div className="mt-8 bg-green-50 rounded-xl p-6 border border-green-200">
+          <h3 className="font-semibold text-green-900 mb-2">How It Works</h3>
+          <p className="text-sm text-green-800 mb-3">
+            Our Pinterest Video Downloader uses advanced extraction technology to fetch content directly from Pinterest pins:
           </p>
-          <ul className="text-sm text-red-800 space-y-1">
-            <li>Use Pinterest API (requires app approval and OAuth)</li>
-            <li>Implement a backend scraper service (respect Pinterest ToS)</li>
-            <li>Use third-party APIs like RapidAPI Pinterest services</li>
-            <li>Consider browser extensions for personal use</li>
+          <ul className="text-sm text-green-800 space-y-1">
+            <li>Paste any Pinterest pin URL (including pin.it short links)</li>
+            <li>We extract the video or image in highest available quality</li>
+            <li>Download directly to your device with one click</li>
+            <li>Works for both public pins and most story pins</li>
           </ul>
-          <p className="text-sm text-red-700 mt-3">
-            <strong>Important:</strong> Always respect Pinterest Terms of Service and copyright laws when downloading content.
+          <p className="text-sm text-green-700 mt-3">
+            <strong>Note:</strong> This tool is for personal use only. Please respect copyright laws and Pinterest's Terms of Service.
           </p>
         </div>
 
