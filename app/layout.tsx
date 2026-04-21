@@ -119,6 +119,9 @@ export default function RootLayout({
         <script  async   src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1544013803258168"   crossOrigin="anonymous" />
         {/* <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1544013803258168" crossorigin="anonymous"></script> */}
 
+        {/* Bing Verification TAG */}
+        <meta name="msvalidate.01" content="B5DB751F43595825223C49E26E43F282" />
+
         {/* Non-blocking theme initialization */}
         <Script
           id="theme-init"

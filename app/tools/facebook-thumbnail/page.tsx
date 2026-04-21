@@ -203,6 +203,21 @@ export default function FacebookThumbnailPage() {
           </div>
         )}
 
+        {/* Ad Unit - After Thumbnail Section */}
+        <div className="my-8">
+          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1544013803258168"
+               crossOrigin="anonymous"></script>
+          <ins className="adsbygoogle"
+               style={{ display: 'block' }}
+               data-ad-client="ca-pub-1544013803258168"
+               data-ad-slot="1169725018"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script dangerouslySetInnerHTML={{
+            __html: `(adsbygoogle = window.adsbygoogle || []).push({});`
+          }} />
+        </div>
+
         <div className="mt-8 space-y-6">
           {/* About Section */}
           <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
