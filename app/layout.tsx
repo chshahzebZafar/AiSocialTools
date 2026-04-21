@@ -118,11 +118,14 @@ export default function RootLayout({
         <script  async   src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1544013803258168"   crossOrigin="anonymous" />
         {/* <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1544013803258168" crossorigin="anonymous"></script> */}
 
+        {/* Google Verification TAG */}
+        <meta name="google-site-verification" content="1MXsxJbLVHs_-NmpBgvIbP63OboURvFjZwN7Rjf6aVU" />
+
         {/* Bing Verification TAG */}
         <meta name="msvalidate.01" content="B5DB751F43595825223C49E26E43F282" />
 
         {/* Yandex Verification TAG */}
-        <meta name="yandex-verification" content="4937df008dc17e31" />
+        <meta name="yandex-verification" content="2c63a0240a56f4be" />
 
         {/* Non-blocking theme initialization */}
         <Script
