@@ -19,7 +19,7 @@ export default function ToolSEO({ tool }: ToolSEOProps) {
   const structuredData = {
     ...seo.structuredData,
     "@context": "https://schema.org",
-    url: `https://socialmediatools.netlify.app${tool.path}`,
+    url: `https://aisocialtools.co${tool.path}`,
   };
 
   // Enhanced FAQ Schema with 7 questions

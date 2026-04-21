@@ -87,7 +87,7 @@ Visit: https://search.google.com/test/rich-results
 - Verify all structured data is detected
 
 ### 2. Google Search Console
-1. Submit sitemap: `https://socialmediatools.netlify.app/sitemap.xml`
+1. Submit sitemap: `https://aisocialtools.co/sitemap.xml`
 2. Monitor performance
 3. Check for errors
 
@@ -164,7 +164,7 @@ export const metadata = generateEnhancedMetadata({
   title: "Tool Name - Free Online Tool",
   description: "Tool description...",
   keywords: ["keyword1", "keyword2"],
-  url: "https://socialmediatools.netlify.app/tools/tool-name",
+  url: "https://aisocialtools.co/tools/tool-name",
   type: "website",
 });
 ```

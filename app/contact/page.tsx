@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     title: "Contact Us - Social Media Tools",
     description: "Get in touch with Social Media Tools. Have questions, feedback, or suggestions? Contact us today.",
     type: "website",
-    url: "https://socialmediatools.netlify.app/contact",
+    url: "https://aisocialtools.co/contact",
     siteName: "Social Media Tools",
     images: [
       {
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     images: [getOGImageUrl("default")],
   },
   alternates: {
-    canonical: "https://socialmediatools.netlify.app/contact",
+    canonical: "https://aisocialtools.co/contact",
   },
 };
 

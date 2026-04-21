@@ -49,7 +49,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://socialmediatools.netlify.app",
+    url: "https://aisocialtools.co",
     siteName: "Social Media Tools",
     title: "Social Media Tools - Best Tools for Social Media Management",
     description: "Discover the best social media tools for scheduling, analytics, design, and management.",
@@ -80,14 +80,13 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: "https://socialmediatools.netlify.app",
+    canonical: "https://aisocialtools.co",
   },
   verification: {
     google: "rSzbil6iTeObZLttAxiRP7L7aYbEX8BtQEta8AzxfHk",
-    // yandex: "your-yandex-verification-code",
-    // Add Bing verification when available: bing: "your-bing-verification-code",
+    yandex: "4937df008dc17e31",
   },
-  metadataBase: new URL("https://socialmediatools.netlify.app"),
+  metadataBase: new URL("https://aisocialtools.co"),
   other: {
     "theme-color": "#3b82f6",
   },
@@ -111,16 +110,19 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         {/* Analytics preconnect - Non-blocking */}
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+        <link rel="ns-prefetch" href="https://www.google-analytics.com" />
         <link rel="preconnect" href="https://www.google-analytics.com" />
         {/* Hreflang tags for international SEO (prepared for future expansion) */}
-        <link rel="alternate" hrefLang="en" href="https://socialmediatools.netlify.app" />
-        <link rel="alternate" hrefLang="x-default" href="https://socialmediatools.netlify.app" />
+        <link rel="alternate" hrefLang="en" href="https://aisocialtools.co" />
+        <link rel="alternate" hrefLang="x-default" href="https://aisocialtools.co" />
         <script  async   src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1544013803258168"   crossOrigin="anonymous" />
         {/* <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1544013803258168" crossorigin="anonymous"></script> */}
 
         {/* Bing Verification TAG */}
         <meta name="msvalidate.01" content="B5DB751F43595825223C49E26E43F282" />
+
+        {/* Yandex Verification TAG */}
+        <meta name="yandex-verification" content="4937df008dc17e31" />
 
         {/* Non-blocking theme initialization */}
         <Script

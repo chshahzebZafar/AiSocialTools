@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     title: "Privacy Policy - Social Media Tools",
     description: "Read our privacy policy. We don't collect, store, or share your personal data. Your privacy is our priority.",
     type: "website",
-    url: "https://socialmediatools.netlify.app/privacy",
+    url: "https://aisocialtools.co/privacy",
     siteName: "Social Media Tools",
     images: [
       {
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     images: [getOGImageUrl("default")],
   },
   alternates: {
-    canonical: "https://socialmediatools.netlify.app/privacy",
+    canonical: "https://aisocialtools.co/privacy",
   },
   robots: {
     index: true,

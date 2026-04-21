@@ -28,10 +28,10 @@ export default function ToolsPage() {
   const collectionPageSchema = generateCollectionPageSchema(
     "All Social Media Tools",
     "Complete collection of free social media tools for content creation, management, and optimization. Generate tweets, create Instagram posts, download YouTube thumbnails, generate hashtags, and more.",
-    "https://socialmediatools.netlify.app/tools",
+    "https://aisocialtools.co/tools",
     socialTools.map((tool) => ({
       name: tool.name,
-      url: `https://socialmediatools.netlify.app${tool.path}`,
+      url: `https://aisocialtools.co${tool.path}`,
       description: tool.description,
     }))
   );
@@ -42,7 +42,7 @@ export default function ToolsPage() {
     "@type": "ItemList",
     name: "All Social Media Tools",
     description: "Complete collection of free social media tools for content creation, management, and optimization",
-    url: "https://socialmediatools.netlify.app/tools",
+    url: "https://aisocialtools.co/tools",
     numberOfItems: socialTools.length,
     itemListElement: socialTools.map((tool, index) => ({
       "@type": "ListItem",
@@ -51,7 +51,7 @@ export default function ToolsPage() {
         "@type": "WebApplication",
         name: tool.name,
         description: tool.description,
-        url: `https://socialmediatools.netlify.app${tool.path}`,
+        url: `https://aisocialtools.co${tool.path}`,
         applicationCategory: "SocialMediaApplication",
         operatingSystem: "Web Browser",
         offers: {

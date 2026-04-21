@@ -24,7 +24,7 @@
  */
 
 export const OG_IMAGE_CONFIG = {
-  baseUrl: "https://socialmediatools.netlify.app",
+  baseUrl: "https://aisocialtools.co",
   defaultImage: "/og-image.png",
   images: {
     home: "/og-image.png",

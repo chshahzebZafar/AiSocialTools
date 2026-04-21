@@ -98,7 +98,7 @@ export default function HashtagGeneratorPage() {
             "@context": "https://schema.org",
             "@type": "WebApplication",
             name: "Hashtag Generator",
-            url: "https://socialmediatools.netlify.app/tools/hashtag-generator",
+            url: "https://aisocialtools.co/tools/hashtag-generator",
             description: "Free AI hashtag generator for Instagram, Twitter, TikTok, and LinkedIn. Generate trending and relevant hashtags to boost your social media reach.",
             applicationCategory: "Utility",
             operatingSystem: "Web Browser",

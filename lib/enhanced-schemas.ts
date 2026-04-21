@@ -19,7 +19,7 @@ export function getEnhancedArticleSchema(post: BlogPost) {
     "description": post.excerpt,
     "image": {
       "@type": "ImageObject",
-      "url": `https://socialmediatools.netlify.app${post.image}`,
+      "url": `https://aisocialtools.co${post.image}`,
       "width": 1200,
       "height": 630
     },
@@ -28,21 +28,21 @@ export function getEnhancedArticleSchema(post: BlogPost) {
     "author": {
       "@type": "Person",
       "name": post.author,
-      "url": "https://socialmediatools.netlify.app/author"
+      "url": "https://aisocialtools.co/author"
     },
     "publisher": {
       "@type": "Organization",
       "name": "Social Media Tools",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://socialmediatools.netlify.app/logo.png",
+        "url": "https://aisocialtools.co/logo.png",
         "width": 600,
         "height": 60
       }
     },
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": `https://socialmediatools.netlify.app/blog/${post.slug}`
+      "@id": `https://aisocialtools.co/blog/${post.slug}`
     },
     "articleSection": post.category,
     "keywords": post.tags.join(", "),
@@ -84,13 +84,13 @@ export function getSiteLinksSearchBoxSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "url": "https://socialmediatools.netlify.app",
+    "url": "https://aisocialtools.co",
     "name": "Social Media Tools",
     "potentialAction": {
       "@type": "SearchAction",
       "target": {
         "@type": "EntryPoint",
-        "urlTemplate": "https://socialmediatools.netlify.app/search?q={search_term_string}"
+        "urlTemplate": "https://aisocialtools.co/search?q={search_term_string}"
       },
       "query-input": "required name=search_term_string"
     }
@@ -182,28 +182,28 @@ export function getEnhancedHowToSchema(tool: SocialTool) {
         "position": 1,
         "name": "Visit the Tool Page",
         "text": `Navigate to the ${tool.name} page on our website.`,
-        "image": "https://socialmediatools.netlify.app/og-image.png"
+        "image": "https://aisocialtools.co/og-image.png"
       },
       {
         "@type": "HowToStep",
         "position": 2,
         "name": "Enter Your Input",
         "text": "Enter your content, text, or data in the input field provided.",
-        "image": "https://socialmediatools.netlify.app/og-image.png"
+        "image": "https://aisocialtools.co/og-image.png"
       },
       {
         "@type": "HowToStep",
         "position": 3,
         "name": "Generate or Process",
         "text": "Click the generate or process button to create your output.",
-        "image": "https://socialmediatools.netlify.app/og-image.png"
+        "image": "https://aisocialtools.co/og-image.png"
       },
       {
         "@type": "HowToStep",
         "position": 4,
         "name": "Copy or Download",
         "text": "Copy your result or download it directly. No signup required!",
-        "image": "https://socialmediatools.netlify.app/og-image.png"
+        "image": "https://aisocialtools.co/og-image.png"
       }
     ],
     "totalTime": "PT2M",
@@ -224,8 +224,8 @@ export function getAuthorSchema() {
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Shahzeb Zafar",
-    "url": "https://socialmediatools.netlify.app/author",
-    "image": "https://socialmediatools.netlify.app/author-image.jpg",
+    "url": "https://aisocialtools.co/author",
+    "image": "https://aisocialtools.co/author-image.jpg",
     "sameAs": [
       // Add your social media profiles
       // "https://twitter.com/yourhandle",

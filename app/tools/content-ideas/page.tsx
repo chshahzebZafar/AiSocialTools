@@ -91,7 +91,7 @@ export default function ContentIdeasPage() {
             "@context": "https://schema.org",
             "@type": "WebApplication",
             name: "Content Ideas Generator",
-            url: "https://socialmediatools.netlify.app/tools/content-ideas",
+            url: "https://aisocialtools.co/tools/content-ideas",
             description: "Free AI content ideas generator for Instagram, Twitter, LinkedIn, and TikTok. Generate creative content ideas to inspire your next viral post.",
             applicationCategory: "Utility",
             operatingSystem: "Web Browser",

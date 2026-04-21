@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     title: "Blog - Social Media Tips, Strategies & Insights",
     description: "Discover expert tips, strategies, and insights to help you succeed on social media.",
     type: "website",
-    url: "https://socialmediatools.netlify.app/blog",
+    url: "https://aisocialtools.co/blog",
     siteName: "Social Media Tools",
     images: [
       {
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     images: [getOGImageUrl("default")],
   },
   alternates: {
-    canonical: "https://socialmediatools.netlify.app/blog",
+    canonical: "https://aisocialtools.co/blog",
   },
 };
 

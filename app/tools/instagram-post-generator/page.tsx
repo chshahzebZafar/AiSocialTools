@@ -742,8 +742,8 @@ export default function InstagramPostGeneratorPage() {
             <div className="bg-slate-50 dark:bg-slate-900/50 rounded-lg p-4 border border-slate-200 dark:border-slate-700">
               <p className="text-xs text-slate-600 dark:text-slate-400 text-center">
                 By using Instagram Post Generator by{" "}
-                <a href="https://socialmediatools.netlify.app" className="text-purple-600 hover:underline">
-                  socialmediatools.netlify.app
+                <a href="https://aisocialtools.co" className="text-purple-600 hover:underline">
+                  aisocialtools.co
                 </a>
                 , you agree to our Usage Policy.
               </p>

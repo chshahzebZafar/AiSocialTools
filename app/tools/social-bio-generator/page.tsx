@@ -83,7 +83,7 @@ export default function SocialBioGeneratorPage() {
             "@context": "https://schema.org",
             "@type": "WebApplication",
             name: "Social Bio Generator",
-            url: "https://socialmediatools.netlify.app/tools/social-bio-generator",
+            url: "https://aisocialtools.co/tools/social-bio-generator",
             description: "Free AI social media bio generator for Instagram, Twitter, LinkedIn, and TikTok. Create engaging bios that capture attention and grow your following.",
             applicationCategory: "Utility",
             operatingSystem: "Web Browser",

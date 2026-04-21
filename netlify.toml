@@ -2,6 +2,32 @@
   command = "npm run build"
   publish = ".next"
 
+# CRITICAL: Redirect old Netlify domain to new custom domain (301 for SEO juice)
+[[redirects]]
+  from = "https://socialmediatools.netlify.app/*"
+  to = "https://aisocialtools.co/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://socialmediatools.netlify.app/*"
+  to = "https://aisocialtools.co/:splat"
+  status = 301
+  force = true
+
+# Redirect www to non-www (canonical)
+[[redirects]]
+  from = "https://www.aisocialtools.co/*"
+  to = "https://aisocialtools.co/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://www.aisocialtools.co/*"
+  to = "https://aisocialtools.co/:splat"
+  status = 301
+  force = true
+
 # Redirects for URL canonicalization
 [[redirects]]
   from = "/*"
@@ -18,8 +44,8 @@
 
 # Ensure HTTPS (Netlify handles this automatically, but explicit is better)
 [[redirects]]
-  from = "http://socialmediatools.netlify.app/*"
-  to = "https://socialmediatools.netlify.app/:splat"
+  from = "http://aisocialtools.co/*"
+  to = "https://aisocialtools.co/:splat"
   status = 301
   force = true
 

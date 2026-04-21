@@ -59,7 +59,7 @@ export default function Breadcrumbs() {
       "@type": "ListItem",
       position: index + 1,
       name: crumb.label,
-      item: `https://socialmediatools.netlify.app${crumb.href}`,
+      item: `https://aisocialtools.co${crumb.href}`,
     })),
   };
 

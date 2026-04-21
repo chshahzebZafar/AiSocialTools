@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     title: "All Social Media Tools - Free Online Tools Collection",
     description: "Browse our complete collection of free social media tools. All tools are 100% free with no signup required.",
     type: "website",
-    url: "https://socialmediatools.netlify.app/tools",
+    url: "https://aisocialtools.co/tools",
     siteName: "Social Media Tools",
     images: [
       {
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     images: [getOGImageUrl("tools")],
   },
   alternates: {
-    canonical: "https://socialmediatools.netlify.app/tools",
+    canonical: "https://aisocialtools.co/tools",
   },
 };
 

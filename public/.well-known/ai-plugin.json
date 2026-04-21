@@ -7,10 +7,10 @@
   "auth": { "type": "none" },
   "api": {
     "type": "openapi",
-    "url": "https://socialmediatools.netlify.app/openapi.yaml"
+    "url": "https://aisocialtools.co/openapi.yaml"
   },
-  "logo_url": "https://socialmediatools.netlify.app/og-image.png",
+  "logo_url": "https://aisocialtools.co/og-image.png",
   "contact_email": "shahzaibzafar093@gmail.com",
-  "legal_info_url": "https://socialmediatools.netlify.app/privacy"
+  "legal_info_url": "https://aisocialtools.co/privacy"
 }
 

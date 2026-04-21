@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     title: "Free Social Media Tools - Create & Manage Content",
     description: "Powerful free social media tools for content creation, management, and optimization. 100% free, no signup required.",
     type: "website",
-    url: "https://socialmediatools.netlify.app",
+    url: "https://aisocialtools.co",
     siteName: "Social Media Tools",
     images: [
       {
@@ -71,7 +71,7 @@ export const metadata: Metadata = {
     images: [getOGImageUrl("home")],
   },
   alternates: {
-    canonical: "https://socialmediatools.netlify.app",
+    canonical: "https://aisocialtools.co",
   },
   robots: {
     index: true,
@@ -87,10 +87,10 @@ export default function Home() {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Social Media Tools",
-    url: "https://socialmediatools.netlify.app",
+    url: "https://aisocialtools.co",
     logo: {
       "@type": "ImageObject",
-      url: "https://socialmediatools.netlify.app/og-default.png",
+      url: "https://aisocialtools.co/og-default.png",
       width: 1200,
       height: 630
     },
@@ -104,13 +104,13 @@ export default function Home() {
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "Customer Service",
-      url: "https://socialmediatools.netlify.app/contact",
+      url: "https://aisocialtools.co/contact",
     },
     potentialAction: {
       "@type": "SearchAction",
       target: {
         "@type": "EntryPoint",
-        urlTemplate: "https://socialmediatools.netlify.app/tools?q={search_term_string}",
+        urlTemplate: "https://aisocialtools.co/tools?q={search_term_string}",
       },
       "query-input": "required name=search_term_string",
     },

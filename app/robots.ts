@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next'
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = 'https://socialmediatools.netlify.app'
+  const baseUrl = 'https://aisocialtools.co'
   
   return {
     rules: [
@@ -78,13 +78,45 @@ export default function robots(): MetadataRoute.Robots {
           '/profile/',
         ],
       },
-      // Block bad bots
+      // YandexBot - Russian/Eastern European traffic
+      {
+        userAgent: 'YandexBot',
+        allow: '/',
+        disallow: [
+          '/api/',
+          '/admin/',
+          '/private/',
+          '/profile/',
+        ],
+      },
+      // DuckDuckGo bot
+      {
+        userAgent: 'DuckDuckBot',
+        allow: '/',
+        disallow: [
+          '/api/',
+          '/admin/',
+          '/private/',
+        ],
+      },
+      // Baidu bot (China traffic)
+      {
+        userAgent: 'baiduspider',
+        allow: '/',
+        disallow: [
+          '/api/',
+          '/admin/',
+          '/private/',
+        ],
+      },
+      // Block bad bots (competitor SEO crawlers)
       {
         userAgent: [
           'AhrefsBot',
           'SemrushBot',
           'DotBot',
           'MJ12bot',
+          'Screaming Frog',
         ],
         disallow: '/',
       },

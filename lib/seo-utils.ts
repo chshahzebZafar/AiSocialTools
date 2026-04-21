@@ -9,7 +9,7 @@ import { Metadata } from "next";
 import { SocialTool } from "./social-tools";
 import { BlogPost } from "./blog-posts";
 
-const BASE_URL = "https://socialmediatools.netlify.app";
+const BASE_URL = "https://aisocialtools.co";
 
 /**
  * Generate breadcrumb schema for any page

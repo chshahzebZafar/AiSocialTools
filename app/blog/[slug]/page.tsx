@@ -39,7 +39,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title: post.title,
       description: post.excerpt,
       type: "article",
-      url: `https://socialmediatools.netlify.app/blog/${post.slug}`,
+      url: `https://aisocialtools.co/blog/${post.slug}`,
       siteName: "Social Media Tools",
       publishedTime: post.publishedAt,
       modifiedTime: post.updatedAt || post.publishedAt,
@@ -61,7 +61,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       images: [getOGImageUrl("default")],
     },
     alternates: {
-      canonical: `https://socialmediatools.netlify.app/blog/${post.slug}`,
+      canonical: `https://aisocialtools.co/blog/${post.slug}`,
     },
   };
 }

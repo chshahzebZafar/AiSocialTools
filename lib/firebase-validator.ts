@@ -89,7 +89,7 @@ export function getFirebaseSetupChecklist(): string[] {
     "4. Enter a support email",
     "5. Click 'Save'",
     "6. Go to Authentication → Settings → Authorized domains",
-    "7. Add your domain (e.g., socialmediatools.netlify.app)",
+    "7. Add your domain (e.g., aisocialtools.co)",
     "8. Add 'localhost' for development",
     "9. Verify OAuth consent screen in Google Cloud Console",
     "10. Ensure your Firebase project is active and billing is enabled (if required)",

@@ -60,7 +60,7 @@ export default function TweetToImagePage() {
   const [imageQuality, setImageQuality] = useState<ImageQuality>("1x");
   const [addWatermark, setAddWatermark] = useState(true); // Default enabled
   const [supportWatermark, setSupportWatermark] = useState(true); // Default enabled
-  const [customWatermarkText, setCustomWatermarkText] = useState("socialmediatools.netlify.app");
+  const [customWatermarkText, setCustomWatermarkText] = useState("aisocialtools.co");
   const [watermarkPosition, setWatermarkPosition] = useState<"bottom-left" | "bottom-right" | "bottom-center" | "top-left" | "top-right" | "top-center">("bottom-right");
   const [watermarkOpacity, setWatermarkOpacity] = useState(0.6);
   const [watermarkSize, setWatermarkSize] = useState(14);
@@ -584,7 +584,7 @@ export default function TweetToImagePage() {
                     }}
                   >
                     <a
-                      href="https://socialmediatools.netlify.app"
+                      href="https://aisocialtools.co"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="hover:underline"
@@ -1050,7 +1050,7 @@ export default function TweetToImagePage() {
                               value={customWatermarkText}
                               onChange={(e) => setCustomWatermarkText(e.target.value)}
                               className="w-full px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-purple-500 text-sm"
-                              placeholder="socialmediatools.netlify.app"
+                              placeholder="aisocialtools.co"
                             />
                           </div>
 
@@ -1251,7 +1251,7 @@ export default function TweetToImagePage() {
                     }}
                   >
                     <a
-                      href="https://socialmediatools.netlify.app"
+                      href="https://aisocialtools.co"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="hover:underline"

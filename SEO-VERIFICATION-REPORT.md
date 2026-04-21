@@ -215,7 +215,7 @@
 ### Next Steps (Recommended)
 
 1. **Submit to Google Search Console**
-   - Submit sitemap: `https://socialmediatools.netlify.app/sitemap.xml`
+   - Submit sitemap: `https://aisocialtools.co/sitemap.xml`
    - Verify site ownership
    - Monitor performance
 

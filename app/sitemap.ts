@@ -4,7 +4,7 @@ import { socialMediaTools } from '@/lib/tools'
 import { blogPosts } from '@/lib/blog-posts'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://socialmediatools.netlify.app'
+  const baseUrl = 'https://aisocialtools.co'
   const currentDate = new Date()
   
   // Homepage - Highest priority

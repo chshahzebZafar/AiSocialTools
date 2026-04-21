@@ -51,7 +51,7 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
         "@type": "WebApplication",
         "name": "Tweet Generator",
         "description": "Free AI-powered tweet generator to create engaging Twitter posts",
-        "url": "https://socialmediatools.netlify.app/tools/tweet-generator",
+        "url": "https://aisocialtools.co/tools/tweet-generator",
         "applicationCategory": "SocialMediaApplication",
         "operatingSystem": "Web",
         "offers": {
@@ -769,7 +769,7 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
         "@type": "WebApplication",
         "name": "SVG Pattern Generator",
         "description": "Generate beautiful SVG patterns for social media",
-        "url": "https://socialmediatools.netlify.app/tools/svg-pattern-generator",
+        "url": "https://aisocialtools.co/tools/svg-pattern-generator",
         "applicationCategory": "DesignApplication",
         "operatingSystem": "Web",
         "offers": {
@@ -804,7 +804,7 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
         "@type": "WebApplication",
         "name": "Image to PDF Converter",
         "description": "Convert images to PDF format and merge multiple images into one PDF",
-        "url": "https://socialmediatools.netlify.app/tools/image-to-pdf",
+        "url": "https://aisocialtools.co/tools/image-to-pdf",
         "applicationCategory": "UtilityApplication",
         "operatingSystem": "Web",
         "offers": {
@@ -839,7 +839,7 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
         "@type": "WebApplication",
         "name": "Word/Text to PDF Converter",
         "description": "Convert text documents and Word content to PDF format",
-        "url": "https://socialmediatools.netlify.app/tools/word-to-pdf",
+        "url": "https://aisocialtools.co/tools/word-to-pdf",
         "applicationCategory": "UtilityApplication",
         "operatingSystem": "Web",
         "offers": {
@@ -874,7 +874,7 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
         "@type": "WebApplication",
         "name": "PDF to Image Converter",
         "description": "Extract images from PDF files or convert PDF pages to images",
-        "url": "https://socialmediatools.netlify.app/tools/pdf-to-image",
+        "url": "https://aisocialtools.co/tools/pdf-to-image",
         "applicationCategory": "UtilityApplication",
         "operatingSystem": "Web",
         "offers": {
@@ -909,7 +909,7 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
         "@type": "WebApplication",
         "name": "PDF Merger",
         "description": "Merge multiple PDF files into one document",
-        "url": "https://socialmediatools.netlify.app/tools/pdf-merger",
+        "url": "https://aisocialtools.co/tools/pdf-merger",
         "applicationCategory": "UtilityApplication",
         "operatingSystem": "Web",
         "offers": {
@@ -944,7 +944,7 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
         "@type": "WebApplication",
         "name": "PDF Splitter",
         "description": "Split PDF files into multiple documents or extract specific pages",
-        "url": "https://socialmediatools.netlify.app/tools/pdf-splitter",
+        "url": "https://aisocialtools.co/tools/pdf-splitter",
         "applicationCategory": "UtilityApplication",
         "operatingSystem": "Web",
         "offers": {
@@ -1046,7 +1046,7 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
         "@type": "WebApplication",
         "name": "Pinterest Video Downloader",
         "description": "Download videos and images from Pinterest pins",
-        "url": "https://socialmediatools.netlify.app/tools/pinterest-video-downloader",
+        "url": "https://aisocialtools.co/tools/pinterest-video-downloader",
         "applicationCategory": "SocialMediaApplication",
         "operatingSystem": "Web",
         "offers": {
@@ -1073,7 +1073,7 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
       "@type": "WebApplication",
       "name": tool.name,
       "description": tool.description,
-      "url": `https://socialmediatools.netlify.app${tool.path}`,
+      "url": `https://aisocialtools.co${tool.path}`,
       "applicationCategory": "SocialMediaApplication",
       "operatingSystem": "Web",
       "offers": {
@@ -1097,7 +1097,7 @@ export const generateMetadataForTool = (tool: SocialTool): Metadata => {
       title: seo.title,
       description: seo.description,
       type: "website",
-      url: `https://socialmediatools.netlify.app${tool.path}`,
+      url: `https://aisocialtools.co${tool.path}`,
       siteName: "Social Media Tools",
       images: [
         {
@@ -1115,7 +1115,7 @@ export const generateMetadataForTool = (tool: SocialTool): Metadata => {
       images: [ogImageUrl],
     },
     alternates: {
-      canonical: `https://socialmediatools.netlify.app${tool.path}`,
+      canonical: `https://aisocialtools.co${tool.path}`,
     },
     robots: {
       index: true,
