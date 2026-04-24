@@ -59,6 +59,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   }))
 
+  // Hub pages - cluster SEO plays, high priority
+  const hubPages: MetadataRoute.Sitemap = [
+    '/tools/instagram-tools',
+    '/tools/youtube-tools',
+    '/tools/image-tools',
+  ].map((path) => ({
+    url: `${baseUrl}${path}`,
+    lastModified: currentDate,
+    changeFrequency: 'weekly' as const,
+    priority: 0.9,
+    alternates: { languages: { en: `${baseUrl}${path}` } },
+  }))
+
   // Static pages with optimized priorities and frequencies
   const staticPages: MetadataRoute.Sitemap = [
     // High priority pages
@@ -158,6 +171,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const allPages: MetadataRoute.Sitemap = [
     homepage,
     ...staticPages,
+    ...hubPages,
     ...toolPages,
     ...blogPages.sort((a, b) => (b.priority || 0) - (a.priority || 0)), // Featured posts first
     ...toolReviewPages,

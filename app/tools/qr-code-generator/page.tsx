@@ -8,6 +8,7 @@ import ToolSEO from "@/components/ToolSEO";
 import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
+import ToolContentSection from "@/components/ToolContentSection";
 import { ToolComments } from "@/components/ToolComments";
 import { getSEOMetadata } from "@/lib/seo-metadata";
 import ShareButtons from "@/components/ShareButtons";
@@ -245,6 +246,7 @@ export default function QRCodeGeneratorPage() {
       {tool && <ToolComments toolId={tool.id} />}
       {tool && <ToolFAQ tool={tool} />}
       {tool && <RelatedTools currentTool={tool} />}
+      {tool && <ToolContentSection tool={tool} />}
       {tool && <ToolDetailsSection tool={tool} />}
     </div>
     </>

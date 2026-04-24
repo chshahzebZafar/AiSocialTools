@@ -7,6 +7,7 @@ import ToolSEO from "@/components/ToolSEO";
 import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
+import ToolContentSection from "@/components/ToolContentSection";
 import { getSEOMetadata } from "@/lib/seo-metadata";
 import ShareButtons from "@/components/ShareButtons";
 import { FavoriteButton } from "@/components/FavoriteButton";
@@ -168,6 +169,7 @@ export default function CharacterCounterPage() {
       {tool && <ToolComments toolId={tool.id} />}
       {tool && <ToolFAQ tool={tool} />}
       {tool && <RelatedTools currentTool={tool} />}
+      {tool && <ToolContentSection tool={tool} />}
       {tool && <ToolDetailsSection tool={tool} />}
     </div>
     </>

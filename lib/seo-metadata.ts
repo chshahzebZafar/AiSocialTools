@@ -954,6 +954,564 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
         }
       }
     },
+    "twitter-character-counter": {
+      title: "Twitter / X Character Counter - Free, Accurate URL Weighting",
+      description: "Count characters for Twitter and X posts with the correct URL-weighting rule (every link counts as 23 characters). Free Twitter character counter with live thread-split preview. No signup.",
+      keywords: [
+        "twitter character counter",
+        "x character counter",
+        "tweet character counter",
+        "twitter char count",
+        "x character count",
+        "twitter 280 character counter",
+        "tweet length checker",
+        "twitter post counter",
+        "x post character count",
+        "free twitter character counter"
+      ],
+      longTailKeywords: [
+        "how many characters can a tweet have",
+        "free twitter character counter online",
+        "twitter character counter with url",
+        "does twitter count urls as 23 characters",
+        "tweet character limit tool",
+        "x character limit checker",
+        "count characters for a tweet",
+        "twitter post character counter free",
+        "best tweet character counter 2026"
+      ],
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Twitter / X Character Counter",
+        "description": "Count characters for Twitter / X posts with accurate URL weighting.",
+        "url": "https://aisocialtools.co/tools/twitter-character-counter",
+        "applicationCategory": "SocialMediaApplication",
+        "operatingSystem": "Web",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+      }
+    },
+    "tweet-thread-maker": {
+      title: "Tweet Thread Maker - Free Twitter / X Thread Generator",
+      description: "Turn long text into a numbered Twitter / X thread automatically. Free tweet thread maker with 280-character smart splits and 1/n numbering. No signup required.",
+      keywords: [
+        "tweet thread maker",
+        "tweet thread generator",
+        "twitter thread maker",
+        "x thread maker",
+        "twitter thread generator",
+        "thread splitter twitter",
+        "tweet splitter",
+        "twitter long post splitter",
+        "thread maker free",
+        "tweet thread creator"
+      ],
+      longTailKeywords: [
+        "how to make a twitter thread from text",
+        "free tweet thread generator online",
+        "split long text into tweets",
+        "twitter thread maker no signup",
+        "best tweet thread generator 2026",
+        "how to create numbered twitter threads",
+        "long text to twitter thread converter"
+      ],
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Tweet Thread Maker",
+        "description": "Split long text into a numbered Twitter thread.",
+        "url": "https://aisocialtools.co/tools/tweet-thread-maker",
+        "applicationCategory": "SocialMediaApplication",
+        "operatingSystem": "Web",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+      }
+    },
+    "instagram-engagement-calculator": {
+      title: "Instagram Engagement Rate Calculator - Free & Instant",
+      description: "Calculate your Instagram engagement rate instantly. Free Instagram engagement calculator with 2026 benchmarks, per-post breakdown and saved-post tracking. No signup.",
+      keywords: [
+        "instagram engagement rate calculator",
+        "instagram engagement calculator",
+        "engagement rate calculator instagram",
+        "ig engagement rate calculator",
+        "instagram er calculator",
+        "calculate instagram engagement",
+        "instagram performance calculator",
+        "instagram engagement tool",
+        "free instagram engagement calculator"
+      ],
+      longTailKeywords: [
+        "how to calculate instagram engagement rate",
+        "what is a good engagement rate on instagram",
+        "instagram engagement rate formula 2026",
+        "free instagram engagement calculator online",
+        "calculate engagement rate per post instagram",
+        "instagram engagement benchmarks by follower count",
+        "instagram reels engagement rate calculator"
+      ],
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Instagram Engagement Rate Calculator",
+        "description": "Calculate Instagram engagement rate with 2026 benchmarks.",
+        "url": "https://aisocialtools.co/tools/instagram-engagement-calculator",
+        "applicationCategory": "SocialMediaApplication",
+        "operatingSystem": "Web",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+      }
+    },
+    "tiktok-username-generator": {
+      title: "TikTok Username Generator - Free Unique TikTok Name Ideas",
+      description: "Generate catchy, TikTok-compliant usernames in seconds. Free TikTok username generator with viral suffixes, niche themes, and creator-friendly formats. No signup.",
+      keywords: [
+        "tiktok username generator",
+        "tiktok name generator",
+        "tiktok handle generator",
+        "tiktok username ideas",
+        "tiktok creator username generator",
+        "free tiktok username generator",
+        "tiktok username maker",
+        "unique tiktok username generator",
+        "catchy tiktok username generator"
+      ],
+      longTailKeywords: [
+        "how to pick a tiktok username",
+        "tiktok username ideas for girls",
+        "tiktok username ideas for boys",
+        "tiktok username generator for creators",
+        "aesthetic tiktok username generator",
+        "best tiktok username generator 2026",
+        "generate available tiktok usernames"
+      ],
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "TikTok Username Generator",
+        "description": "Generate unique, TikTok-compliant usernames.",
+        "url": "https://aisocialtools.co/tools/tiktok-username-generator",
+        "applicationCategory": "SocialMediaApplication",
+        "operatingSystem": "Web",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+      }
+    },
+    "hashtag-counter": {
+      title: "Hashtag Counter - Free Caption Hashtag Counter for Instagram",
+      description: "Count hashtags in your caption and check Instagram, TikTok, and Twitter limits instantly. Free hashtag counter with duplicate detection. No signup required.",
+      keywords: [
+        "hashtag counter",
+        "hashtag counter instagram",
+        "instagram hashtag counter",
+        "tiktok hashtag counter",
+        "twitter hashtag counter",
+        "count hashtags",
+        "hashtag limit checker",
+        "caption hashtag counter",
+        "hashtag count tool",
+        "free hashtag counter"
+      ],
+      longTailKeywords: [
+        "how many hashtags can you use on instagram",
+        "instagram hashtag limit 2026",
+        "tiktok hashtag character limit",
+        "count hashtags in caption",
+        "free hashtag counter online",
+        "hashtag limit checker for instagram",
+        "best hashtag counter tool 2026"
+      ],
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Hashtag Counter",
+        "description": "Count hashtags in captions against platform limits.",
+        "url": "https://aisocialtools.co/tools/hashtag-counter",
+        "applicationCategory": "SocialMediaApplication",
+        "operatingSystem": "Web",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+      }
+    },
+    "image-compressor": {
+      title: "Image Compressor — Free Browser-Side JPG, PNG & WebP Compression",
+      description: "Compress images without losing quality, right in your browser. Free image compressor with real-time quality slider, before / after size comparison, and no file upload. No signup required.",
+      keywords: [
+        "image compressor",
+        "compress image",
+        "compress jpg",
+        "compress png",
+        "compress webp",
+        "online image compressor",
+        "image size reducer",
+        "reduce image size",
+        "free image compressor",
+        "image compressor online",
+        "compress photos",
+        "image optimizer",
+        "best image compressor 2026",
+        "image compressor no upload"
+      ],
+      longTailKeywords: [
+        "how to compress image without losing quality",
+        "free online image compressor no signup",
+        "compress jpg file size online free",
+        "compress png file size without losing quality",
+        "browser based image compressor",
+        "image compressor that doesn't upload files",
+        "reduce photo size for instagram upload",
+        "best free image compressor for web"
+      ],
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Image Compressor",
+        "description": "Browser-side image compression with live quality control.",
+        "url": "https://aisocialtools.co/tools/image-compressor",
+        "applicationCategory": "MultimediaApplication",
+        "operatingSystem": "Web",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+      }
+    },
+    "image-converter": {
+      title: "Image Format Converter — Free PNG, JPG, WebP Converter",
+      description: "Convert images between PNG, JPG, and WebP formats in your browser. Free image format converter with quality control. No file uploads, no watermark, no signup.",
+      keywords: [
+        "image converter",
+        "image format converter",
+        "png to jpg",
+        "jpg to png",
+        "png to webp",
+        "webp to png",
+        "jpg to webp",
+        "webp to jpg",
+        "convert image format",
+        "free image converter",
+        "online image converter",
+        "image format changer",
+        "convert png to jpg free",
+        "convert webp to png"
+      ],
+      longTailKeywords: [
+        "how to convert png to jpg online free",
+        "convert webp to png in browser",
+        "free image format converter no signup",
+        "convert jpg to webp for website",
+        "png to jpg converter without losing quality",
+        "bulk image format converter online",
+        "best image converter 2026",
+        "how to change image format to webp"
+      ],
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Image Format Converter",
+        "description": "Convert between PNG, JPG, and WebP formats in the browser.",
+        "url": "https://aisocialtools.co/tools/image-converter",
+        "applicationCategory": "MultimediaApplication",
+        "operatingSystem": "Web",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+      }
+    },
+    "favicon-generator": {
+      title: "Favicon Generator — Free Multi-Size Favicon Maker",
+      description: "Turn any image into a full favicon pack (16×16, 32×32, 180×180, 192×192, 512×512) plus the HTML snippet to drop in your site head. Free, browser-side, no signup.",
+      keywords: [
+        "favicon generator",
+        "favicon maker",
+        "favicon creator",
+        "free favicon generator",
+        "online favicon generator",
+        "png to favicon",
+        "favicon size generator",
+        "apple touch icon generator",
+        "favicon io alternative",
+        "generate favicon from image",
+        "favicon generator for website"
+      ],
+      longTailKeywords: [
+        "how to generate a favicon for my website",
+        "free favicon generator from png",
+        "apple touch icon generator online free",
+        "favicon generator all sizes 2026",
+        "convert image to favicon multiple sizes",
+        "favicon html snippet generator",
+        "best favicon generator no signup",
+        "how to create favicon 180x180 apple touch icon"
+      ],
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Favicon Generator",
+        "description": "Generate full favicon packs from any image in every standard size.",
+        "url": "https://aisocialtools.co/tools/favicon-generator",
+        "applicationCategory": "DesignApplication",
+        "operatingSystem": "Web",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+      }
+    },
+    "instagram-fonts": {
+      title: "Instagram Font Generator — 20+ Free Stylish Fonts for Bio & Captions",
+      description: "Generate 20+ stylish Instagram fonts — bold, italic, script, bubble, retro, small caps, upside down. Free Unicode font generator for bio, captions, and stories. One-click copy.",
+      keywords: [
+        "instagram fonts",
+        "instagram font generator",
+        "fonts for instagram",
+        "ig fonts",
+        "bio fonts generator",
+        "cool fonts for instagram",
+        "instagram bio fonts",
+        "stylish fonts for instagram",
+        "unicode font generator",
+        "fancy text generator instagram",
+        "instagram caption fonts",
+        "instagram story fonts",
+        "aesthetic fonts for instagram"
+      ],
+      longTailKeywords: [
+        "how to change font on instagram bio",
+        "free instagram font generator no app",
+        "copy paste instagram fonts online",
+        "cursive fonts for instagram bio",
+        "small caps instagram font generator",
+        "bold italic instagram font generator",
+        "best fonts for instagram 2026",
+        "aesthetic instagram font copy paste"
+      ],
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Instagram Font Generator",
+        "description": "Generate 20+ Unicode font styles for Instagram bio, captions, and stories.",
+        "url": "https://aisocialtools.co/tools/instagram-fonts",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Web",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+      }
+    },
+    "youtube-tag-generator": {
+      title: "YouTube Tag Generator — Free SEO Tag Generator for Videos",
+      description: "Generate 30+ SEO-optimised YouTube tags from any topic or keyword. Free YouTube tag generator with 500-character counter, keyword variations, and one-click copy. No signup.",
+      keywords: [
+        "youtube tag generator",
+        "youtube tags generator",
+        "youtube seo tag generator",
+        "free youtube tag generator",
+        "youtube keyword generator",
+        "youtube video tag generator",
+        "best youtube tag generator",
+        "youtube tag finder",
+        "youtube tag extractor alternative",
+        "tag generator for youtube",
+        "youtube metadata generator"
+      ],
+      longTailKeywords: [
+        "how to generate youtube tags for seo",
+        "best free youtube tag generator 2026",
+        "youtube tag generator from topic",
+        "youtube seo tag generator free online",
+        "how many tags can a youtube video have",
+        "youtube tag character limit 500",
+        "youtube tags for small channels",
+        "youtube tag generator no signup"
+      ],
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "YouTube Tag Generator",
+        "description": "Generate SEO-optimised YouTube tags from any topic.",
+        "url": "https://aisocialtools.co/tools/youtube-tag-generator",
+        "applicationCategory": "SocialMediaApplication",
+        "operatingSystem": "Web",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+      }
+    },
+    "youtube-description-generator": {
+      title: "YouTube Description Generator — Free SEO Description Template",
+      description: "Generate SEO-friendly YouTube descriptions with timestamps, links, CTAs, and hashtags. Free YouTube description template generator with 5000-character counter. No signup.",
+      keywords: [
+        "youtube description generator",
+        "youtube description template",
+        "youtube video description generator",
+        "free youtube description generator",
+        "youtube seo description generator",
+        "youtube description maker",
+        "youtube description template generator",
+        "best youtube description generator",
+        "youtube description writer",
+        "youtube description builder"
+      ],
+      longTailKeywords: [
+        "how to write a good youtube description",
+        "youtube description template with timestamps",
+        "best free youtube description generator 2026",
+        "youtube description seo best practices",
+        "youtube description character limit 5000",
+        "youtube description for small channels",
+        "youtube description generator no signup",
+        "how to add timestamps to youtube description"
+      ],
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "YouTube Description Generator",
+        "description": "Generate SEO-friendly YouTube descriptions with timestamps and CTAs.",
+        "url": "https://aisocialtools.co/tools/youtube-description-generator",
+        "applicationCategory": "SocialMediaApplication",
+        "operatingSystem": "Web",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+      }
+    },
+    "youtube-money-calculator": {
+      title: "YouTube Money Calculator — Free YouTube Earnings Estimator",
+      description: "Estimate YouTube ad revenue from views, CPM, and engagement. Free YouTube money calculator with monthly, yearly, and niche-based projections. No signup.",
+      keywords: [
+        "youtube money calculator",
+        "youtube earnings calculator",
+        "youtube revenue calculator",
+        "youtube ad revenue calculator",
+        "youtube income calculator",
+        "youtube cpm calculator",
+        "youtube monetization calculator",
+        "free youtube money calculator",
+        "youtube channel earnings estimator",
+        "youtube salary calculator",
+        "how much youtube pays calculator"
+      ],
+      longTailKeywords: [
+        "how much money does youtube pay per 1000 views",
+        "free youtube money calculator by niche",
+        "how to calculate youtube ad revenue",
+        "youtube earnings calculator 2026",
+        "youtube cpm by country calculator",
+        "estimate youtube income from views",
+        "youtube money calculator no signup",
+        "how much can i earn on youtube calculator"
+      ],
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "YouTube Money Calculator",
+        "description": "Estimate YouTube ad revenue from views, CPM, and engagement.",
+        "url": "https://aisocialtools.co/tools/youtube-money-calculator",
+        "applicationCategory": "SocialMediaApplication",
+        "operatingSystem": "Web",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+      }
+    },
+    "linkedin-headline-generator": {
+      title: "LinkedIn Headline Generator — 15+ Free Professional Headlines",
+      description: "Generate 15+ professional LinkedIn headline variations in seconds. Free LinkedIn headline generator with 220-character counter, role-based templates, and one-click copy.",
+      keywords: [
+        "linkedin headline generator",
+        "linkedin title generator",
+        "linkedin headline maker",
+        "linkedin headline ideas",
+        "free linkedin headline generator",
+        "linkedin profile headline generator",
+        "linkedin headline template generator",
+        "linkedin bio generator",
+        "best linkedin headline generator",
+        "linkedin headline writer",
+        "linkedin job seeker headline generator"
+      ],
+      longTailKeywords: [
+        "how to write a linkedin headline 2026",
+        "linkedin headline examples for job seekers",
+        "linkedin headline for students free generator",
+        "linkedin headline 220 character limit",
+        "best linkedin headline generator no signup",
+        "linkedin headline generator for sales reps",
+        "linkedin headline generator by industry",
+        "linkedin headline that gets recruiter attention"
+      ],
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "LinkedIn Headline Generator",
+        "description": "Generate professional LinkedIn headline variations.",
+        "url": "https://aisocialtools.co/tools/linkedin-headline-generator",
+        "applicationCategory": "SocialMediaApplication",
+        "operatingSystem": "Web",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+      }
+    },
+    "social-media-image-sizes": {
+      title: "Social Media Image Sizes 2026 — Complete Size Guide (Every Platform)",
+      description: "2026 social media image and video size guide for Instagram, TikTok, YouTube, LinkedIn, X, Facebook, Pinterest, and Threads. Always-updated reference with direct links to free resize and cover tools.",
+      keywords: [
+        "social media image sizes",
+        "social media image sizes 2026",
+        "social media size guide",
+        "instagram image sizes",
+        "tiktok video sizes",
+        "youtube thumbnail size",
+        "linkedin post size",
+        "twitter image size",
+        "facebook image size",
+        "pinterest image size",
+        "social media dimensions",
+        "social media image size cheat sheet"
+      ],
+      longTailKeywords: [
+        "social media image sizes cheat sheet 2026",
+        "complete social media size guide 2026",
+        "best image dimensions for every social platform",
+        "instagram reels and story size guide",
+        "youtube thumbnail size 2026",
+        "linkedin banner size guide",
+        "tiktok video aspect ratio 2026",
+        "facebook cover photo size 2026"
+      ],
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Social Media Image Sizes 2026 — Complete Size Guide (Every Platform)",
+        "description": "2026 reference of every social media image and video size for Instagram, TikTok, YouTube, LinkedIn, X, Facebook, and Pinterest.",
+        "url": "https://aisocialtools.co/tools/social-media-image-sizes",
+        "author": { "@type": "Organization", "name": "AI Social Tools" },
+        "datePublished": "2026-04-24"
+      }
+    },
+    "ai-image-generator": {
+      title: "AI Image Generator — Free Text-to-Image, No Signup, No Watermark",
+      description: "Generate stunning AI images from text prompts using Flux and Stable Diffusion. Free AI art generator with realistic, anime, 3D, and cinematic styles. No signup, no watermark, unlimited.",
+      keywords: [
+        "ai image generator",
+        "free ai image generator",
+        "ai art generator",
+        "text to image ai",
+        "ai image generator free no signup",
+        "free ai art generator",
+        "flux image generator",
+        "stable diffusion online free",
+        "ai image generator no watermark",
+        "free text to image generator",
+        "ai picture generator",
+        "online ai image generator",
+        "best free ai image generator",
+        "ai image generator unlimited",
+        "ai image generator 2026"
+      ],
+      longTailKeywords: [
+        "free ai image generator no signup no watermark",
+        "best free ai image generator 2026",
+        "flux ai image generator free online",
+        "text to image generator free unlimited",
+        "ai art generator from text prompt",
+        "stable diffusion free online generator",
+        "ai image generator for instagram posts",
+        "how to generate ai images from text free",
+        "anime ai image generator free",
+        "3d ai image generator online"
+      ],
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "AI Image Generator",
+        "description": "Generate AI images from text prompts using Flux and Stable Diffusion.",
+        "url": "https://aisocialtools.co/tools/ai-image-generator",
+        "applicationCategory": "MultimediaApplication",
+        "operatingSystem": "Web",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+      }
+    },
     "pinterest-video-downloader": {
       title: "Best Free Pinterest Video Downloader Online - Download Pins 2026",
       description: "Download videos and images from Pinterest pins with the best free Pinterest video downloader online. Save Pinterest content in HD quality for offline viewing. No signup required - fast and easy Pinterest downloader.",

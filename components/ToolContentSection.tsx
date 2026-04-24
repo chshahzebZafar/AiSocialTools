@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { SocialTool } from "@/lib/social-tools";
+import { getToolContent } from "@/lib/tool-content";
 import { CheckCircle2, Lightbulb, Target, TrendingUp, Users, Zap } from "lucide-react";
 
 interface ToolContentSectionProps {
@@ -16,46 +17,20 @@ interface ToolContentSectionProps {
 }
 
 export default function ToolContentSection({ tool, content }: ToolContentSectionProps) {
-  const defaultContent = {
-    overview: `Transform your social media game with ${tool.name}—the free online tool that makes ${tool.description.toLowerCase()} effortless. 
-    Whether you're a content creator building your brand, a marketer driving engagement, or a business owner connecting with customers, 
-    this tool eliminates the guesswork and delivers results. No complicated software, no steep learning curve, no hidden costs. 
-    Just powerful features that work the moment you need them. Join thousands of users who've streamlined their workflow and 
-    elevated their social media presence with our intuitive, feature-rich platform.`,
-    benefits: [
-      "100% free forever—no hidden costs, no premium upsells, no credit card required",
-      "Lightning-fast performance—get results in seconds, not minutes",
-      "Complete privacy protection—your data never leaves your browser",
-      "Unlimited usage—use it as much as you want, whenever you need it",
-      "Regular feature updates—we're constantly improving based on user feedback",
-      "Works on any device—desktop, tablet, or mobile, it's always ready when you are"
-    ],
-    useCases: [
-      "Content creators building their personal brand and growing their audience",
-      "Social media managers handling multiple accounts and campaigns",
-      "Small business owners creating professional content without hiring a team",
-      "Marketing professionals optimizing their social media strategy",
-      "Influencers maintaining consistent, engaging content across platforms",
-      "Students and educators creating educational social media content"
-    ],
-    tips: [
-      "Bookmark this tool for quick access—you'll use it more than you think",
-      "Combine with our other free tools for a complete content creation workflow",
-      "Experiment with different approaches to find what resonates with your audience",
-      "Save your favorite results for inspiration and future reference",
-      "Share your creations on social media and tag us—we love seeing what you create"
-    ],
-    features: [
-      "Intuitive interface that anyone can master in minutes",
-      "Real-time processing for instant results",
-      "Mobile-optimized design that works beautifully on any screen",
-      "Bank-level security ensuring your content stays private",
-      "No downloads or installations—works directly in your browser",
-      "Regular updates with new features and improvements"
-    ]
-  };
+  // Priority order:
+  //   1. `content` prop explicitly passed (legacy inline use, e.g. youtube-thumbnail)
+  //   2. Lookup in lib/tool-content.ts (centralised per-tool SEO content)
+  //   3. Don't render anything (no generic filler — that creates duplicate content across tools)
+  const custom = content ?? getToolContent(tool.id);
+  if (!custom) return null;
 
-  const finalContent = { ...defaultContent, ...content };
+  const finalContent = {
+    overview: custom.overview ?? "",
+    benefits: custom.benefits ?? [],
+    useCases: custom.useCases ?? [],
+    features: custom.features ?? [],
+    tips: custom.tips ?? [],
+  };
 
   return (
     <div className="mt-12 space-y-8">

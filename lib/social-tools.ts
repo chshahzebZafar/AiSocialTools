@@ -1,8 +1,8 @@
-import { 
-  Instagram, 
-  Twitter, 
-  Youtube, 
-  FileImage, 
+import {
+  Instagram,
+  Twitter,
+  Youtube,
+  FileImage,
   Image as ImageIcon,
   Filter,
   Download,
@@ -11,6 +11,7 @@ import {
   Hash,
   Type,
   Maximize2,
+  Minimize2,
   Link as LinkIcon,
   Calendar,
   Palette,
@@ -33,7 +34,12 @@ import {
   Image as ImageLucide,
   FileCheck,
   Scissors,
-  Pin
+  Pin,
+  Replace,
+  Bookmark,
+  Linkedin,
+  Ruler,
+  Wand2
 } from "lucide-react";
 
 export interface SocialTool {
@@ -143,15 +149,19 @@ export const socialTools: SocialTool[] = [
     path: "/tools/image-resizer",
     category: "Design"
   },
-  {
-    id: "background-remover",
-    name: "Background Remover",
-    description: "Remove backgrounds from images automatically using AI. Free background remover tool with instant results.",
-    icon: Scissors,
-    path: "/tools/background-remover",
-    category: "Design",
-    isNew: true
-  },
+  // Disabled: background-remover tool temporarily removed from listings while
+  // remove.bg API key is rotated and a server-side proxy route is implemented.
+  // Re-enable once /api/remove-bg is live and the new key is stored as a
+  // server-only env var (REMOVE_BG_API_KEY, no NEXT_PUBLIC_ prefix).
+  // {
+  //   id: "background-remover",
+  //   name: "Background Remover",
+  //   description: "Remove backgrounds from images automatically using AI. Free background remover tool with instant results.",
+  //   icon: Scissors,
+  //   path: "/tools/background-remover",
+  //   category: "Design",
+  //   isNew: true
+  // },
   {
     id: "video-to-gif",
     name: "Video to GIF Converter",
@@ -362,7 +372,145 @@ export const socialTools: SocialTool[] = [
     path: "/tools/pinterest-video-downloader",
     category: "Pinterest",
     isNew: true
-  }
+  },
+  {
+    id: "twitter-character-counter",
+    name: "Twitter/X Character Counter",
+    description: "Count characters for Twitter/X posts with correct URL weighting. Real-time counter with thread split preview.",
+    icon: Twitter,
+    path: "/tools/twitter-character-counter",
+    category: "Twitter",
+    isNew: true
+  },
+  {
+    id: "tweet-thread-maker",
+    name: "Tweet Thread Maker",
+    description: "Split long text into a numbered Twitter/X thread. Free tweet thread generator with smart sentence breaks and 1/n numbering.",
+    icon: MessageCircle,
+    path: "/tools/tweet-thread-maker",
+    category: "Twitter",
+    isNew: true
+  },
+  {
+    id: "instagram-engagement-calculator",
+    name: "Instagram Engagement Calculator",
+    description: "Calculate your Instagram engagement rate in seconds. Free calculator with benchmarks and per-post breakdown.",
+    icon: TrendingUp,
+    path: "/tools/instagram-engagement-calculator",
+    category: "Instagram",
+    isNew: true
+  },
+  {
+    id: "tiktok-username-generator",
+    name: "TikTok Username Generator",
+    description: "Generate unique, catchy TikTok usernames. Free TikTok name generator with viral-inspired suffixes. Creator-friendly.",
+    icon: User,
+    path: "/tools/tiktok-username-generator",
+    category: "Content",
+    isNew: true
+  },
+  {
+    id: "hashtag-counter",
+    name: "Hashtag Counter",
+    description: "Count hashtags in your caption. Free hashtag counter that warns you when you exceed Instagram, TikTok, or Twitter limits.",
+    icon: Hash,
+    path: "/tools/hashtag-counter",
+    category: "Content",
+    isNew: true
+  },
+  {
+    id: "image-compressor",
+    name: "Image Compressor",
+    description: "Compress JPG, PNG, and WebP images in your browser. Free image compressor with quality control and instant before/after size comparison.",
+    icon: Minimize2,
+    path: "/tools/image-compressor",
+    category: "Design",
+    isNew: true
+  },
+  {
+    id: "image-converter",
+    name: "Image Format Converter",
+    description: "Convert PNG to JPG, JPG to PNG, PNG to WebP, and more. Free browser-side image format converter with no file upload.",
+    icon: Replace,
+    path: "/tools/image-converter",
+    category: "Converters",
+    isNew: true
+  },
+  {
+    id: "favicon-generator",
+    name: "Favicon Generator",
+    description: "Generate favicons in every size (16×16, 32×32, 180×180, 192×192, 512×512) from any image. Free favicon maker with ready-to-paste HTML snippet.",
+    icon: Bookmark,
+    path: "/tools/favicon-generator",
+    category: "Design",
+    isNew: true
+  },
+  {
+    id: "instagram-fonts",
+    name: "Instagram Font Generator",
+    description: "Turn plain text into 20+ stylish Instagram fonts — bold, italic, cursive, bubble, retro. Free Unicode font generator for bios, captions, and stories.",
+    icon: CaseSensitive,
+    path: "/tools/instagram-fonts",
+    category: "Instagram",
+    isNew: true
+  },
+  {
+    id: "youtube-tag-generator",
+    name: "YouTube Tag Generator",
+    description: "Generate SEO-optimised YouTube tags from any video topic. Free YouTube tag generator with 500-character counter and one-click copy. No signup.",
+    icon: Youtube,
+    path: "/tools/youtube-tag-generator",
+    category: "Content",
+    isNew: true
+  },
+  {
+    id: "youtube-description-generator",
+    name: "YouTube Description Generator",
+    description: "Generate SEO-friendly YouTube video descriptions with timestamps, links, and hashtags. Free YouTube description template generator.",
+    icon: FileText,
+    path: "/tools/youtube-description-generator",
+    category: "Content",
+    isNew: true
+  },
+  {
+    id: "youtube-money-calculator",
+    name: "YouTube Money Calculator",
+    description: "Estimate YouTube ad revenue from views, CPM, and CTR. Free YouTube earnings calculator with monthly and yearly projections.",
+    icon: DollarSign,
+    path: "/tools/youtube-money-calculator",
+    category: "Analytics",
+    isNew: true
+  },
+  {
+    id: "linkedin-headline-generator",
+    name: "LinkedIn Headline Generator",
+    description: "Generate 15+ professional LinkedIn headline variations from your title and expertise. Free, 220-character compliant, one-click copy.",
+    icon: Linkedin,
+    path: "/tools/linkedin-headline-generator",
+    category: "Content",
+    isNew: true
+  },
+  {
+    id: "social-media-image-sizes",
+    name: "Social Media Image Sizes",
+    description: "Complete 2026 reference of every social media image and video size — Instagram, TikTok, YouTube, LinkedIn, X, Facebook, Pinterest. Free, updated yearly.",
+    icon: Ruler,
+    path: "/tools/social-media-image-sizes",
+    category: "Design",
+    isNew: true
+  },
+  // Disabled: AI Image Generator temporarily hidden while we migrate off
+  // Pollinations (anonymous 15-sec rate limit was too restrictive) to a more
+  // reliable free model. Re-enable once the new backend is live.
+  // {
+  //   id: "ai-image-generator",
+  //   name: "AI Image Generator",
+  //   description: "Generate stunning AI images from text prompts — Flux, realism, anime, 3D, cinematic. Free AI art generator with no signup, no watermark, no limits.",
+  //   icon: Wand2,
+  //   path: "/tools/ai-image-generator",
+  //   category: "Design",
+  //   isNew: true
+  // }
 ];
 
 export const getToolById = (id: string): SocialTool | undefined => {
