@@ -44,6 +44,12 @@ const nextConfig: NextConfig = {
         destination: '/:path+',
         permanent: true,
       },
+      // 301 redirect for removed blog post — avoids soft 404 in Search Console
+      {
+        source: '/blog/apple-new-ceo-john-ternus-tim-cook-stepping-down',
+        destination: '/blog',
+        permanent: true,
+      },
     ];
   },
 

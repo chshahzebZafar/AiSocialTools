@@ -1,212 +1,226 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import { Info, Users, Target, Heart } from "lucide-react";
+import { Badge } from "@/components/ui/Badge";
+import { ButtonLink } from "@/components/ui/Button";
+import { ArrowRight, Check } from "lucide-react";
 import type { Metadata } from "next";
 import { getOGImageUrl } from "@/lib/og-image-generator";
 
 export const metadata: Metadata = {
-  title: "About Us - Free Social Media Tools",
-  description: "Learn about Social Media Tools - your free resource for powerful social media management tools. 100% free, no signup required. Discover our mission and values.",
+  title: "About — Free Social Media Tools",
+  description:
+    "Learn about Social Tools — free, browser-based tools for content creators and marketers. No signup, no tracking, no premium tier.",
   keywords: ["about social media tools", "free tools", "social media management", "content creation"],
   openGraph: {
-    title: "About Us - Free Social Media Tools",
-    description: "Learn about Social Media Tools - your free resource for powerful social media management tools.",
+    title: "About — Free Social Media Tools",
+    description: "Free, browser-based tools for content creators and marketers. No signup, no tracking.",
     type: "website",
     url: "https://aisocialtools.co/about",
     siteName: "Social Media Tools",
-    images: [
-      {
-        url: getOGImageUrl("default"),
-        width: 1200,
-        height: 630,
-        alt: "About Us - Free Social Media Tools",
-      },
-    ],
+    images: [{ url: getOGImageUrl("default"), width: 1200, height: 630, alt: "About Us" }],
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "About Us - Free Social Media Tools",
-    description: "Learn about Social Media Tools - your free resource for powerful social media management tools.",
-    images: [getOGImageUrl("default")],
+  alternates: { canonical: "https://aisocialtools.co/about" },
+};
+
+const principles = [
+  {
+    title: "Free, forever.",
+    body: "Every tool, every feature, every use. No premium tier, no credit card prompt at the end of the workflow.",
   },
-  alternates: {
-    canonical: "https://aisocialtools.co/about",
+  {
+    title: "No signup, ever.",
+    body: "You arrive on a tool page and start using it. There's no email gate, no auth wall, no \"verify your account.\"",
+  },
+  {
+    title: "Your content stays yours.",
+    body: "Tools run in your browser. We don't upload your text or images to a server. We don't analyze, store, or sell anything.",
+  },
+  {
+    title: "One job per tool.",
+    body: "We don't bolt features onto tools. If you need something different, there's a different tool — or there will be soon.",
+  },
+];
+
+const toolCategories = [
+  {
+    title: "Generation",
+    items: ["Tweet generator", "Instagram captions", "TikTok hooks", "Bio generator", "Username ideas"],
+  },
+  {
+    title: "Media",
+    items: ["YouTube thumbnails", "Image resize/compress", "Video to GIF", "QR codes", "Favicons"],
+  },
+  {
+    title: "Strategy",
+    items: ["Engagement calculator", "Best time to post", "Analytics calculator", "Content calendar"],
+  },
+  {
+    title: "Utilities",
+    items: ["Hashtag tools", "Character counter", "Open Graph generator", "PDF tools", "Emoji picker"],
+  },
+];
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://aisocialtools.co" },
+    { "@type": "ListItem", position: 2, name: "About", item: "https://aisocialtools.co/about" },
+  ],
+};
+
+const aboutPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  name: "About — Free Social Media Tools",
+  description: "Free, browser-based tools for content creators and marketers. No signup, no tracking.",
+  url: "https://aisocialtools.co/about",
+  mainEntity: {
+    "@type": "Organization",
+    name: "Social Tools",
+    url: "https://aisocialtools.co",
+    founder: {
+      "@type": "Person",
+      name: "Shahzeb Zafar",
+    },
   },
 };
 
 export default function AboutPage() {
   return (
-    <div className="flex flex-col min-h-screen bg-slate-50 dark:bg-slate-950">
+    <div className="flex flex-col min-h-screen bg-white dark:bg-zinc-950">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutPageSchema) }}
+      />
       <Header />
       <main className="flex-1">
         <Breadcrumbs />
-        <div className="p-4 sm:p-6 lg:p-8 max-w-4xl mx-auto w-full">
-        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 sm:p-8">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-              <Info className="w-6 h-6 text-white" />
-            </div>
-            <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100">About Us</h1>
+
+        {/* Hero */}
+        <section className="relative overflow-hidden border-b border-zinc-200 dark:border-zinc-800">
+          <div className="aurora" aria-hidden />
+          <div className="absolute inset-0 bg-dot-grid-animated opacity-50" aria-hidden />
+          <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+            <Badge variant="accent" className="mb-5">
+              About
+            </Badge>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold text-zinc-950 dark:text-white tracking-tight leading-[1.05] mb-5">
+              Free tools for people who
+              <br />
+              <span className="text-zinc-500 dark:text-zinc-400">actually create.</span>
+            </h1>
+            <p className="text-lg sm:text-xl text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-2xl">
+              Most "free" tools are funnel pages — useful for 30 seconds, then a paywall. We
+              built the opposite: 40+ tools that just work, in your browser, on the first
+              visit.
+            </p>
           </div>
+        </section>
 
-          <div className="prose prose-slate max-w-none">
-            <p className="text-lg text-slate-700 dark:text-slate-300 leading-relaxed mb-6">
-              Welcome to Social Media Tools—your trusted partner in social media success. We're on a mission to democratize 
-              content creation by providing powerful, free tools that help creators, marketers, and businesses build their 
-              online presence without breaking the bank or compromising on quality.
-            </p>
-
-            <p className="text-lg text-slate-700 dark:text-slate-300 leading-relaxed mb-6">
-              Founded with a simple belief: everyone deserves access to professional-grade social media tools, regardless of 
-              budget or technical expertise. Whether you're a solo creator just starting out, a small business owner managing 
-              your own social media, or a seasoned marketer looking for efficient solutions, we've built tools that work for you.
-            </p>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
-              <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-6 border border-blue-200 dark:border-blue-800">
-                <Target className="w-8 h-8 text-blue-600 dark:text-blue-400 mb-3" />
-                <h3 className="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-2">Our Mission</h3>
-                <p className="text-slate-700 dark:text-slate-300">
-                  To empower creators and businesses with free, accessible tools that make social media management 
-                  easier and more effective.
-                </p>
-              </div>
-
-              <div className="bg-purple-50 dark:bg-purple-900/20 rounded-lg p-6 border border-purple-200 dark:border-purple-800">
-                <Users className="w-8 h-8 text-purple-600 dark:text-purple-400 mb-3" />
-                <h3 className="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-2">Who We Serve</h3>
-                <p className="text-slate-700 dark:text-slate-300">
-                  Content creators, social media managers, small businesses, and anyone looking to enhance their 
-                  social media presence.
-                </p>
-              </div>
-            </div>
-
-            <div className="bg-slate-50 dark:bg-slate-700/50 rounded-lg p-6 border border-slate-200 dark:border-slate-700 my-8">
-              <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-4">Why Choose Us?</h2>
-              <ul className="space-y-3 text-slate-700 dark:text-slate-300">
-                <li className="flex items-start gap-3">
-                  <Heart className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" />
-                  <span><strong>100% Free Forever:</strong> All our tools are completely free to use with no hidden costs, subscriptions, or premium tiers. What you see is what you get—powerful features at zero cost.</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Heart className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" />
-                  <span><strong>No Signup Required:</strong> Start using our tools immediately without creating an account, providing your email, or going through any registration process. Instant access, zero friction.</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Heart className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" />
-                  <span><strong>Privacy First:</strong> We don't collect, store, or share your personal data. All processing happens in your browser, ensuring your content and information stay completely private and secure.</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Heart className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" />
-                  <span><strong>Regular Updates:</strong> We continuously add new tools and improve existing ones based on user feedback. Your success is our motivation to keep innovating.</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Heart className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" />
-                  <span><strong>Unlimited Usage:</strong> Use our tools as many times as you want, whenever you need them. No daily limits, no usage restrictions—just unlimited access to powerful features.</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Heart className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" />
-                  <span><strong>Professional Quality:</strong> Our tools are built with the same attention to detail and quality you'd expect from premium services, but available to everyone for free.</span>
-                </li>
-              </ul>
-            </div>
-
-            <div className="mt-8 pt-6 border-t border-slate-200 dark:border-slate-700">
-              <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-4">Our Comprehensive Tool Suite</h2>
-              <p className="text-slate-700 dark:text-slate-300 mb-6">
-                We offer over 30 free tools designed to cover every aspect of social media content creation and management. 
-                From ideation to execution, we've got you covered:
-              </p>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4 border border-blue-200 dark:border-blue-800">
-                  <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-2">Content Creation Tools</h3>
-                  <ul className="text-sm text-slate-700 dark:text-slate-300 space-y-1">
-                    <li>• AI Tweet Generator</li>
-                    <li>• Instagram Post Generator</li>
-                    <li>• TikTok Hook Generator</li>
-                    <li>• Caption Templates</li>
-                    <li>• Content Ideas Generator</li>
-                    <li>• Bio & Username Generators</li>
-                  </ul>
-                </div>
-
-                <div className="bg-purple-50 dark:bg-purple-900/20 rounded-lg p-4 border border-purple-200 dark:border-purple-800">
-                  <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-2">Media Tools</h3>
-                  <ul className="text-sm text-slate-700 dark:text-slate-300 space-y-1">
-                    <li>• YouTube Thumbnail Downloader</li>
-                    <li>• Image Resizer & Upscaler</li>
-                    <li>• Background Remover</li>
-                    <li>• Instagram Filters</li>
-                    <li>• QR Code Generator</li>
-                    <li>• Video to GIF Converter</li>
-                  </ul>
-                </div>
-
-                <div className="bg-green-50 dark:bg-green-900/20 rounded-lg p-4 border border-green-200 dark:border-green-800">
-                  <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-2">Analytics & Strategy</h3>
-                  <ul className="text-sm text-slate-700 dark:text-slate-300 space-y-1">
-                    <li>• Engagement Calculator</li>
-                    <li>• Analytics Calculator</li>
-                    <li>• Best Time to Post Calculator</li>
-                    <li>• Twitter Ad Revenue Calculator</li>
-                    <li>• Content Calendar</li>
-                    <li>• Character Counter</li>
-                  </ul>
-                </div>
-
-                <div className="bg-orange-50 dark:bg-orange-900/20 rounded-lg p-4 border border-orange-200 dark:border-orange-800">
-                  <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-2">Utility Tools</h3>
-                  <ul className="text-sm text-slate-700 dark:text-slate-300 space-y-1">
-                    <li>• Hashtag Generator</li>
-                    <li>• Text Case Converter</li>
-                    <li>• Emoji Picker</li>
-                    <li>• Open Graph Generator</li>
-                    <li>• PDF Tools (Merge, Split, Convert)</li>
-                    <li>• WhatsApp Chat Link Generator</li>
-                  </ul>
-                </div>
-              </div>
-
-              <p className="text-slate-700 dark:text-slate-300">
-                And we're constantly adding more! Every tool is designed with one goal in mind: making your social media 
-                workflow faster, easier, and more effective. No matter what you need, we've built a tool to help you succeed.
+        {/* Principles */}
+        <section className="border-b border-zinc-200 dark:border-zinc-800">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+            <div className="mb-12 max-w-2xl">
+              <Badge variant="neutral" className="mb-4">
+                Principles
+              </Badge>
+              <h2 className="text-3xl sm:text-4xl font-semibold text-zinc-950 dark:text-white tracking-tight mb-4">
+                What we won&apos;t do.
+              </h2>
+              <p className="text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                The constraints below are deliberate. They&apos;re what keeps the site fast,
+                trustworthy, and worth bookmarking.
               </p>
             </div>
-
-            <div className="mt-8 pt-6 border-t border-slate-200 dark:border-slate-700">
-              <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-4">Our Commitment to You</h2>
-              <p className="text-slate-700 dark:text-slate-300 mb-4">
-                We're not just building tools—we're building a community of creators, marketers, and entrepreneurs who 
-                believe that great content shouldn't require a huge budget. Our commitment to you includes:
-              </p>
-              <ul className="space-y-2 text-slate-700 dark:text-slate-300">
-                <li className="flex items-start gap-3">
-                  <span className="text-blue-600 dark:text-blue-400 font-bold">→</span>
-                  <span><strong>Continuous Improvement:</strong> We listen to your feedback and regularly update our tools with new features and improvements.</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-blue-600 dark:text-blue-400 font-bold">→</span>
-                  <span><strong>Educational Resources:</strong> Our blog and guides help you maximize the value of every tool and stay ahead of social media trends.</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-blue-600 dark:text-blue-400 font-bold">→</span>
-                  <span><strong>Community Support:</strong> We're here to help. Reach out anytime with questions, suggestions, or feedback.</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-blue-600 dark:text-blue-400 font-bold">→</span>
-                  <span><strong>Transparency:</strong> No hidden fees, no data collection, no surprises—just honest, straightforward tools that work.</span>
-                </li>
-              </ul>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-zinc-200 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-800 rounded-lg overflow-hidden">
+              {principles.map((p) => (
+                <div
+                  key={p.title}
+                  className="bg-white dark:bg-zinc-950 p-7 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors"
+                >
+                  <h3 className="text-base font-semibold text-zinc-950 dark:text-white mb-2">
+                    {p.title}
+                  </h3>
+                  <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                    {p.body}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
-        </div>
-      </div>
+        </section>
+
+        {/* What's inside */}
+        <section className="border-b border-zinc-200 dark:border-zinc-800">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+            <div className="mb-12 max-w-2xl">
+              <Badge variant="neutral" className="mb-4">
+                Tools
+              </Badge>
+              <h2 className="text-3xl sm:text-4xl font-semibold text-zinc-950 dark:text-white tracking-tight mb-4">
+                Forty-plus tools, one site.
+              </h2>
+              <p className="text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                Organized into four categories — pick what you need, ignore the rest.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+              {toolCategories.map((cat) => (
+                <div key={cat.title}>
+                  <h3 className="text-xs uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-500 mb-4">
+                    {cat.title}
+                  </h3>
+                  <ul className="space-y-2.5">
+                    {cat.items.map((item) => (
+                      <li
+                        key={item}
+                        className="flex items-start gap-2 text-sm text-zinc-700 dark:text-zinc-300"
+                      >
+                        <Check className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400 mt-1 flex-shrink-0" strokeWidth={2.5} />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+            <ButtonLink href="/tools" variant="primary" size="lg">
+              Browse all tools
+              <ArrowRight className="w-4 h-4" />
+            </ButtonLink>
+          </div>
+        </section>
+
+        {/* Closing */}
+        <section className="border-b border-zinc-200 dark:border-zinc-800">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+            <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-950 dark:text-white tracking-tight mb-4">
+              Built and maintained by one person.
+            </h2>
+            <p className="text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed mb-6">
+              No team, no investors, no roadmap meeting. If a tool is broken, email me. If
+              you have an idea, email me. The reply might take a day, but it&apos;ll come from
+              the person who wrote the code.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <ButtonLink href="/contact" variant="secondary" size="md">
+                Get in touch
+              </ButtonLink>
+              <ButtonLink href="/author" variant="ghost" size="md">
+                About the author
+                <ArrowRight className="w-4 h-4" />
+              </ButtonLink>
+            </div>
+          </div>
+        </section>
       </main>
       <Footer />
     </div>
   );
 }
-

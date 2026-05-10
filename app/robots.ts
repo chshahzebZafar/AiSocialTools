@@ -16,6 +16,9 @@ export default function robots(): MetadataRoute.Robots {
           '/contact',
           '/faq',
           '/author',
+          '/manifest.json',
+          '/openapi.yaml',
+          '/.well-known/ai-plugin.json',
         ],
         disallow: [
           '/api/',
@@ -23,7 +26,6 @@ export default function robots(): MetadataRoute.Robots {
           '/admin/',
           '/private/',
           '/profile/',
-          '*.json$',
           '/search?*',
         ],
         crawlDelay: 0,

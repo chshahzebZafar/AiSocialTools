@@ -1,6 +1,6 @@
 {
   "name": "Social Media Tools - Free Online Tools",
-  "short_name": "Social Media Tools",
+  "short_name": "Social Tools",
   "description": "Free social media tools for content creation, management, and optimization. Generate tweets, create Instagram posts, download thumbnails, and more.",
   "start_url": "/",
   "display": "standalone",
@@ -9,16 +9,10 @@
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/og-default.png",
-      "sizes": "1200x630",
+      "src": "/favicon.png",
+      "sizes": "any",
       "type": "image/png",
       "purpose": "any maskable"
-    },
-    {
-      "src": "/og-image.png",
-      "sizes": "1200x630",
-      "type": "image/png",
-      "purpose": "any"
     }
   ],
   "categories": ["productivity", "utilities", "social"],
@@ -27,4 +21,3 @@
   "scope": "/",
   "prefer_related_applications": false
 }
-

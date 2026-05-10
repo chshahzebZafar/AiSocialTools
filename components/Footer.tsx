@@ -1,173 +1,145 @@
 import Link from "next/link";
-import { Coffee, Heart, Mail, Github, Twitter, Linkedin } from "lucide-react";
+import { Coffee, Mail, Github, Twitter, Linkedin, Globe } from "lucide-react";
+
+interface FooterLink {
+  href: string;
+  label: string;
+  badge?: string;
+}
+
+interface FooterSection {
+  title: string;
+  links: FooterLink[];
+}
+
+const linkSections: FooterSection[] = [
+  {
+    title: "Product",
+    links: [
+      { href: "/", label: "Home" },
+      { href: "/tools", label: "All tools" },
+      { href: "/ai-tools", label: "AI tools", badge: "New" },
+      { href: "/blog", label: "Blog" },
+      { href: "/faq", label: "FAQ" },
+    ],
+  },
+  {
+    title: "Categories",
+    links: [
+      { href: "/tools/instagram-tools", label: "Instagram tools" },
+      { href: "/tools/youtube-tools", label: "YouTube tools" },
+      { href: "/tools/image-tools", label: "Image tools" },
+    ],
+  },
+  {
+    title: "Company",
+    links: [
+      { href: "/about", label: "About" },
+      { href: "/author", label: "Author" },
+      { href: "/contact", label: "Contact" },
+      { href: "/privacy", label: "Privacy" },
+      { href: "/terms", label: "Terms" },
+    ],
+  },
+];
+
+const socialLinks = [
+  { href: "https://github.com/chshahzebZafar/", icon: Github, label: "GitHub" },
+  { href: "https://x.com/SHAHZEBZAFAR99", icon: Twitter, label: "Twitter" },
+  { href: "https://www.linkedin.com/in/shahzaib-zafer/", icon: Linkedin, label: "LinkedIn" },
+  { href: "https://shahzebzafar.netlify.app/", icon: Globe, label: "Website" },
+  { href: "mailto:shahzaibzafar093@gmail.com", icon: Mail, label: "Email" },
+];
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-slate-900 dark:bg-slate-950 text-slate-300 dark:text-slate-400 border-t border-slate-800 dark:border-slate-900 relative z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-          {/* About Section */}
-          <div className="col-span-1 sm:col-span-2 lg:col-span-2">
-            <h3 className="text-white font-semibold text-lg mb-4">About</h3>
-            <p className="text-slate-400 text-sm leading-relaxed mb-4">
-              Free social media tools to help you create, manage, and optimize your social media content. 
-              All tools are completely free to use with no signup required.
+    <footer className="bg-white dark:bg-zinc-950 border-t border-zinc-200 dark:border-zinc-800">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 lg:gap-12">
+          {/* Brand */}
+          <div className="col-span-2 md:col-span-2">
+            <Link href="/" className="inline-flex items-center gap-2.5 mb-4">
+              <div className="w-7 h-7 bg-zinc-950 dark:bg-white rounded-md flex items-center justify-center">
+                <div className="w-2.5 h-2.5 bg-white dark:bg-zinc-950 rounded-sm" />
+              </div>
+              <span className="text-[15px] font-semibold text-zinc-950 dark:text-white tracking-tight">
+                Social Tools
+              </span>
+            </Link>
+            <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-sm mb-6">
+              Free, browser-based social media tools. Built and maintained by one person —
+              no ads, no tracking, no signup.
             </p>
-            <div className="flex items-center gap-2 text-sm text-slate-400">
-              <span>Made with</span>
-              <Heart className="w-4 h-4 text-red-500 fill-red-500" />
-              <span>by</span>
-              <a 
-                href="https://shahzebzafar.netlify.app/" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-white font-medium hover:text-blue-400 transition-colors"
-              >
-                Shahzeb Zafar
-              </a>
+            <a
+              href="https://buymeacoffee.com/shahzebzafar"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-3 h-9 text-sm font-medium text-zinc-700 dark:text-zinc-300 bg-zinc-100 dark:bg-zinc-900 hover:bg-zinc-200 dark:hover:bg-zinc-800 border border-zinc-200 dark:border-zinc-800 rounded-md transition-colors"
+            >
+              <Coffee className="w-4 h-4" />
+              Buy me a coffee
+            </a>
+          </div>
+
+          {/* Link sections */}
+          {linkSections.map((section) => (
+            <div key={section.title}>
+              <h3 className="text-xs font-semibold text-zinc-950 dark:text-white uppercase tracking-wider mb-4">
+                {section.title}
+              </h3>
+              <ul className="space-y-2.5">
+                {section.links.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className="text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white transition-colors inline-flex items-center gap-1.5"
+                    >
+                      {link.label}
+                      {link.badge && (
+                        <span className="inline-flex items-center px-1.5 h-4 rounded text-[10px] font-semibold bg-indigo-600 text-white leading-none">
+                          {link.badge}
+                        </span>
+                      )}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
-          </div>
-
-          {/* Quick Links */}
-          <div>
-            <h3 className="text-white font-semibold text-lg mb-4">Quick Links</h3>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <Link href="/" className="text-slate-400 hover:text-white transition-colors" aria-label="Home">
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link href="/tools" className="text-slate-400 hover:text-white transition-colors" aria-label="All Tools">
-                  All Tools
-                </Link>
-              </li>
-              <li>
-                <Link href="/about" className="text-slate-400 hover:text-white transition-colors" aria-label="About Us">
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="text-slate-400 hover:text-white transition-colors" aria-label="Contact Us">
-                  Contact
-                </Link>
-              </li>
-              <li>
-                <Link href="/faq" className="text-slate-400 hover:text-white transition-colors" aria-label="FAQ">
-                  FAQ
-                </Link>
-              </li>
-              <li>
-                <Link href="/privacy" className="text-slate-400 hover:text-white transition-colors" aria-label="Privacy Policy">
-                  Privacy Policy
-                </Link>
-              </li>
-              <li>
-                <Link href="/terms" className="text-slate-400 hover:text-white transition-colors" aria-label="Terms of Service">
-                  Terms of Service
-                </Link>
-              </li>
-              <li>
-                <Link href="/author" className="text-slate-400 hover:text-white transition-colors" aria-label="About the Author">
-                  Author
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Support & Social */}
-          <div>
-            <h3 className="text-white font-semibold text-lg mb-4">Support & Connect</h3>
-            <ul className="space-y-3">
-              <li>
-                <a
-                  href="https://buymeacoffee.com/shahzebzafar"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-slate-400 hover:text-yellow-400 transition-colors text-sm group"
-                >
-                  <Coffee className="w-4 h-4 group-hover:scale-110 transition-transform" />
-                  <span>Buy me a coffee</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="mailto:shahzaibzafar093@gmail.com"
-                  className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors text-sm"
-                >
-                  <Mail className="w-4 h-4" />
-                  <span>Email</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://shahzebzafar.netlify.app/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-slate-400 hover:text-purple-400 transition-colors text-sm"
-                >
-                  <span>🌐</span>
-                  <span>Website</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://github.com/chshahzebZafar/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors text-sm"
-                >
-                  <Github className="w-4 h-4" />
-                  <span>GitHub</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://x.com/SHAHZEBZAFAR99"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-slate-400 hover:text-blue-400 transition-colors text-sm"
-                >
-                  <Twitter className="w-4 h-4" />
-                  <span>Twitter</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://www.linkedin.com/in/shahzaib-zafer/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-slate-400 hover:text-blue-500 transition-colors text-sm"
-                >
-                  <Linkedin className="w-4 h-4" />
-                  <span>LinkedIn</span>
-                </a>
-              </li>
-            </ul>
-          </div>
+          ))}
         </div>
 
-        {/* Bottom Bar */}
-        <div className="mt-8 pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-slate-400 text-sm">
-            © {currentYear} Social Media Tools. All rights reserved.
+        {/* Bottom */}
+        <div className="mt-16 pt-8 border-t border-zinc-200 dark:border-zinc-800 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <p className="text-xs text-zinc-500 dark:text-zinc-500">
+            © {currentYear} Social Tools. Built by{" "}
+            <a
+              href="https://shahzebzafar.netlify.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white transition-colors"
+            >
+              Shahzeb Zafar
+            </a>
+            .
           </p>
-          <div className="flex items-center gap-4 text-sm text-slate-400">
-            <Link href="/privacy" className="hover:text-white transition-colors">
-              Privacy
-            </Link>
-            <Link href="/terms" className="hover:text-white transition-colors">
-              Terms
-            </Link>
-            <Link href="/author" className="hover:text-white transition-colors">
-              Author
-            </Link>
+          <div className="flex items-center gap-1">
+            {socialLinks.map((s) => (
+              <a
+                key={s.label}
+                href={s.href}
+                target={s.href.startsWith("http") ? "_blank" : undefined}
+                rel={s.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                aria-label={s.label}
+                className="w-8 h-8 flex items-center justify-center rounded-md text-zinc-500 hover:text-zinc-950 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors"
+              >
+                <s.icon className="w-4 h-4" />
+              </a>
+            ))}
           </div>
         </div>
       </div>
     </footer>
   );
 }
-

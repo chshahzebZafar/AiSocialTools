@@ -8,6 +8,8 @@
 import { BlogPost } from "./blog-posts";
 import { SocialTool } from "./social-tools";
 
+const BASE_URL = "https://aisocialtools.co";
+
 /**
  * Enhanced Article Schema for Blog Posts
  */
@@ -19,7 +21,7 @@ export function getEnhancedArticleSchema(post: BlogPost) {
     "description": post.excerpt,
     "image": {
       "@type": "ImageObject",
-      "url": `https://aisocialtools.co${post.image}`,
+      "url": `${BASE_URL}${post.image}`,
       "width": 1200,
       "height": 630
     },
@@ -28,21 +30,21 @@ export function getEnhancedArticleSchema(post: BlogPost) {
     "author": {
       "@type": "Person",
       "name": post.author,
-      "url": "https://aisocialtools.co/author"
+      "url": `${BASE_URL}/author`
     },
     "publisher": {
       "@type": "Organization",
       "name": "Social Media Tools",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://aisocialtools.co/logo.png",
-        "width": 600,
-        "height": 60
+        "url": `${BASE_URL}/og-image.png`,
+        "width": 1200,
+        "height": 630
       }
     },
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": `https://aisocialtools.co/blog/${post.slug}`
+      "@id": `${BASE_URL}/blog/${post.slug}`
     },
     "articleSection": post.category,
     "keywords": post.tags.join(", "),
@@ -53,9 +55,11 @@ export function getEnhancedArticleSchema(post: BlogPost) {
 }
 
 /**
- * Review/Rating Schema for Tools
+ * SoftwareApplication schema for tools — no aggregateRating included because
+ * fabricated review counts violate Google's structured data policy and can
+ * trigger a manual action. Add real ratings only when backed by actual user data.
  */
-export function getReviewSchema(tool: SocialTool, rating: number = 4.8, reviewCount: number = 1250) {
+export function getReviewSchema(tool: SocialTool, _rating?: number, _reviewCount?: number) {
   return {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
@@ -66,13 +70,6 @@ export function getReviewSchema(tool: SocialTool, rating: number = 4.8, reviewCo
       "@type": "Offer",
       "price": "0",
       "priceCurrency": "USD"
-    },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": rating.toString(),
-      "ratingCount": reviewCount.toString(),
-      "bestRating": "5",
-      "worstRating": "1"
     }
   };
 }
@@ -84,13 +81,13 @@ export function getSiteLinksSearchBoxSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "url": "https://aisocialtools.co",
+    "url": BASE_URL,
     "name": "Social Media Tools",
     "potentialAction": {
       "@type": "SearchAction",
       "target": {
         "@type": "EntryPoint",
-        "urlTemplate": "https://aisocialtools.co/search?q={search_term_string}"
+        "urlTemplate": `${BASE_URL}/search?q={search_term_string}`
       },
       "query-input": "required name=search_term_string"
     }
@@ -182,28 +179,28 @@ export function getEnhancedHowToSchema(tool: SocialTool) {
         "position": 1,
         "name": "Visit the Tool Page",
         "text": `Navigate to the ${tool.name} page on our website.`,
-        "image": "https://aisocialtools.co/og-image.png"
+        "image": `${BASE_URL}/og-image.png`
       },
       {
         "@type": "HowToStep",
         "position": 2,
         "name": "Enter Your Input",
         "text": "Enter your content, text, or data in the input field provided.",
-        "image": "https://aisocialtools.co/og-image.png"
+        "image": `${BASE_URL}/og-image.png`
       },
       {
         "@type": "HowToStep",
         "position": 3,
         "name": "Generate or Process",
         "text": "Click the generate or process button to create your output.",
-        "image": "https://aisocialtools.co/og-image.png"
+        "image": `${BASE_URL}/og-image.png`
       },
       {
         "@type": "HowToStep",
         "position": 4,
         "name": "Copy or Download",
         "text": "Copy your result or download it directly. No signup required!",
-        "image": "https://aisocialtools.co/og-image.png"
+        "image": `${BASE_URL}/og-image.png`
       }
     ],
     "totalTime": "PT2M",
@@ -224,8 +221,8 @@ export function getAuthorSchema() {
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Shahzeb Zafar",
-    "url": "https://aisocialtools.co/author",
-    "image": "https://aisocialtools.co/author-image.jpg",
+    "url": `${BASE_URL}/author`,
+    "image": `${BASE_URL}/author-image.jpg`,
     "sameAs": [
       // Add your social media profiles
       // "https://twitter.com/yourhandle",

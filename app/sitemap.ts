@@ -87,6 +87,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
       },
     },
     {
+      url: `${baseUrl}/ai-tools`,
+      lastModified: currentDate,
+      changeFrequency: 'daily',
+      priority: 0.95,
+      alternates: {
+        languages: {
+          en: `${baseUrl}/ai-tools`,
+        },
+      },
+    },
+    {
       url: `${baseUrl}/blog`,
       lastModified: currentDate,
       changeFrequency: 'weekly',

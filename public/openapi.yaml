@@ -1,0 +1,262 @@
+openapi: 3.1.0
+info:
+  title: Social Media Tools API
+  description: >
+    Server-side API for aisocialtools.co. Provides media extraction from
+    Instagram and Pinterest, and AI-powered image upscaling via Replicate.
+    All endpoints are for server-proxied operations that bypass CORS
+    restrictions on the client side.
+  version: "1.0.0"
+  contact:
+    email: shahzaibzafar093@gmail.com
+  license:
+    name: Proprietary
+
+servers:
+  - url: https://aisocialtools.co
+    description: Production
+
+paths:
+  /api/instagram-download:
+    post:
+      operationId: instagramDownload
+      summary: Extract media from a public Instagram post
+      description: >
+        Fetches a public Instagram post, reel, or IGTV URL server-side and
+        extracts all downloadable images and videos via Open Graph meta tags
+        and JSON-LD. Private, age-gated, or geo-restricted content will fail.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [url]
+              properties:
+                url:
+                  type: string
+                  format: uri
+                  description: Public Instagram post, reel, or IGTV URL.
+                  example: "https://www.instagram.com/p/ABC123/"
+      responses:
+        "200":
+          description: Media extracted successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  type:
+                    type: string
+                    enum: [image, video, carousel]
+                  media:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                          enum: [image, video]
+                        url:
+                          type: string
+                          format: uri
+                        thumbnail:
+                          type: string
+                          format: uri
+                  title:
+                    type: string
+                  description:
+                    type: string
+                  author:
+                    type: string
+                    description: Instagram handle prefixed with @
+                  postId:
+                    type: string
+        "400":
+          description: Invalid or missing Instagram URL.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Post is private, age-gated, or requires login.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Post not found or no media detected.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "502":
+          description: Instagram upstream error.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Unexpected server error.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /api/pinterest-download:
+    post:
+      operationId: pinterestDownload
+      summary: Extract media from a Pinterest pin
+      description: >
+        Fetches a Pinterest pin URL server-side (including pin.it short URLs)
+        and extracts the downloadable image or video. Attempts to resolve the
+        highest-quality image by rewriting Pinterest CDN URL patterns.
+        Private pins are not supported.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [url]
+              properties:
+                url:
+                  type: string
+                  format: uri
+                  description: Pinterest pin URL or pin.it short link.
+                  example: "https://www.pinterest.com/pin/123456789/"
+      responses:
+        "200":
+          description: Pin media extracted successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  type:
+                    type: string
+                    enum: [image, video, story]
+                  downloadUrl:
+                    type: string
+                    format: uri
+                    description: Direct URL to the full-resolution media.
+                  thumbnailUrl:
+                    type: string
+                    format: uri
+                  title:
+                    type: string
+                  description:
+                    type: string
+                  pinId:
+                    type: string
+        "400":
+          description: Invalid or missing Pinterest URL.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Pin not found or no downloadable content.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Unexpected server error.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /api/upscale-image:
+    post:
+      operationId: upscaleImage
+      summary: Upscale an image using AI (Real-ESRGAN)
+      description: >
+        Upscales an image using the nightmareai/real-esrgan model on Replicate.
+        Requires REPLICATE_API_TOKEN configured server-side. Returns the
+        upscaled image binary directly as the response body.
+        Maximum input file size is 10 MB.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [image]
+              properties:
+                image:
+                  type: string
+                  format: binary
+                  description: Image file to upscale (JPG, PNG, WebP). Max 10 MB.
+                scale:
+                  type: integer
+                  minimum: 2
+                  maximum: 8
+                  default: 4
+                  description: Upscale factor (2x–8x). Clamped to [2, 8].
+                face_enhancement:
+                  type: string
+                  enum: ["true", "false"]
+                  default: "false"
+                  description: Enable GFPGAN face enhancement pass.
+      responses:
+        "200":
+          description: Upscaled image returned as binary.
+          content:
+            image/png:
+              schema:
+                type: string
+                format: binary
+            image/jpeg:
+              schema:
+                type: string
+                format: binary
+        "400":
+          description: Missing image file.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "413":
+          description: Image exceeds 10 MB limit.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "503":
+          description: REPLICATE_API_TOKEN not configured on server.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "502":
+          description: Replicate upstream error or no output returned.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Unexpected server error.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: string
+          description: Human-readable error message.

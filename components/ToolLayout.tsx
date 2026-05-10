@@ -39,7 +39,7 @@ export default function ToolLayout({
   }, [sidebarOpen]);
 
   return (
-    <div className="flex flex-col min-h-screen bg-slate-50 dark:bg-slate-950">
+    <div className="flex flex-col min-h-screen bg-white dark:bg-zinc-950">
       {/* Main Header - Full width */}
       <Header />
 
@@ -64,8 +64,8 @@ export default function ToolLayout({
           <Sidebar onClose={() => setSidebarOpen(false)} />
         </aside>
 
-        {/* Main Content - 50px spacing from sidebar */}
-              <main className="flex-1 w-full min-w-0 lg:ml-10 lg:pl-[0px]">
+        {/* Main Content - 40px gap from sidebar on desktop */}
+              <main className="flex-1 w-full min-w-0 lg:ml-10">
                 <Breadcrumbs />
                 {children}
               </main>

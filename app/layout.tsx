@@ -4,7 +4,6 @@ import Script from "next/script";
 import "./globals.css";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import PerformanceMonitor from "@/components/PerformanceMonitor";
-import { ThemeProvider } from "@/components/ThemeProvider";
 import { AuthProvider } from "@/components/AuthProvider";
 // Auth diagnostics removed - auth is temporarily disabled
 import { getOGImageUrl } from "@/lib/og-image-generator";
@@ -28,7 +27,7 @@ export const metadata: Metadata = {
     default: "Best Free Social Media Tools Online - No Signup Required 2026",
     template: "%s | Best Free Social Media Tools"
   },
-  description: "Discover the best free social media tools online for 2026. Generate tweets, create Instagram posts, download YouTube thumbnails, generate hashtags, and more. All tools are 100% free with no signup required - perfect for content creators and marketers.",
+  description: "40+ free social media tools — tweets, Instagram posts, YouTube thumbnails, hashtags, and more. Browser-based, no signup, no tracking.",
   keywords: [
     "free social media tools",
     "best social media tools",
@@ -51,8 +50,8 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://aisocialtools.co",
     siteName: "Social Media Tools",
-    title: "Social Media Tools - Best Tools for Social Media Management",
-    description: "Discover the best social media tools for scheduling, analytics, design, and management.",
+    title: "Best Free Social Media Tools Online - No Signup Required 2026",
+    description: "40+ free social media tools for tweets, Instagram posts, YouTube thumbnails, hashtags, and more. Browser-based, no signup required.",
     images: [
       {
         url: getOGImageUrl("home"),
@@ -64,8 +63,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Social Media Tools - Best Tools for Social Media Management",
-    description: "Discover the best social media tools for scheduling, analytics, design, and management.",
+    title: "Best Free Social Media Tools Online - No Signup Required 2026",
+    description: "40+ free social media tools for tweets, Instagram posts, YouTube thumbnails, hashtags, and more. Browser-based, no signup required.",
     images: [getOGImageUrl("home")],
   },
   robots: {
@@ -88,7 +87,7 @@ export const metadata: Metadata = {
   },
   metadataBase: new URL("https://aisocialtools.co"),
   other: {
-    "theme-color": "#3b82f6",
+    "theme-color": "#09090b",
   },
 };
 
@@ -98,7 +97,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <head>
         {/* Favicon - PNG format */}
         <link rel="icon" type="image/png" href="/favicon.png" />
@@ -110,13 +109,13 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         {/* Analytics preconnect - Non-blocking */}
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-        <link rel="ns-prefetch" href="https://www.google-analytics.com" />
+        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
         <link rel="preconnect" href="https://www.google-analytics.com" />
+        {/* AdSense — dns-prefetch only; the script itself loads lazily via next/script below for CWV */}
+        <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
         {/* Hreflang tags for international SEO (prepared for future expansion) */}
         <link rel="alternate" hrefLang="en" href="https://aisocialtools.co" />
         <link rel="alternate" hrefLang="x-default" href="https://aisocialtools.co" />
-        <script  async   src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1544013803258168"   crossOrigin="anonymous" />
-        {/* <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1544013803258168" crossorigin="anonymous"></script> */}
 
         {/* Google Verification TAG */}
         <meta name="google-site-verification" content="1MXsxJbLVHs_-NmpBgvIbP63OboURvFjZwN7Rjf6aVU" />
@@ -124,43 +123,18 @@ export default function RootLayout({
         {/* Bing Verification TAG */}
         <meta name="msvalidate.01" content="B5DB751F43595825223C49E26E43F282" />
 
-        {/* Yandex Verification TAG */}
-        <meta name="yandex-verification" content="2c63a0240a56f4be" />
-
-        {/* Non-blocking theme initialization */}
-        <Script
-          id="theme-init"
-          strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                try {
-                  const theme = localStorage.getItem('theme') || 'system';
-                  let resolvedTheme = theme;
-                  if (theme === 'system') {
-                    resolvedTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-                  }
-                  const root = document.documentElement;
-                  root.classList.remove('light', 'dark');
-                  root.classList.add(resolvedTheme);
-                  root.setAttribute('data-theme', resolvedTheme);
-                } catch (e) {}
-              })();
-            `,
-          }}
-        />
         <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || "G-KPXLX0R9XK"} />
         <PerformanceMonitor />
       </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        suppressHydrationWarning
-      >
-        <AuthProvider>
-          <ThemeProvider>
-            {children}
-          </ThemeProvider>
-        </AuthProvider>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <AuthProvider>{children}</AuthProvider>
+        {/* AdSense — lazyOnload defers until browser idle, protects LCP/INP */}
+        <Script
+          id="adsense"
+          strategy="lazyOnload"
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1544013803258168"
+          crossOrigin="anonymous"
+        />
       </body>
     </html>
   );

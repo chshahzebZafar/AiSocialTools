@@ -3,10 +3,9 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { socialTools, getToolsByCategory } from "@/lib/social-tools";
-import { 
-  X, 
-  ChevronDown, 
-  ChevronUp,
+import {
+  X,
+  ChevronDown,
   Instagram,
   Twitter,
   Youtube,
@@ -19,11 +18,10 @@ import {
   Calendar,
   BarChart3,
   FileText,
-  Code,
   Settings,
   Heart,
   Sparkles,
-  Video
+  Video,
 } from "lucide-react";
 import { useState, useMemo } from "react";
 import { useFavorites } from "@/hooks/useFavorites";
@@ -33,190 +31,177 @@ interface SidebarProps {
   onClose?: () => void;
 }
 
-// Category icons mapping
 const categoryIcons: Record<string, React.ComponentType<{ className?: string }>> = {
-  "Instagram": Instagram,
-  "Twitter": Twitter,
-  "YouTube": Youtube,
-  "Facebook": Facebook,
-  "Content": Type,
+  Instagram: Instagram,
+  Twitter: Twitter,
+  YouTube: Youtube,
+  Facebook: Facebook,
+  Content: Type,
   "Text Tools": Hash,
   "Image Tools": ImageIcon,
-  "Design": Palette,
-  "Links": LinkIcon,
-  "Planning": Calendar,
-  "Analytics": BarChart3,
-  "SEO": FileText,
-  "Converters": FileText,
-  "Vimeo": Video,
-  "Miscellaneous": Settings,
+  Design: Palette,
+  Links: LinkIcon,
+  Planning: Calendar,
+  Analytics: BarChart3,
+  SEO: FileText,
+  Converters: FileText,
+  Vimeo: Video,
+  Miscellaneous: Settings,
 };
 
-// Category display names and ordering
-const categoryConfig: Array<{ name: string; displayName: string; icon: React.ComponentType<{ className?: string }> }> = [
-  { name: "Instagram", displayName: "Instagram Tools", icon: Instagram },
-  { name: "Twitter", displayName: "Twitter Tools", icon: Twitter },
-  { name: "YouTube", displayName: "YouTube Tools", icon: Youtube },
-  { name: "Facebook", displayName: "Facebook Tools", icon: Facebook },
-  { name: "Content", displayName: "Content Tools", icon: Type },
-  { name: "Design", displayName: "Design Tools", icon: Palette },
-  { name: "Links", displayName: "Link Tools", icon: LinkIcon },
-  { name: "Planning", displayName: "Planning Tools", icon: Calendar },
-  { name: "Analytics", displayName: "Analytics Tools", icon: BarChart3 },
-  { name: "SEO", displayName: "SEO Tools", icon: FileText },
+const categoryConfig: Array<{
+  name: string;
+  displayName: string;
+  icon: React.ComponentType<{ className?: string }>;
+}> = [
+  { name: "Instagram", displayName: "Instagram", icon: Instagram },
+  { name: "Twitter", displayName: "Twitter / X", icon: Twitter },
+  { name: "YouTube", displayName: "YouTube", icon: Youtube },
+  { name: "Facebook", displayName: "Facebook", icon: Facebook },
+  { name: "Content", displayName: "Content", icon: Type },
+  { name: "Design", displayName: "Design", icon: Palette },
+  { name: "Links", displayName: "Links", icon: LinkIcon },
+  { name: "Planning", displayName: "Planning", icon: Calendar },
+  { name: "Analytics", displayName: "Analytics", icon: BarChart3 },
+  { name: "SEO", displayName: "SEO", icon: FileText },
   { name: "Converters", displayName: "Converters", icon: FileText },
-  { name: "Vimeo", displayName: "Vimeo Tools", icon: Youtube },
+  { name: "Vimeo", displayName: "Vimeo", icon: Youtube },
 ];
+
+const navItem =
+  "flex items-center justify-between gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors";
+const navItemActive =
+  "bg-zinc-100 dark:bg-zinc-800 text-zinc-950 dark:text-white";
+const navItemIdle =
+  "text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white hover:bg-zinc-50 dark:hover:bg-zinc-900";
+
+const subItem =
+  "flex items-center gap-2.5 px-3 py-1.5 ml-6 rounded-md text-sm transition-colors";
+const subItemActive =
+  "bg-indigo-50 dark:bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 font-medium";
+const subItemIdle =
+  "text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white hover:bg-zinc-50 dark:hover:bg-zinc-900";
 
 export default function Sidebar({ onClose }: SidebarProps) {
   const pathname = usePathname();
   const { user } = useAuth();
   const { favorites, loading: favoritesLoading } = useFavorites();
   const [favoritesExpanded, setFavoritesExpanded] = useState(true);
-  
-  // Get all categories from tools
-  const allCategories = useMemo(() => {
-    return Array.from(new Set(socialTools.map(tool => tool.category)));
-  }, []);
 
-  // Create category list with icons, only including categories that have tools
+  const allCategories = useMemo(
+    () => Array.from(new Set(socialTools.map((t) => t.category))),
+    []
+  );
+
   const categories = useMemo(() => {
     return categoryConfig
-      .filter(config => allCategories.includes(config.name))
+      .filter((c) => allCategories.includes(c.name))
       .concat(
         allCategories
-          .filter(cat => !categoryConfig.find(c => c.name === cat))
-          .map(cat => ({
+          .filter((cat) => !categoryConfig.find((c) => c.name === cat))
+          .map((cat) => ({
             name: cat,
             displayName: cat,
-            icon: categoryIcons[cat] || Settings
+            icon: categoryIcons[cat] || Settings,
           }))
       );
   }, [allCategories]);
-  
-  // Only expand first category by default for better UX
-  const [expandedCategories, setExpandedCategories] = useState<Set<string>>(() => {
-    return new Set(categories.length > 0 ? [categories[0].name] : []);
-  });
+
+  const [expandedCategories, setExpandedCategories] = useState<Set<string>>(
+    () => new Set(categories.length > 0 ? [categories[0].name] : [])
+  );
 
   const toggleCategory = (category: string) => {
-    setExpandedCategories(prev => {
+    setExpandedCategories((prev) => {
       const next = new Set(prev);
-      if (next.has(category)) {
-        next.delete(category);
-      } else {
-        next.add(category);
-      }
+      if (next.has(category)) next.delete(category);
+      else next.add(category);
       return next;
     });
   };
 
   const handleLinkClick = () => {
-    // Close sidebar on mobile when a link is clicked
-    if (onClose && window.innerWidth < 1024) {
-      onClose();
-    }
+    if (onClose && window.innerWidth < 1024) onClose();
   };
 
   return (
-    <aside className="w-64 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 h-screen lg:h-[calc(100vh-4rem)] flex flex-col overflow-hidden">
-      {/* Desktop Header */}
-      <div className="hidden lg:block p-4 border-b border-slate-200 dark:border-slate-800 flex-shrink-0">
-        <h2 className="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
-          Tool Categories
-        </h2>
-      </div>
-
-      {/* Mobile Header */}
-      <div className="lg:hidden p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between flex-shrink-0">
-        <h2 className="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
-          Tool Categories
+    <aside className="w-64 bg-white dark:bg-zinc-950 border-r border-zinc-200 dark:border-zinc-800 h-screen lg:h-[calc(100vh-4rem)] flex flex-col overflow-hidden">
+      {/* Header */}
+      <div className="px-4 py-3 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between flex-shrink-0">
+        <h2 className="text-xs font-semibold text-zinc-500 dark:text-zinc-500 uppercase tracking-[0.15em]">
+          Categories
         </h2>
         {onClose && (
           <button
             onClick={onClose}
-            className="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded transition-colors"
+            className="lg:hidden p-1 hover:bg-zinc-100 dark:hover:bg-zinc-900 rounded transition-colors"
             aria-label="Close menu"
           >
-            <X className="w-5 h-5 text-slate-500 dark:text-slate-400" />
+            <X className="w-4 h-4 text-zinc-500 dark:text-zinc-400" />
           </button>
         )}
       </div>
-      
-      <nav className="flex-1 overflow-y-auto">
-        <ul className="py-2">
-          {/* All Tools Link */}
-          <li className="mb-1">
+
+      <nav className="flex-1 overflow-y-auto p-2">
+        <ul className="space-y-0.5">
+          {/* All Tools */}
+          <li>
             <Link
               href="/tools"
               onClick={handleLinkClick}
-              className={`flex items-center gap-3 px-4 py-2.5 mx-2 rounded-lg transition-colors ${
-                pathname === "/tools"
-                  ? "bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
-                  : "text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800"
-              }`}
+              className={`${navItem} ${pathname === "/tools" ? navItemActive : navItemIdle}`}
             >
-              <Sparkles className="w-4 h-4 flex-shrink-0" />
-              <span className="text-sm font-medium">All Tools</span>
+              <span className="flex items-center gap-2.5">
+                <Sparkles className="w-4 h-4 flex-shrink-0" />
+                All tools
+              </span>
             </Link>
           </li>
 
-          {/* Favorites Section - Only show if user is logged in */}
+          {/* Favorites */}
           {user && (
             <>
-              <li className="border-t border-slate-200 dark:border-slate-700 my-2"></li>
-              <li className="mb-1">
+              <li className="border-t border-zinc-200 dark:border-zinc-800 my-2" />
+              <li>
                 <button
                   onClick={() => setFavoritesExpanded(!favoritesExpanded)}
-                  className={`w-full flex items-center justify-between px-4 py-2.5 mx-2 rounded-lg transition-colors ${
-                    favorites.some(tool => pathname === tool.path)
-                      ? "bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
-                      : "text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800"
+                  className={`w-full ${navItem} ${
+                    favorites.some((t) => pathname === t.path) ? navItemActive : navItemIdle
                   }`}
                 >
-                  <div className="flex items-center gap-3">
+                  <span className="flex items-center gap-2.5">
                     <Heart className="w-4 h-4 flex-shrink-0" />
-                    <span className="text-sm font-medium">Favorite Tools</span>
-                  </div>
+                    Favorites
+                  </span>
                   <ChevronDown
-                    className={`w-4 h-4 flex-shrink-0 transition-transform ${
-                      favoritesExpanded ? 'rotate-180' : ''
+                    className={`w-3.5 h-3.5 flex-shrink-0 transition-transform ${
+                      favoritesExpanded ? "rotate-180" : ""
                     }`}
                   />
                 </button>
                 {favoritesExpanded && (
                   <ul className="mt-1 space-y-0.5">
                     {favoritesLoading ? (
-                      <li className="px-4 py-2 mx-2 ml-8 text-sm text-slate-500 dark:text-slate-400">
-                        Loading...
+                      <li className="px-3 py-1.5 ml-6 text-xs text-zinc-500 dark:text-zinc-500">
+                        Loading…
                       </li>
                     ) : favorites.length === 0 ? (
-                      <li className="px-4 py-2 mx-2 ml-8 text-sm text-slate-500 dark:text-slate-400">
+                      <li className="px-3 py-1.5 ml-6 text-xs text-zinc-500 dark:text-zinc-500">
                         No favorites yet
                       </li>
                     ) : (
                       favorites.map((tool) => {
                         const Icon = tool.icon;
                         const isActive = pathname === tool.path;
-                        
                         return (
                           <li key={tool.id}>
                             <Link
                               href={tool.path}
                               onClick={handleLinkClick}
-                              className={`flex items-center gap-3 px-4 py-2 mx-2 ml-8 rounded-lg transition-colors ${
-                                isActive
-                                  ? "bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 font-medium"
-                                  : "text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800"
-                              }`}
+                              className={`${subItem} ${isActive ? subItemActive : subItemIdle}`}
                             >
-                              <Icon className="w-4 h-4 flex-shrink-0" />
-                              <span className="text-sm truncate flex-1">{tool.name}</span>
-                              {tool.isNew && (
-                                <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-medium bg-gradient-to-r from-green-500 to-emerald-600 text-white flex-shrink-0">
-                                  New
-                                </span>
-                              )}
+                              <Icon className="w-3.5 h-3.5 flex-shrink-0" />
+                              <span className="truncate flex-1">{tool.name}</span>
                             </Link>
                           </li>
                         );
@@ -228,57 +213,47 @@ export default function Sidebar({ onClose }: SidebarProps) {
             </>
           )}
 
-          {/* Divider */}
-          <li className="border-t border-slate-200 dark:border-slate-700 my-2"></li>
+          <li className="border-t border-zinc-200 dark:border-zinc-800 my-2" />
 
-          {/* Category Sections */}
-          {categories.map((categoryConfig) => {
-            const categoryTools = getToolsByCategory(categoryConfig.name);
-            const isCategoryExpanded = expandedCategories.has(categoryConfig.name);
-            const CategoryIcon = categoryConfig.icon;
-            const hasActiveTool = categoryTools.some(tool => pathname === tool.path);
-            
+          {/* Categories */}
+          {categories.map((cat) => {
+            const tools = getToolsByCategory(cat.name);
+            const isExpanded = expandedCategories.has(cat.name);
+            const Icon = cat.icon;
+            const hasActive = tools.some((t) => pathname === t.path);
+
             return (
-              <li key={categoryConfig.name} className="mb-1">
+              <li key={cat.name}>
                 <button
-                  onClick={() => toggleCategory(categoryConfig.name)}
-                  className={`w-full flex items-center justify-between px-4 py-2.5 mx-2 rounded-lg transition-colors ${
-                    hasActiveTool
-                      ? "bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
-                      : "text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800"
-                  }`}
+                  onClick={() => toggleCategory(cat.name)}
+                  className={`w-full ${navItem} ${hasActive ? navItemActive : navItemIdle}`}
                 >
-                  <div className="flex items-center gap-3">
-                    <CategoryIcon className="w-4 h-4 flex-shrink-0" />
-                    <span className="text-sm font-medium">{categoryConfig.displayName}</span>
-                  </div>
+                  <span className="flex items-center gap-2.5">
+                    <Icon className="w-4 h-4 flex-shrink-0" />
+                    {cat.displayName}
+                  </span>
                   <ChevronDown
-                    className={`w-4 h-4 flex-shrink-0 transition-transform ${
-                      isCategoryExpanded ? 'rotate-180' : ''
+                    className={`w-3.5 h-3.5 flex-shrink-0 transition-transform ${
+                      isExpanded ? "rotate-180" : ""
                     }`}
                   />
                 </button>
-                {isCategoryExpanded && (
+                {isExpanded && (
                   <ul className="mt-1 space-y-0.5">
-                    {categoryTools.map((tool) => {
-                      const Icon = tool.icon;
+                    {tools.map((tool) => {
+                      const ToolIcon = tool.icon;
                       const isActive = pathname === tool.path;
-                      
                       return (
                         <li key={tool.id}>
                           <Link
                             href={tool.path}
                             onClick={handleLinkClick}
-                            className={`flex items-center gap-3 px-4 py-2 mx-2 ml-8 rounded-lg transition-colors ${
-                              isActive
-                                ? "bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 font-medium"
-                                : "text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800"
-                            }`}
+                            className={`${subItem} ${isActive ? subItemActive : subItemIdle}`}
                           >
-                            <Icon className="w-4 h-4 flex-shrink-0" />
-                            <span className="text-sm truncate flex-1">{tool.name}</span>
+                            <ToolIcon className="w-3.5 h-3.5 flex-shrink-0" />
+                            <span className="truncate flex-1">{tool.name}</span>
                             {tool.isNew && (
-                              <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-medium bg-gradient-to-r from-green-500 to-emerald-600 text-white flex-shrink-0">
+                              <span className="text-[9px] font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">
                                 New
                               </span>
                             )}
@@ -296,4 +271,3 @@ export default function Sidebar({ onClose }: SidebarProps) {
     </aside>
   );
 }
-

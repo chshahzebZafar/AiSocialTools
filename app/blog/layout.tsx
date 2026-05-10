@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { getOGImageUrl } from "@/lib/og-image-generator";
 
 export const metadata: Metadata = {
-  title: "Blog - Social Media Tips, Strategies & Insights",
-  description: "Discover expert tips, strategies, and insights to help you succeed on social media. Learn about content creation, engagement, and growth strategies.",
+  title: "Social Media Blog - Tips & Growth Strategies",
+  description: "Expert tips, strategies and insights for social media growth. Content creation, engagement tactics, and platform guides. Updated weekly.",
   keywords: [
     "social media blog",
     "content creation tips",

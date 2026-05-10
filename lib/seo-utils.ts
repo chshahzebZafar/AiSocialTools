@@ -180,18 +180,6 @@ export function generateEnhancedMetadata({
   };
 }
 
-/**
- * Generate hreflang tags for multi-language support (prepared for future expansion)
- */
-export function generateHreflangTags(
-  url: string,
-  languages: string[] = ["en"]
-) {
-  return languages.map((lang) => ({
-    hreflang: lang,
-    url: lang === "en" ? url : `${url}?lang=${lang}`,
-  }));
-}
 
 /**
  * Generate Article schema with enhanced properties
@@ -416,40 +404,4 @@ export function generateHowToSchema({
   };
 }
 
-/**
- * Generate Review schema for tools/products
- */
-export function generateReviewSchema({
-  name,
-  rating,
-  reviewCount,
-  bestRating = 5,
-  worstRating = 1,
-}: {
-  name: string;
-  rating: number;
-  reviewCount: number;
-  bestRating?: number;
-  worstRating?: number;
-}) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    name,
-    applicationCategory: "UtilityApplication",
-    operatingSystem: "Web",
-    offers: {
-      "@type": "Offer",
-      price: "0",
-      priceCurrency: "USD",
-    },
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: rating.toString(),
-      ratingCount: reviewCount.toString(),
-      bestRating: bestRating.toString(),
-      worstRating: worstRating.toString(),
-    },
-  };
-}
 

@@ -50,6 +50,7 @@ export interface SocialTool {
   path: string;
   category: string;
   isNew?: boolean;
+  isAI?: boolean;
 }
 
 export const socialTools: SocialTool[] = [
@@ -67,7 +68,8 @@ export const socialTools: SocialTool[] = [
     description: "Generate engaging Instagram posts with templates",
     icon: Instagram,
     path: "/tools/instagram-post-generator",
-    category: "Instagram"
+    category: "Instagram",
+    isAI: true
   },
   {
     id: "instagram-photo-downloader",
@@ -83,7 +85,8 @@ export const socialTools: SocialTool[] = [
     description: "Generate creative tweets with AI assistance",
     icon: Twitter,
     path: "/tools/tweet-generator",
-    category: "Twitter"
+    category: "Twitter",
+    isAI: true
   },
   {
     id: "tweet-to-image",
@@ -123,7 +126,8 @@ export const socialTools: SocialTool[] = [
     description: "Generate Open Graph meta tags for your website",
     icon: Share2,
     path: "/tools/open-graph-generator",
-    category: "SEO"
+    category: "SEO",
+    isAI: true
   },
   {
     id: "hashtag-generator",
@@ -131,7 +135,8 @@ export const socialTools: SocialTool[] = [
     description: "Generate relevant hashtags for your social media posts",
     icon: Hash,
     path: "/tools/hashtag-generator",
-    category: "Content"
+    category: "Content",
+    isAI: true
   },
   {
     id: "character-counter",
@@ -233,7 +238,8 @@ export const socialTools: SocialTool[] = [
     description: "Browse and use pre-made caption templates",
     icon: FileText,
     path: "/tools/caption-templates",
-    category: "Content"
+    category: "Content",
+    isAI: true
   },
   {
     id: "content-ideas",
@@ -241,7 +247,8 @@ export const socialTools: SocialTool[] = [
     description: "Generate creative content ideas for your posts",
     icon: Lightbulb,
     path: "/tools/content-ideas",
-    category: "Content"
+    category: "Content",
+    isAI: true
   },
   {
     id: "analytics-calculator",
@@ -257,7 +264,8 @@ export const socialTools: SocialTool[] = [
     description: "Generate unique and available usernames for social media",
     icon: User,
     path: "/tools/username-generator",
-    category: "Content"
+    category: "Content",
+    isAI: true
   },
   {
     id: "qr-code-generator",
@@ -273,7 +281,8 @@ export const socialTools: SocialTool[] = [
     description: "Create compelling bios for Instagram, Twitter, and more",
     icon: FileText,
     path: "/tools/social-bio-generator",
-    category: "Content"
+    category: "Content",
+    isAI: true
   },
   {
     id: "tiktok-hook-generator",
@@ -281,7 +290,8 @@ export const socialTools: SocialTool[] = [
     description: "Generate viral TikTok hooks and content ideas for short-form videos",
     icon: Video,
     path: "/tools/tiktok-hook-generator",
-    category: "Content"
+    category: "Content",
+    isAI: true
   },
   {
     id: "whatsapp-chat",
@@ -305,7 +315,8 @@ export const socialTools: SocialTool[] = [
     description: "Convert text into beautiful handwriting with custom fonts, colors, and backgrounds",
     icon: PenTool,
     path: "/tools/text-to-handwriting",
-    category: "Content"
+    category: "Content",
+    isAI: true
   },
   {
     id: "svg-pattern-generator",
@@ -313,7 +324,8 @@ export const socialTools: SocialTool[] = [
     description: "Create beautiful SVG patterns including mandalas, dots, grids, waves, and hexagons",
     icon: Sparkles,
     path: "/tools/svg-pattern-generator",
-    category: "Design"
+    category: "Design",
+    isAI: true
   },
   {
     id: "image-to-pdf",
@@ -362,7 +374,8 @@ export const socialTools: SocialTool[] = [
     icon: Maximize2,
     path: "/tools/image-upscaler",
     category: "Design",
-    isNew: true
+    isNew: true,
+    isAI: true
   },
   {
     id: "pinterest-video-downloader",
@@ -407,7 +420,8 @@ export const socialTools: SocialTool[] = [
     icon: User,
     path: "/tools/tiktok-username-generator",
     category: "Content",
-    isNew: true
+    isNew: true,
+    isAI: true
   },
   {
     id: "hashtag-counter",
@@ -461,7 +475,8 @@ export const socialTools: SocialTool[] = [
     icon: Youtube,
     path: "/tools/youtube-tag-generator",
     category: "Content",
-    isNew: true
+    isNew: true,
+    isAI: true
   },
   {
     id: "youtube-description-generator",
@@ -470,7 +485,8 @@ export const socialTools: SocialTool[] = [
     icon: FileText,
     path: "/tools/youtube-description-generator",
     category: "Content",
-    isNew: true
+    isNew: true,
+    isAI: true
   },
   {
     id: "youtube-money-calculator",
@@ -488,7 +504,8 @@ export const socialTools: SocialTool[] = [
     icon: Linkedin,
     path: "/tools/linkedin-headline-generator",
     category: "Content",
-    isNew: true
+    isNew: true,
+    isAI: true
   },
   {
     id: "social-media-image-sizes",

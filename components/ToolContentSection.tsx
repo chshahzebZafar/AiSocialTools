@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { SocialTool } from "@/lib/social-tools";
 import { getToolContent } from "@/lib/tool-content";
-import { CheckCircle2, Lightbulb, Target, TrendingUp, Users, Zap } from "lucide-react";
+import { Check, Lightbulb, Target, Zap, TrendingUp } from "lucide-react";
 
 interface ToolContentSectionProps {
   tool: SocialTool;
@@ -16,15 +16,46 @@ interface ToolContentSectionProps {
   };
 }
 
+interface ListSectionProps {
+  icon: React.ComponentType<{ className?: string }>;
+  title: string;
+  items: string[];
+  intro?: string;
+  twoColumn?: boolean;
+}
+
+function ListSection({ icon: Icon, title, items, intro, twoColumn }: ListSectionProps) {
+  if (!items || items.length === 0) return null;
+  return (
+    <section className="bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-lg p-6 sm:p-8">
+      <div className="flex items-center gap-3 mb-4">
+        <div className="w-8 h-8 rounded-md bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center justify-center">
+          <Icon className="w-4 h-4 text-zinc-700 dark:text-zinc-300" />
+        </div>
+        <h2 className="text-lg sm:text-xl font-semibold text-zinc-950 dark:text-white tracking-tight">
+          {title}
+        </h2>
+      </div>
+      {intro && (
+        <p className="text-zinc-600 dark:text-zinc-400 mb-4 leading-relaxed">{intro}</p>
+      )}
+      <ul className={twoColumn ? "grid grid-cols-1 md:grid-cols-2 gap-3" : "space-y-3"}>
+        {items.map((item, i) => (
+          <li key={i} className="flex items-start gap-3 text-sm sm:text-base text-zinc-700 dark:text-zinc-300 leading-relaxed">
+            <Check className="w-4 h-4 text-indigo-600 dark:text-indigo-400 mt-1 flex-shrink-0" strokeWidth={2.5} />
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
 export default function ToolContentSection({ tool, content }: ToolContentSectionProps) {
-  // Priority order:
-  //   1. `content` prop explicitly passed (legacy inline use, e.g. youtube-thumbnail)
-  //   2. Lookup in lib/tool-content.ts (centralised per-tool SEO content)
-  //   3. Don't render anything (no generic filler — that creates duplicate content across tools)
   const custom = content ?? getToolContent(tool.id);
   if (!custom) return null;
 
-  const finalContent = {
+  const final = {
     overview: custom.overview ?? "",
     benefits: custom.benefits ?? [],
     useCases: custom.useCases ?? [],
@@ -33,137 +64,65 @@ export default function ToolContentSection({ tool, content }: ToolContentSection
   };
 
   return (
-    <div className="mt-12 space-y-8">
-      {/* Overview Section */}
-      <section className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
-        <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-4">
-          About {tool.name}
-        </h2>
-        <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-          {finalContent.overview}
-        </p>
-        <p className="text-slate-600 dark:text-slate-300 leading-relaxed mt-4">
-          Looking for more tools? Explore our{" "}
-          <Link href="/tools" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">
-            complete collection of free social media tools
-          </Link>
-          {" "}or check out related tools below.
-        </p>
-      </section>
-
-      {/* Benefits Section */}
-      <section className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-6 border border-blue-200 dark:border-blue-800">
-        <div className="flex items-center gap-3 mb-4">
-          <CheckCircle2 className="w-6 h-6 text-blue-600 dark:text-blue-400" />
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
-            Key Benefits
+    <div className="mt-12 space-y-4">
+      {/* Overview */}
+      {final.overview && (
+        <section className="bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-lg p-6 sm:p-8">
+          <h2 className="text-lg sm:text-xl font-semibold text-zinc-950 dark:text-white tracking-tight mb-4">
+            About {tool.name}
           </h2>
-        </div>
-        <ul className="space-y-3">
-          {finalContent.benefits?.map((benefit, index) => (
-            <li key={index} className="flex items-start gap-3">
-              <CheckCircle2 className="w-5 h-5 text-blue-600 dark:text-blue-400 mt-0.5 flex-shrink-0" />
-              <span className="text-slate-700 dark:text-slate-300">{benefit}</span>
-            </li>
-          ))}
-        </ul>
-      </section>
+          <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed">
+            {final.overview}
+          </p>
+          <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed mt-4 text-sm">
+            Looking for more?{" "}
+            <Link
+              href="/tools"
+              className="text-zinc-950 dark:text-white font-medium underline underline-offset-4 decoration-zinc-300 dark:decoration-zinc-700 hover:decoration-indigo-500"
+            >
+              Browse the complete collection
+            </Link>{" "}
+            or check out related tools below.
+          </p>
+        </section>
+      )}
 
-      {/* Use Cases Section */}
-      <section className="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl p-6 border border-purple-200 dark:border-purple-800">
-        <div className="flex items-center gap-3 mb-4">
-          <Target className="w-6 h-6 text-purple-600 dark:text-purple-400" />
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
-            Use Cases
-          </h2>
-        </div>
-        <p className="text-slate-600 dark:text-slate-300 mb-4">
-          {tool.name} is perfect for various scenarios and use cases:
-        </p>
-        <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          {finalContent.useCases?.map((useCase, index) => (
-            <li key={index} className="flex items-start gap-3">
-              <Target className="w-5 h-5 text-purple-600 dark:text-purple-400 mt-0.5 flex-shrink-0" />
-              <span className="text-slate-700 dark:text-slate-300">{useCase}</span>
-            </li>
-          ))}
-        </ul>
-      </section>
+      <ListSection icon={Check} title="Key benefits" items={final.benefits} />
 
-      {/* Features Section */}
-      <section className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl p-6 border border-green-200 dark:border-green-800">
-        <div className="flex items-center gap-3 mb-4">
-          <Zap className="w-6 h-6 text-green-600 dark:text-green-400" />
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
-            Features
-          </h2>
-        </div>
-        <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          {finalContent.features?.map((feature, index) => (
-            <li key={index} className="flex items-start gap-3">
-              <Zap className="w-5 h-5 text-green-600 dark:text-green-400 mt-0.5 flex-shrink-0" />
-              <span className="text-slate-700 dark:text-slate-300">{feature}</span>
-            </li>
-          ))}
-        </ul>
-      </section>
+      <ListSection
+        icon={Target}
+        title="Use cases"
+        items={final.useCases}
+        intro={`${tool.name} is perfect for these scenarios:`}
+        twoColumn
+      />
 
-      {/* Tips Section */}
-      <section className="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 rounded-xl p-6 border border-amber-200 dark:border-amber-800">
-        <div className="flex items-center gap-3 mb-4">
-          <Lightbulb className="w-6 h-6 text-amber-600 dark:text-amber-400" />
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
-            Pro Tips
-          </h2>
-        </div>
-        <p className="text-slate-600 dark:text-slate-300 mb-4">
-          Get the most out of {tool.name} with these expert tips:
-        </p>
-        <ul className="space-y-3">
-          {finalContent.tips?.map((tip, index) => (
-            <li key={index} className="flex items-start gap-3">
-              <Lightbulb className="w-5 h-5 text-amber-600 dark:text-amber-400 mt-0.5 flex-shrink-0" />
-              <span className="text-slate-700 dark:text-slate-300">{tip}</span>
-            </li>
-          ))}
-        </ul>
-      </section>
+      <ListSection icon={Zap} title="Features" items={final.features} twoColumn />
 
-      {/* Why Choose Section */}
-      <section className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
+      <ListSection
+        icon={Lightbulb}
+        title="Pro tips"
+        items={final.tips}
+        intro={`Get the most out of ${tool.name} with these tips:`}
+      />
+
+      {/* Why choose */}
+      <section className="bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-6 sm:p-8">
         <div className="flex items-center gap-3 mb-4">
-          <TrendingUp className="w-6 h-6 text-slate-600 dark:text-slate-400" />
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
-            Why Choose Our {tool.name}?
-          </h2>
-        </div>
-        <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
-          What makes our {tool.name} different? It's not just another tool—it's your secret weapon for social media success. 
-          We've spent countless hours perfecting every feature, testing every workflow, and listening to user feedback to create 
-          something truly special. Unlike other tools that charge premium prices or limit your usage, we believe powerful social 
-          media tools should be accessible to everyone. That's why we've built a platform that rivals paid alternatives—without 
-          the price tag. From beginners taking their first steps in social media to seasoned professionals managing enterprise 
-          accounts, our tool adapts to your needs and grows with you.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
-          <div className="text-center p-4 bg-white dark:bg-slate-800 rounded-lg">
-            <Users className="w-8 h-8 text-blue-600 dark:text-blue-400 mx-auto mb-2" />
-            <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">Trusted by Thousands</h3>
-            <p className="text-sm text-slate-600 dark:text-slate-300">Used by content creators worldwide</p>
+          <div className="w-8 h-8 rounded-md bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 flex items-center justify-center">
+            <TrendingUp className="w-4 h-4 text-zinc-700 dark:text-zinc-300" />
           </div>
-          <div className="text-center p-4 bg-white dark:bg-slate-800 rounded-lg">
-            <Zap className="w-8 h-8 text-purple-600 dark:text-purple-400 mx-auto mb-2" />
-            <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">Lightning Fast</h3>
-            <p className="text-sm text-slate-600 dark:text-slate-300">Get results in seconds</p>
-          </div>
-          <div className="text-center p-4 bg-white dark:bg-slate-800 rounded-lg">
-            <CheckCircle2 className="w-8 h-8 text-green-600 dark:text-green-400 mx-auto mb-2" />
-            <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">100% Free</h3>
-            <p className="text-sm text-slate-600 dark:text-slate-300">No hidden costs ever</p>
-          </div>
+          <h2 className="text-lg sm:text-xl font-semibold text-zinc-950 dark:text-white tracking-tight">
+            Why this tool
+          </h2>
         </div>
+        <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed text-sm sm:text-base">
+          {tool.name} runs entirely in your browser. No upload to a server, no rate limits,
+          no watermarks, no signup. It does one thing well, and it does it free — forever.
+          If you find a bug or have a feature request, open an issue or send an email; this
+          site is maintained by one person who actually reads them.
+        </p>
       </section>
     </div>
   );
 }
-

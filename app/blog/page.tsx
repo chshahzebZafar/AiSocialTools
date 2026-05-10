@@ -4,98 +4,138 @@ import { useState, useMemo } from "react";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { blogPosts, BlogPost } from "@/lib/blog-posts";
-import { Clock, User, Calendar, Search, Filter } from "lucide-react";
+import { blogPosts } from "@/lib/blog-posts";
+import { Clock, Search, ArrowUpRight } from "lucide-react";
+import { Badge } from "@/components/ui/Badge";
+import { Reveal } from "@/components/animations/Reveal";
 
 export default function BlogPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
 
   const categories = useMemo(() => {
-    const cats = Array.from(new Set(blogPosts.map(post => post.category)));
+    const cats = Array.from(new Set(blogPosts.map((p) => p.category)));
     return ["All", ...cats.sort()];
   }, []);
 
   const filteredPosts = useMemo(() => {
     let filtered = blogPosts;
-
-    // Filter by category
     if (selectedCategory !== "All") {
-      filtered = filtered.filter(post => post.category === selectedCategory);
+      filtered = filtered.filter((p) => p.category === selectedCategory);
     }
-
-    // Filter by search query
     if (searchQuery) {
-      const query = searchQuery.toLowerCase();
+      const q = searchQuery.toLowerCase();
       filtered = filtered.filter(
-        post =>
-          post.title.toLowerCase().includes(query) ||
-          post.excerpt.toLowerCase().includes(query) ||
-          post.tags.some(tag => tag.toLowerCase().includes(query)) ||
-          post.category.toLowerCase().includes(query)
+        (p) =>
+          p.title.toLowerCase().includes(q) ||
+          p.excerpt.toLowerCase().includes(q) ||
+          p.tags.some((tag) => tag.toLowerCase().includes(q)) ||
+          p.category.toLowerCase().includes(q)
       );
     }
-
-    // Sort by date (newest first)
     return filtered.sort(
       (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
     );
   }, [searchQuery, selectedCategory]);
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString("en-US", { 
-      year: "numeric", 
-      month: "long", 
-      day: "numeric" 
+  const formatDate = (dateString: string) =>
+    new Date(dateString).toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
     });
+
+  const blogSchema = {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    name: "Social Media Blog — Tips & Growth Strategies",
+    description: "Practical writing on what actually works on each platform.",
+    url: "https://aisocialtools.co/blog",
+    publisher: {
+      "@type": "Organization",
+      name: "Social Tools",
+      url: "https://aisocialtools.co",
+    },
+    blogPost: blogPosts.slice(0, 10).map((post) => ({
+      "@type": "BlogPosting",
+      headline: post.title,
+      description: post.excerpt,
+      datePublished: post.publishedAt,
+      dateModified: post.updatedAt || post.publishedAt,
+      url: `https://aisocialtools.co/blog/${post.slug}`,
+      author: {
+        "@type": "Person",
+        name: post.author,
+      },
+    })),
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://aisocialtools.co" },
+      { "@type": "ListItem", position: 2, name: "Blog", item: "https://aisocialtools.co/blog" },
+    ],
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-slate-50 dark:bg-slate-950">
+    <div className="flex flex-col min-h-screen bg-white dark:bg-zinc-950">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <Header />
       <main className="flex-1">
-        {/* Hero Section */}
-        <section className="bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 dark:from-blue-800 dark:via-purple-800 dark:to-pink-800 text-white py-16 sm:py-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-3xl mx-auto">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
-                Social Media Blog
-              </h1>
-              <p className="text-xl sm:text-2xl text-blue-100 dark:text-blue-200 mb-8">
-                Expert tips, strategies, and insights to help you succeed on social media
-              </p>
-            </div>
+        {/* Hero */}
+        <section className="relative overflow-hidden border-b border-zinc-200 dark:border-zinc-800">
+          <div className="aurora" aria-hidden />
+          <div className="absolute inset-0 bg-dot-grid-animated opacity-50" aria-hidden />
+          <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
+            <Badge variant="accent" className="mb-5">
+              Writing
+            </Badge>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold text-zinc-950 dark:text-white tracking-tight leading-[1.05] mb-5 max-w-3xl">
+              Strategy notes
+              <br />
+              <span className="text-zinc-500 dark:text-zinc-400">& playbooks.</span>
+            </h1>
+            <p className="text-lg sm:text-xl text-zinc-600 dark:text-zinc-400 max-w-2xl leading-relaxed">
+              Practical writing on what actually works on each platform — no growth-hacker
+              clichés, no engagement bait.
+            </p>
           </div>
         </section>
 
-        {/* Search and Filter Section */}
-        <section className="py-8 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col sm:flex-row gap-4">
-              {/* Search */}
+        {/* Filters */}
+        <section className="border-b border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/30">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div className="flex flex-col sm:flex-row gap-3">
               <div className="flex-1 relative">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
                 <input
                   type="text"
-                  placeholder="Search blog posts..."
+                  placeholder="Search articles…"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 border border-slate-300 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100"
+                  className="w-full pl-9 pr-3 h-10 border border-zinc-200 dark:border-zinc-800 rounded-md focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 text-sm bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 placeholder-zinc-400"
                 />
               </div>
-
-              {/* Category Filter */}
-              <div className="relative sm:w-64">
-                <Filter className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 z-10" />
+              <div className="relative sm:w-56">
                 <select
                   value={selectedCategory}
                   onChange={(e) => setSelectedCategory(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 border border-slate-300 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 appearance-none cursor-pointer"
+                  className="w-full h-10 pl-3 pr-8 border border-zinc-200 dark:border-zinc-800 rounded-md focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 text-sm bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 appearance-none cursor-pointer"
                 >
-                  {categories.map((category) => (
-                    <option key={category} value={category}>
-                      {category} {category !== "All" && `(${blogPosts.filter(p => p.category === category).length})`}
+                  {categories.map((cat) => (
+                    <option key={cat} value={cat}>
+                      {cat}{" "}
+                      {cat !== "All" &&
+                        `(${blogPosts.filter((p) => p.category === cat).length})`}
                     </option>
                   ))}
                 </select>
@@ -104,104 +144,67 @@ export default function BlogPage() {
           </div>
         </section>
 
-        {/* Blog Posts Grid */}
+        {/* Posts list */}
         <section className="py-12 sm:py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {filteredPosts.length > 0 ? (
               <>
-                <div className="mb-8">
-                  <p className="text-slate-600 dark:text-slate-400">
-                    Showing {filteredPosts.length} {filteredPosts.length === 1 ? "post" : "posts"}
-                    {selectedCategory !== "All" && ` in ${selectedCategory}`}
-                    {searchQuery && ` for "${searchQuery}"`}
-                  </p>
-                </div>
+                <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-8">
+                  {filteredPosts.length}{" "}
+                  {filteredPosts.length === 1 ? "article" : "articles"}
+                  {selectedCategory !== "All" && ` in ${selectedCategory}`}
+                  {searchQuery && ` matching "${searchQuery}"`}
+                </p>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-                  {filteredPosts.map((post) => (
-                    <Link
-                      key={post.id}
-                      href={`/blog/${post.slug}`}
-                      className="group"
-                    >
-                      <article className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden hover:shadow-xl hover:scale-[1.02] transition-all duration-300 h-full flex flex-col group">
-                        {/* Image */}
-                        <div className="relative h-48 bg-gradient-to-br from-blue-500 via-purple-600 to-pink-600 overflow-hidden group-hover:scale-110 transition-transform duration-500">
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent" />
-                          <div className="absolute top-4 left-4 z-10">
-                            <span className="px-3 py-1 bg-white/95 backdrop-blur-sm text-blue-600 dark:text-blue-600 rounded-full text-xs font-semibold shadow-sm">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-zinc-200 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-800 rounded-lg overflow-hidden">
+                  {filteredPosts.map((post, i) => (
+                    <Reveal key={post.id} delay={Math.min(i * 40, 400)}>
+                      <Link
+                        href={`/blog/${post.slug}`}
+                        className="group block bg-white dark:bg-zinc-950 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors h-full"
+                      >
+                        <article className="p-6 sm:p-7 h-full flex flex-col">
+                          <div className="flex items-center gap-2 mb-4">
+                            <Badge variant="neutral" className="text-[10px]">
                               {post.category}
-                            </span>
+                            </Badge>
+                            {post.featured && (
+                              <Badge variant="warning" className="text-[10px]">
+                                Featured
+                              </Badge>
+                            )}
                           </div>
-                          {post.featured && (
-                            <div className="absolute top-4 right-4 z-10">
-                              <span className="px-3 py-1 bg-gradient-to-r from-yellow-400 to-orange-400 text-yellow-900 rounded-full text-xs font-semibold shadow-sm animate-pulse">
-                                ⭐ Featured
-                              </span>
-                            </div>
-                          )}
-                          <div className="absolute bottom-4 left-4 right-4 z-10">
-                            <h2 className="text-white font-bold text-lg line-clamp-2 drop-shadow-lg">
-                              {post.title}
-                            </h2>
-                          </div>
-                        </div>
 
-                        {/* Content */}
-                        <div className="p-6 flex-1 flex flex-col">
-                          <p className="text-slate-600 dark:text-slate-300 mb-4 line-clamp-3 flex-1 text-sm leading-relaxed">
+                          <h2 className="text-xl font-semibold text-zinc-950 dark:text-white tracking-tight mb-3 line-clamp-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                            {post.title}
+                          </h2>
+
+                          <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed line-clamp-3 mb-6 flex-1">
                             {post.excerpt}
                           </p>
 
-                          {/* Meta Info */}
-                          <div className="flex items-center gap-4 text-sm text-slate-500 dark:text-slate-400 mb-4">
-                            <div className="flex items-center gap-1">
-                              <User className="w-4 h-4" />
-                              <span>{post.author}</span>
-                            </div>
-                            <div className="flex items-center gap-1">
-                              <Clock className="w-4 h-4" />
-                              <span>{post.readTime} min</span>
-                            </div>
-                          </div>
-
-                          {/* Tags */}
-                          <div className="flex flex-wrap gap-2 mb-4">
-                            {post.tags.slice(0, 3).map((tag) => (
-                              <span
-                                key={tag}
-                                className="px-2 py-1 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded text-xs"
-                              >
-                                #{tag}
+                          <div className="flex items-center justify-between pt-4 border-t border-zinc-100 dark:border-zinc-900 mt-auto">
+                            <div className="flex items-center gap-3 text-xs text-zinc-500 dark:text-zinc-500">
+                              <span>{formatDate(post.publishedAt)}</span>
+                              <span className="w-1 h-1 rounded-full bg-zinc-300 dark:bg-zinc-700" />
+                              <span className="inline-flex items-center gap-1">
+                                <Clock className="w-3 h-3" />
+                                {post.readTime} min
                               </span>
-                            ))}
-                          </div>
-
-                          {/* Read More */}
-                          <div className="flex items-center justify-between mt-auto pt-4 border-t border-slate-200 dark:border-slate-700">
-                            <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400 font-medium group-hover:gap-3 transition-all">
-                              <span>Read Article</span>
-                              <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                              </svg>
                             </div>
-                            <span className="text-xs text-slate-500 dark:text-slate-400">
-                              {formatDate(post.publishedAt)}
-                            </span>
+                            <ArrowUpRight className="w-4 h-4 text-zinc-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
                           </div>
-                        </div>
-                      </article>
-                    </Link>
+                        </article>
+                      </Link>
+                    </Reveal>
                   ))}
                 </div>
               </>
             ) : (
-              <div className="text-center py-16">
-                <p className="text-xl text-slate-600 dark:text-slate-400 mb-4">
-                  No blog posts found
-                </p>
-                <p className="text-slate-500 dark:text-slate-500">
-                  Try adjusting your search or filter criteria
+              <div className="text-center py-20 border border-dashed border-zinc-200 dark:border-zinc-800 rounded-lg">
+                <p className="text-zinc-500 dark:text-zinc-400 mb-2">No articles found</p>
+                <p className="text-sm text-zinc-400 dark:text-zinc-500">
+                  Try a different search or category
                 </p>
               </div>
             )}
@@ -212,4 +215,3 @@ export default function BlogPage() {
     </div>
   );
 }
-

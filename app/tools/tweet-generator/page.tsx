@@ -300,7 +300,7 @@ export default function TweetGeneratorPage() {
                 <div className="flex items-start gap-3 mb-3">
                   <div className="w-12 h-12 rounded-full bg-slate-300 dark:bg-slate-600 flex-shrink-0 overflow-hidden">
                     {avatar ? (
-                      <img src={avatar} alt="Avatar" className="w-full h-full object-cover" />
+                      <img src={avatar} alt="Profile avatar for the generated tweet preview" className="w-full h-full object-cover" />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center text-slate-500">
                         <Twitter className="w-6 h-6" />
