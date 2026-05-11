@@ -18,7 +18,7 @@ const linkSections: FooterSection[] = [
     links: [
       { href: "/", label: "Home" },
       { href: "/tools", label: "All tools" },
-      { href: "/ai-tools", label: "AI tools", badge: "New" },
+      { href: "/ai-directory", label: "AI directory", badge: "New" },
       { href: "/blog", label: "Blog" },
       { href: "/faq", label: "FAQ" },
     ],

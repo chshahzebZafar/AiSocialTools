@@ -5,6 +5,7 @@ import "./globals.css";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import PerformanceMonitor from "@/components/PerformanceMonitor";
 import { AuthProvider } from "@/components/AuthProvider";
+import LeadCapturePopup from "@/components/LeadCapturePopup";
 // Auth diagnostics removed - auth is temporarily disabled
 import { getOGImageUrl } from "@/lib/og-image-generator";
 
@@ -128,6 +129,7 @@ export default function RootLayout({
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <AuthProvider>{children}</AuthProvider>
+        <LeadCapturePopup />
         {/* AdSense — lazyOnload defers until browser idle, protects LCP/INP */}
         <Script
           id="adsense"

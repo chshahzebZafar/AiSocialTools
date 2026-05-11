@@ -1,0 +1,437 @@
+"use client";
+
+import { useState } from "react";
+import Link from "next/link";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import { Badge } from "@/components/ui/Badge";
+import { ButtonLink } from "@/components/ui/Button";
+import { aiCategories } from "@/lib/ai-directory";
+import {
+  ArrowLeft,
+  Check,
+  AlertCircle,
+  Loader2,
+} from "lucide-react";
+
+type SubmissionState = "idle" | "submitting" | "success" | "error";
+
+const pricingOptions = ["Free", "Freemium", "Paid", "Open Source"] as const;
+
+export default function SubmitAIToolPage() {
+  const [state, setState] = useState<SubmissionState>("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setState("submitting");
+    setErrorMessage("");
+
+    const formData = new FormData(e.currentTarget);
+    const payload = {
+      name: formData.get("name"),
+      url: formData.get("url"),
+      tagline: formData.get("tagline"),
+      description: formData.get("description"),
+      category: formData.get("category"),
+      pricing: formData.get("pricing"),
+      pricingDetails: formData.get("pricingDetails"),
+      features: formData.get("features"),
+      twitter: formData.get("twitter"),
+      founder: formData.get("founder"),
+      submitterName: formData.get("submitterName"),
+      submitterEmail: formData.get("submitterEmail"),
+      submitterRole: formData.get("submitterRole"),
+    };
+
+    try {
+      const res = await fetch("/api/submit-ai-tool", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to submit");
+      }
+      setState("success");
+      (e.target as HTMLFormElement).reset();
+    } catch (err) {
+      setState("error");
+      setErrorMessage(err instanceof Error ? err.message : "Unknown error");
+    }
+  }
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://aisocialtools.co" },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "AI Directory",
+        item: "https://aisocialtools.co/ai-directory",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: "Submit",
+        item: "https://aisocialtools.co/ai-directory/submit",
+      },
+    ],
+  };
+
+  const webPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: "Submit Your AI Tool",
+    description:
+      "Free submission form to list any AI tool in our curated directory. No fee, no backlink demand, reviewed within 7 days.",
+    url: "https://aisocialtools.co/ai-directory/submit",
+    isPartOf: {
+      "@type": "WebSite",
+      name: "Social Media Tools",
+      url: "https://aisocialtools.co",
+    },
+    mainEntity: {
+      "@type": "Action",
+      name: "Submit AI Tool",
+      target: "https://aisocialtools.co/api/submit-ai-tool",
+    },
+  };
+
+  return (
+    <div className="flex flex-col min-h-screen bg-white dark:bg-zinc-950">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
+      />
+      <Header />
+
+      <main className="flex-1">
+        <Breadcrumbs />
+
+        {/* Hero */}
+        <section className="border-b border-zinc-200 dark:border-zinc-800">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+            <Link
+              href="/ai-directory"
+              className="inline-flex items-center gap-1.5 text-sm text-zinc-500 hover:text-zinc-950 dark:hover:text-white transition-colors mb-6"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Back to directory
+            </Link>
+            <Badge variant="neutral" className="mb-4">
+              Submit
+            </Badge>
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-zinc-950 dark:text-white tracking-tight mb-4">
+              Submit an AI tool.
+            </h1>
+            <p className="text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed">
+              Free listing. No fee, no backlink demand, no &quot;featured slot&quot; upsell.
+              We review every submission within 7 days. Good tools get in.
+            </p>
+          </div>
+        </section>
+
+        {/* Form */}
+        <section className="border-b border-zinc-200 dark:border-zinc-800">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+            {state === "success" ? (
+              <div className="bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/30 rounded-lg p-8 text-center">
+                <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-emerald-100 dark:bg-emerald-500/20 flex items-center justify-center">
+                  <Check className="w-6 h-6 text-emerald-600 dark:text-emerald-400" strokeWidth={2.5} />
+                </div>
+                <h2 className="text-2xl font-semibold text-zinc-950 dark:text-white tracking-tight mb-3">
+                  Submission received.
+                </h2>
+                <p className="text-zinc-600 dark:text-zinc-400 mb-6 max-w-md mx-auto">
+                  Thanks. We&apos;ll review it within 7 days and email you if we have any
+                  questions. If accepted, the tool goes live the same day.
+                </p>
+                <div className="flex flex-wrap gap-3 justify-center">
+                  <ButtonLink href="/ai-directory" size="md">
+                    Browse the directory
+                  </ButtonLink>
+                  <button
+                    onClick={() => setState("idle")}
+                    className="inline-flex items-center justify-center gap-2 h-10 px-4 text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white transition-colors"
+                  >
+                    Submit another tool
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-10">
+                {/* Section: Tool basics */}
+                <fieldset className="space-y-6">
+                  <legend className="text-xs uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-500 font-semibold mb-4 w-full pb-2 border-b border-zinc-200 dark:border-zinc-800">
+                    Tool basics
+                  </legend>
+
+                  <Field
+                    name="name"
+                    label="Tool name"
+                    required
+                    placeholder="e.g. Mindfulness AI"
+                  />
+                  <Field
+                    name="url"
+                    label="Website URL"
+                    type="url"
+                    required
+                    placeholder="https://"
+                  />
+                  <Field
+                    name="tagline"
+                    label="One-line pitch"
+                    required
+                    maxLength={120}
+                    placeholder="The fastest way to…"
+                    hint="Max 120 chars. Front-load the value."
+                  />
+                  <Field
+                    name="description"
+                    label="Description"
+                    required
+                    multiline
+                    rows={5}
+                    placeholder="Tell us what your tool does, who it's for, and what makes it different. 2-4 paragraphs."
+                    hint="Honest writing wins. Don't pad with marketing speak."
+                  />
+                </fieldset>
+
+                {/* Section: Category & pricing */}
+                <fieldset className="space-y-6">
+                  <legend className="text-xs uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-500 font-semibold mb-4 w-full pb-2 border-b border-zinc-200 dark:border-zinc-800">
+                    Category & pricing
+                  </legend>
+
+                  <SelectField
+                    name="category"
+                    label="Primary category"
+                    required
+                    options={aiCategories.map((c) => ({ value: c, label: c }))}
+                  />
+                  <SelectField
+                    name="pricing"
+                    label="Pricing model"
+                    required
+                    options={pricingOptions.map((p) => ({ value: p, label: p }))}
+                  />
+                  <Field
+                    name="pricingDetails"
+                    label="Pricing details"
+                    placeholder="e.g. Free up to 50 generations/day, then $20/mo"
+                    hint="Be specific. Vague pricing hurts your submission."
+                  />
+                  <Field
+                    name="features"
+                    label="Key features"
+                    multiline
+                    rows={4}
+                    placeholder={"One per line:\nReal-time collaboration\n200K context window\nAPI access"}
+                    hint="One per line. 3-6 features is the sweet spot."
+                  />
+                </fieldset>
+
+                {/* Section: Links */}
+                <fieldset className="space-y-6">
+                  <legend className="text-xs uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-500 font-semibold mb-4 w-full pb-2 border-b border-zinc-200 dark:border-zinc-800">
+                    Optional links
+                  </legend>
+
+                  <Field
+                    name="twitter"
+                    label="Twitter / X handle"
+                    placeholder="without the @"
+                  />
+                  <Field
+                    name="founder"
+                    label="Company or founder name"
+                    placeholder="e.g. Acme Inc. or Jane Doe"
+                  />
+                </fieldset>
+
+                {/* Section: Submitter */}
+                <fieldset className="space-y-6">
+                  <legend className="text-xs uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-500 font-semibold mb-4 w-full pb-2 border-b border-zinc-200 dark:border-zinc-800">
+                    About you
+                  </legend>
+
+                  <Field
+                    name="submitterName"
+                    label="Your name"
+                    required
+                  />
+                  <Field
+                    name="submitterEmail"
+                    label="Your email"
+                    type="email"
+                    required
+                    hint="We email you once if accepted — no marketing."
+                  />
+                  <SelectField
+                    name="submitterRole"
+                    label="Your relationship to this tool"
+                    required
+                    options={[
+                      { value: "founder", label: "I built it (founder / team)" },
+                      { value: "user", label: "I'm a happy user (no affiliation)" },
+                      { value: "other", label: "Other" },
+                    ]}
+                  />
+                </fieldset>
+
+                {/* Error message */}
+                {state === "error" && (
+                  <div className="bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/30 rounded-md p-4 flex items-start gap-3">
+                    <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 mt-0.5 flex-shrink-0" />
+                    <div className="text-sm">
+                      <p className="font-medium text-red-900 dark:text-red-200 mb-1">
+                        Couldn&apos;t submit
+                      </p>
+                      <p className="text-red-700 dark:text-red-300">{errorMessage}</p>
+                    </div>
+                  </div>
+                )}
+
+                {/* Submit */}
+                <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center pt-2">
+                  <button
+                    type="submit"
+                    disabled={state === "submitting"}
+                    className="inline-flex items-center justify-center gap-2 h-11 px-6 bg-zinc-950 dark:bg-white text-white dark:text-zinc-950 hover:bg-zinc-800 dark:hover:bg-zinc-200 rounded-md text-sm font-medium transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                  >
+                    {state === "submitting" ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        Submitting…
+                      </>
+                    ) : (
+                      "Submit for review"
+                    )}
+                  </button>
+                  <p className="text-xs text-zinc-500 dark:text-zinc-500 sm:ml-2">
+                    By submitting you agree to our{" "}
+                    <Link href="/terms" className="underline hover:text-zinc-950 dark:hover:text-white">
+                      Terms
+                    </Link>
+                    .
+                  </p>
+                </div>
+              </form>
+            )}
+          </div>
+        </section>
+      </main>
+
+      <Footer />
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Form field helpers                                                 */
+/* ------------------------------------------------------------------ */
+
+interface FieldProps {
+  name: string;
+  label: string;
+  required?: boolean;
+  type?: string;
+  placeholder?: string;
+  hint?: string;
+  multiline?: boolean;
+  rows?: number;
+  maxLength?: number;
+}
+
+function Field({
+  name,
+  label,
+  required,
+  type = "text",
+  placeholder,
+  hint,
+  multiline,
+  rows = 4,
+  maxLength,
+}: FieldProps) {
+  return (
+    <div>
+      <label htmlFor={name} className="block text-sm font-medium text-zinc-900 dark:text-zinc-100 mb-1.5">
+        {label}
+        {required && <span className="text-zinc-400 dark:text-zinc-600"> *</span>}
+      </label>
+      {multiline ? (
+        <textarea
+          id={name}
+          name={name}
+          required={required}
+          placeholder={placeholder}
+          rows={rows}
+          maxLength={maxLength}
+          className="w-full px-3 py-2.5 border border-zinc-200 dark:border-zinc-800 rounded-md focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 text-sm bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 resize-none"
+        />
+      ) : (
+        <input
+          type={type}
+          id={name}
+          name={name}
+          required={required}
+          placeholder={placeholder}
+          maxLength={maxLength}
+          className="w-full h-10 px-3 border border-zinc-200 dark:border-zinc-800 rounded-md focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 text-sm bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 placeholder-zinc-400"
+        />
+      )}
+      {hint && (
+        <p className="text-xs text-zinc-500 dark:text-zinc-500 mt-1.5">{hint}</p>
+      )}
+    </div>
+  );
+}
+
+interface SelectFieldProps {
+  name: string;
+  label: string;
+  required?: boolean;
+  options: Array<{ value: string; label: string }>;
+  hint?: string;
+}
+
+function SelectField({ name, label, required, options, hint }: SelectFieldProps) {
+  return (
+    <div>
+      <label htmlFor={name} className="block text-sm font-medium text-zinc-900 dark:text-zinc-100 mb-1.5">
+        {label}
+        {required && <span className="text-zinc-400 dark:text-zinc-600"> *</span>}
+      </label>
+      <select
+        id={name}
+        name={name}
+        required={required}
+        defaultValue=""
+        className="w-full h-10 px-3 border border-zinc-200 dark:border-zinc-800 rounded-md focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 text-sm bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 appearance-none cursor-pointer"
+      >
+        <option value="" disabled>
+          Select…
+        </option>
+        {options.map((opt) => (
+          <option key={opt.value} value={opt.value}>
+            {opt.label}
+          </option>
+        ))}
+      </select>
+      {hint && (
+        <p className="text-xs text-zinc-500 dark:text-zinc-500 mt-1.5">{hint}</p>
+      )}
+    </div>
+  );
+}

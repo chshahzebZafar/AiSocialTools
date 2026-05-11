@@ -9,6 +9,7 @@ import { CountUp } from "@/components/animations/CountUp";
 import { Reveal } from "@/components/animations/Reveal";
 import { PlatformMarquee } from "@/components/animations/PlatformMarquee";
 import { socialTools } from "@/lib/social-tools";
+import { aiDirectoryTools } from "@/lib/ai-directory";
 import type { Metadata } from "next";
 import { getOGImageUrl } from "@/lib/og-image-generator";
 import { getSiteLinksSearchBoxSchema, getAuthorSchema } from "@/lib/enhanced-schemas";
@@ -16,6 +17,7 @@ import {
   ArrowRight,
   ArrowUpRight,
   Zap,
+  BadgeCheck,
   Shield,
   Heart,
   Lock,
@@ -88,6 +90,7 @@ export const metadata: Metadata = {
 export default function Home() {
   const featuredTools = socialTools.slice(0, 9);
   const totalTools = socialTools.length;
+  const featuredAITools = aiDirectoryTools.filter((t) => t.approved && t.featured).slice(0, 4);
 
   const organizationSchema = {
     "@context": "https://schema.org",
@@ -444,6 +447,71 @@ export default function Home() {
                   </Reveal>
                 );
               })}
+            </div>
+          </div>
+        </section>
+
+        {/* ==========================================================
+             AI DIRECTORY HIGHLIGHT
+             ========================================================== */}
+        <section className="border-b border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/40">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-24">
+            <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-12">
+              <div className="max-w-2xl">
+                <Badge variant="accent" className="mb-4">
+                  <BadgeCheck className="w-3 h-3" />
+                  AI Directory
+                </Badge>
+                <h2 className="text-3xl sm:text-4xl font-semibold text-zinc-950 dark:text-white tracking-tight mb-3">
+                  Discover the best AI tools
+                </h2>
+                <p className="text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                  Hand-curated, verified AI tools with honest pros, cons, and pricing. No fluff.
+                </p>
+              </div>
+              <Link
+                href="/ai-directory"
+                className="text-sm font-medium text-zinc-950 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors inline-flex items-center gap-1 self-start sm:self-end shrink-0"
+              >
+                Browse all tools
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {featuredAITools.map((tool, i) => (
+                <Reveal key={tool.slug} delay={i * 60}>
+                  <Link
+                    href={`/ai-directory/${tool.slug}`}
+                    className="group relative flex flex-col h-full bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-xl p-5 hover:border-indigo-200 dark:hover:border-indigo-500/40 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+                  >
+                    <div className="flex items-start justify-between gap-3 mb-3">
+                      <div className="relative flex-shrink-0">
+                        <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold text-base shadow-sm">
+                          {tool.name.charAt(0)}
+                        </div>
+                        <div className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-blue-500 border-2 border-white dark:border-zinc-950 flex items-center justify-center">
+                          <BadgeCheck className="w-2.5 h-2.5 text-white" strokeWidth={3} />
+                        </div>
+                      </div>
+                      <ArrowUpRight className="w-4 h-4 text-zinc-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors mt-1" />
+                    </div>
+                    <h3 className="font-semibold text-[15px] text-zinc-950 dark:text-white mb-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                      {tool.name}
+                    </h3>
+                    <p className="text-sm text-zinc-500 dark:text-zinc-400 line-clamp-2 leading-relaxed flex-1">
+                      {tool.tagline}
+                    </p>
+                    <div className="flex items-center justify-between gap-2 pt-3 mt-3 border-t border-zinc-100 dark:border-zinc-800">
+                      <span className="text-xs text-zinc-400">{tool.category}</span>
+                      <span className={`text-[10px] uppercase tracking-wider font-bold ${
+                        tool.pricing === "Free" || tool.pricing === "Open Source"
+                          ? "text-emerald-600 dark:text-emerald-400"
+                          : "text-zinc-400"
+                      }`}>{tool.pricing}</span>
+                    </div>
+                  </Link>
+                </Reveal>
+              ))}
             </div>
           </div>
         </section>

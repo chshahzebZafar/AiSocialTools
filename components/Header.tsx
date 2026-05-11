@@ -15,7 +15,7 @@ import { AuthButtons } from "./AuthButtons";
 const navLinks: Array<{ href: string; label: string; badge?: string }> = [
   { href: "/", label: "Home" },
   { href: "/tools", label: "Tools" },
-  { href: "/ai-tools", label: "AI Tools", badge: "New" },
+  { href: "/ai-directory", label: "AI Directory", badge: "New" },
   { href: "/blog", label: "Blog" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
