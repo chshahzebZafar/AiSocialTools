@@ -2,25 +2,23 @@ import type { Metadata } from "next";
 import { getOGImageUrl } from "@/lib/og-image-generator";
 
 export const metadata: Metadata = {
-  title: "Free Social Media Tools - 40+ Online Tools 2026",
-  description: "Browse 40+ free social media tools for tweets, Instagram posts, YouTube thumbnails, hashtags, and more. No signup. For creators and marketers.",
+  title: "All Tools — Browse by Category",
+  description:
+    "Free, browser-based tools organized by what you're trying to do. Social media tools, construction tools (coming soon), and more.",
   keywords: [
-    "all social media tools",
-    "free social media tools list",
-    "complete tools collection",
-    "best free tools online",
-    "social media management tools free",
-    "content creation tools online",
-    "free online tools no signup",
-    "social media toolkit",
-    "all free tools",
-    "social media tools collection",
+    "all tools",
+    "free tools",
+    "tool categories",
+    "social media tools",
+    "construction tools",
+    "free online tools",
+    "tools by category",
     "free tools for creators",
-    "online social media tools"
   ],
   openGraph: {
-    title: "All Social Media Tools - Free Online Tools Collection",
-    description: "Browse our complete collection of free social media tools. All tools are 100% free with no signup required.",
+    title: "All Tools — Browse by Category",
+    description:
+      "Free, browser-based tools organized by category. Pick a category and dive in.",
     type: "website",
     url: "https://aisocialtools.co/tools",
     siteName: "Social Media Tools",
@@ -29,19 +27,19 @@ export const metadata: Metadata = {
         url: getOGImageUrl("tools"),
         width: 1200,
         height: 630,
-        alt: "All Social Media Tools - Free Online Tools Collection",
+        alt: "All Tools — Browse by Category",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "All Social Media Tools - Free Online Tools Collection",
-    description: "Browse our complete collection of free social media tools. All tools are 100% free with no signup required.",
+    title: "All Tools — Browse by Category",
+    description:
+      "Free, browser-based tools organized by category. Pick a category and dive in.",
     images: [getOGImageUrl("tools")],
   },
-  alternates: {
-    canonical: "https://aisocialtools.co/tools",
-  },
+  alternates: { canonical: "https://aisocialtools.co/tools" },
+  robots: { index: true, follow: true },
 };
 
 export default function ToolsLayout({

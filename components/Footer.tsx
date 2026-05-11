@@ -26,6 +26,8 @@ const linkSections: FooterSection[] = [
   {
     title: "Categories",
     links: [
+      { href: "/tools/social-media", label: "Social media tools" },
+      { href: "/tools/construction", label: "Construction tools", badge: "Soon" },
       { href: "/tools/instagram-tools", label: "Instagram tools" },
       { href: "/tools/youtube-tools", label: "YouTube tools" },
       { href: "/tools/image-tools", label: "Image tools" },

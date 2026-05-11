@@ -80,12 +80,65 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/tools`,
       lastModified: currentDate,
       changeFrequency: 'daily',
-      priority: 0.95, // Very high priority - main tools listing
+      priority: 0.95, // Very high priority - main tools hub
       alternates: {
         languages: {
           en: `${baseUrl}/tools`,
         },
       },
+    },
+    {
+      url: `${baseUrl}/tools/social-media`,
+      lastModified: currentDate,
+      changeFrequency: 'daily',
+      priority: 0.93,
+      alternates: {
+        languages: {
+          en: `${baseUrl}/tools/social-media`,
+        },
+      },
+    },
+    {
+      url: `${baseUrl}/tools/construction`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.6,
+      alternates: { languages: { en: `${baseUrl}/tools/construction` } },
+    },
+    {
+      url: `${baseUrl}/tools/finance`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.6,
+      alternates: { languages: { en: `${baseUrl}/tools/finance` } },
+    },
+    {
+      url: `${baseUrl}/tools/real-estate`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.6,
+      alternates: { languages: { en: `${baseUrl}/tools/real-estate` } },
+    },
+    {
+      url: `${baseUrl}/tools/health-fitness`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.6,
+      alternates: { languages: { en: `${baseUrl}/tools/health-fitness` } },
+    },
+    {
+      url: `${baseUrl}/tools/developer`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.6,
+      alternates: { languages: { en: `${baseUrl}/tools/developer` } },
+    },
+    {
+      url: `${baseUrl}/tools/education`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.6,
+      alternates: { languages: { en: `${baseUrl}/tools/education` } },
     },
     {
       url: `${baseUrl}/ai-directory`,
