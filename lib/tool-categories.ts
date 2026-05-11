@@ -24,6 +24,10 @@ import {
   GraduationCap,
 } from "lucide-react";
 import { socialTools } from "./social-tools";
+import { categoryTools } from "./category-tools";
+
+const countLive = (slug: string) =>
+  categoryTools.filter((t) => t.category === slug).length;
 
 export type ToolCategoryStatus = "live" | "coming-soon" | "planned";
 
@@ -63,11 +67,11 @@ export const toolCategoryHubs: ToolCategoryHub[] = [
     name: "Construction Tools",
     tagline: "Free calculators and planners for builders.",
     description:
-      "Coming soon — calculators, estimators, and planners for contractors, builders, and DIYers.",
+      "Calculators, estimators, and planners for contractors, builders, and DIYers. First tool live, more on the way.",
     url: "/tools/construction",
     icon: HardHat,
-    toolCount: 0,
-    status: "coming-soon",
+    toolCount: countLive("construction"),
+    status: countLive("construction") > 0 ? "live" : "coming-soon",
     highlights: [
       "Material estimators",
       "Cost calculators",
@@ -80,11 +84,11 @@ export const toolCategoryHubs: ToolCategoryHub[] = [
     name: "Finance Tools",
     tagline: "Free calculators for everyday money decisions.",
     description:
-      "Coming soon — mortgage, loan, interest, retirement, and tax calculators. No accounts, no popups.",
+      "Mortgage, compound interest, loan, retirement, and tax calculators. First two live, more on the way.",
     url: "/tools/finance",
     icon: Wallet,
-    toolCount: 0,
-    status: "coming-soon",
+    toolCount: countLive("finance"),
+    status: countLive("finance") > 0 ? "live" : "coming-soon",
     highlights: [
       "Mortgage & loans",
       "Compound interest",
@@ -114,11 +118,11 @@ export const toolCategoryHubs: ToolCategoryHub[] = [
     name: "Health & Fitness Tools",
     tagline: "Calculators for body, training, and nutrition.",
     description:
-      "Coming soon — BMI, calorie, body-fat, heart-rate, and training calculators. Honest numbers, no app required.",
+      "BMI, calorie, body-fat, heart-rate, and training calculators. BMI live now, more on the way.",
     url: "/tools/health-fitness",
     icon: HeartPulse,
-    toolCount: 0,
-    status: "coming-soon",
+    toolCount: countLive("health-fitness"),
+    status: countLive("health-fitness") > 0 ? "live" : "coming-soon",
     highlights: [
       "BMI & body fat",
       "Calories & TDEE",
@@ -148,11 +152,11 @@ export const toolCategoryHubs: ToolCategoryHub[] = [
     name: "Education Tools",
     tagline: "Calculators and helpers for students.",
     description:
-      "Coming soon — GPA, grade, citation, study planner, and reading-time calculators. Useful from middle school to grad school.",
+      "GPA, grade, citation, study planner, and reading-time calculators. GPA Calculator live, more on the way.",
     url: "/tools/education",
     icon: GraduationCap,
-    toolCount: 0,
-    status: "coming-soon",
+    toolCount: countLive("education"),
+    status: countLive("education") > 0 ? "live" : "coming-soon",
     highlights: [
       "GPA & grade calculators",
       "Citation generators",

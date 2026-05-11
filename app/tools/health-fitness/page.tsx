@@ -13,6 +13,7 @@ import {
   ComingSoonCategoryPage,
   type PlannedTool,
 } from "@/components/ComingSoonCategoryPage";
+import { getCategoryToolsBy } from "@/lib/category-tools";
 
 const plannedTools: PlannedTool[] = [
   {
@@ -66,6 +67,7 @@ export default function HealthFitnessToolsPage() {
       plannedToolsHeading="Six calculators on the way."
       plannedToolsBlurb="Starting with the essentials for general fitness and training planning. Sport-specific tools will follow."
       plannedTools={plannedTools}
+      liveTools={getCategoryToolsBy("health-fitness")}
       suggestHeading="Train differently?"
       suggestBlurb="If you do a specific sport (cycling, swimming, climbing, lifting) and want sport-specific math, tell us your event and we'll prioritize."
     />

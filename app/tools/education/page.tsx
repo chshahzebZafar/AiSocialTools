@@ -12,6 +12,7 @@ import {
   ComingSoonCategoryPage,
   type PlannedTool,
 } from "@/components/ComingSoonCategoryPage";
+import { getCategoryToolsBy } from "@/lib/category-tools";
 
 const plannedTools: PlannedTool[] = [
   {
@@ -65,6 +66,7 @@ export default function EducationToolsPage() {
       plannedToolsHeading="Six tools to start."
       plannedToolsBlurb="The most-asked-for student tools, starting with the calculations you do every semester. More for specific subjects coming later."
       plannedTools={plannedTools}
+      liveTools={getCategoryToolsBy("education")}
       suggestHeading="Studying something specific?"
       suggestBlurb="If you're prepping for a specific test (SAT, GRE, MCAT, Bar) or studying a subject with unique tools, tell us. Sub-categories ship next."
     />

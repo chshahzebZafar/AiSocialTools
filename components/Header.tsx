@@ -7,7 +7,6 @@ import {
   Search,
   Menu,
   X,
-  ChevronDown,
 } from "lucide-react";
 import { socialTools } from "@/lib/social-tools";
 import { AuthButtons } from "./AuthButtons";
@@ -17,6 +16,7 @@ const navLinks: Array<{ href: string; label: string; badge?: string }> = [
   { href: "/tools", label: "Tools" },
   { href: "/ai-directory", label: "AI Directory", badge: "New" },
   { href: "/blog", label: "Blog" },
+  { href: "/projects", label: "Projects" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
   { href: "/faq", label: "FAQ" },
@@ -27,9 +27,7 @@ export default function Header() {
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isToolsDropdownOpen, setIsToolsDropdownOpen] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
-  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const filteredTools = searchQuery
     ? socialTools.filter(
@@ -44,9 +42,6 @@ export default function Header() {
     const handleClickOutside = (event: MouseEvent) => {
       if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
         setIsSearchOpen(false);
-      }
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsToolsDropdownOpen(false);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
@@ -107,45 +102,6 @@ export default function Header() {
               );
             })}
 
-            <div className="relative" ref={dropdownRef}>
-              <button
-                onClick={() => setIsToolsDropdownOpen(!isToolsDropdownOpen)}
-                className="px-3 py-1.5 rounded-md text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors flex items-center gap-1"
-              >
-                Browse
-                <ChevronDown
-                  className={`w-3.5 h-3.5 transition-transform ${
-                    isToolsDropdownOpen ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
-
-              {isToolsDropdownOpen && (
-                <div className="absolute top-full right-0 mt-2 w-72 bg-white dark:bg-zinc-900 rounded-lg shadow-lg border border-zinc-200 dark:border-zinc-800 p-1.5 max-h-96 overflow-y-auto">
-                  {socialTools.map((tool) => {
-                    const Icon = tool.icon;
-                    return (
-                      <Link
-                        key={tool.id}
-                        href={tool.path}
-                        onClick={() => setIsToolsDropdownOpen(false)}
-                        className="flex items-center gap-3 px-2.5 py-2 rounded-md hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors"
-                      >
-                        <Icon className="w-4 h-4 text-zinc-500 dark:text-zinc-400 flex-shrink-0" />
-                        <div className="flex-1 min-w-0">
-                          <div className="text-sm font-medium text-zinc-900 dark:text-zinc-100 truncate">
-                            {tool.name}
-                          </div>
-                          <div className="text-xs text-zinc-500 dark:text-zinc-400 truncate">
-                            {tool.description}
-                          </div>
-                        </div>
-                      </Link>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
           </nav>
 
           {/* Search */}

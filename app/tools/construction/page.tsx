@@ -5,6 +5,7 @@ import {
   ComingSoonCategoryPage,
   type PlannedTool,
 } from "@/components/ComingSoonCategoryPage";
+import { getCategoryToolsBy } from "@/lib/category-tools";
 
 const plannedTools: PlannedTool[] = [
   {
@@ -56,6 +57,7 @@ export default function ConstructionToolsPage() {
       plannedToolsHeading="Six tools to start."
       plannedToolsBlurb="The first batch covers the most-requested estimating workflows. More will ship monthly based on user feedback."
       plannedTools={plannedTools}
+      liveTools={getCategoryToolsBy("construction")}
       suggestHeading="Need a specific calculator?"
       suggestBlurb="We're building from real use cases. If you do construction work and have a calculation you redo every week, tell us — we'll prioritize it."
     />

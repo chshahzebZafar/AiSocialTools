@@ -13,6 +13,7 @@ import {
   ComingSoonCategoryPage,
   type PlannedTool,
 } from "@/components/ComingSoonCategoryPage";
+import { getCategoryToolsBy } from "@/lib/category-tools";
 
 const plannedTools: PlannedTool[] = [
   {
@@ -66,6 +67,7 @@ export default function FinanceToolsPage() {
       plannedToolsHeading="Six calculators on the way."
       plannedToolsBlurb="Starting with the most-searched financial tools. Honest math, no upsell to a financial advisor."
       plannedTools={plannedTools}
+      liveTools={getCategoryToolsBy("finance")}
       suggestHeading="What calculator do you need?"
       suggestBlurb="If you've been jury-rigging a spreadsheet for a recurring financial decision, we want to know. The most-requested calculators ship first."
     />

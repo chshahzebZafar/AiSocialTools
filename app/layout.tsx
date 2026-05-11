@@ -137,6 +137,12 @@ export default function RootLayout({
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1544013803258168"
           crossOrigin="anonymous"
         />
+        {/* Trustpilot TrustBox widget script */}
+        <Script
+          id="trustpilot"
+          strategy="lazyOnload"
+          src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js"
+        />
       </body>
     </html>
   );

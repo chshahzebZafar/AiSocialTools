@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { Badge } from "@/components/ui/Badge";
 import { ButtonLink } from "@/components/ui/Button";
+import type { CategoryTool } from "@/lib/category-tools";
 import {
   Clock,
   Check,
@@ -14,6 +15,7 @@ import {
   Loader2,
   ArrowLeft,
   ArrowRight,
+  ArrowUpRight,
   type LucideIcon,
 } from "lucide-react";
 
@@ -44,6 +46,9 @@ export interface ComingSoonCategoryPageProps {
   plannedToolsBlurb: string;
   /** the actual list of planned tools */
   plannedTools: PlannedTool[];
+  /** Live tools already built in this category. When non-empty, the page shifts
+   *  from pure "coming soon" mode to "{N} live + more coming" mode. */
+  liveTools?: CategoryTool[];
   /** "Need a specific calculator?" style heading on the suggest section */
   suggestHeading: string;
   /** Suggest section body */
@@ -63,9 +68,11 @@ export function ComingSoonCategoryPage({
   plannedToolsHeading,
   plannedToolsBlurb,
   plannedTools,
+  liveTools = [],
   suggestHeading,
   suggestBlurb,
 }: ComingSoonCategoryPageProps) {
+  const hasLive = liveTools.length > 0;
   const [email, setEmail] = useState("");
   const [state, setState] = useState<SubscribeState>("idle");
   const [errorMessage, setErrorMessage] = useState("");
@@ -151,10 +158,20 @@ export function ComingSoonCategoryPage({
               Back to all tools
             </Link>
 
-            <Badge variant="warning" className="mb-6 float-soft">
-              <Clock className="w-3 h-3" />
-              Coming soon · {launchWindow}
-            </Badge>
+            {hasLive ? (
+              <Badge variant="success" className="mb-6 float-soft">
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
+                </span>
+                {liveTools.length} live tool{liveTools.length !== 1 ? "s" : ""} · more coming {launchWindow}
+              </Badge>
+            ) : (
+              <Badge variant="warning" className="mb-6 float-soft">
+                <Clock className="w-3 h-3" />
+                Coming soon · {launchWindow}
+              </Badge>
+            )}
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold text-zinc-950 dark:text-white tracking-tight leading-[1.05] mb-5 max-w-3xl">
               {headline.first}
@@ -229,12 +246,67 @@ export function ComingSoonCategoryPage({
           </div>
         </section>
 
+        {/* Live tools — only when liveTools are present */}
+        {hasLive && (
+          <section className="border-b border-zinc-200 dark:border-zinc-800">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+              <div className="max-w-2xl mb-10">
+                <Badge variant="success" className="mb-4">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                  Live now
+                </Badge>
+                <h2 className="text-3xl sm:text-4xl font-semibold text-zinc-950 dark:text-white tracking-tight mb-4">
+                  {liveTools.length === 1
+                    ? `Try ${liveTools[0].name}.`
+                    : `${liveTools.length} tools ready to use.`}
+                </h2>
+                <p className="text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                  Free, browser-based, no signup. The rest of the category ships in {launchWindow}.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                {liveTools.map((tool) => {
+                  const ToolIcon = tool.icon;
+                  return (
+                    <Link
+                      key={tool.slug}
+                      href={tool.path}
+                      className="group relative block h-full bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-lg p-5 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-sm hover:-translate-y-0.5 transition-all duration-200"
+                    >
+                      <div className="flex items-start justify-between gap-3 mb-3">
+                        <div className="w-10 h-10 rounded-md bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center justify-center group-hover:bg-indigo-50 group-hover:border-indigo-200 dark:group-hover:bg-indigo-500/10 dark:group-hover:border-indigo-500/30 transition-colors">
+                          <ToolIcon className="w-4 h-4 text-zinc-700 dark:text-zinc-300 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors" />
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          {tool.isNew && (
+                            <Badge variant="success" className="text-[10px] py-0">
+                              New
+                            </Badge>
+                          )}
+                          <ArrowUpRight className="w-4 h-4 text-zinc-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+                        </div>
+                      </div>
+                      <h3 className="font-semibold text-[15px] text-zinc-950 dark:text-white mb-1">
+                        {tool.name}
+                      </h3>
+                      <p className="text-sm text-zinc-600 dark:text-zinc-400 line-clamp-2 leading-relaxed">
+                        {tool.tagline}
+                      </p>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* Planned tools */}
         <section className="border-b border-zinc-200 dark:border-zinc-800">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
             <div className="max-w-2xl mb-12">
               <Badge variant="neutral" className="mb-4">
-                What&apos;s coming
+                {hasLive ? "Coming next" : "What's coming"}
               </Badge>
               <h2 className="text-3xl sm:text-4xl font-semibold text-zinc-950 dark:text-white tracking-tight mb-4">
                 {plannedToolsHeading}
