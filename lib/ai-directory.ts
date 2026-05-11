@@ -60,6 +60,8 @@ export interface AIDirectoryTool {
   submittedBy?: string;
   /** moderation flag — only true entries render */
   approved: boolean;
+  /** tool is coming soon — show badge, disable external link */
+  comingSoon?: boolean;
 }
 
 export type AICategory =

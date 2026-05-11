@@ -12,7 +12,7 @@
  */
 
 import type { LucideIcon } from "lucide-react";
-import { Scale, TrendingUp, Calculator, Hammer, GraduationCap } from "lucide-react";
+import { Scale, TrendingUp, Calculator, Hammer, GraduationCap, Ruler, Home, Footprints, Layers } from "lucide-react";
 
 export interface CategoryTool {
   slug: string;
@@ -72,6 +72,50 @@ export const categoryTools: CategoryTool[] = [
       "Free concrete calculator for slabs, footings, and columns. Outputs cubic yards, 60/80 lb bag counts, and cost estimate.",
     path: "/tools/construction/concrete-calculator",
     icon: Hammer,
+    isNew: true,
+  },
+  {
+    slug: "lumber-calculator",
+    category: "construction",
+    name: "Lumber Calculator",
+    tagline: "Board feet, framing studs, and sheet goods with waste & cost.",
+    description:
+      "Free lumber calculator for framing studs, boards & trim, and plywood/OSB sheet goods. Board feet, m³, waste allowance, and cost estimate. Imperial and metric.",
+    path: "/tools/construction/lumber-calculator",
+    icon: Ruler,
+    isNew: true,
+  },
+  {
+    slug: "roof-pitch-calculator",
+    category: "construction",
+    name: "Roof Pitch Calculator",
+    tagline: "Convert pitch ratios, calculate rafter length, slope angle, and rise.",
+    description:
+      "Free roof pitch calculator. Convert rise/run to pitch ratio, degrees, and percent slope. Calculate rafter length with overhang. Imperial and metric.",
+    path: "/tools/construction/roof-pitch-calculator",
+    icon: Home,
+    isNew: true,
+  },
+  {
+    slug: "drywall-estimator",
+    category: "construction",
+    name: "Drywall Estimator",
+    tagline: "Sheets, screws, mud, and tape for any room with deductions and waste.",
+    description:
+      "Free drywall estimator. Calculate sheets, screws, joint compound, and tape for any room. Multiple rooms, door/window deductions, waste factor, cost estimate, and PDF export. Imperial and metric.",
+    path: "/tools/construction/drywall-estimator",
+    icon: Layers,
+    isNew: true,
+  },
+  {
+    slug: "stair-calculator",
+    category: "construction",
+    name: "Stair Calculator",
+    tagline: "Riser count, tread depth, stringer length, and IRC code check.",
+    description:
+      "Free stair calculator. Enter total rise and run to get riser count, riser height, tread depth, stringer length, headroom clearance, and lumber cost. IRC code-compliant. Imperial and metric.",
+    path: "/tools/construction/stair-calculator",
+    icon: Footprints,
     isNew: true,
   },
   {

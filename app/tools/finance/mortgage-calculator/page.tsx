@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { Badge } from "@/components/ui/Badge";
 import { ButtonLink } from "@/components/ui/Button";
+import RelatedCategoryTools from "@/components/RelatedCategoryTools";
 import { ArrowLeft, Calculator, ChevronDown } from "lucide-react";
 
 function fmt(n: number, digits = 0): string {
@@ -304,6 +305,8 @@ export default function MortgageCalculatorPage() {
             </div>
           </div>
         </section>
+
+        <RelatedCategoryTools category="finance" currentSlug="mortgage-calculator" />
 
         {/* CTA */}
         <section className="bg-zinc-950 dark:bg-zinc-900 border-y border-zinc-200 dark:border-zinc-800">

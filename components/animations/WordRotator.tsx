@@ -8,41 +8,71 @@ interface WordRotatorProps {
   className?: string;
 }
 
+/**
+ * Rotates through `words` with a smooth cross-fade.
+ *
+ * SEO note: only the ACTIVE word is rendered in the DOM. Earlier versions
+ * kept all words in DOM (just hid them visually), which caused crawlers to
+ * see "bloat.paywalls.signups.catch." as the H1 — gibberish. Now SSR emits
+ * just the first word; subsequent rotations happen client-side and don't
+ * affect what crawlers index.
+ */
 export function WordRotator({ words, interval = 2400, className = "" }: WordRotatorProps) {
+  const [mounted, setMounted] = useState(false);
   const [index, setIndex] = useState(0);
+  const [phase, setPhase] = useState<"in" | "out">("in");
 
   useEffect(() => {
-    if (words.length <= 1) return;
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted || words.length <= 1) return;
     const id = setInterval(() => {
-      setIndex((i) => (i + 1) % words.length);
+      setPhase("out");
+      const swapTimer = setTimeout(() => {
+        setIndex((i) => (i + 1) % words.length);
+        setPhase("in");
+      }, 250);
+      return () => clearTimeout(swapTimer);
     }, interval);
     return () => clearInterval(id);
-  }, [words.length, interval]);
+  }, [mounted, words.length, interval]);
 
-  // Use the longest word for layout stability so the line doesn't reflow
-  const longest = words.reduce((a, b) => (b.length > a.length ? b : a), words[0] ?? "");
+  const longest = words.reduce(
+    (a, b) => (b.length > a.length ? b : a),
+    words[0] ?? ""
+  );
+  const activeWord = words[index] ?? "";
+
+  if (!mounted) {
+    return (
+      <span
+        className={`relative inline-block align-baseline ${className}`}
+        style={{ minWidth: `${longest.length}ch` }}
+        suppressHydrationWarning
+      >
+        {words[0]}
+      </span>
+    );
+  }
 
   return (
     <span
       className={`relative inline-block align-baseline ${className}`}
       style={{ minWidth: `${longest.length}ch` }}
+      aria-live="polite"
+      aria-atomic="true"
     >
-      {words.map((word, i) => (
-        <span
-          key={word}
-          className="absolute left-0 top-0 transition-all duration-500 ease-out"
-          style={{
-            opacity: i === index ? 1 : 0,
-            transform: i === index ? "translateY(0)" : "translateY(8px)",
-          }}
-          aria-hidden={i !== index}
-        >
-          {word}
-        </span>
-      ))}
-      {/* Invisible spacer to claim height */}
-      <span className="invisible" aria-hidden>
-        {longest}
+      <span
+        key={activeWord}
+        className="inline-block transition-all duration-250 ease-out"
+        style={{
+          opacity: phase === "in" ? 1 : 0,
+          transform: phase === "in" ? "translateY(0)" : "translateY(6px)",
+        }}
+      >
+        {activeWord}
       </span>
     </span>
   );

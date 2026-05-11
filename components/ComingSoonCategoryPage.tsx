@@ -18,6 +18,7 @@ import {
   ArrowUpRight,
   type LucideIcon,
 } from "lucide-react";
+import ToolFeedback from "@/components/ToolFeedback";
 
 export interface PlannedTool {
   icon: LucideIcon;
@@ -317,11 +318,11 @@ export function ComingSoonCategoryPage({
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-zinc-200 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-800 rounded-lg overflow-hidden">
-              {plannedTools.map((tool) => {
+              {plannedTools.map((tool, i) => {
                 const ToolIcon = tool.icon;
                 return (
                   <div
-                    key={tool.name}
+                    key={`${tool.name}-${i}`}
                     className="bg-white dark:bg-zinc-950 p-6 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors"
                   >
                     <div className="w-9 h-9 rounded-md bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center justify-center mb-4">
@@ -366,6 +367,9 @@ export function ComingSoonCategoryPage({
             </div>
           </div>
         </section>
+
+        {/* Feedback */}
+        <ToolFeedback toolName={longName} />
 
         {/* CTA — browse live tools */}
         <section className="bg-zinc-950 dark:bg-zinc-900 border-y border-zinc-200 dark:border-zinc-800">

@@ -45,7 +45,11 @@ export async function generateMetadata({
     };
   }
   const url = `https://aisocialtools.co/ai-directory/${tool.slug}`;
-  let description = `${tool.tagline}`;
+  // Pad short taglines so meta descriptions land in the 80-160 sweet spot.
+  // Avoids Ahrefs "too short" warnings on ~170 directory entries.
+  const padding = ` ${tool.name} review with pros, cons, pricing, and alternatives.`;
+  let description = tool.tagline;
+  if (description.length < 90) description = description + padding;
   if (description.length > 155) description = description.slice(0, 152) + "…";
 
   return {

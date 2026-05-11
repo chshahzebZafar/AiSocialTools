@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { Badge } from "@/components/ui/Badge";
 import { ButtonLink } from "@/components/ui/Button";
+import RelatedCategoryTools from "@/components/RelatedCategoryTools";
 import { ArrowLeft, GraduationCap, Plus, Trash2, ChevronDown } from "lucide-react";
 
 type Scale = "4.0" | "5.0";
@@ -335,6 +336,8 @@ export default function GPACalculatorPage() {
         </section>
 
         {/* CTA */}
+        <RelatedCategoryTools category="education" currentSlug="gpa-calculator" />
+
         <section className="bg-zinc-950 dark:bg-zinc-900 border-y border-zinc-200 dark:border-zinc-800">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 text-center">
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-white tracking-tight mb-4">

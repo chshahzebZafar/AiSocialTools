@@ -26,7 +26,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: {
     default: "Best Free Social Media Tools Online - No Signup Required 2026",
-    template: "%s | Best Free Social Media Tools"
+    template: "%s | Social Tools"
   },
   description: "40+ free social media tools — tweets, Instagram posts, YouTube thumbnails, hashtags, and more. Browser-based, no signup, no tracking.",
   keywords: [
@@ -127,7 +127,7 @@ export default function RootLayout({
         <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || "G-KPXLX0R9XK"} />
         <PerformanceMonitor />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`} suppressHydrationWarning>
         <AuthProvider>{children}</AuthProvider>
         <LeadCapturePopup />
         {/* AdSense — lazyOnload defers until browser idle, protects LCP/INP */}

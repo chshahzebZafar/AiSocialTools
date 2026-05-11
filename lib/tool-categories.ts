@@ -22,6 +22,12 @@ import {
   HeartPulse,
   Code2,
   GraduationCap,
+  Compass,
+  Atom,
+  Calculator,
+  UtensilsCrossed,
+  FileText,
+  MapPin,
 } from "lucide-react";
 import { socialTools } from "./social-tools";
 import { categoryTools } from "./category-tools";
@@ -162,6 +168,108 @@ export const toolCategoryHubs: ToolCategoryHub[] = [
       "Citation generators",
       "Study planners",
       "Reading-time estimators",
+    ],
+  },
+  {
+    slug: "location",
+    name: "Location & Travel Tools",
+    tagline: "Distance, time zones, travel cost, and more.",
+    description:
+      "Coming soon — distance calculator, time zone converter, flight time, travel cost, ZIP code lookup, coordinates converter, and more.",
+    url: "/tools/location",
+    icon: MapPin,
+    toolCount: 0,
+    status: "coming-soon",
+    highlights: [
+      "Distance calculator",
+      "Time zone converter",
+      "Travel cost planner",
+      "ZIP & country lookup",
+    ],
+  },
+  {
+    slug: "file-tools",
+    name: "File & PDF Tools",
+    tagline: "Convert, compress, merge, and edit files in your browser.",
+    description:
+      "Coming soon — PDF to Word, merge PDFs, compress images, convert file formats, and 20+ more file tools. All client-side, your files never leave your device.",
+    url: "/tools/file-tools",
+    icon: FileText,
+    toolCount: 0,
+    status: "coming-soon",
+    highlights: [
+      "PDF conversions",
+      "Merge & split PDF",
+      "Image converter",
+      "Archive extractor",
+    ],
+  },
+  {
+    slug: "math",
+    name: "Math Calculators",
+    tagline: "Percentages, fractions, exponents, and more.",
+    description:
+      "Coming soon — percentage, average, fraction, exponent, square root, prime checker, and a dozen more math tools with step-by-step working.",
+    url: "/tools/math",
+    icon: Calculator,
+    toolCount: 0,
+    status: "coming-soon",
+    highlights: [
+      "Percentage & averages",
+      "Fractions & exponents",
+      "Prime & root calculators",
+      "Geometry tools",
+    ],
+  },
+  {
+    slug: "cooking",
+    name: "Cooking Calculators",
+    tagline: "Recipe scaling, unit conversion, and kitchen math.",
+    description:
+      "Coming soon — cooking unit converter, recipe scaler, temperature converter, baking ratios, and more kitchen math tools.",
+    url: "/tools/cooking",
+    icon: UtensilsCrossed,
+    toolCount: 0,
+    status: "coming-soon",
+    highlights: [
+      "Recipe scaler",
+      "Unit converter",
+      "Temperature converter",
+      "Baking ratios",
+    ],
+  },
+  {
+    slug: "everyday",
+    name: "Everyday Calculators",
+    tagline: "Quick tools for tips, gas, sleep, and more.",
+    description:
+      "Coming soon — tip splitter, fuel cost, gas mileage, sleep cycles, shoe sizes, dice roller, golf handicap, and more daily-use tools.",
+    url: "/tools/everyday",
+    icon: Compass,
+    toolCount: 0,
+    status: "coming-soon",
+    highlights: [
+      "Tip & bill splitter",
+      "Fuel & mileage",
+      "Sleep cycle planner",
+      "Size converters",
+    ],
+  },
+  {
+    slug: "science",
+    name: "Science & Engineering",
+    tagline: "Physics, chemistry, and engineering calculators.",
+    description:
+      "Coming soon — density, speed, molarity, molecular weight, horsepower, wind chill, heat index, and more scientific calculators.",
+    url: "/tools/science",
+    icon: Atom,
+    toolCount: 0,
+    status: "coming-soon",
+    highlights: [
+      "Physics formulas",
+      "Chemistry calculators",
+      "Engineering utilities",
+      "Weather calculations",
     ],
   },
 ];
