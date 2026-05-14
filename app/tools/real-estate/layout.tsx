@@ -21,7 +21,7 @@ export const metadata: Metadata = {
       "Free real-estate calculators for buyers, agents, and investors.",
     type: "website",
     url: "https://aisocialtools.co/tools/real-estate",
-    siteName: "Social Media Tools",
+    siteName: "AISocialTools",
     images: [
       {
         url: getOGImageUrl("default"),
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     images: [getOGImageUrl("default")],
   },
   alternates: { canonical: "https://aisocialtools.co/tools/real-estate" },
-  robots: { index: true, follow: true },
+  robots: { index: false, follow: true },
 };
 
 export default function RealEstateLayout({

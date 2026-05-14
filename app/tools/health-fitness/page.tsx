@@ -63,9 +63,23 @@ const plannedTools: PlannedTool[] = [
   { icon: Scale, name: "Overweight Calculator", description: "Determine overweight and obesity classification by BMI, waist size, and body fat." },
 ];
 
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Free Health & Fitness Calculators",
+  description: "Free health and fitness calculators for BMI, calories, body fat, macros, pregnancy, and more.",
+  url: "https://aisocialtools.co/tools/health-fitness",
+  numberOfItems: 1,
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "BMI Calculator", url: "https://aisocialtools.co/tools/health-fitness/bmi-calculator" },
+  ],
+};
+
 export default function HealthFitnessToolsPage() {
   return (
-    <ComingSoonCategoryPage
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
+      <ComingSoonCategoryPage
       slug="health-fitness"
       shortName="Health & Fitness"
       longName="Health & Fitness Tools"
@@ -80,5 +94,6 @@ export default function HealthFitnessToolsPage() {
       suggestHeading="Train differently?"
       suggestBlurb="If you do a specific sport (cycling, swimming, climbing, lifting) and want sport-specific math, tell us your event and we'll prioritize."
     />
+    </>
   );
 }

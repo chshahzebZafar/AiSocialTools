@@ -131,10 +131,69 @@ export default function BestTimeCalculatorPage() {
         <ul className="text-sm text-orange-800 space-y-1">
           <li>• Post consistently at the same times to build audience expectations</li>
           <li>• Test different times and analyze your own engagement data</li>
-          <li>• Consider your specific audience's timezone and habits</li>
+          <li>• Consider your specific audience&apos;s timezone and habits</li>
           <li>• Weekdays generally perform better than weekends</li>
           <li>• Use analytics to find your personal best posting times</li>
         </ul>
+      </div>
+
+      {/* SEO content section */}
+      <div className="mt-12 pt-10 border-t border-slate-200 max-w-3xl space-y-8">
+        <div>
+          <h2 className="text-2xl font-bold text-slate-900 mb-3">Best Times to Post on Social Media — Platform Breakdown</h2>
+          <p className="text-slate-600 leading-relaxed">
+            Posting at the right time can increase reach by 20–40% compared to off-peak posting — even with identical content.
+            These windows are based on aggregated engagement data across millions of posts. They represent when your audience
+            is most likely to be actively scrolling, not just online.
+          </p>
+        </div>
+
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm border border-slate-200 rounded-xl overflow-hidden">
+            <thead className="bg-slate-100">
+              <tr>
+                <th className="text-left px-4 py-3 text-slate-700">Platform</th>
+                <th className="text-left px-4 py-3 text-slate-700">Best Days</th>
+                <th className="text-left px-4 py-3 text-slate-700">Peak Windows (local time)</th>
+                <th className="text-left px-4 py-3 text-slate-700">Worst Time</th>
+              </tr>
+            </thead>
+            <tbody className="text-slate-600">
+              {[
+                ["Instagram", "Tue, Wed, Fri", "11 AM–1 PM, 7–9 PM", "Late night (11 PM+)"],
+                ["Twitter / X", "Weekdays", "8–10 AM, 12–1 PM, 5–6 PM", "Weekends early AM"],
+                ["Facebook", "Wed, Thu", "9–11 AM, 1–3 PM", "Sat–Sun AM"],
+                ["LinkedIn", "Tue–Thu", "8–10 AM, 12 PM, 5–6 PM", "Weekends & holidays"],
+                ["TikTok", "Tue, Thu, Fri", "6–10 PM, 9–11 AM", "Mon early AM"],
+                ["YouTube", "Fri, Sat, Sun", "2–4 PM, 8–11 PM", "Weekday mornings"],
+              ].map(([platform, days, peak, worst]) => (
+                <tr key={platform} className="border-t border-slate-100">
+                  <td className="px-4 py-2.5 font-medium">{platform}</td>
+                  <td className="px-4 py-2.5">{days}</td>
+                  <td className="px-4 py-2.5">{peak}</td>
+                  <td className="px-4 py-2.5 text-red-500">{worst}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <p className="text-xs text-slate-500 mt-2">All times in your audience&apos;s local timezone. Use your platform&apos;s native analytics to refine further.</p>
+        </div>
+
+        <div>
+          <h3 className="text-xl font-semibold text-slate-900 mb-3">Why Timing Matters</h3>
+          <div className="grid sm:grid-cols-3 gap-4">
+            {[
+              { title: "Algorithm recency bias", body: "Most feeds are semi-chronological. A post published during peak hours gets more early engagement, which triggers algorithmic amplification." },
+              { title: "Audience overlap window", body: "The first 30–60 minutes after posting are critical. More active followers during that window = more comments = wider distribution." },
+              { title: "Your audience may differ", body: "Industry benchmarks are a starting point. After 30+ posts, check your own analytics — your audience's peak may be 2 hours off the average." },
+            ].map(({ title, body }) => (
+              <div key={title} className="bg-orange-50 border border-orange-200 rounded-xl p-4">
+                <p className="font-semibold text-orange-900 mb-2">{title}</p>
+                <p className="text-sm text-orange-800">{body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
       {tool && <ToolComments toolId={tool.id} />}

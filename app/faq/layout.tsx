@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     description: "Frequently asked questions about Social Media Tools. Learn about our free tools, privacy, usage, and more.",
     type: "website",
     url: "https://aisocialtools.co/faq",
-    siteName: "Social Media Tools",
+    siteName: "AISocialTools",
     images: [
       {
         url: getOGImageUrl("default"),

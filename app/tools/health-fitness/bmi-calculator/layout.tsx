@@ -23,7 +23,7 @@ export const metadata: Metadata = {
       "Calculate your Body Mass Index with metric or imperial units. Free, instant, no signup.",
     type: "website",
     url: "https://aisocialtools.co/tools/health-fitness/bmi-calculator",
-    siteName: "Social Media Tools",
+    siteName: "AISocialTools",
     images: [
       {
         url: getOGImageUrl("default"),

@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     description: "Free GPA calculator for semester or cumulative GPA on any scale.",
     type: "website",
     url: "https://aisocialtools.co/tools/education/gpa-calculator",
-    siteName: "Social Media Tools",
+    siteName: "AISocialTools",
     images: [{ url: getOGImageUrl("default"), width: 1200, height: 630, alt: "GPA Calculator" }],
   },
   twitter: {

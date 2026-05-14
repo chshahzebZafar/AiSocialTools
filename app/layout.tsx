@@ -26,9 +26,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: {
     default: "Best Free Social Media Tools Online - No Signup Required 2026",
-    template: "%s | Social Tools"
+    template: "%s | AISocialTools"
   },
-  description: "40+ free social media tools — tweets, Instagram posts, YouTube thumbnails, hashtags, and more. Browser-based, no signup, no tracking.",
+  description: "70+ free online tools — social media, construction calculators, finance, health, and more. Browser-based, no signup, no tracking.",
   keywords: [
     "free social media tools",
     "best social media tools",
@@ -50,9 +50,9 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://aisocialtools.co",
-    siteName: "Social Media Tools",
+    siteName: "AISocialTools",
     title: "Best Free Social Media Tools Online - No Signup Required 2026",
-    description: "40+ free social media tools for tweets, Instagram posts, YouTube thumbnails, hashtags, and more. Browser-based, no signup required.",
+    description: "70+ free online tools — social media, construction, finance, and health. Browser-based, no signup required.",
     images: [
       {
         url: getOGImageUrl("home"),
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Best Free Social Media Tools Online - No Signup Required 2026",
-    description: "40+ free social media tools for tweets, Instagram posts, YouTube thumbnails, hashtags, and more. Browser-based, no signup required.",
+    description: "70+ free online tools — social media, construction calculators, finance, health, and more. Browser-based, no signup required.",
     images: [getOGImageUrl("home")],
   },
   robots: {

@@ -29,13 +29,17 @@ import {
   Linkedin,
   Globe,
   QrCode,
+  Monitor,
+  Apple,
+  Download,
+  WifiOff,
 } from "lucide-react";
 import Image from "next/image";
 
 export const metadata: Metadata = {
-  title: "Best Free Social Media Tools Online - No Signup Required 2026",
+  title: "Best Free Social Media Tools Online & Desktop - No Signup Required 2026",
   description:
-    "40+ free social media tools — tweets, Instagram posts, YouTube thumbnails, hashtags, and more. All run in your browser. No signup, no tracking.",
+    "70+ free online tools — social media, construction calculators, finance, health, and more. Download Windows & Mac desktop apps for offline use. No signup, no tracking.",
   keywords: [
     "free social media tools",
     "social media tools online",
@@ -57,14 +61,19 @@ export const metadata: Metadata = {
     "content creator tools",
     "social media marketing tools",
     "free tools for creators",
+    "desktop social media tools",
+    "offline social media tools",
+    "windows social media tools",
+    "mac social media tools",
+    "download social media tools",
   ],
   openGraph: {
-    title: "Free Social Media Tools - Create & Manage Content",
+    title: "Best Free Social Media Tools Online & Desktop - No Signup Required 2026",
     description:
-      "Powerful free social media tools for content creation, management, and optimization. 100% free, no signup required.",
+      "70+ free online tools — social media, construction calculators, finance, and health. Browser-based & desktop apps for Windows & Mac. No signup required.",
     type: "website",
     url: "https://aisocialtools.co",
-    siteName: "Social Media Tools",
+    siteName: "AISocialTools",
     images: [
       {
         url: getOGImageUrl("home"),
@@ -76,9 +85,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free Social Media Tools - Create & Manage Content",
+    title: "Best Free Social Media Tools Online & Desktop - No Signup Required 2026",
     description:
-      "Powerful free social media tools for content creation, management, and optimization. 100% free, no signup required.",
+      "70+ free online tools — social media, construction, finance, and health. Browser-based & desktop apps. No signup required.",
     images: [getOGImageUrl("home")],
   },
   alternates: {
@@ -95,7 +104,7 @@ export default function Home() {
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "Social Media Tools",
+    name: "AISocialTools",
     url: "https://aisocialtools.co",
     logo: {
       "@type": "ImageObject",
@@ -103,7 +112,7 @@ export default function Home() {
       width: 1200,
       height: 630,
     },
-    description: "Free social media tools for content creation, management, and optimization",
+    description: "Free social media tools for content creation, management, and optimization. Available as web tools and desktop apps for Windows & Mac.",
     sameAs: [
       "https://github.com/chshahzebZafar/",
       "https://x.com/SHAHZEBZAFAR99",
@@ -512,6 +521,229 @@ export default function Home() {
                   </Link>
                 </Reveal>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ==========================================================
+             DESKTOP APP DOWNLOAD — Offline-ready, creative cards
+             ========================================================== */}
+        <section className="border-b border-zinc-200 dark:border-zinc-800 bg-gradient-to-br from-indigo-950 via-zinc-950 to-zinc-950 relative overflow-hidden">
+          {/* Animated background glow */}
+          <div className="absolute inset-0 overflow-hidden" aria-hidden>
+            <div className="absolute -top-1/2 -right-1/2 w-[600px] h-[600px] rounded-full bg-indigo-600/20 blur-[120px] animate-pulse" />
+            <div className="absolute -bottom-1/2 -left-1/2 w-[500px] h-[500px] rounded-full bg-purple-600/10 blur-[100px]" />
+          </div>
+
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-24">
+            <div className="text-center max-w-2xl mx-auto mb-14">
+              <Badge variant="accent" className="mb-4 bg-indigo-500/20 text-indigo-300 border-indigo-500/30">
+                <WifiOff className="w-3 h-3" />
+                Offline Ready
+              </Badge>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-white tracking-tight mb-4">
+                Take your tools anywhere.
+              </h2>
+              <p className="text-lg text-zinc-400 leading-relaxed">
+                Download the desktop app for Windows or Mac. Works offline, stays updated, no browser needed.
+              </p>
+            </div>
+
+            {/* Download Cards Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+              {/* Windows Card */}
+              <Reveal>
+                <div className="group relative bg-zinc-900/80 backdrop-blur-sm border border-zinc-700/50 rounded-2xl p-8 hover:border-indigo-500/50 hover:bg-zinc-800/80 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-indigo-500/10">
+                  {/* Windows Icon */}
+                  <div className="absolute -top-6 left-8">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center shadow-lg shadow-blue-500/25">
+                      <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/>
+                      </svg>
+                    </div>
+                  </div>
+
+                  <div className="pt-6">
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="text-xl font-semibold text-white">Windows</h3>
+                      <Badge variant="success" className="text-[10px] py-0.5 px-2">
+                        v1.0.0
+                      </Badge>
+                    </div>
+
+                    <ul className="space-y-3 mb-6">
+                      <li className="flex items-center gap-3 text-sm text-zinc-400">
+                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                        Windows 10 & 11 (64-bit)
+                      </li>
+                      <li className="flex items-center gap-3 text-sm text-zinc-400">
+                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                        ~50 MB download
+                      </li>
+                      <li className="flex items-center gap-3 text-sm text-zinc-400">
+                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                        Auto-updates enabled
+                      </li>
+                    </ul>
+
+                    <a
+                      href="/download/ai-social-tools-windows-1.0.0.exe"
+                      className="flex items-center justify-center gap-2 w-full h-12 bg-white text-zinc-950 hover:bg-zinc-200 rounded-lg font-medium transition-colors group-hover:shadow-lg"
+                    >
+                      <Download className="w-4 h-4 group-hover:animate-bounce" />
+                      Download for Windows
+                    </a>
+                  </div>
+                </div>
+              </Reveal>
+
+              {/* Mac Card */}
+              <Reveal delay={100}>
+                <div className="group relative bg-zinc-900/80 backdrop-blur-sm border border-zinc-700/50 rounded-2xl p-8 hover:border-indigo-500/50 hover:bg-zinc-800/80 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-indigo-500/10">
+                  {/* Mac Icon */}
+                  <div className="absolute -top-6 left-8">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-gray-600 to-gray-700 flex items-center justify-center shadow-lg shadow-gray-500/25">
+                      <Apple className="w-6 h-6 text-white" />
+                    </div>
+                  </div>
+
+                  <div className="pt-6">
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="text-xl font-semibold text-white">macOS</h3>
+                      <Badge variant="success" className="text-[10px] py-0.5 px-2">
+                        v1.0.0
+                      </Badge>
+                    </div>
+
+                    <ul className="space-y-3 mb-6">
+                      <li className="flex items-center gap-3 text-sm text-zinc-400">
+                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                        macOS 11+ (Intel & Apple Silicon)
+                      </li>
+                      <li className="flex items-center gap-3 text-sm text-zinc-400">
+                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                        ~50 MB download
+                      </li>
+                      <li className="flex items-center gap-3 text-sm text-zinc-400">
+                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                        Universal binary
+                      </li>
+                    </ul>
+
+                    <a
+                      href="/download/ai-social-tools-mac-1.0.0.dmg"
+                      className="flex items-center justify-center gap-2 w-full h-12 bg-white text-zinc-950 hover:bg-zinc-200 rounded-lg font-medium transition-colors group-hover:shadow-lg"
+                    >
+                      <Download className="w-4 h-4 group-hover:animate-bounce" />
+                      Download for Mac
+                    </a>
+                  </div>
+                </div>
+              </Reveal>
+            </div>
+
+            {/* Features row */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto mt-10">
+              <div className="flex items-center gap-4 bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 rounded-xl p-4">
+                <div className="w-10 h-10 rounded-lg bg-indigo-500/20 flex items-center justify-center shrink-0">
+                  <WifiOff className="w-5 h-5 text-indigo-400" />
+                </div>
+                <div>
+                  <p className="font-medium text-white text-sm">Works Offline</p>
+                  <p className="text-xs text-zinc-500">No internet required</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-4 bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 rounded-xl p-4">
+                <div className="w-10 h-10 rounded-lg bg-emerald-500/20 flex items-center justify-center shrink-0">
+                  <Zap className="w-5 h-5 text-emerald-400" />
+                </div>
+                <div>
+                  <p className="font-medium text-white text-sm">Lightning Fast</p>
+                  <p className="text-xs text-zinc-500">Native performance</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-4 bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 rounded-xl p-4">
+                <div className="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center shrink-0">
+                  <Monitor className="w-5 h-5 text-purple-400" />
+                </div>
+                <div>
+                  <p className="font-medium text-white text-sm">Always Updated</p>
+                  <p className="text-xs text-zinc-500">Latest tools instantly</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Trust note */}
+            <p className="text-center text-sm text-zinc-500 mt-10 max-w-xl mx-auto">
+              <span className="text-zinc-400 font-medium">Free forever.</span> No sign-up required. 
+              Downloads include all {totalTools}+ tools and AI Directory access.
+            </p>
+          </div>
+        </section>
+
+        {/* ==========================================================
+             MORE TOOL CATEGORIES
+             ========================================================== */}
+        <section className="border-b border-zinc-200 dark:border-zinc-800">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+            <div className="max-w-2xl mb-10">
+              <Badge variant="neutral" className="mb-4">More Categories</Badge>
+              <h2 className="text-3xl sm:text-4xl font-semibold text-zinc-950 dark:text-white tracking-tight mb-3">
+                Not just social media.
+              </h2>
+              <p className="text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                Free calculators and tools for construction, finance, and health — all browser-based, no signup.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <Reveal>
+                <Link href="/tools/construction" className="group flex flex-col h-full bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-xl p-6 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-sm hover:-translate-y-0.5 transition-all duration-200">
+                  <div className="w-10 h-10 rounded-lg bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/30 flex items-center justify-center mb-4">
+                    <svg className="w-5 h-5 text-amber-600 dark:text-amber-400" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M11.42 15.17 17.25 21A2.652 2.652 0 0 0 21 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 1 1-3.586-3.586l5.654-4.654m5.96-4.994a2.652 2.652 0 0 0-3.01-.534l-1.714 1.714" /></svg>
+                  </div>
+                  <h3 className="font-semibold text-base text-zinc-950 dark:text-white mb-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                    Construction Calculators
+                  </h3>
+                  <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed flex-1">
+                    Concrete, roofing, flooring, lumber, paint, tile, fencing, stairs, and more.
+                  </p>
+                  <span className="mt-4 text-xs text-indigo-600 dark:text-indigo-400 font-medium inline-flex items-center gap-1">
+                    Browse calculators <ArrowRight className="w-3 h-3" />
+                  </span>
+                </Link>
+              </Reveal>
+              <Reveal delay={60}>
+                <Link href="/tools/finance" className="group flex flex-col h-full bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-xl p-6 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-sm hover:-translate-y-0.5 transition-all duration-200">
+                  <div className="w-10 h-10 rounded-lg bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/30 flex items-center justify-center mb-4">
+                    <svg className="w-5 h-5 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
+                  </div>
+                  <h3 className="font-semibold text-base text-zinc-950 dark:text-white mb-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                    Finance Calculators
+                  </h3>
+                  <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed flex-1">
+                    Mortgage, compound interest, loan amortization, and retirement planning tools.
+                  </p>
+                  <span className="mt-4 text-xs text-indigo-600 dark:text-indigo-400 font-medium inline-flex items-center gap-1">
+                    Browse calculators <ArrowRight className="w-3 h-3" />
+                  </span>
+                </Link>
+              </Reveal>
+              <Reveal delay={120}>
+                <Link href="/tools/health-fitness" className="group flex flex-col h-full bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-xl p-6 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-sm hover:-translate-y-0.5 transition-all duration-200">
+                  <div className="w-10 h-10 rounded-lg bg-rose-50 dark:bg-rose-500/10 border border-rose-200 dark:border-rose-500/30 flex items-center justify-center mb-4">
+                    <svg className="w-5 h-5 text-rose-600 dark:text-rose-400" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" /></svg>
+                  </div>
+                  <h3 className="font-semibold text-base text-zinc-950 dark:text-white mb-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                    Health &amp; Fitness Tools
+                  </h3>
+                  <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed flex-1">
+                    BMI calculator, calorie tracker, body fat, macro calculator, and more.
+                  </p>
+                  <span className="mt-4 text-xs text-indigo-600 dark:text-indigo-400 font-medium inline-flex items-center gap-1">
+                    Browse tools <ArrowRight className="w-3 h-3" />
+                  </span>
+                </Link>
+              </Reveal>
             </div>
           </div>
         </section>

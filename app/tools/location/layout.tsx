@@ -23,7 +23,7 @@ export const metadata: Metadata = {
       "Free location and travel calculators for distances, time zones, travel costs, and more. Coming 2026.",
     type: "website",
     url: "https://aisocialtools.co/tools/location",
-    siteName: "Social Media Tools",
+    siteName: "AISocialTools",
     images: [{ url: getOGImageUrl("default"), width: 1200, height: 630, alt: "Location & Travel Tools — Coming Soon" }],
   },
   twitter: {
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     images: [getOGImageUrl("default")],
   },
   alternates: { canonical: "https://aisocialtools.co/tools/location" },
-  robots: { index: true, follow: true },
+  robots: { index: false, follow: true },
 };
 
 export default function LocationLayout({ children }: { children: React.ReactNode }) {

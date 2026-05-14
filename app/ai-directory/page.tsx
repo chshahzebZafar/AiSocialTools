@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useDeferredValue } from "react";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -137,6 +137,7 @@ const reviewsRow2 = [
 
 export default function AIDirectoryPage() {
   const [searchQuery, setSearchQuery] = useState("");
+  const deferredSearch = useDeferredValue(searchQuery);
   const [selectedCategory, setSelectedCategory] = useState<"All" | AICategory>("All");
   const [selectedPricing, setSelectedPricing] = useState<"All" | AIPricing>("All");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -157,8 +158,8 @@ export default function AIDirectoryPage() {
       if (selectedPricing !== "All" && tool.pricing !== selectedPricing) {
         return false;
       }
-      if (searchQuery) {
-        const q = searchQuery.toLowerCase();
+      if (deferredSearch) {
+        const q = deferredSearch.toLowerCase();
         const haystack = [
           tool.name,
           tool.tagline,
@@ -172,7 +173,7 @@ export default function AIDirectoryPage() {
       }
       return true;
     });
-  }, [approved, selectedCategory, selectedPricing, searchQuery]);
+  }, [approved, selectedCategory, selectedPricing, deferredSearch]);
 
   const totalTools = approved.length;
   const totalCategories = aiCategories.length;
@@ -336,7 +337,7 @@ export default function AIDirectoryPage() {
               {filtered.length} {filtered.length === 1 ? "tool" : "tools"}
               {selectedCategory !== "All" && ` in ${selectedCategory}`}
               {selectedPricing !== "All" && ` · ${selectedPricing}`}
-              {searchQuery && ` matching "${searchQuery}"`}
+              {deferredSearch && ` matching "${deferredSearch}"`}
             </p>
 
             {filtered.length > 0 ? (

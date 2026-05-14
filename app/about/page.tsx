@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     description: "Free, browser-based tools for content creators and marketers. No signup, no tracking.",
     type: "website",
     url: "https://aisocialtools.co/about",
-    siteName: "Social Media Tools",
+    siteName: "AISocialTools",
     images: [{ url: getOGImageUrl("default"), width: 1200, height: 630, alt: "About Us" }],
   },
   alternates: { canonical: "https://aisocialtools.co/about" },

@@ -25,7 +25,7 @@ export const metadata: Metadata = {
       "Free browser-based PDF and file tools. Your files never leave your device. Coming 2026.",
     type: "website",
     url: "https://aisocialtools.co/tools/file-tools",
-    siteName: "Social Media Tools",
+    siteName: "AISocialTools",
     images: [{ url: getOGImageUrl("default"), width: 1200, height: 630, alt: "File & PDF Tools — Coming Soon" }],
   },
   twitter: {
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     images: [getOGImageUrl("default")],
   },
   alternates: { canonical: "https://aisocialtools.co/tools/file-tools" },
-  robots: { index: true, follow: true },
+  robots: { index: false, follow: true },
 };
 
 export default function FileToolsLayout({ children }: { children: React.ReactNode }) {

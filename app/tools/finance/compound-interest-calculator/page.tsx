@@ -339,6 +339,16 @@ export default function CompoundInterestCalculator() {
           </div>
         </section>
 
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <p className="text-sm text-zinc-500 dark:text-zinc-400">
+            Buying a home while growing your savings?{" "}
+            <Link href="/tools/finance/mortgage-calculator" className="text-indigo-600 dark:text-indigo-400 hover:underline">
+              Estimate your monthly payment with our free mortgage calculator
+            </Link>
+            .
+          </p>
+        </div>
+
         <RelatedCategoryTools category="finance" currentSlug="compound-interest-calculator" />
 
         {/* CTA */}

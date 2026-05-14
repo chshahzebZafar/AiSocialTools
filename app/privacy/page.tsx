@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     description: "Read our privacy policy. We don't collect, store, or share your personal data. Your privacy is our priority.",
     type: "website",
     url: "https://aisocialtools.co/privacy",
-    siteName: "Social Media Tools",
+    siteName: "AISocialTools",
     images: [
       {
         url: getOGImageUrl("default"),

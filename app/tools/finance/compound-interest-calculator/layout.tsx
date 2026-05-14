@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     description: "See how your money grows with compound interest and monthly contributions.",
     type: "website",
     url: "https://aisocialtools.co/tools/finance/compound-interest-calculator",
-    siteName: "Social Media Tools",
+    siteName: "AISocialTools",
     images: [{ url: getOGImageUrl("default"), width: 1200, height: 630, alt: "Compound Interest Calculator" }],
   },
   twitter: {

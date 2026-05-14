@@ -197,6 +197,71 @@ export default function AnalyticsCalculatorPage() {
         </div>
       </div>
 
+      {/* SEO content section */}
+      <div className="mt-12 pt-10 border-t border-slate-200 max-w-3xl space-y-8">
+        <div>
+          <h2 className="text-2xl font-bold text-slate-900 mb-3">How to Use the Social Media Analytics Calculator</h2>
+          <p className="text-slate-600 leading-relaxed">
+            Enter your campaign numbers — followers, impressions, reach, clicks, conversions, and revenue —
+            and the calculator instantly computes seven KPIs used by brand managers and performance marketers
+            to measure campaign health. No spreadsheet formulas required.
+          </p>
+        </div>
+
+        <div>
+          <h3 className="text-xl font-semibold text-slate-900 mb-3">What Each Metric Means</h3>
+          <div className="grid sm:grid-cols-2 gap-4">
+            {[
+              { name: "Engagement Rate", formula: "Impressions ÷ Followers × 100", note: "Industry benchmark: 1–3% on Instagram, 0.5–1% on Twitter/X" },
+              { name: "Reach Rate", formula: "Reach ÷ Impressions × 100", note: "Shows what % of impressions hit unique accounts" },
+              { name: "CTR (Click-Through Rate)", formula: "Clicks ÷ Impressions × 100", note: "Paid social benchmark: 0.5–1.5%. Organic typically lower." },
+              { name: "Conversion Rate", formula: "Conversions ÷ Clicks × 100", note: "Good e-commerce conversion rate: 2–4%" },
+              { name: "CPC (Cost Per Click)", formula: "Revenue ÷ Clicks", note: "Lower is better; compare against your platform's average CPC" },
+              { name: "CPA (Cost Per Acquisition)", formula: "Revenue ÷ Conversions", note: "The most direct measure of campaign profitability" },
+            ].map(({ name, formula, note }) => (
+              <div key={name} className="bg-slate-50 border border-slate-200 rounded-xl p-4">
+                <p className="font-semibold text-slate-900 mb-1">{name}</p>
+                <code className="text-xs text-indigo-600 block mb-1">{formula}</code>
+                <p className="text-xs text-slate-500">{note}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <h3 className="text-xl font-semibold text-slate-900 mb-3">Benchmarks by Platform</h3>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm border border-slate-200 rounded-xl overflow-hidden">
+              <thead className="bg-slate-100">
+                <tr>
+                  <th className="text-left px-4 py-3 text-slate-700">Platform</th>
+                  <th className="text-left px-4 py-3 text-slate-700">Avg Engagement Rate</th>
+                  <th className="text-left px-4 py-3 text-slate-700">Avg CTR</th>
+                  <th className="text-left px-4 py-3 text-slate-700">Avg Conversion Rate</th>
+                </tr>
+              </thead>
+              <tbody className="text-slate-600">
+                {[
+                  ["Instagram", "1.5–3.5%", "0.8–1.2%", "1.0–3.0%"],
+                  ["Facebook", "0.5–1.0%", "0.9–1.5%", "1.5–3.5%"],
+                  ["Twitter / X", "0.3–0.9%", "0.4–0.8%", "0.5–2.0%"],
+                  ["LinkedIn", "0.5–1.5%", "0.4–0.6%", "2.0–5.0%"],
+                  ["TikTok", "3.0–9.0%", "1.0–2.5%", "0.8–2.5%"],
+                ].map(([platform, eng, ctr, cvr]) => (
+                  <tr key={platform} className="border-t border-slate-100">
+                    <td className="px-4 py-2.5 font-medium">{platform}</td>
+                    <td className="px-4 py-2.5">{eng}</td>
+                    <td className="px-4 py-2.5">{ctr}</td>
+                    <td className="px-4 py-2.5">{cvr}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="text-xs text-slate-500 mt-2">Benchmarks are industry averages; your niche and audience quality will vary.</p>
+        </div>
+      </div>
+
       {tool && <ToolComments toolId={tool.id} />}
       {tool && <ToolFAQ tool={tool} />}
       {tool && <RelatedTools currentTool={tool} />}

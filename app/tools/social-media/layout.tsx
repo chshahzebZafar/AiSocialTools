@@ -22,7 +22,7 @@ export const metadata: Metadata = {
       "Browse our complete collection of free social media tools. All tools are 100% free with no signup required.",
     type: "website",
     url: "https://aisocialtools.co/tools/social-media",
-    siteName: "Social Media Tools",
+    siteName: "AISocialTools",
     images: [
       {
         url: getOGImageUrl("tools"),

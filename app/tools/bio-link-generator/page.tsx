@@ -250,6 +250,63 @@ ${linksHTML}
         </div>
       </div>
 
+      {/* SEO content section */}
+      <div className="mt-12 pt-10 border-t border-slate-200 max-w-3xl space-y-8">
+        <div>
+          <h2 className="text-2xl font-bold text-slate-900 mb-3">What Is a Bio Link Page?</h2>
+          <p className="text-slate-600 leading-relaxed">
+            A bio link page (also called a &quot;link in bio&quot; page) is a single URL you put in your Instagram, TikTok,
+            or Twitter/X bio that hosts multiple links — your website, latest video, shop, newsletter, and more.
+            Platforms limit you to one clickable link in your bio, so a bio link page multiplies that single slot
+            into as many destinations as you need.
+          </p>
+        </div>
+
+        <div>
+          <h3 className="text-xl font-semibold text-slate-900 mb-3">How to Use This Generator</h3>
+          <ol className="space-y-3 text-slate-600">
+            {[
+              { step: "1", text: "Enter a page title — your name, brand, or \"My Links\" works fine." },
+              { step: "2", text: "Add an optional short description (1–2 sentences) — it shows under the title." },
+              { step: "3", text: "Add each link: give it a clear button label and paste the full URL." },
+              { step: "4", text: "Copy the HTML or download the file. Host it on GitHub Pages, Netlify, or any static host for free." },
+              { step: "5", text: "Paste the hosted URL into your Instagram / TikTok / Twitter bio." },
+            ].map(({ step, text }) => (
+              <li key={step} className="flex gap-3">
+                <span className="flex-shrink-0 w-7 h-7 rounded-full bg-indigo-100 text-indigo-700 text-sm font-bold flex items-center justify-center">{step}</span>
+                <span>{text}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        <div>
+          <h3 className="text-xl font-semibold text-slate-900 mb-3">Best Practices for Bio Links</h3>
+          <div className="grid sm:grid-cols-2 gap-4">
+            {[
+              { title: "Keep it to 5–7 links", body: "More links = more decision fatigue. Feature your top destinations and rotate seasonally." },
+              { title: "Lead with your most important link", body: "Users read top to bottom. Put your newsletter, shop, or latest content first." },
+              { title: "Use action-oriented labels", body: "\"Watch my latest video\" outperforms \"YouTube Channel\". Verbs drive clicks." },
+              { title: "Update it regularly", body: "A stale bio link page signals an inactive account. Swap in timely links for launches or campaigns." },
+            ].map(({ title, body }) => (
+              <div key={title} className="bg-indigo-50 border border-indigo-200 rounded-xl p-4">
+                <p className="font-semibold text-indigo-900 mb-1">{title}</p>
+                <p className="text-sm text-indigo-800">{body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="bg-slate-50 border border-slate-200 rounded-xl p-5">
+          <h3 className="font-semibold text-slate-900 mb-2">Free vs. paid link-in-bio tools</h3>
+          <p className="text-sm text-slate-600">
+            Paid tools like Linktree charge $5–$9/month for analytics and custom domains. This generator
+            produces a clean HTML file you can host for free on GitHub Pages or Netlify in under 5 minutes —
+            with no branding, no subscription, and full control over the design.
+          </p>
+        </div>
+      </div>
+
       {tool && <ToolComments toolId={tool.id} />}
       {tool && <ToolFAQ tool={tool} />}
       {tool && <RelatedTools currentTool={tool} />}

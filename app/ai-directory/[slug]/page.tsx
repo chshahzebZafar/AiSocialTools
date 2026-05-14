@@ -68,7 +68,7 @@ export async function generateMetadata({
       description,
       type: "article",
       url,
-      siteName: "Social Media Tools",
+      siteName: "AISocialTools",
     },
     twitter: {
       card: "summary_large_image",

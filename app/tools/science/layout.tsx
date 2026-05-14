@@ -23,7 +23,7 @@ export const metadata: Metadata = {
       "Free physics, chemistry, and engineering calculators. Coming 2026.",
     type: "website",
     url: "https://aisocialtools.co/tools/science",
-    siteName: "Social Media Tools",
+    siteName: "AISocialTools",
     images: [{ url: getOGImageUrl("default"), width: 1200, height: 630, alt: "Science Calculators — Coming Soon" }],
   },
   twitter: {
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     images: [getOGImageUrl("default")],
   },
   alternates: { canonical: "https://aisocialtools.co/tools/science" },
-  robots: { index: true, follow: true },
+  robots: { index: false, follow: true },
 };
 
 export default function ScienceLayout({ children }: { children: React.ReactNode }) {

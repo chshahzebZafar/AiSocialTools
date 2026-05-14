@@ -180,6 +180,46 @@ export default function EmojiPickerPage() {
         </div>
       </div>
 
+      {/* SEO content section */}
+      <div className="mt-12 pt-10 border-t border-slate-200 max-w-3xl space-y-8">
+        <div>
+          <h2 className="text-2xl font-bold text-slate-900 mb-3">How to Use the Emoji Picker</h2>
+          <p className="text-slate-600 leading-relaxed">
+            Browse by category or search for any emoji by name. Click an emoji to add it to your selection tray,
+            then copy the whole set to your clipboard in one click. Paste directly into Instagram captions,
+            Twitter/X posts, LinkedIn articles, TikTok bios, or any text field.
+          </p>
+        </div>
+
+        <div>
+          <h3 className="text-xl font-semibold text-slate-900 mb-3">Why Emojis Matter for Social Media</h3>
+          <div className="grid sm:grid-cols-3 gap-4">
+            {[
+              { stat: "+25%", label: "Engagement lift", note: "Posts with relevant emojis average 25% more engagement than plain-text posts on Instagram." },
+              { stat: "6×", label: "More reactions", note: "Facebook posts with emojis receive up to 6× more reactions than those without." },
+              { stat: "Top 3", label: "Bio signal", note: "Emojis in your bio help visually break up text and signal personality — a top-3 factor in follow decisions." },
+            ].map(({ stat, label, note }) => (
+              <div key={label} className="bg-yellow-50 border border-yellow-200 rounded-xl p-4 text-center">
+                <div className="text-3xl font-bold text-yellow-700 mb-1">{stat}</div>
+                <div className="text-sm font-semibold text-yellow-900 mb-2">{label}</div>
+                <p className="text-xs text-yellow-800">{note}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="bg-slate-50 border border-slate-200 rounded-xl p-5">
+          <h3 className="font-semibold text-slate-900 mb-3">Best Practices</h3>
+          <ul className="space-y-2 text-sm text-slate-600">
+            <li>• <strong>Use 1–3 emojis per caption</strong> — more than 5 looks spammy and hurts readability</li>
+            <li>• <strong>Match the tone</strong> — 🔥 and 💡 work for tips; 🌿 and ✨ work for lifestyle content</li>
+            <li>• <strong>Put emojis at line breaks</strong> — they act as visual bullet points in longer captions</li>
+            <li>• <strong>Avoid overusing in professional contexts</strong> — LinkedIn prefers 1–2 per post max</li>
+            <li>• <strong>Test accessibility</strong> — screen readers read emoji names aloud, so avoid decorative stacking</li>
+          </ul>
+        </div>
+      </div>
+
       {tool && <ToolComments toolId={tool.id} />}
       {tool && <ToolFAQ tool={tool} />}
       {tool && <RelatedTools currentTool={tool} />}

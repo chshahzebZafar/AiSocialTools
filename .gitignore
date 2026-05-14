@@ -42,3 +42,7 @@ next-env.d.ts
 
 # Claude Code — worktrees, sessions, sub-agent caches
 .claude/
+
+# Electron build output
+/dist/
+/release/

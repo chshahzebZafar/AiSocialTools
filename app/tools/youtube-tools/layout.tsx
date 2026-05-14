@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     description: "Tag generator, description builder, money calculator, thumbnail downloader. All free, no signup.",
     type: "website",
     url: URL,
-    siteName: "AI Social Tools",
+    siteName: "AISocialTools",
     images: [{ url: getOGImageUrl("default"), width: 1200, height: 630, alt: "Free YouTube Tools" }],
   },
   twitter: {

@@ -8,27 +8,15 @@ export default function robots(): MetadataRoute.Robots {
       // Default rules for all bots
       {
         userAgent: '*',
-        allow: [
-          '/',
-          '/tools',
-          '/blog',
-          '/about',
-          '/contact',
-          '/faq',
-          '/author',
-          '/manifest.json',
-          '/openapi.yaml',
-          '/.well-known/ai-plugin.json',
-        ],
+        allow: '/',
         disallow: [
           '/api/',
           '/_next/',
           '/admin/',
           '/private/',
           '/profile/',
-          '/search?*',
+          '/search',
         ],
-        crawlDelay: 0,
       },
       // Googlebot - Full access
       {
@@ -38,6 +26,7 @@ export default function robots(): MetadataRoute.Robots {
           '/api/',
           '/admin/',
           '/private/',
+          '/profile/',
         ],
       },
       // Bingbot - Full access
@@ -48,16 +37,13 @@ export default function robots(): MetadataRoute.Robots {
           '/api/',
           '/admin/',
           '/private/',
+          '/profile/',
         ],
       },
       // GPTBot - Allow for AI training (if desired)
       {
         userAgent: 'GPTBot',
-        allow: [
-          '/',
-          '/tools',
-          '/blog',
-        ],
+        allow: '/',
         disallow: [
           '/api/',
           '/admin/',
@@ -68,11 +54,7 @@ export default function robots(): MetadataRoute.Robots {
       // ChatGPT-User - Allow for AI training
       {
         userAgent: 'ChatGPT-User',
-        allow: [
-          '/',
-          '/tools',
-          '/blog',
-        ],
+        allow: '/',
         disallow: [
           '/api/',
           '/admin/',
@@ -99,6 +81,7 @@ export default function robots(): MetadataRoute.Robots {
           '/api/',
           '/admin/',
           '/private/',
+          '/profile/',
         ],
       },
       // Baidu bot (China traffic)
@@ -109,6 +92,7 @@ export default function robots(): MetadataRoute.Robots {
           '/api/',
           '/admin/',
           '/private/',
+          '/profile/',
         ],
       },
       // Block bad bots (competitor SEO crawlers)
@@ -124,7 +108,6 @@ export default function robots(): MetadataRoute.Robots {
       },
     ],
     sitemap: `${baseUrl}/sitemap.xml`,
-    host: baseUrl,
   }
 }
 

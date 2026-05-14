@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description: tool.description,
       type: 'website',
       url: `https://aisocialtools.co/tools/${id}`,
-      siteName: "Social Media Tools",
+      siteName: "AISocialTools",
       images: [
         {
           url: "https://aisocialtools.co/og-default.png",
@@ -81,11 +81,25 @@ export default async function ToolPage({ params }: PageProps) {
     },
   };
 
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://aisocialtools.co' },
+      { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://aisocialtools.co/tools' },
+      { '@type': 'ListItem', position: 3, name: tool.name, item: `https://aisocialtools.co/tools/${id}` },
+    ],
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

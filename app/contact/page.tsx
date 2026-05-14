@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     description: "Get in touch with us about feedback, bugs, or feature ideas.",
     type: "website",
     url: "https://aisocialtools.co/contact",
-    siteName: "Social Media Tools",
+    siteName: "AISocialTools",
     images: [{ url: getOGImageUrl("default"), width: 1200, height: 630, alt: "Contact" }],
   },
   alternates: { canonical: "https://aisocialtools.co/contact" },

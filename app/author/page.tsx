@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     description: "The developer behind Social Tools.",
     type: "website",
     url: "https://aisocialtools.co/author",
-    siteName: "Social Media Tools",
+    siteName: "AISocialTools",
     images: [{ url: getOGImageUrl("default"), width: 1200, height: 630, alt: "Author" }],
   },
   alternates: { canonical: "https://aisocialtools.co/author" },

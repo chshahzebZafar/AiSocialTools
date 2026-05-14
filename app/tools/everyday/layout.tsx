@@ -22,7 +22,7 @@ export const metadata: Metadata = {
       "Free everyday tools for tips, fuel, sleep, shoe sizes, dice, and more. Coming 2026.",
     type: "website",
     url: "https://aisocialtools.co/tools/everyday",
-    siteName: "Social Media Tools",
+    siteName: "AISocialTools",
     images: [{ url: getOGImageUrl("default"), width: 1200, height: 630, alt: "Everyday Calculators — Coming Soon" }],
   },
   twitter: {
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     images: [getOGImageUrl("default")],
   },
   alternates: { canonical: "https://aisocialtools.co/tools/everyday" },
-  robots: { index: true, follow: true },
+  robots: { index: false, follow: true },
 };
 
 export default function EverydayLayout({ children }: { children: React.ReactNode }) {

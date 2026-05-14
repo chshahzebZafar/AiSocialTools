@@ -22,7 +22,7 @@ export const metadata: Metadata = {
       "Free fitness and health calculators — BMI, calories, heart rate, training.",
     type: "website",
     url: "https://aisocialtools.co/tools/health-fitness",
-    siteName: "Social Media Tools",
+    siteName: "AISocialTools",
     images: [
       {
         url: getOGImageUrl("default"),

@@ -25,7 +25,7 @@ export const metadata: Metadata = {
       "Hand-picked directory of 120+ AI tools with honest pros, cons, and pricing. No spam, no affiliate fluff.",
     type: "website",
     url: "https://aisocialtools.co/ai-directory",
-    siteName: "Social Media Tools",
+    siteName: "AISocialTools",
     images: [
       {
         url: getOGImageUrl("default"),

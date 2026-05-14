@@ -21,7 +21,7 @@ export const metadata: Metadata = {
       "Free, browser-based tools organized by category. Pick a category and dive in.",
     type: "website",
     url: "https://aisocialtools.co/tools",
-    siteName: "Social Media Tools",
+    siteName: "AISocialTools",
     images: [
       {
         url: getOGImageUrl("tools"),

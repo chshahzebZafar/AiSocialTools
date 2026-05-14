@@ -1,13 +1,52 @@
 {
-  "name": "fakes-social-reviews",
-  "version": "0.1.0",
+  "name": "ai-social-tools",
+  "version": "1.0.0",
   "private": true,
+  "main": "dist/electron/main.js",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "check-firebase": "node scripts/check-firebase-config.js"
+    "check-firebase": "node scripts/check-firebase-config.js",
+    "electron:compile": "tsc --project electron/tsconfig.json",
+    "electron:dev": "concurrently -k -n NEXT,ELECTRON -c green,blue \"next dev\" \"wait-on http://localhost:3000 && cross-env NODE_ENV=development electron dist/electron/main.js\"",
+    "electron:build": "npm run electron:compile && cross-env CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder",
+    "electron:pack": "npm run electron:compile && cross-env CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder --dir",
+    "electron:prod": "npm run electron:compile && electron dist/electron/main.js"
+  },
+  "build": {
+    "appId": "co.aisocialtools.app",
+    "productName": "AI Social Tools",
+    "copyright": "Copyright © 2025 AI Social Tools",
+    "forceCodeSigning": false,
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/electron/**/*",
+      "package.json"
+    ],
+    "extraMetadata": {
+      "main": "dist/electron/main.js"
+    },
+    "asar": true,
+    "win": {
+      "target": [{ "target": "portable", "arch": ["x64"] }]
+    },
+    "mac": {
+      "target": [{ "target": "dmg", "arch": ["x64", "arm64"] }],
+      "category": "public.app-category.utilities"
+    },
+    "linux": {
+      "target": ["AppImage"]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
   },
   "dependencies": {
     "browser-image-compression": "^2.0.2",
@@ -32,9 +71,14 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "concurrently": "^9.2.1",
+    "cross-env": "^10.1.0",
+    "electron": "^42.0.1",
+    "electron-builder": "^26.8.1",
     "eslint": "^9",
     "eslint-config-next": "16.0.3",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "wait-on": "^9.0.10"
   }
 }

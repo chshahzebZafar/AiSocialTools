@@ -22,7 +22,7 @@ export const metadata: Metadata = {
       "Free developer utilities — formatters, encoders, generators, regex tester.",
     type: "website",
     url: "https://aisocialtools.co/tools/developer",
-    siteName: "Social Media Tools",
+    siteName: "AISocialTools",
     images: [
       {
         url: getOGImageUrl("default"),
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     images: [getOGImageUrl("default")],
   },
   alternates: { canonical: "https://aisocialtools.co/tools/developer" },
-  robots: { index: true, follow: true },
+  robots: { index: false, follow: true },
 };
 
 export default function DeveloperLayout({

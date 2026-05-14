@@ -22,7 +22,7 @@ export const metadata: Metadata = {
       "Free roof pitch calculator. Convert rise/run to pitch ratio, degrees, and percent slope. Calculate rafter length with overhang.",
     type: "website",
     url: "https://aisocialtools.co/tools/construction/roof-pitch-calculator",
-    siteName: "AI Social Tools",
+    siteName: "AISocialTools",
     images: [{ url: getOGImageUrl("default"), width: 1200, height: 630, alt: "Roof Pitch Calculator" }],
   },
   twitter: {

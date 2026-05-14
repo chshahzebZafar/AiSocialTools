@@ -7,6 +7,36 @@ import { Badge } from "@/components/ui/Badge";
 import { ButtonLink } from "@/components/ui/Button";
 import { ChevronDown, Mail } from "lucide-react";
 import { useState } from "react";
+import Link from "next/link";
+
+const faqAnswersJSX: Record<number, React.ReactNode> = {
+  0: (
+    <>
+      Yes. Every tool is free with no hidden tier. There are no paid features, no usage caps, no upgrade prompt at the end of any workflow.{" "}
+      <Link href="/tools" className="text-indigo-600 dark:text-indigo-400 hover:underline">Browse all 70+ tools →</Link>
+    </>
+  ),
+  4: (
+    <>
+      Roughly one new tool per month, mostly driven by user requests. Existing tools also get fixes and small upgrades regularly.{" "}
+      <Link href="/tools" className="text-indigo-600 dark:text-indigo-400 hover:underline">See all available tools →</Link>
+    </>
+  ),
+  6: (
+    <>
+      Absolutely — that&apos;s where most ideas come from.{" "}
+      <Link href="/contact" className="text-indigo-600 dark:text-indigo-400 hover:underline">Send a message via the contact page</Link>{" "}
+      or email directly. Concrete suggestions (&quot;a tool that does X for Y reason&quot;) are easier to act on than general ones.
+    </>
+  ),
+  8: (
+    <>
+      Depends on the tool. Most image tools support PNG and JPG, some support WebP, SVG, or PDF.{" "}
+      <Link href="/tools" className="text-indigo-600 dark:text-indigo-400 hover:underline">Each tool&apos;s page</Link>{" "}
+      lists what it produces.
+    </>
+  ),
+};
 
 const faqs = [
   {
@@ -141,7 +171,7 @@ export default function FAQPage() {
                     {isOpen && (
                       <div className="px-5 sm:px-6 pb-5 -mt-1">
                         <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                          {faq.answer}
+                          {faqAnswersJSX[index] ?? faq.answer}
                         </p>
                       </div>
                     )}

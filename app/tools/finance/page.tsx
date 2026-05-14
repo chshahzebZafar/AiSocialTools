@@ -107,9 +107,24 @@ const plannedTools: PlannedTool[] = [
   { icon: Home, name: "Mortgage Amortization Calculator", description: "Detailed month-by-month amortization table for any mortgage with extra payment modeling." },
 ];
 
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Free Finance Calculators",
+  description: "Free finance calculators for mortgages, compound interest, loans, retirement, taxes, and more.",
+  url: "https://aisocialtools.co/tools/finance",
+  numberOfItems: 2,
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Mortgage Calculator", url: "https://aisocialtools.co/tools/finance/mortgage-calculator" },
+    { "@type": "ListItem", position: 2, name: "Compound Interest Calculator", url: "https://aisocialtools.co/tools/finance/compound-interest-calculator" },
+  ],
+};
+
 export default function FinanceToolsPage() {
   return (
-    <ComingSoonCategoryPage
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
+      <ComingSoonCategoryPage
       slug="finance"
       shortName="Finance"
       longName="Finance Tools"
@@ -124,5 +139,6 @@ export default function FinanceToolsPage() {
       suggestHeading="What calculator do you need?"
       suggestBlurb="If you've been jury-rigging a spreadsheet for a recurring financial decision, we want to know. The most-requested calculators ship first."
     />
+    </>
   );
 }

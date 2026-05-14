@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { getOGImageUrl } from "@/lib/og-image-generator";
 
 export const metadata: Metadata = {
-  title: "Finance Tools — Free Calculators (Coming Soon)",
+  title: "Free Finance Calculators 2026 | Mortgage, Compound Interest & More",
   description:
-    "Free finance calculators for mortgages, loans, compound interest, retirement, taxes, and salary conversions. Coming Q2 2026.",
+    "Free finance calculators for mortgages, compound interest, loans, retirement, taxes, and salary. No signup required. Includes PDF export and detailed breakdowns.",
   keywords: [
     "finance calculator",
     "mortgage calculator free",
@@ -16,12 +16,12 @@ export const metadata: Metadata = {
     "free finance tools",
   ],
   openGraph: {
-    title: "Finance Tools — Free Calculators (Coming Soon)",
+    title: "Free Finance Calculators 2026 | Mortgage, Compound Interest & More",
     description:
-      "Free finance calculators for mortgages, loans, compound interest, retirement, and taxes.",
+      "Free finance calculators for mortgages, compound interest, loans, retirement, and taxes. No signup required.",
     type: "website",
     url: "https://aisocialtools.co/tools/finance",
-    siteName: "Social Media Tools",
+    siteName: "AISocialTools",
     images: [
       {
         url: getOGImageUrl("default"),
@@ -33,8 +33,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Finance Tools — Free Calculators (Coming Soon)",
-    description: "Free finance calculators — coming Q2 2026.",
+    title: "Free Finance Calculators 2026 | Mortgage & Compound Interest",
+    description: "Free mortgage, compound interest, and loan calculators. No signup required.",
     images: [getOGImageUrl("default")],
   },
   alternates: { canonical: "https://aisocialtools.co/tools/finance" },

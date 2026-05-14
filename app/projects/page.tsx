@@ -11,12 +11,29 @@ import {
   Github,
 } from "lucide-react";
 import type { Metadata } from "next";
+import { getOGImageUrl } from "@/lib/og-image-generator";
 
 export const metadata: Metadata = {
   title: "Projects — Shahzeb Zafar",
   description:
     "A collection of apps, websites, and side projects built by Shahzeb Zafar — from social media tools to mobile apps and SaaS products.",
   alternates: { canonical: "https://aisocialtools.co/projects" },
+  openGraph: {
+    title: "Projects — Shahzeb Zafar",
+    description:
+      "A collection of apps, websites, and side projects built by Shahzeb Zafar — from social media tools to mobile apps and SaaS products.",
+    type: "website",
+    url: "https://aisocialtools.co/projects",
+    siteName: "AISocialTools",
+    images: [{ url: getOGImageUrl("default"), width: 1200, height: 630, alt: "Projects — Shahzeb Zafar" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Projects — Shahzeb Zafar",
+    description:
+      "Apps, websites, and side projects built by Shahzeb Zafar — social media tools, mobile apps, and SaaS products.",
+    images: [getOGImageUrl("default")],
+  },
 };
 
 type ProjectStatus = "Live" | "Coming Soon" | "In Progress" | "Open Source";

@@ -34,7 +34,7 @@ export function getEnhancedArticleSchema(post: BlogPost) {
     },
     "publisher": {
       "@type": "Organization",
-      "name": "Social Media Tools",
+      "name": "AISocialTools",
       "logo": {
         "@type": "ImageObject",
         "url": `${BASE_URL}/og-image.png`,
@@ -82,7 +82,7 @@ export function getSiteLinksSearchBoxSchema() {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "url": BASE_URL,
-    "name": "Social Media Tools",
+    "name": "AISocialTools",
     "potentialAction": {
       "@type": "SearchAction",
       "target": {
@@ -231,7 +231,7 @@ export function getAuthorSchema() {
     "jobTitle": "SEO Expert & Developer",
     "worksFor": {
       "@type": "Organization",
-      "name": "Social Media Tools"
+      "name": "AISocialTools"
     }
   };
 }

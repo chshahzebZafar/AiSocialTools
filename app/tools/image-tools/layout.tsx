@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     description: "All the image tools a creator needs — compressor, converter, resizer, favicon generator. No signup, no upload.",
     type: "website",
     url: URL,
-    siteName: "AI Social Tools",
+    siteName: "AISocialTools",
     images: [{ url: getOGImageUrl("default"), width: 1200, height: 630, alt: "Free Image Tools" }],
   },
   twitter: {

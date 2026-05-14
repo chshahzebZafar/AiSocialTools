@@ -20,7 +20,7 @@ export const metadata: Metadata = {
       "Submit any AI tool for free listing. No fee, no backlink demand. Reviewed within 7 days.",
     type: "website",
     url: "https://aisocialtools.co/ai-directory/submit",
-    siteName: "Social Media Tools",
+    siteName: "AISocialTools",
     images: [
       {
         url: getOGImageUrl("default"),

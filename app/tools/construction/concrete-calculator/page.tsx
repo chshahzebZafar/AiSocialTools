@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useDeferredValue } from "react";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -112,19 +112,34 @@ export default function ConcreteCalculatorPage() {
   const [waste, setWaste] = useState(10);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
+  // Deferred values for non-blocking calculations (better INP)
+  const deferredLength = useDeferredValue(length);
+  const deferredWidth = useDeferredValue(width);
+  const deferredDepth = useDeferredValue(depth);
+  const deferredDiameter = useDeferredValue(diameter);
+  const deferredWaste = useDeferredValue(waste);
+
   const result = useMemo(
     () =>
       calcConcrete(
         unit,
         shape,
-        length || 0,
-        width || 0,
-        depth || 0,
-        diameter || 0,
-        waste || 0
+        deferredLength || 0,
+        deferredWidth || 0,
+        deferredDepth || 0,
+        deferredDiameter || 0,
+        deferredWaste || 0
       ),
-    [unit, shape, length, width, depth, diameter, waste]
+    [unit, shape, deferredLength, deferredWidth, deferredDepth, deferredDiameter, deferredWaste]
   );
+
+  // Check if calculation is pending (for visual feedback)
+  const isCalculating =
+    length !== deferredLength ||
+    width !== deferredWidth ||
+    depth !== deferredDepth ||
+    diameter !== deferredDiameter ||
+    waste !== deferredWaste;
 
   const softwareSchema = {
     "@context": "https://schema.org",
@@ -347,15 +362,22 @@ export default function ConcreteCalculatorPage() {
                     <button
                       onClick={() => setOpenFaq(open ? null : i)}
                       className="w-full px-5 sm:px-6 py-4 text-left flex items-center justify-between gap-4 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors"
+                      aria-expanded={open}
                     >
                       <span className="font-medium text-zinc-950 dark:text-white">{faq.question}</span>
-                      <ChevronDown className={`w-4 h-4 text-zinc-500 flex-shrink-0 transition-transform ${open ? "rotate-180" : ""}`} />
+                      <ChevronDown className={`w-4 h-4 text-zinc-500 flex-shrink-0 transition-transform duration-200 ${open ? "rotate-180" : ""}`} />
                     </button>
-                    {open && (
-                      <div className="px-5 sm:px-6 pb-5 -mt-1">
-                        <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">{faq.answer}</p>
+                    {/* Grid animation for CLS-free expand/collapse */}
+                    <div
+                      className="grid transition-all duration-200 ease-out"
+                      style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
+                    >
+                      <div className="overflow-hidden">
+                        <div className="px-5 sm:px-6 pb-5">
+                          <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">{faq.answer}</p>
+                        </div>
                       </div>
-                    )}
+                    </div>
                   </div>
                 );
               })}

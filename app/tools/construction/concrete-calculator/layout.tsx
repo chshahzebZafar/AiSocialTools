@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     description: "Free concrete calculator for slabs, footings, and columns.",
     type: "website",
     url: "https://aisocialtools.co/tools/construction/concrete-calculator",
-    siteName: "Social Media Tools",
+    siteName: "AISocialTools",
     images: [{ url: getOGImageUrl("default"), width: 1200, height: 630, alt: "Concrete Calculator" }],
   },
   twitter: {

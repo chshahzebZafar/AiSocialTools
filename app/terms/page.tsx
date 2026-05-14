@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     description: "Read our terms of service. Learn about usage rights, restrictions, and guidelines for using our free social media tools.",
     type: "website",
     url: "https://aisocialtools.co/terms",
-    siteName: "Social Media Tools",
+    siteName: "AISocialTools",
     images: [
       {
         url: getOGImageUrl("default"),

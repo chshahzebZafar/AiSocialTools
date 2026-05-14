@@ -22,7 +22,7 @@ export const metadata: Metadata = {
       "Free drywall estimator. Sheets, screws, joint compound, tape, and cost for any room with deductions and waste factor.",
     type: "website",
     url: "https://aisocialtools.co/tools/construction/drywall-estimator",
-    siteName: "AI Social Tools",
+    siteName: "AISocialTools",
     images: [{ url: getOGImageUrl("default"), width: 1200, height: 630, alt: "Drywall Estimator" }],
   },
   twitter: {

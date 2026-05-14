@@ -174,6 +174,45 @@ export default function ColorPalettePage() {
         </div>
       </div>
 
+      {/* SEO content section */}
+      <div className="mt-12 pt-10 border-t border-slate-200 max-w-3xl space-y-8">
+        <div>
+          <h2 className="text-2xl font-bold text-slate-900 mb-3">How to Extract a Color Palette from an Image</h2>
+          <p className="text-slate-600 leading-relaxed">
+            Upload any PNG, JPG, or WebP image and the tool samples pixels across the image to identify the
+            8 most dominant colors. Each color is returned as a hex code you can copy with one click —
+            ready to paste into Figma, CSS, Canva, or your brand style guide.
+          </p>
+        </div>
+
+        <div>
+          <h3 className="text-xl font-semibold text-slate-900 mb-3">Common Use Cases</h3>
+          <div className="grid sm:grid-cols-2 gap-4">
+            {[
+              { title: "Brand color extraction", body: "Upload a logo or product photo to pull exact brand hex codes for use across social media graphics." },
+              { title: "Competitor analysis", body: "Extract the color palette from a competitor's website screenshot to understand their visual strategy." },
+              { title: "Social media consistency", body: "Match your post colors to your brand palette to create a cohesive, recognizable Instagram or Pinterest feed." },
+              { title: "Design inspiration", body: "Upload a photo you love — a landscape, fashion shot, or interior — and use its natural color palette in your designs." },
+            ].map(({ title, body }) => (
+              <div key={title} className="bg-purple-50 border border-purple-200 rounded-xl p-4">
+                <p className="font-semibold text-purple-900 mb-1">{title}</p>
+                <p className="text-sm text-purple-800">{body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="bg-slate-50 border border-slate-200 rounded-xl p-5">
+          <h3 className="font-semibold text-slate-900 mb-2">Tips for Better Results</h3>
+          <ul className="space-y-2 text-sm text-slate-600">
+            <li>• Use high-resolution images — larger images give the sampler more pixels to work with</li>
+            <li>• Crop to the most relevant area if you only want colors from a specific part of the image</li>
+            <li>• For logo extraction, use a PNG with a white or transparent background</li>
+            <li>• Results are sorted by frequency — the first color is the most dominant in the image</li>
+          </ul>
+        </div>
+      </div>
+
       {tool && <ToolComments toolId={tool.id} />}
       {tool && <ToolFAQ tool={tool} />}
       {tool && <RelatedTools currentTool={tool} />}
@@ -182,4 +221,3 @@ export default function ColorPalettePage() {
     </>
   );
 }
-

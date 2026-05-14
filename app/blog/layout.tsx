@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     description: "Discover expert tips, strategies, and insights to help you succeed on social media.",
     type: "website",
     url: "https://aisocialtools.co/blog",
-    siteName: "Social Media Tools",
+    siteName: "AISocialTools",
     images: [
       {
         url: getOGImageUrl("default"),

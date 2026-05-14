@@ -21,7 +21,7 @@ export const metadata: Metadata = {
       "Free student tools — GPA, grades, citations, study planning, reading time.",
     type: "website",
     url: "https://aisocialtools.co/tools/education",
-    siteName: "Social Media Tools",
+    siteName: "AISocialTools",
     images: [
       {
         url: getOGImageUrl("default"),

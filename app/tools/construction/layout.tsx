@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { getOGImageUrl } from "@/lib/og-image-generator";
 
 export const metadata: Metadata = {
-  title: "Construction Tools — Free Calculators & Estimators (Coming Soon)",
+  title: "Free Construction Calculators & Estimators 2026 | Contractors & DIY",
   description:
-    "Free construction calculators, estimators, and planners for contractors, builders, and DIYers. Concrete, lumber, roofing, stairs — coming 2026.",
+    "Free construction calculators for concrete, lumber, roofing, flooring, tile, paint, fencing, stairs, and more. For contractors, builders, and DIYers. No signup required.",
   keywords: [
     "construction tools",
     "free construction calculator",
@@ -17,12 +17,12 @@ export const metadata: Metadata = {
     "DIY calculators",
   ],
   openGraph: {
-    title: "Construction Tools — Free Calculators & Estimators (Coming Soon)",
+    title: "Free Construction Calculators & Estimators 2026",
     description:
-      "Free construction calculators and estimators for contractors and DIYers. Coming 2026.",
+      "Free construction calculators for concrete, roofing, flooring, tile, paint, fencing, lumber, and stairs. No signup required.",
     type: "website",
     url: "https://aisocialtools.co/tools/construction",
-    siteName: "Social Media Tools",
+    siteName: "AISocialTools",
     images: [
       {
         url: getOGImageUrl("default"),
@@ -34,8 +34,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Construction Tools — Free Calculators & Estimators (Coming Soon)",
-    description: "Free calculators and estimators for builders and DIYers.",
+    title: "Free Construction Calculators & Estimators 2026",
+    description: "Free construction calculators for concrete, roofing, flooring, tile, paint, and fencing. No signup.",
     images: [getOGImageUrl("default")],
   },
   alternates: { canonical: "https://aisocialtools.co/tools/construction" },

@@ -227,6 +227,69 @@ export default function ContentCalendarPage() {
         </div>
       </div>
 
+      {/* SEO content section */}
+      <div className="mt-12 pt-10 border-t border-slate-200 max-w-3xl space-y-8">
+        <div>
+          <h2 className="text-2xl font-bold text-slate-900 mb-3">How to Plan Your Social Media Content Calendar</h2>
+          <p className="text-slate-600 leading-relaxed">
+            Add posts by selecting a date, time, platform, and content — they appear in both the calendar view
+            and the upcoming posts list sorted chronologically. Use it to map out a full week or month of
+            content across Instagram, Twitter/X, Facebook, LinkedIn, TikTok, and YouTube in one place.
+          </p>
+        </div>
+
+        <div>
+          <h3 className="text-xl font-semibold text-slate-900 mb-3">A Practical Weekly Planning Workflow</h3>
+          <ol className="space-y-4">
+            {[
+              { day: "Monday", action: "Decide this week's theme or topic cluster — one core idea that can branch into 4–5 posts." },
+              { day: "Tuesday", action: "Draft all captions in one session. Batch writing is 3× faster than writing one post at a time." },
+              { day: "Wednesday", action: "Create or source all visuals. Resize images to platform specs using the Image Resizer." },
+              { day: "Thursday", action: "Enter everything into the calendar. Review timing against your audience's peak hours." },
+              { day: "Fri–Sun", action: "Execute and engage. Reply to comments, repost Stories, and note what's performing well." },
+            ].map(({ day, action }) => (
+              <li key={day} className="flex gap-4">
+                <span className="flex-shrink-0 w-24 text-xs font-bold text-blue-700 uppercase tracking-wide pt-0.5">{day}</span>
+                <span className="text-sm text-slate-600">{action}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        <div>
+          <h3 className="text-xl font-semibold text-slate-900 mb-3">Recommended Posting Frequency</h3>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm border border-slate-200 rounded-xl overflow-hidden">
+              <thead className="bg-slate-100">
+                <tr>
+                  <th className="text-left px-4 py-3 text-slate-700">Platform</th>
+                  <th className="text-left px-4 py-3 text-slate-700">Minimum</th>
+                  <th className="text-left px-4 py-3 text-slate-700">Optimal</th>
+                  <th className="text-left px-4 py-3 text-slate-700">Best Content Type</th>
+                </tr>
+              </thead>
+              <tbody className="text-slate-600">
+                {[
+                  ["Instagram", "3×/week", "5–7×/week", "Reels + carousels"],
+                  ["Twitter / X", "1×/day", "3–5×/day", "Short text, threads"],
+                  ["LinkedIn", "2×/week", "4–5×/week", "Long-form, insights"],
+                  ["TikTok", "3×/week", "1×/day", "Short video"],
+                  ["Facebook", "3×/week", "5×/week", "Video + links"],
+                  ["YouTube", "1×/week", "2×/week", "Long-form video"],
+                ].map(([platform, min, opt, type]) => (
+                  <tr key={platform} className="border-t border-slate-100">
+                    <td className="px-4 py-2.5 font-medium">{platform}</td>
+                    <td className="px-4 py-2.5">{min}</td>
+                    <td className="px-4 py-2.5 text-blue-600 font-medium">{opt}</td>
+                    <td className="px-4 py-2.5 text-slate-500">{type}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
       {tool && <ToolComments toolId={tool.id} />}
       {tool && <ToolFAQ tool={tool} />}
       {tool && <RelatedTools currentTool={tool} />}

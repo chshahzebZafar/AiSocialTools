@@ -12,7 +12,7 @@
  */
 
 import type { LucideIcon } from "lucide-react";
-import { Scale, TrendingUp, Calculator, Hammer, GraduationCap, Ruler, Home, Footprints, Layers } from "lucide-react";
+import { Scale, TrendingUp, Calculator, Hammer, GraduationCap, Ruler, Home, Footprints, Layers, PaintBucket, Grid3X3, Fence } from "lucide-react";
 
 export interface CategoryTool {
   slug: string;
@@ -116,6 +116,83 @@ export const categoryTools: CategoryTool[] = [
       "Free stair calculator. Enter total rise and run to get riser count, riser height, tread depth, stringer length, headroom clearance, and lumber cost. IRC code-compliant. Imperial and metric.",
     path: "/tools/construction/stair-calculator",
     icon: Footprints,
+    isNew: true,
+  },
+  {
+    slug: "paint-calculator",
+    category: "construction",
+    name: "Paint Calculator",
+    tagline: "Estimate gallons, primer, and cost for walls and ceilings.",
+    description:
+      "Free paint calculator. Calculate gallons needed for walls and ceilings. Accounts for doors, windows, multiple coats, waste factor, primer, and cost. Multiple rooms, PDF export. Imperial and metric.",
+    path: "/tools/construction/paint-calculator",
+    icon: PaintBucket,
+    isNew: true,
+  },
+  {
+    slug: "flooring-calculator",
+    category: "construction",
+    name: "Flooring Calculator",
+    tagline: "Estimate hardwood, laminate, vinyl, carpet, and tile materials and cost.",
+    description:
+      "Free flooring calculator. Calculate square footage, planks/tiles needed, boxes to purchase, and material cost for hardwood, laminate, vinyl, carpet, and tile. L-shape rooms, custom specs, PDF export. Imperial and metric.",
+    path: "/tools/construction/flooring-calculator",
+    icon: Grid3X3,
+    isNew: true,
+  },
+  {
+    slug: "tile-calculator",
+    category: "construction",
+    name: "Tile Calculator",
+    tagline: "Tiles needed for floors, walls, and backsplashes with grout and waste.",
+    description:
+      "Free tile calculator. Calculate tiles needed for floors, walls, and backsplashes. Accounts for grout spacing, pattern layout (straight, diagonal, herringbone), waste factor, and material cost. Multiple rooms, PDF export. Ceramic, porcelain, subway, mosaic, and large format tiles.",
+    path: "/tools/construction/tile-calculator",
+    icon: Grid3X3,
+    isNew: true,
+  },
+  {
+    slug: "square-footage-calculator",
+    category: "construction",
+    name: "Square Footage Calculator",
+    tagline: "Calculate area for rooms, yards, and irregular shapes in sq ft or meters.",
+    description:
+      "Free square footage calculator. Calculate area for rooms, houses, yards, and irregular shapes. Supports rectangles, L-shapes, triangles, and circles. Converts between feet, inches, meters, and yards. Cost estimation and PDF export. Perfect for flooring, paint, and real estate.",
+    path: "/tools/construction/square-footage-calculator",
+    icon: Calculator,
+    isNew: true,
+  },
+  {
+    slug: "roofing-calculator",
+    category: "construction",
+    name: "Roofing Calculator",
+    tagline: "Roofing squares, shingles, underlayment, and material cost for any roof shape.",
+    description:
+      "Free roofing calculator. Estimate roofing squares, shingle bundles, underlayment, ice & water shield, drip edge, ridge vent, and total material cost. Supports gable, hip, gambrel, and flat roofs. Multiple sections, waste factor, slope calculations, and PDF export.",
+    path: "/tools/construction/roofing-calculator",
+    icon: Home,
+    isNew: true,
+  },
+  {
+    slug: "fence-calculator",
+    category: "construction",
+    name: "Fence Calculator",
+    tagline: "Posts, rails, panels, and concrete for any fence length and style.",
+    description:
+      "Free fence calculator. Estimate fence posts, rails, panels, concrete bags, and total material cost for wood, vinyl, chain-link, split-rail, and aluminum fences. Supports multiple sections, gate openings, post spacing, waste factor, and PDF export.",
+    path: "/tools/construction/fence-calculator",
+    icon: Fence,
+    isNew: true,
+  },
+  {
+    slug: "mulch-calculator",
+    category: "construction",
+    name: "Mulch Calculator",
+    tagline: "Cubic yards and bags of mulch for any garden bed or landscape area.",
+    description:
+      "Free mulch calculator. Calculate cubic yards and bags of mulch needed for any garden bed or landscape area. Supports rectangular, circular, and triangular beds, multiple areas, depth settings, bulk vs. bagged cost comparison, and PDF export.",
+    path: "/tools/construction/mulch-calculator",
+    icon: Layers,
     isNew: true,
   },
   {

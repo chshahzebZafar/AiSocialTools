@@ -25,7 +25,7 @@ export const metadata: Metadata = {
       "Free lumber calculator for studs, boards, trim, plywood, and OSB. Imperial and metric with waste allowance and cost estimate.",
     type: "website",
     url: "https://aisocialtools.co/tools/construction/lumber-calculator",
-    siteName: "Social Media Tools",
+    siteName: "AISocialTools",
     images: [{ url: getOGImageUrl("default"), width: 1200, height: 630, alt: "Lumber Calculator" }],
   },
   twitter: {

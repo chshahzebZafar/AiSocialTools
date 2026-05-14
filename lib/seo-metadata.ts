@@ -1646,7 +1646,7 @@ export const generateMetadataForTool = (tool: SocialTool): Metadata => {
       description: seo.description,
       type: "website",
       url: `https://aisocialtools.co${tool.path}`,
-      siteName: "Social Media Tools",
+      siteName: "AISocialTools",
       images: [
         {
           url: ogImageUrl,

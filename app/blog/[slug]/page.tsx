@@ -40,7 +40,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description: post.excerpt,
       type: "article",
       url: `https://aisocialtools.co/blog/${post.slug}`,
-      siteName: "Social Media Tools",
+      siteName: "AISocialTools",
       publishedTime: post.publishedAt,
       modifiedTime: post.updatedAt || post.publishedAt,
       authors: [post.author],

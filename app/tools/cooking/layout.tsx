@@ -22,7 +22,7 @@ export const metadata: Metadata = {
       "Free cooking tools for recipe scaling, unit conversion, and kitchen math. Coming 2026.",
     type: "website",
     url: "https://aisocialtools.co/tools/cooking",
-    siteName: "Social Media Tools",
+    siteName: "AISocialTools",
     images: [{ url: getOGImageUrl("default"), width: 1200, height: 630, alt: "Cooking Calculators — Coming Soon" }],
   },
   twitter: {
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     images: [getOGImageUrl("default")],
   },
   alternates: { canonical: "https://aisocialtools.co/tools/cooking" },
-  robots: { index: true, follow: true },
+  robots: { index: false, follow: true },
 };
 
 export default function CookingLayout({ children }: { children: React.ReactNode }) {

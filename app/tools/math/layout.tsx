@@ -23,7 +23,7 @@ export const metadata: Metadata = {
       "Free math calculators with step-by-step working. Coming 2026.",
     type: "website",
     url: "https://aisocialtools.co/tools/math",
-    siteName: "Social Media Tools",
+    siteName: "AISocialTools",
     images: [{ url: getOGImageUrl("default"), width: 1200, height: 630, alt: "Math Calculators — Coming Soon" }],
   },
   twitter: {
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     images: [getOGImageUrl("default")],
   },
   alternates: { canonical: "https://aisocialtools.co/tools/math" },
-  robots: { index: true, follow: true },
+  robots: { index: false, follow: true },
 };
 
 export default function MathLayout({ children }: { children: React.ReactNode }) {

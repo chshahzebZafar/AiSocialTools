@@ -23,7 +23,7 @@ export const metadata: Metadata = {
       "Free stair calculator. Riser count, riser height, tread depth, stringer length, headroom, and material cost. IRC code-compliant.",
     type: "website",
     url: "https://aisocialtools.co/tools/construction/stair-calculator",
-    siteName: "AI Social Tools",
+    siteName: "AISocialTools",
     images: [{ url: getOGImageUrl("default"), width: 1200, height: 630, alt: "Stair Calculator" }],
   },
   twitter: {

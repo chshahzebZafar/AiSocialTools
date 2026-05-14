@@ -306,6 +306,16 @@ export default function MortgageCalculatorPage() {
           </div>
         </section>
 
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <p className="text-sm text-zinc-500 dark:text-zinc-400">
+            Planning to build savings alongside your mortgage?{" "}
+            <Link href="/tools/finance/compound-interest-calculator" className="text-indigo-600 dark:text-indigo-400 hover:underline">
+              See how compound interest grows your savings over time
+            </Link>
+            .
+          </p>
+        </div>
+
         <RelatedCategoryTools category="finance" currentSlug="mortgage-calculator" />
 
         {/* CTA */}

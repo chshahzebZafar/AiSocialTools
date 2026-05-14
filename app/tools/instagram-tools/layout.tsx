@@ -28,7 +28,7 @@ export const metadata: Metadata = {
       "12+ free Instagram tools — post generator, captions, hashtags, fonts, engagement calculator, and more. No signup required.",
     type: "website",
     url: URL,
-    siteName: "AI Social Tools",
+    siteName: "AISocialTools",
     images: [{ url: getOGImageUrl("default"), width: 1200, height: 630, alt: "Free Instagram Tools" }],
   },
   twitter: {

@@ -112,11 +112,26 @@ const PLATFORMS: Platform[] = [
   },
 ];
 
+const imageListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Social Media Image Sizes 2026 — Complete Platform Reference",
+  description: "The complete 2026 reference of every social media image and video size for Instagram, TikTok, YouTube, LinkedIn, X (Twitter), Facebook, Pinterest, and Threads.",
+  url: "https://aisocialtools.co/tools/social-media-image-sizes",
+  numberOfItems: PLATFORMS.length,
+  itemListElement: PLATFORMS.map((p, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    name: `${p.name} Image Sizes 2026`,
+  })),
+};
+
 export default function SocialMediaImageSizesPage() {
   const tool = getToolById("social-media-image-sizes");
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(imageListSchema) }} />
       {tool && <ToolSEO tool={tool} />}
       <div className="p-8 max-w-6xl mx-auto">
         <div className="mb-8">

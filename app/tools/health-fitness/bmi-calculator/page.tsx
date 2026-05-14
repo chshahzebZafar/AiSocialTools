@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useDeferredValue } from "react";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -99,10 +99,23 @@ export default function BMICalculatorPage() {
   const [weight, setWeight] = useState(70);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
+  // Deferred values for non-blocking calculations (better INP)
+  const deferredHeight = useDeferredValue(height);
+  const deferredHeightFt = useDeferredValue(heightFt);
+  const deferredHeightIn = useDeferredValue(heightIn);
+  const deferredWeight = useDeferredValue(weight);
+
   const result = useMemo(
-    () => calcBMI(unit, height, heightFt, heightIn, weight),
-    [unit, height, heightFt, heightIn, weight]
+    () => calcBMI(unit, deferredHeight, deferredHeightFt, deferredHeightIn, deferredWeight),
+    [unit, deferredHeight, deferredHeightFt, deferredHeightIn, deferredWeight]
   );
+
+  // Check if calculation is pending (for visual feedback)
+  const isCalculating =
+    height !== deferredHeight ||
+    heightFt !== deferredHeightFt ||
+    heightIn !== deferredHeightIn ||
+    weight !== deferredWeight;
 
   const switchToImperial = () => {
     // 70 kg → 154 lb, 170 cm → 5'7"
@@ -436,18 +449,24 @@ export default function BMICalculatorPage() {
                         {faq.question}
                       </span>
                       <ChevronDown
-                        className={`w-4 h-4 text-zinc-500 flex-shrink-0 transition-transform ${
+                        className={`w-4 h-4 text-zinc-500 flex-shrink-0 transition-transform duration-200 ${
                           open ? "rotate-180" : ""
                         }`}
                       />
                     </button>
-                    {open && (
-                      <div className="px-5 sm:px-6 pb-5 -mt-1">
-                        <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                          {faq.answer}
-                        </p>
+                    {/* Grid animation for CLS-free expand/collapse */}
+                    <div
+                      className="grid transition-all duration-200 ease-out"
+                      style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
+                    >
+                      <div className="overflow-hidden">
+                        <div className="px-5 sm:px-6 pb-5">
+                          <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                            {faq.answer}
+                          </p>
+                        </div>
                       </div>
-                    )}
+                    </div>
                   </div>
                 );
               })}

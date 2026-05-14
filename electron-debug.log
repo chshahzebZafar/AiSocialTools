@@ -1,0 +1,14 @@
+[5624:0512/090445.787:ERROR:net\disk_cache\cache_util_win.cc:25] Unable to move the cache: Access is denied. (0x5)
+[5624:0512/090445.788:ERROR:net\disk_cache\cache_util_win.cc:25] Unable to move the cache: Access is denied. (0x5)
+[5624:0512/090445.792:ERROR:net\disk_cache\cache_util_win.cc:25] Unable to move the cache: Access is denied. (0x5)
+[5624:0512/090445.800:ERROR:net\disk_cache\disk_cache.cc:284] Unable to create cache
+[5624:0512/090445.834:ERROR:gpu\ipc\host\gpu_disk_cache.cc:737] Gpu Cache Creation failed: -2
+[5624:0512/090445.844:ERROR:net\disk_cache\disk_cache.cc:284] Unable to create cache
+[5624:0512/090445.849:ERROR:gpu\ipc\host\gpu_disk_cache.cc:737] Gpu Cache Creation failed: -2
+[5624:0512/090445.850:ERROR:net\disk_cache\disk_cache.cc:284] Unable to create cache
+[5624:0512/090445.851:ERROR:gpu\ipc\host\gpu_disk_cache.cc:737] Gpu Cache Creation failed: -2
+[5624:0512/090445.888:WARNING:content\browser\btm\btm_database.cc:128] Failed to initialize the DIPS SQLite database.
+[19256:0512/090447.287:ERROR:net\disk_cache\cache_util_win.cc:25] Unable to move the cache: Access is denied. (0x5)
+[19256:0512/090447.288:ERROR:net\disk_cache\disk_cache.cc:284] Unable to create cache
+[5624:0512/090454.065:INFO:CONSOLE:1] "Loading the script 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1544013803258168' violates the following Content Security Policy directive: "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://cdn.jsdelivr.net https://unpkg.com". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked.", source: https://aisocialtools.co/_next/static/chunks/7ce383160ec4efd3.js (1)
+[5624:0512/090454.066:INFO:CONSOLE:1] "Loading the script 'https://widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js' violates the following Content Security Policy directive: "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://cdn.jsdelivr.net https://unpkg.com". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked.", source: https://aisocialtools.co/_next/static/chunks/7ce383160ec4efd3.js (1)

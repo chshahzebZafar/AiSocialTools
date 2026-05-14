@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     description: "Free mortgage calculator with full monthly payment breakdown.",
     type: "website",
     url: "https://aisocialtools.co/tools/finance/mortgage-calculator",
-    siteName: "Social Media Tools",
+    siteName: "AISocialTools",
     images: [{ url: getOGImageUrl("default"), width: 1200, height: 630, alt: "Mortgage Calculator" }],
   },
   twitter: {
