@@ -526,9 +526,9 @@ export default function Home() {
         </section>
 
         {/* ==========================================================
-             DESKTOP APP DOWNLOAD — Offline-ready, creative cards
+             DESKTOP APP DOWNLOAD — hidden until app is published
              ========================================================== */}
-        <section className="border-b border-zinc-200 dark:border-zinc-800 bg-gradient-to-br from-indigo-950 via-zinc-950 to-zinc-950 relative overflow-hidden">
+        <section className="hidden border-b border-zinc-200 dark:border-zinc-800 bg-gradient-to-br from-indigo-950 via-zinc-950 to-zinc-950 relative overflow-hidden">
           {/* Animated background glow */}
           <div className="absolute inset-0 overflow-hidden" aria-hidden>
             <div className="absolute -top-1/2 -right-1/2 w-[600px] h-[600px] rounded-full bg-indigo-600/20 blur-[120px] animate-pulse" />
