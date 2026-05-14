@@ -86,7 +86,9 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
         "@type": "WebApplication",
         "name": "Tweet to Image Converter",
         "description": "Convert Twitter posts into shareable images",
-        "applicationCategory": "ImageEditingApplication"
+        "applicationCategory": "ImageEditingApplication",
+        "operatingSystem": "Web",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
       }
     },
     "hashtag-generator": {
@@ -124,7 +126,10 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         "name": "Hashtag Generator",
-        "description": "Generate relevant hashtags for social media platforms"
+        "description": "Generate relevant hashtags for social media platforms",
+        "applicationCategory": "SocialMediaApplication",
+        "operatingSystem": "Web",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
       }
     },
     "instagram-post-generator": {
@@ -161,7 +166,10 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         "name": "Instagram Post Generator",
-        "description": "Generate engaging Instagram posts and captions"
+        "description": "Generate engaging Instagram posts and captions",
+        "applicationCategory": "SocialMediaApplication",
+        "operatingSystem": "Web",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
       }
     },
     "youtube-thumbnail": {
@@ -198,7 +206,10 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         "name": "YouTube Thumbnail Grabber",
-        "description": "Download YouTube video thumbnails in high quality"
+        "description": "Download YouTube video thumbnails in high quality",
+        "applicationCategory": "MultimediaApplication",
+        "operatingSystem": "Web",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
       }
     },
     "open-graph-generator": {
@@ -225,7 +236,10 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         "name": "Open Graph Meta Tags Generator",
-        "description": "Generate Open Graph and Twitter Card meta tags"
+        "description": "Generate Open Graph and Twitter Card meta tags",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Web",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
       }
     },
     "character-counter": {
@@ -252,7 +266,10 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         "name": "Character Counter",
-        "description": "Count characters for different social media platforms"
+        "description": "Count characters for different social media platforms",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Web",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
       }
     },
     "image-resizer": {
@@ -279,7 +296,10 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         "name": "Image Resizer",
-        "description": "Resize images for different social media platforms"
+        "description": "Resize images for different social media platforms",
+        "applicationCategory": "ImageEditingApplication",
+        "operatingSystem": "Web",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
       }
     },
     "qr-code-generator": {
@@ -306,7 +326,10 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         "name": "QR Code Generator",
-        "description": "Generate QR codes for social media profiles and links"
+        "description": "Generate QR codes for social media profiles and links",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Web",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
       }
     },
     "username-generator": {
@@ -333,7 +356,10 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         "name": "Username Generator",
-        "description": "Generate unique usernames for social media"
+        "description": "Generate unique usernames for social media",
+        "applicationCategory": "SocialMediaApplication",
+        "operatingSystem": "Web",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
       }
     },
     "social-bio-generator": {
@@ -360,7 +386,10 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         "name": "Social Media Bio Generator",
-        "description": "Generate compelling bios for social media platforms"
+        "description": "Generate compelling bios for social media platforms",
+        "applicationCategory": "SocialMediaApplication",
+        "operatingSystem": "Web",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
       }
     },
     "engagement-calculator": {
@@ -387,7 +416,10 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         "name": "Engagement Calculator",
-        "description": "Calculate social media engagement rates and metrics"
+        "description": "Calculate social media engagement rates and metrics",
+        "applicationCategory": "SocialMediaApplication",
+        "operatingSystem": "Web",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
       }
     },
     "twitter-ad-revenue": {
@@ -414,7 +446,10 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         "name": "Twitter Ad Revenue Calculator",
-        "description": "Calculate potential Twitter ad revenue"
+        "description": "Calculate potential Twitter ad revenue",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "Web",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
       }
     },
     "instagram-filters": {
@@ -441,7 +476,10 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         "name": "Instagram Filters",
-        "description": "Apply Instagram-style filters to photos"
+        "description": "Apply Instagram-style filters to photos",
+        "applicationCategory": "ImageEditingApplication",
+        "operatingSystem": "Web",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
       }
     },
     "vimeo-thumbnail": {
@@ -466,7 +504,10 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         "name": "Vimeo Thumbnail Grabber",
-        "description": "Download Vimeo video thumbnails"
+        "description": "Download Vimeo video thumbnails",
+        "applicationCategory": "MultimediaApplication",
+        "operatingSystem": "Web",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
       }
     },
     "bio-link-generator": {
@@ -493,7 +534,10 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         "name": "Bio Link Generator",
-        "description": "Create custom link in bio pages"
+        "description": "Create custom link in bio pages",
+        "applicationCategory": "SocialMediaApplication",
+        "operatingSystem": "Web",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
       }
     },
     "content-calendar": {
@@ -520,7 +564,10 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         "name": "Content Calendar",
-        "description": "Plan and schedule social media content"
+        "description": "Plan and schedule social media content",
+        "applicationCategory": "SocialMediaApplication",
+        "operatingSystem": "Web",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
       }
     },
     "color-palette": {
@@ -547,7 +594,10 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         "name": "Color Palette Generator",
-        "description": "Extract color palettes from images"
+        "description": "Extract color palettes from images",
+        "applicationCategory": "DesignApplication",
+        "operatingSystem": "Web",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
       }
     },
     "text-case-converter": {
@@ -574,7 +624,10 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         "name": "Text Case Converter",
-        "description": "Convert text to different cases"
+        "description": "Convert text to different cases",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Web",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
       }
     },
     "emoji-picker": {
@@ -601,7 +654,10 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         "name": "Emoji Picker",
-        "description": "Browse and copy emojis for social media"
+        "description": "Browse and copy emojis for social media",
+        "applicationCategory": "SocialMediaApplication",
+        "operatingSystem": "Web",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
       }
     },
     "best-time-calculator": {
@@ -628,7 +684,10 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         "name": "Best Time to Post Calculator",
-        "description": "Find optimal posting times for social media"
+        "description": "Find optimal posting times for social media",
+        "applicationCategory": "SocialMediaApplication",
+        "operatingSystem": "Web",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
       }
     },
     "caption-templates": {
@@ -655,7 +714,10 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         "name": "Caption Templates",
-        "description": "Browse and use pre-made caption templates"
+        "description": "Browse and use pre-made caption templates",
+        "applicationCategory": "SocialMediaApplication",
+        "operatingSystem": "Web",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
       }
     },
     "content-ideas": {
@@ -682,7 +744,10 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         "name": "Content Ideas Generator",
-        "description": "Generate creative content ideas for social media"
+        "description": "Generate creative content ideas for social media",
+        "applicationCategory": "SocialMediaApplication",
+        "operatingSystem": "Web",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
       }
     },
     "analytics-calculator": {
@@ -709,7 +774,10 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         "name": "Social Media Analytics Calculator",
-        "description": "Calculate social media metrics and KPIs"
+        "description": "Calculate social media metrics and KPIs",
+        "applicationCategory": "SocialMediaApplication",
+        "operatingSystem": "Web",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
       }
     },
     "instagram-photo-downloader": {
@@ -736,7 +804,10 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         "name": "Instagram Photo Downloader",
-        "description": "Download photos and videos from Instagram"
+        "description": "Download photos and videos from Instagram",
+        "applicationCategory": "SocialMediaApplication",
+        "operatingSystem": "Web",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
       }
     },
     "svg-pattern-generator": {

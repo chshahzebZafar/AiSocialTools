@@ -1,0 +1,62 @@
+# AISocialTools — Free Social Media Tools
+
+> 70+ free online tools for social media, content creation, construction, finance, and health. No signup required. No watermarks. No tracking.
+
+## Site
+- Homepage: https://aisocialtools.co
+- All Tools: https://aisocialtools.co/tools
+- AI Directory: https://aisocialtools.co/ai-directory
+- Blog: https://aisocialtools.co/blog
+
+## Social Media Tools
+- Tweet Generator: https://aisocialtools.co/tools/tweet-generator
+- Hashtag Generator: https://aisocialtools.co/tools/hashtag-generator
+- Instagram Post Generator: https://aisocialtools.co/tools/instagram-post-generator
+- Bio Link Generator: https://aisocialtools.co/tools/bio-link-generator
+- Social Bio Generator: https://aisocialtools.co/tools/social-bio-generator
+- Content Calendar: https://aisocialtools.co/tools/content-calendar
+- Content Ideas Generator: https://aisocialtools.co/tools/content-ideas
+- Best Time to Post Calculator: https://aisocialtools.co/tools/best-time-calculator
+- Engagement Calculator: https://aisocialtools.co/tools/engagement-calculator
+- Caption Templates: https://aisocialtools.co/tools/caption-templates
+- Emoji Picker: https://aisocialtools.co/tools/emoji-picker
+- Username Generator: https://aisocialtools.co/tools/username-generator
+- Twitter Ad Revenue Calculator: https://aisocialtools.co/tools/twitter-ad-revenue
+- Analytics Calculator: https://aisocialtools.co/tools/analytics-calculator
+
+## Image Tools
+- Image Resizer: https://aisocialtools.co/tools/image-resizer
+- Image Compressor: https://aisocialtools.co/tools/image-compressor
+- Image Converter: https://aisocialtools.co/tools/image-converter
+- Background Remover: https://aisocialtools.co/tools/background-remover
+- Color Palette Generator: https://aisocialtools.co/tools/color-palette
+- SVG Pattern Generator: https://aisocialtools.co/tools/svg-pattern-generator
+- QR Code Generator: https://aisocialtools.co/tools/qr-code-generator
+- Favicon Generator: https://aisocialtools.co/tools/favicon-generator
+
+## Video & Thumbnail Tools
+- YouTube Thumbnail Downloader: https://aisocialtools.co/tools/youtube-thumbnail
+- Vimeo Thumbnail Grabber: https://aisocialtools.co/tools/vimeo-thumbnail
+- Tweet to Image: https://aisocialtools.co/tools/tweet-to-image
+- Video to GIF: https://aisocialtools.co/tools/video-to-gif
+
+## Construction Calculators
+- Concrete Calculator: https://aisocialtools.co/tools/construction/concrete-calculator
+- Roofing Calculator: https://aisocialtools.co/tools/construction/roofing-calculator
+- Flooring Calculator: https://aisocialtools.co/tools/construction/flooring-calculator
+- Tile Calculator: https://aisocialtools.co/tools/construction/tile-calculator
+- Paint Calculator: https://aisocialtools.co/tools/construction/paint-calculator
+- Lumber Calculator: https://aisocialtools.co/tools/construction/lumber-calculator
+
+## Finance Tools
+- Mortgage Calculator: https://aisocialtools.co/tools/finance/mortgage-calculator
+- Compound Interest Calculator: https://aisocialtools.co/tools/finance/compound-interest-calculator
+
+## Health & Fitness
+- BMI Calculator: https://aisocialtools.co/tools/health-fitness/bmi-calculator
+
+## About
+- About: https://aisocialtools.co/about
+- Contact: https://aisocialtools.co/contact
+- Privacy Policy: https://aisocialtools.co/privacy
+- FAQ: https://aisocialtools.co/faq
