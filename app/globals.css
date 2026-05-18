@@ -46,6 +46,12 @@
   color-scheme: light;
 }
 
+/* Reserve scrollbar gutter so toggling overflow:hidden (e.g. modal/popup open)
+   never shifts layout. This is the correct fix for scrollbar-induced CLS. */
+html {
+  scrollbar-gutter: stable;
+}
+
 /* =====================================================================
    Base typography
    ===================================================================== */
@@ -123,13 +129,16 @@ button, a {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Subtle scroll behavior */
-html {
-  scroll-behavior: smooth;
+/* Smooth scroll — only when user hasn't requested reduced motion */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 /* =====================================================================
-   Animations — premium, subtle, performance-aware (transform/opacity only)
+   Animations — performance-aware (transform/opacity only, GPU-composited)
+   All animations are gated on prefers-reduced-motion: no-preference.
    ===================================================================== */
 
 /* --- Aurora mesh background (used on hero) --- */
@@ -139,6 +148,9 @@ html {
   overflow: hidden;
   pointer-events: none;
   z-index: 0;
+  /* Contain paint/layout to this element — prevents aurora from triggering
+     full-page repaints on every animation frame */
+  contain: layout style paint;
 }
 
 .aurora::before,
@@ -150,8 +162,11 @@ html {
   max-width: 900px;
   max-height: 900px;
   border-radius: 50%;
+  /* filter:blur on a promoted layer stays on the GPU compositor.
+     translateZ(0) ensures promotion happens before any animation begins. */
   filter: blur(80px);
   opacity: 0.55;
+  transform: translateZ(0);
   will-change: transform;
 }
 
@@ -159,14 +174,12 @@ html {
   background: radial-gradient(circle, #818cf8 0%, transparent 60%);
   top: -20%;
   left: -10%;
-  animation: aurora-drift-1 22s ease-in-out infinite;
 }
 
 .aurora::after {
   background: radial-gradient(circle, #c4b5fd 0%, transparent 60%);
   bottom: -30%;
   right: -10%;
-  animation: aurora-drift-2 28s ease-in-out infinite;
 }
 
 .dark .aurora::before {
@@ -179,27 +192,42 @@ html {
   opacity: 0.35;
 }
 
+/* Animate only when the user hasn't requested reduced motion */
+@media (prefers-reduced-motion: no-preference) {
+  .aurora::before {
+    animation: aurora-drift-1 22s ease-in-out infinite;
+  }
+  .aurora::after {
+    animation: aurora-drift-2 28s ease-in-out infinite;
+  }
+}
+
 @keyframes aurora-drift-1 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(15%, 8%) scale(1.1); }
-  66% { transform: translate(-8%, 12%) scale(0.95); }
+  0%, 100% { transform: translate(0, 0) translateZ(0) scale(1); }
+  33% { transform: translate(15%, 8%) translateZ(0) scale(1.1); }
+  66% { transform: translate(-8%, 12%) translateZ(0) scale(0.95); }
 }
 
 @keyframes aurora-drift-2 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(-12%, -10%) scale(1.1); }
-  66% { transform: translate(10%, -5%) scale(0.9); }
+  0%, 100% { transform: translate(0, 0) translateZ(0) scale(1); }
+  33% { transform: translate(-12%, -10%) translateZ(0) scale(1.1); }
+  66% { transform: translate(10%, -5%) translateZ(0) scale(0.9); }
 }
 
 /* --- Animated dot grid (subtle pulse) --- */
 .bg-dot-grid-animated {
   background-image: radial-gradient(circle, rgba(0, 0, 0, 0.08) 1px, transparent 1px);
   background-size: 24px 24px;
-  animation: dot-pulse 6s ease-in-out infinite;
 }
 
 .dark .bg-dot-grid-animated {
   background-image: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .bg-dot-grid-animated {
+    animation: dot-pulse 6s ease-in-out infinite;
+  }
 }
 
 @keyframes dot-pulse {
@@ -237,12 +265,16 @@ html {
   align-items: center;
   gap: 2.5rem;
   white-space: nowrap;
-  animation: marquee-scroll 35s linear infinite;
   will-change: transform;
 }
 
-.marquee:hover .marquee-track {
-  animation-play-state: paused;
+@media (prefers-reduced-motion: no-preference) {
+  .marquee-track {
+    animation: marquee-scroll 35s linear infinite;
+  }
+  .marquee:hover .marquee-track {
+    animation-play-state: paused;
+  }
 }
 
 @keyframes marquee-scroll {
@@ -259,7 +291,12 @@ html {
 .reveal {
   opacity: 0;
   transform: translateY(16px);
-  transition: opacity 0.6s ease-out, transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    transition: opacity 0.6s ease-out, transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
 }
 
 .reveal.is-visible {
@@ -281,7 +318,12 @@ html {
     transparent 100%
   );
   background-size: 200% 100%;
-  animation: shimmer 3s linear infinite;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .shimmer {
+    animation: shimmer 3s linear infinite;
+  }
 }
 
 /* --- Subtle float (hero badge) --- */
@@ -290,8 +332,10 @@ html {
   50% { transform: translateY(-3px); }
 }
 
-.float-soft {
-  animation: float-soft 4s ease-in-out infinite;
+@media (prefers-reduced-motion: no-preference) {
+  .float-soft {
+    animation: float-soft 4s ease-in-out infinite;
+  }
 }
 
 /* --- Dual-row review marquee --- */
@@ -305,12 +349,19 @@ html {
 }
 
 .animate-marquee-left {
-  animation: marquee-left 40s linear infinite;
   will-change: transform;
 }
 .animate-marquee-right {
-  animation: marquee-right 40s linear infinite;
   will-change: transform;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .animate-marquee-left {
+    animation: marquee-left 40s linear infinite;
+  }
+  .animate-marquee-right {
+    animation: marquee-right 40s linear infinite;
+  }
 }
 
 .reviews-marquee-wrapper {

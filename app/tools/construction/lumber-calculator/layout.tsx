@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { getOGImageUrl } from "@/lib/og-image-generator";
 
 export const metadata: Metadata = {
-  title: "Lumber Calculator — Free Board Feet, Framing & Sheet Goods Estimator",
+  title: "Lumber Calculator — Board Feet, Framing & Sheet Goods",
   description:
     "Free lumber calculator for framing studs, boards & trim, and plywood/OSB sheet goods. Get piece counts, board feet or m³, waste allowance, and cost estimates. Imperial and metric.",
   keywords: [

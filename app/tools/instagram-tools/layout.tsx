@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import ToolLayout from "@/components/ToolLayout";
 import { getOGImageUrl } from "@/lib/og-image-generator";
 
-const URL = "https://aisocialtools.co/tools/instagram-tools";
+const CANONICAL_URL = "https://aisocialtools.co/tools/instagram-tools";
 
 export const metadata: Metadata = {
   title: "Free Instagram Tools 2026 — Captions, Hashtags, Fonts, Analytics",
@@ -21,13 +21,19 @@ export const metadata: Metadata = {
     "instagram font generator",
     "instagram engagement calculator",
   ],
-  alternates: { canonical: URL },
+  alternates: {
+    canonical: CANONICAL_URL,
+    languages: {
+      "en": CANONICAL_URL,
+      "x-default": CANONICAL_URL,
+    },
+  },
   openGraph: {
     title: "Free Instagram Tools 2026 — Complete Toolkit",
     description:
       "12+ free Instagram tools — post generator, captions, hashtags, fonts, engagement calculator, and more. No signup required.",
     type: "website",
-    url: URL,
+    url: CANONICAL_URL,
     siteName: "AISocialTools",
     images: [{ url: getOGImageUrl("default"), width: 1200, height: 630, alt: "Free Instagram Tools" }],
   },

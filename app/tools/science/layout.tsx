@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { getOGImageUrl } from "@/lib/og-image-generator";
 
 export const metadata: Metadata = {
-  title: "Science & Engineering Calculators — Physics, Chemistry & More (Coming Soon)",
+  title: "Science & Engineering Calculators — Physics & Chemistry",
   description:
     "Free science calculators for density, speed, molarity, molecular weight, horsepower, wind chill, heat index, pH, half-life, and more. Coming 2026.",
   keywords: [

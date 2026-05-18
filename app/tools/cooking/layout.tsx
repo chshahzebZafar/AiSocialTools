@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { getOGImageUrl } from "@/lib/og-image-generator";
 
 export const metadata: Metadata = {
-  title: "Cooking Calculators — Recipe Scaler, Unit Converter & More (Coming Soon)",
+  title: "Cooking Calculators — Recipe Scaler & Unit Converter",
   description:
     "Free cooking calculators for recipe scaling, unit conversion, temperature conversion, baking ratios, butter conversion, and more kitchen math. Coming 2026.",
   keywords: [

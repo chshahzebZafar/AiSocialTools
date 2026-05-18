@@ -106,7 +106,9 @@ export default async function BlogPostPage({ params }: PageProps) {
           listItems = [];
           inList = false;
         }
-        elements.push(<h1 key={`h1-${index}`} className="text-4xl font-bold text-slate-900 dark:text-slate-100 mb-6 mt-12 leading-tight">{trimmedLine.substring(2)}</h1>);
+        // Demoted from h1 → h2: the post's <title> in the header is the sole h1 on
+        // every blog post page. Content-level # headings are section headings only.
+        elements.push(<h2 key={`h2-content-${index}`} className="text-4xl font-bold text-slate-900 dark:text-slate-100 mb-6 mt-12 leading-tight">{trimmedLine.substring(2)}</h2>);
       } else if (trimmedLine.startsWith("## ")) {
         if (currentParagraph.length > 0) {
           elements.push(<p key={`p-${index}`} className="mb-6 text-slate-700 dark:text-slate-300 leading-relaxed text-lg">{currentParagraph.join(" ")}</p>);

@@ -37,7 +37,13 @@ export const metadata: Metadata = {
     description: "Free student tools — coming Q2 2026.",
     images: [getOGImageUrl("default")],
   },
-  alternates: { canonical: "https://aisocialtools.co/tools/education" },
+  alternates: {
+    canonical: "https://aisocialtools.co/tools/education",
+    languages: {
+      "en": "https://aisocialtools.co/tools/education",
+      "x-default": "https://aisocialtools.co/tools/education",
+    },
+  },
   robots: { index: true, follow: true },
 };
 

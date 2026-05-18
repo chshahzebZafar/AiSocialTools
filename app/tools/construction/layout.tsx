@@ -38,7 +38,13 @@ export const metadata: Metadata = {
     description: "Free construction calculators for concrete, roofing, flooring, tile, paint, and fencing. No signup.",
     images: [getOGImageUrl("default")],
   },
-  alternates: { canonical: "https://aisocialtools.co/tools/construction" },
+  alternates: {
+    canonical: "https://aisocialtools.co/tools/construction",
+    languages: {
+      "en": "https://aisocialtools.co/tools/construction",
+      "x-default": "https://aisocialtools.co/tools/construction",
+    },
+  },
   robots: { index: true, follow: true },
 };
 

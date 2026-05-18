@@ -38,7 +38,13 @@ export const metadata: Metadata = {
       "Free, browser-based tools organized by category. Pick a category and dive in.",
     images: [getOGImageUrl("tools")],
   },
-  alternates: { canonical: "https://aisocialtools.co/tools" },
+  alternates: {
+    canonical: "https://aisocialtools.co/tools",
+    languages: {
+      "en": "https://aisocialtools.co/tools",
+      "x-default": "https://aisocialtools.co/tools",
+    },
+  },
   robots: { index: true, follow: true },
 };
 

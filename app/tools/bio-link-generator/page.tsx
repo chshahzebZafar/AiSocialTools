@@ -116,7 +116,7 @@ ${linksHTML}
             <LinkIcon className="w-6 h-6 text-white" />
           </div>
           <div className="flex-1">
-            <h1 className="text-3xl font-bold text-slate-900">Bio Link Generator - Create Link in Bio Page Free</h1>
+            <h1 className="text-3xl font-bold text-slate-900">Bio Link Generator</h1>
             <p className="text-slate-600">Create a custom link in bio page for Instagram, TikTok, and Twitter. Free bio link generator with multiple links. Build your own linktree-style page instantly.</p>
           </div>
         </div>

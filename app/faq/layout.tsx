@@ -28,6 +28,10 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: "https://aisocialtools.co/faq",
+    languages: {
+      "en": "https://aisocialtools.co/faq",
+      "x-default": "https://aisocialtools.co/faq",
+    },
   },
 };
 

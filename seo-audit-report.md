@@ -1,8 +1,8 @@
-# SEO Audit Report — AISocialTools.co
-**Audit Date:** May 14, 2026  
-**Base URL:** `https://aisocialtools.co`  
-**Framework:** Next.js 15 App Router · TypeScript · Deployed on Netlify  
-**Audit Method:** Full static analysis of `app/`, `lib/`, `app/sitemap.ts`, `app/robots.ts`, `next.config.ts`, `netlify.toml`
+# SEO Indexing Audit Report — AISocialTools.co
+**Generated:** 2026-05-15  
+**Auditor:** Claude (Cowork Mode) — Full codebase static analysis  
+**Project:** `D:\Personal Projects\fakes-social-reviews`  
+**Domain:** https://aisocialtools.co
 
 ---
 
@@ -10,632 +10,535 @@
 
 | Metric | Value |
 |--------|-------|
-| Total unique routes (indexable) | ~310 |
-| Active social tools | 51 (2 disabled/noindex) |
-| Live category tools | 16 (construction ×12, finance ×2, health ×1, education ×1) |
-| Blog posts | 8 |
-| AI directory pages (approved) | ~178 |
-| Coming-soon / placeholder pages | 9 (all correctly `noindex`) |
-| **Total issues found** | **19** |
-| — 🔴 Critical | ~~2~~ **0** ✅ |
-| — ⚠️ Warning | ~~10~~ **0** ✅ |
-| — ℹ️ Info | ~~7~~ **0** ✅ |
-| **Indexing Health Score** | **98 / 100** |
+| Total `page.tsx` files scanned | 102 |
+| Live social tool routes | 55 (via `lib/social-tools.ts`) |
+| Category calculator sub-pages | 17 (via `lib/category-tools.ts`) |
+| Dynamic blog posts | 21 |
+| Dynamic AI directory pages | 177 (approved) |
+| Dynamic review pages (`/tools/[id]`) | 17 |
+| **Total estimated indexable pages** | **~389** |
+| Noindex pages (intentional) | 10 |
+| Critical issues found | 6 |
+| Warning issues found | 15 |
+| Info / minor issues | 8 |
+| **Indexing Health Score** | **62 / 100** |
 
-> This audit reflects the **fully-current codebase as of May 14 2026**. All 19 issues are resolved. Fixes this session: BreadcrumbList JSON-LD on 7 construction tools + all `tools/[id]` review pages, editorial cross-links (7 construction + 2 finance pages + mulch calculator), `siteName` normalised to `"AISocialTools"` site-wide, static `lastModified` date groups in `sitemap.ts`, noindex pages excluded from sitemap, blog posts #4 + #6 expanded, 3 thin tool pages (analytics/best-time/bio-link) + 3 more (color-palette/emoji-picker/content-calendar) given SEO content sections, inline tool links added to all blog posts and `/faq`, `Cache-Control: immutable` scoped to `/_next/static/*` only, OG + Twitter metadata added to `/projects`, `/projects` sitemap priority raised to 0.6.
+### What's Working Well
+The site has a strong technical foundation: `metadataBase` is correctly set, canonical tags are present on all 55 live tool pages (verified in `lib/seo-metadata.ts:1737`), OG/Twitter cards cover ~98% of pages, HTTPS is enforced, there is a 301 redirect from the old Netlify subdomain, and the sitemap is well-structured with proper priorities and `lastModified` dates. Schema markup covers the homepage, construction calculators, blog posts, and the AI directory.
 
-### Score Breakdown
+### What's Dragging the Score Down
+The blog listing page is client-rendered (`"use client"`), meaning Google may see a near-blank shell instead of your 21 posts. Duplicate H1 tags exist on every blog post and the bio-link-generator page. All 55 live social tool pages are missing `WebApplication` JSON-LD schema. Seventeen thin review pages (~180 words each) will likely be "crawled but not indexed." One page (`background-remover`) blocks Googlebot from following its outbound links.
 
-| Area | Score | Status |
-|------|-------|--------|
-| Robots.txt & crawl config | 100/100 | ✅ All bots correctly configured; `/profile/` disallowed site-wide |
-| Sitemap quality | 98/100 | ✅ Static date groups; noindex pages excluded; `/projects` priority corrected |
-| Metadata completeness | 98/100 | ✅ siteName normalised, OG + Twitter on all pages, canonicals in place |
-| Schema / structured data | 98/100 | ✅ BreadcrumbList on all tool pages + construction tools + `tools/[id]` review pages |
-| Internal linking | 95/100 | ✅ Cross-links on all construction + finance tools; inline CTAs in all blog posts + FAQ |
-| Content quality | 98/100 | ✅ All thin pages expanded; 6 tool pages have SEO content sections; blog posts linked |
+---
+
+## Issue Table
+
+| # | Page / File | Issue Type | Severity | Recommended Fix |
+|---|-------------|------------|----------|-----------------|
+| 1 | `app/blog/page.tsx` | `"use client"` — blog listing is client-rendered; content invisible to crawlers on first load | **Critical** | Convert to Server Component; extract search/filter UI into a child `"use client"` component |
+| 2 | `app/blog/[slug]/page.tsx` | Two `<h1>` tags on every one of the 21 blog posts | **Critical** | Remove the duplicate H1; demote to `<h2>` |
+| 3 | `app/tools/bio-link-generator/page.tsx` | Two `<h1>` tags | **Critical** | Reduce to a single H1 |
+| 4 | 55 × `app/tools/[tool]/page.tsx` | Missing `WebApplication` / `SoftwareApplication` JSON-LD schema across all live tool pages | **Critical** | Add schema in shared `ToolLayout` component or inside `generateMetadataForTool` |
+| 5 | `app/tools/[id]/page.tsx` (17 review pages) | Thin content (~150–200 words per page): only name, description, pricing, and bullet features | **Critical** | Expand each to 400+ words with pros/cons and use-case copy, or noindex all 17 |
+| 6 | `app/tools/background-remover/layout.tsx` | `robots: { index: false, follow: false }` — `follow: false` blocks Googlebot from passing PageRank through outbound links | **Critical** | Change to `{ index: false, follow: true }` |
+| 7 | `app/blog/layout.tsx` | `<title>` tag ("Social Media Blog - Tips & Growth Strategies") mismatches `og:title` ("Blog - Social Media Tips, Strategies & Insights") | **Warning** | Align both strings to the same value |
+| 8 | 16 layout files | Page titles exceed 60 characters and will be truncated in SERPs. Worst: "Location & Travel Tools — Distance, Time Zones, Travel Cost & More (Coming Soon)" (83 chars) | **Warning** | Trim all titles to ≤60 characters |
+| 9 | `components/Footer.tsx` | `/tools/construction` (live, 11 calculators) has **zero** internal links pointing to it — effectively an orphan category | **Warning** | Add "Construction calculators" link to footer "Tool Categories" column |
+| 10 | `components/Footer.tsx` | `/projects` page has no footer or header link | **Warning** | Add to footer "Company" column |
+| 11 | `app/robots.ts` (wildcard rule) | `/_next/` is disallowed for `*` but not for the Googlebot/Bingbot-specific rules — inconsistent signal | **Warning** | Remove `/_next/` from the `*` rule entirely; Next.js static assets must be crawlable |
+| 12 | `app/robots.ts` | `/search` is disallowed for all bots but the route **does not exist** | **Warning** | Remove the `/search` Disallow entry |
+| 13 | `app/robots.ts` | `AhrefsBot`, `SemrushBot`, `Screaming Frog` are blocked — prevents you from running your own SEO audits and rank tracking | **Warning** | Remove this block unless protecting against scrapers is the explicit goal |
+| 14 | `netlify.toml` + `next.config.ts` | **Double trailing-slash redirect**: both files implement `/:path+/` → `/:path+` (301), creating a redirect chain on Netlify | **Warning** | Remove the trailing-slash redirect block from `netlify.toml`; keep it in `next.config.ts` only |
+| 15 | `components/Footer.tsx` | Footer links to 2 noindex pages: `/tools/file-tools` and `/tools/location` — wastes crawl budget and may confuse users who land on "coming soon" pages | **Warning** | Remove from footer or make the pages indexable if they have content |
+| 16 | Construction calculator layouts | Near-duplicate meta descriptions: "Free concrete calculator for slabs, footings, and columns." appears in 2 separate files | **Warning** | Make every meta description unique with specific material/use-case detail |
+| 17 | `app/tools/image-tools/layout.tsx`, `instagram-tools`, `youtube-tools` | Canonical set via `const URL = "..."` which shadows the global `URL` constructor — not a runtime bug today but dangerous naming | **Warning** | Rename to `CANONICAL_URL` in all three files |
+| 18 | `app/layout.tsx` | Two Google site verification tags: one via `metadata.verification.google` and one hardcoded `<meta name="google-site-verification">` in `<head>` — duplicate | **Warning** | Remove the hardcoded `<meta>` tag from `<head>`; keep the metadata export entry only |
+| 19 | `app/tools/[id]/page.tsx` | `og:image` hardcoded to `https://aisocialtools.co/og-default.png` instead of using `getOGImageUrl(id)` like every other page | **Info** | Replace with `getOGImageUrl(id)` for consistency |
+| 20 | `app/about/page.tsx`, `app/contact/page.tsx`, `app/author/page.tsx`, `app/projects/page.tsx` | No explicit `alternates.canonical` — these pages rely on Next.js auto-generation from `metadataBase` | **Info** | Add explicit canonical to all top-level non-tool pages |
+| 21 | `app/profile/page.tsx` | Two `<h1>` tags on a noindex page — not a crawl issue but bad practice | **Info** | Fix for code quality |
+| 22 | `next.config.ts` CSP header | `pagead2.googlesyndication.com` missing from `connect-src` directive — may cause AdSense `connect` requests to be blocked in strict browsers | **Info** | Add `https://pagead2.googlesyndication.com` to `connect-src` |
+| 23 | `app/sitemap.ts` | 177 AI directory pages all set to `priority: 0.8`, same priority as featured blog posts — dilutes crawl signal | **Info** | Lower AI directory pages to `priority: 0.65` |
+| 24 | `app/layout.tsx` | `hreflang` only set for homepage; should be present on every indexable page for international SEO | **Info** | Add `alternates.languages` in section layouts or expand via sitemap |
+| 25 | `lib/seo-metadata.ts` | `generateMetadataForTool` correctly adds `alternates.canonical` for all 55 tool pages (verified line 1737) | **Info — No action needed** | ✅ Already correct |
+| 26 | `app/sitemap.ts` | `/tools/education` is in sitemap at priority 0.82 and has `robots: { index: true }` — but the page is a "coming soon" wrapper. Intentional? | **Info** | Verify this is deliberate; if education tools are not yet live, consider noindex + sitemap exclusion |
 
 ---
 
 ## Section 1 — URL Inspection & Indexing Priority
 
-### 1a. Top-Priority Pages — Submit to Google Search Console First
+### Ready-to-Submit URL List for Google Search Console
 
-| # | URL | Title | Reason | Issues |
-|---|-----|-------|--------|--------|
-| 1 | `https://aisocialtools.co` | Best Free Social Media Tools Online 2026 | Homepage, all authority flows here | ✅ None |
-| 2 | `https://aisocialtools.co/tools` | All Tools — Browse by Category | Primary hub, priority 0.95 in sitemap | ✅ None |
-| 3 | `https://aisocialtools.co/tools/social-media` | Social Media Tools — Free Online Tools | Core category hub | ✅ None |
-| 4 | `https://aisocialtools.co/tools/hashtag-generator` | Best Free Hashtag Generator Online 2026 | Highest-volume keyword | ✅ Full metadata + WebApplication schema |
-| 5 | `https://aisocialtools.co/tools/tweet-generator` | Best Free AI Tweet Generator Online 2026 | High search volume | ✅ Full metadata + schema |
-| 6 | `https://aisocialtools.co/tools/youtube-thumbnail` | YouTube Thumbnail Grabber | High search volume | ✅ Full metadata + schema |
-| 7 | `https://aisocialtools.co/tools/instagram-post-generator` | Instagram Post Generator 2026 | High search volume | ✅ |
-| 8 | `https://aisocialtools.co/tools/social-media-image-sizes` | Social Media Image Sizes 2026 | Evergreen reference — very link-worthy | ✅ Canonical + schema present |
-| 9 | `https://aisocialtools.co/tools/instagram-tools` | Free Instagram Tools 2026 | Hub cluster, 12+ tools | ✅ |
-| 10 | `https://aisocialtools.co/tools/youtube-tools` | Free YouTube Tools 2026 | Hub cluster | ✅ |
-| 11 | `https://aisocialtools.co/tools/image-tools` | Free Image Tools 2026 | Hub cluster | ✅ |
-| 12 | `https://aisocialtools.co/tools/construction` | Free Construction Calculators 2026 | 12 live tools, ItemList schema | ✅ |
-| 13 | `https://aisocialtools.co/tools/construction/concrete-calculator` | Concrete Calculator | Live, FAQPage + BreadcrumbList + WebApplication | ✅ |
-| 14 | `https://aisocialtools.co/tools/construction/lumber-calculator` | Lumber Calculator | Live, full schema | ✅ |
-| 15 | `https://aisocialtools.co/tools/construction/roofing-calculator` | Roofing Calculator | High-value calculator | ✅ robots + BreadcrumbList + cross-link added |
-| 16 | `https://aisocialtools.co/tools/construction/flooring-calculator` | Flooring Calculator | High-value | ✅ robots + BreadcrumbList + cross-link added |
-| 17 | `https://aisocialtools.co/tools/construction/fence-calculator` | Fence Calculator | High-value | ✅ robots + BreadcrumbList + cross-link added |
-| 18 | `https://aisocialtools.co/tools/construction/paint-calculator` | Paint Calculator | High-value | ✅ robots + BreadcrumbList + cross-link added |
-| 19 | `https://aisocialtools.co/tools/construction/tile-calculator` | Tile Calculator | High-value | ✅ robots + BreadcrumbList + cross-link added |
-| 20 | `https://aisocialtools.co/tools/construction/square-footage-calculator` | Square Footage Calculator | Cross-category utility | ✅ robots + BreadcrumbList added |
-| 21 | `https://aisocialtools.co/tools/construction/mulch-calculator` | Mulch Calculator | Landscaping niche | ✅ robots + BreadcrumbList added |
-| 22 | `https://aisocialtools.co/tools/finance` | Free Finance Calculators 2026 | Finance hub | ✅ |
-| 23 | `https://aisocialtools.co/tools/finance/mortgage-calculator` | Mortgage Calculator | Very high-volume keyword | ✅ siteName fixed; full metadata |
-| 24 | `https://aisocialtools.co/tools/finance/compound-interest-calculator` | Compound Interest Calculator | High search volume | ✅ |
-| 25 | `https://aisocialtools.co/tools/health-fitness/bmi-calculator` | BMI Calculator | Evergreen high volume | ✅ |
-| 26 | `https://aisocialtools.co/tools/education/gpa-calculator` | GPA Calculator | Student traffic | ✅ |
-| 27 | `https://aisocialtools.co/ai-directory` | AI Tools Directory 2026 | 178 tools, link-worthy | ✅ |
-| 28 | `https://aisocialtools.co/blog` | Social Media Blog | Content hub | ✅ |
-| 29 | `https://aisocialtools.co/faq` | FAQ | Authority trust signal | ✅ siteName fixed |
-| 30 | `https://aisocialtools.co/about` | About — Free Social Media Tools | E-E-A-T signal | ✅ |
+Submit these manually using the URL Inspection tool, in priority order.
 
-### 1b. Ready-to-Paste GSC URL Inspection Batch
-
+**Tier 1 — Submit Immediately (Homepage + Hubs)**
 ```
 https://aisocialtools.co
 https://aisocialtools.co/tools
 https://aisocialtools.co/tools/social-media
-https://aisocialtools.co/tools/hashtag-generator
-https://aisocialtools.co/tools/tweet-generator
-https://aisocialtools.co/tools/youtube-thumbnail
-https://aisocialtools.co/tools/instagram-post-generator
-https://aisocialtools.co/tools/social-media-image-sizes
 https://aisocialtools.co/tools/instagram-tools
 https://aisocialtools.co/tools/youtube-tools
 https://aisocialtools.co/tools/image-tools
 https://aisocialtools.co/tools/construction
+https://aisocialtools.co/tools/finance
+https://aisocialtools.co/tools/health-fitness
+https://aisocialtools.co/tools/education
+https://aisocialtools.co/ai-directory
+https://aisocialtools.co/blog
+https://aisocialtools.co/faq
+```
+
+**Tier 2 — High-Traffic Tool Pages (Submit This Week)**
+```
+https://aisocialtools.co/tools/tweet-generator
+https://aisocialtools.co/tools/hashtag-generator
+https://aisocialtools.co/tools/youtube-thumbnail
+https://aisocialtools.co/tools/instagram-photo-downloader
+https://aisocialtools.co/tools/image-compressor
+https://aisocialtools.co/tools/qr-code-generator
+https://aisocialtools.co/tools/instagram-post-generator
+https://aisocialtools.co/tools/image-resizer
+https://aisocialtools.co/tools/hashtag-counter
+https://aisocialtools.co/tools/character-counter
+https://aisocialtools.co/tools/pdf-merger
+https://aisocialtools.co/tools/image-converter
+https://aisocialtools.co/tools/tiktok-hook-generator
+https://aisocialtools.co/tools/youtube-tag-generator
+https://aisocialtools.co/tools/linkedin-headline-generator
+https://aisocialtools.co/tools/tweet-thread-maker
+https://aisocialtools.co/tools/twitter-character-counter
+```
+
+**Tier 3 — Calculator Sub-Pages**
+```
 https://aisocialtools.co/tools/construction/concrete-calculator
-https://aisocialtools.co/tools/construction/lumber-calculator
 https://aisocialtools.co/tools/construction/roofing-calculator
+https://aisocialtools.co/tools/construction/lumber-calculator
 https://aisocialtools.co/tools/construction/flooring-calculator
-https://aisocialtools.co/tools/construction/fence-calculator
-https://aisocialtools.co/tools/construction/paint-calculator
 https://aisocialtools.co/tools/construction/tile-calculator
-https://aisocialtools.co/tools/construction/square-footage-calculator
-https://aisocialtools.co/tools/construction/mulch-calculator
+https://aisocialtools.co/tools/construction/paint-calculator
 https://aisocialtools.co/tools/construction/drywall-estimator
 https://aisocialtools.co/tools/construction/stair-calculator
+https://aisocialtools.co/tools/construction/square-footage-calculator
+https://aisocialtools.co/tools/construction/fence-calculator
+https://aisocialtools.co/tools/construction/mulch-calculator
 https://aisocialtools.co/tools/construction/roof-pitch-calculator
 https://aisocialtools.co/tools/finance/mortgage-calculator
 https://aisocialtools.co/tools/finance/compound-interest-calculator
 https://aisocialtools.co/tools/health-fitness/bmi-calculator
 https://aisocialtools.co/tools/education/gpa-calculator
-https://aisocialtools.co/ai-directory
-https://aisocialtools.co/blog
-https://aisocialtools.co/faq
-https://aisocialtools.co/about
 ```
 
-### 1c. Noindex / "Crawled But Not Indexed" Risk Pages
+**Tier 4 — Supporting Pages**
+```
+https://aisocialtools.co/about
+https://aisocialtools.co/contact
+https://aisocialtools.co/author
+https://aisocialtools.co/ai-directory/submit
+```
 
-| # | Route | Reason | noindex Set? |
-|---|-------|--------|-------------|
-| 1 | `/tools/real-estate` | 0 live tools, placeholder | ✅ `index: false` |
-| 2 | `/tools/developer` | 0 live tools, placeholder | ✅ `index: false` |
-| 3 | `/tools/everyday` | 0 live tools | ✅ `index: false` |
-| 4 | `/tools/cooking` | 0 live tools | ✅ `index: false` |
-| 5 | `/tools/location` | 0 live tools | ✅ `index: false` |
-| 6 | `/tools/math` | 0 live tools | ✅ `index: false` |
-| 7 | `/tools/science` | 0 live tools | ✅ `index: false` |
-| 8 | `/tools/ai-image-generator` | Tool disabled | ✅ `index: false` |
-| 9 | `/tools/background-remover` | Tool disabled | ✅ `index: false, follow: false` |
-| 10 | `/tools/file-tools` | Coming-soon, 0 live tools | ✅ **Fixed this session** → `index: false` |
-| 11 | `/profile` | Auth-gated user page | ✅ Disallowed in robots.txt |
+### Priority Page Detail Analysis
+
+| URL | Title (current) | Meta Description | Priority Reason | Issues |
+|-----|----------------|-----------------|-----------------|--------|
+| `/` | Best Free Social Media Tools Online & Desktop - No Signup Required 2026 (67 chars ⚠️) | ✅ Unique, ~155 chars | All link equity flows here; FAQPage + Organization schema | Title slightly long |
+| `/tools` | All Tools — Browse by Category | ✅ Present | Central navigation hub | None |
+| `/tools/social-media` | Social Media Tools — Free Online Tools Collection | ✅ | Primary category | None |
+| `/tools/instagram-tools` | Free Instagram Tools 2026 — Complete Toolkit | ✅ | High-volume keyword cluster | `const URL` variable naming |
+| `/tools/youtube-tools` | Free YouTube Tools 2026 — Complete Creator Toolkit | ✅ | High-volume keyword cluster | Same as above |
+| `/tools/construction` | Free Construction Calculators & Estimators 2026 | ✅ | 11 live tools, canonical set | **Not in footer — orphan** |
+| `/tools/tweet-generator` | Best Free AI Tweet Generator Online 2026 | ✅ via `generateMetadataForTool` | Highest commercial intent | Missing WebApplication schema |
+| `/tools/hashtag-generator` | Free Hashtag Generator 2026 | ✅ via `generateMetadataForTool` | Top search volume | Missing WebApplication schema |
+| `/blog` | Social Media Blog - Tips & Growth Strategies | ✅ in layout.tsx | Content marketing funnel | **`"use client"` — not SSR'd** |
+| `/ai-directory` | AI Tools Directory — Curated, Verified, Free to Browse | ✅ | Growing section, 177 approved tools | None |
+| `/faq` | FAQ - Frequently Asked Questions | ✅ | Featured snippet opportunity + FAQPage schema | None — solid |
 
 ---
 
 ## Section 2 — Content Quality Audit
 
-### 2a. Title Tag & Meta Description Audit
+### Pages With Missing H1 (in `page.tsx` file)
 
-| File | Status | Issue |
-|------|--------|-------|
-| `app/layout.tsx` | ✅ | Title template `"%s \| AISocialTools"` set; root description updated to "70+" this session |
-| `app/page.tsx` | ✅ | Full title, description, OG, Twitter, canonical |
-| `app/tools/layout.tsx` | ✅ | siteName normalised this session |
-| All construction tool layouts | ✅ | Canonical, robots, OG, Twitter all present |
-| All finance/health/education layouts | ✅ | siteName normalised this session |
-| `app/tools/[id]/page.tsx` | ✅ | Dynamic `generateMetadata` present; siteName fixed |
-| `app/blog/[slug]/page.tsx` | ✅ | Dynamic `generateMetadata` with Article OG type |
-| `app/projects/page.tsx` | ✅ | OG + Twitter card added this session; `siteName: "AISocialTools"` |
-| `lib/seo-metadata.ts` → `generateMetadataForTool()` | ✅ | `siteName` corrected to `"AISocialTools"` this session |
+The following category hub pages appear to have no `<h1>` in their `page.tsx` — but they all delegate rendering to the shared `ComingSoonCategoryPage` component, which **does** contain an `<h1>` (confirmed at line 177 of that component). H1 is present at runtime. No fix needed for H1 presence, but verify via browser DevTools.
 
-### 2b. Thin Content Analysis
+Pages using the shared component (H1 correct at runtime):
+`construction`, `cooking`, `developer`, `education`, `everyday`, `file-tools`, `finance`, `health-fitness`, `location`, `math`, `real-estate`, `science`
 
-| Page | Estimated Content | Risk |
-|------|------------------|------|
-| `/blog/5-free-tools-transform-social-media-workflow` | ~550 words ✅ expanded this session | ✅ No longer thin |
-| `/blog/ultimate-guide-social-media-content-planning` | ~350 words | ⚠️ Borderline — Google typically wants 400+ for blog posts |
-| `/tools/analytics-calculator` | Tool UI only | ⚠️ No SEO content section — tool performs a calculation but no explanatory body text |
-| `/tools/best-time-calculator` | Tool UI only | ⚠️ Same — no supporting content |
-| `/tools/content-calendar` | Tool UI only | ⚠️ Likely thin |
-| `/tools/bio-link-generator` | Tool UI only | ⚠️ Likely thin |
-| `/tools/color-palette` | Tool UI only | ⚠️ Likely thin |
-| `/tools/emoji-picker` | Tool UI only | ⚠️ Likely thin |
-| `/projects` | ~150 words | ⚠️ Borderline; indexed at priority 0.35 |
+### Pages With Multiple H1 Tags — Must Fix
 
-**Action:** For tool pages, add a 200–300 word "How to use" + "FAQ" section below the tool UI. This requires no content rewrite — just a static explanation block in the page component.
+| File | H1 Count | Impact |
+|------|----------|--------|
+| `app/blog/[slug]/page.tsx` | **2** | Every one of your 21 blog posts has a duplicate H1. Google picks one arbitrarily and it may not be the post title. High impact. |
+| `app/tools/bio-link-generator/page.tsx` | **2** | Sends mixed signals about the page's primary topic. |
+| `app/profile/page.tsx` | 2 | Noindex — low crawl impact, but fix for code quality. |
 
-### 2c. Missing / Duplicate Heading Issues
+### Thin Content — "Crawled But Not Indexed" Risk
 
-No global H1 audit is possible via static file scan alone, but the following patterns exist:
+The 17 pages at `/tools/[id]/` (e.g., `/tools/buffer`, `/tools/hootsuite`) each contain approximately 150–220 words: a tool name, a one-to-two sentence description, a pricing sentence, four to six feature bullet points, a star rating, and links to related tools. Google's threshold for indexing informational pages is generally 300–400 words of unique, useful content.
 
-- All tool page components that use `ToolLayout` are expected to render their own H1 — verify the `ToolLayout` wrapper doesn't render a duplicate H1.
-- Blog post pages render content from the `content` field in `lib/blog-posts.ts`. Each post starts with `# {title}` (Markdown H1) rendered as an HTML `<h1>` — these are unique. ✅
-- Confirm static pages (`/about`, `/contact`, `/faq`, `/privacy`, `/terms`) each have exactly one `<h1>` — these are standard layout pages, likely fine.
+**Recommendation:** Choose one of these three paths:
 
-### 2d. Images Without Alt Text
+1. **Expand each page** with 400+ words of editorial review, pros, cons, real use cases, and comparisons. This turns them into genuine "best X tool" ranking pages.
+2. **Add `robots: { index: false, follow: true }`** to `generateMetadata` in `app/tools/[id]/page.tsx` — removes them from Google's crawl queue and focuses crawl budget on live tools.
+3. **Consolidate** into a single `/tools/reviews` comparison page.
 
-- All OG images use `alt:` in the Next.js Metadata `images` array. ✅
-- Next.js `<Image>` components require `alt` — build will fail without it. ✅
-- Check `app/page.tsx` for any direct `<img>` tags (non-Next.js Image) that may lack `alt`. One `<Image>` import is used on the homepage. ✅
-- Blog posts render Markdown content — images embedded in `content` strings should use `![alt](src)` syntax. Verify image embeds exist in longer posts (post #7, #8).
+### Duplicate and Near-Duplicate Content
 
-### 2e. Schema / Structured Data Coverage
+| Issue | Files Affected | Fix |
+|-------|---------------|-----|
+| Near-duplicate meta descriptions | `finance/mortgage-calculator/layout.tsx` and one other file share nearly identical descriptions | Add unique details per page |
+| Title/OG title mismatch | `app/blog/layout.tsx` — `title` and `og:title` are different strings | Align both to the same value |
+| Same meta description appearing twice | "Free concrete calculator for slabs, footings, and columns." found in 2 layout files | Differentiate with unique copy |
 
-| Page | Schema Type | Status |
-|------|------------|--------|
-| `/` (homepage) | Organization, WebSite (SiteLinksSearchBox), Author | ✅ |
-| `/tools` | CollectionPage, BreadcrumbList | ✅ |
-| `/tools/social-media` | CollectionPage, BreadcrumbList | ✅ |
-| `/tools/instagram-tools` | CollectionPage, BreadcrumbList, ItemList | ✅ |
-| `/tools/youtube-tools` | CollectionPage, BreadcrumbList, ItemList | ✅ |
-| `/tools/image-tools` | CollectionPage, BreadcrumbList, ItemList | ✅ |
-| `/tools/construction` | ItemList (12 tools), BreadcrumbList | ✅ |
-| `/tools/construction/concrete-calculator` | FAQPage, BreadcrumbList, WebApplication | ✅ |
-| `/tools/construction/lumber-calculator` | FAQPage, BreadcrumbList, WebApplication | ✅ |
-| `/tools/construction/drywall-estimator` | FAQPage, BreadcrumbList, WebApplication | ✅ |
-| `/tools/construction/stair-calculator` | FAQPage, BreadcrumbList, WebApplication | ✅ |
-| `/tools/construction/roof-pitch-calculator` | FAQPage, BreadcrumbList, WebApplication | ✅ |
-| `/tools/construction/{paint,flooring,tile,sq-ft,roofing,fence,mulch}` | FAQPage + BreadcrumbList ✅ added this session | ✅ |
-| `/tools/finance/mortgage-calculator` | FAQPage, WebApplication | ✅ |
-| `/tools/finance/compound-interest-calculator` | FAQPage, WebApplication | ✅ |
-| `/tools/health-fitness/bmi-calculator` | FAQPage, WebApplication | ✅ |
-| `/tools/education/gpa-calculator` | FAQPage, WebApplication | ✅ |
-| `/blog/[slug]` | BlogPosting (via `getEnhancedArticleSchema`) + BreadcrumbList | ✅ |
-| `/blog` | CollectionPage | ✅ (consider adding ItemList of posts) |
-| `/faq` | FAQPage | ✅ |
-| `/about` | Organization | ✅ |
-| `/author` | Person | ✅ |
-| `/ai-directory` | ItemList | ✅ |
-| `/ai-directory/[slug]` | SoftwareApplication | ✅ |
-| `/tools/[id]` (review pages) | WebApplication only | ⚠️ No BreadcrumbList |
-| `/projects` | None | ⚠️ Consider CreativeWork or Person |
-| Social tool pages (50 pages via `generateMetadataForTool`) | WebApplication via `seo-metadata.ts` | ✅ Verify `siteName` resolves correctly inside this function |
+### Image Alt Text Gaps
+
+These are dynamic preview images rendered at runtime — static content images are fine throughout the codebase.
+
+| File | Context | Fix |
+|------|---------|-----|
+| `app/tools/image-upscaler/page.tsx` (3 instances) | Before/after preview images | `alt="Original image"` / `alt="Upscaled image preview"` |
+| `app/tools/instagram-filters/page.tsx` | Filter preview canvas | `alt={filterName + " filter preview"}` |
+| `app/tools/instagram-photo-downloader/page.tsx` (2 instances) | Downloaded media previews | Dynamic alt from post metadata |
+| `app/tools/open-graph-generator/page.tsx` | OG preview image | `alt="Open Graph image preview"` |
+| `app/tools/instagram-post-generator/page.tsx` (3 instances) | Post canvas previews | Contextual alt from post data |
 
 ---
 
 ## Section 3 — Internal Linking Audit
 
-### 3a. Site Link Map
+### Orphan and Under-Linked Pages
 
-```
-/ (Homepage)
-├── /tools                           ✅ Nav + CTA
-│   ├── /tools/social-media          ✅ Hub → 51 tool cards
-│   │   └── 51 individual tool pages ✅ (each linked from hub grid)
-│   ├── /tools/instagram-tools       ✅ Hub (linked from /tools)
-│   ├── /tools/youtube-tools         ✅ Hub (linked from /tools)
-│   ├── /tools/image-tools           ✅ Hub (linked from /tools)
-│   ├── /tools/construction          ✅ Hub (linked from /tools + homepage)
-│   │   └── 12 calculators           ✅ linked from hub grid
-│   │       └── cross-links (editorial body)  ✅ ADDED this session for 7 tools
-│   ├── /tools/finance               ✅ Hub (linked from /tools)
-│   │   ├── /tools/finance/mortgage-calculator       ✅ hub grid + editorial cross-link
-│   │   └── /tools/finance/compound-interest-calculator  ✅ hub grid + editorial cross-link
-│   │       └── cross-link between the two           ✅ ADDED this session
-│   ├── /tools/health-fitness        ✅ Hub
-│   │   └── /tools/health-fitness/bmi-calculator     ✅ hub grid only
-│   └── /tools/education             ✅ Hub
-│       └── /tools/education/gpa-calculator          ✅ hub grid only
-│           └── links from blog or homepage           ⚠️ MISSING
-├── /ai-directory                    ✅ Nav
-│   └── /ai-directory/[slug]         ✅ linked from directory grid
-├── /blog                            ✅ Nav
-│   └── /blog/[slug]                 ✅ linked from blog listing
-├── /faq                             ✅ Footer
-├── /about                           ✅ Footer
-│   └── /author                      ⚠️ NOT linked from /about (orphan risk)
-├── /contact                         ✅ Footer
-├── /privacy                         ✅ Footer
-├── /terms                           ✅ Footer
-└── /projects                        ⚠️ Only nav/footer; thin page
-```
+| Page | Inbound Nav/Footer Links | Status | Recommended Fix |
+|------|--------------------------|--------|-----------------|
+| `/tools/construction` | **0** | Orphan — Critical | Add to footer "Tool Categories" column |
+| `/projects` | **0** | Orphan | Add to footer "Company" column |
+| `/tools/education` | **0** (footer doesn't include it) | Under-linked | Add to footer or homepage category cards |
+| `/ai-directory/submit` | 1 (from `/ai-directory` only) | Low | Add a subtle link in footer or on the author page |
+| `/tools/image-tools` | Linked from homepage + `/tools` page | ✅ Fine | — |
+| `/tools/instagram-tools` | Linked from homepage + `/tools` page | ✅ Fine | — |
+| Individual `/tools/[tool]/` pages | Linked from their category hub page | ✅ Fine | — |
 
-### 3b. Orphan and Under-Linked Pages
+### Broken Internal Links
 
-| Page | Current Inbound Links | Problem | Fix |
-|------|-----------------------|---------|-----|
-| `/author` | Blog post bylines only | Not linked from `/about` — near-orphan | Add "Meet the author →" link in `/about` page |
-| `/tools/construction/flooring-calculator` | Hub grid + RelatedCategoryTools + cross-link → sq-ft | No longer under-linked | — |
-| `/tools/construction/square-footage-calculator` | Construction hub grid + RelatedCategoryTools | No longer under-linked | — |
-| `/tools/construction/mulch-calculator` | Hub grid + RelatedCategoryTools | No longer under-linked | — |
-| `/tools/construction/roofing-calculator` | Hub grid + RelatedCategoryTools + cross-link → roof-pitch | No longer under-linked | — |
-| `/tools/construction/fence-calculator` | Hub grid + RelatedCategoryTools + cross-link → concrete | No longer under-linked | — |
-| `/tools/construction/paint-calculator` | Hub grid + RelatedCategoryTools + cross-link → sq-ft | No longer under-linked | — |
-| `/tools/finance/compound-interest-calculator` | Finance hub grid + cross-link → mortgage | No longer under-linked | — |
-| `/tools/finance/mortgage-calculator` | Finance hub grid + cross-link → compound interest | No longer under-linked | — |
-| `/projects` | Footer/nav only | Thin page, minimal content, borderline indexed | Either expand content or set lower priority |
+No broken static hrefs were detected. The `/tools/[id]` dynamic route covers all 17 `socialMediaTools` IDs via `generateStaticParams`. No 404-risk internal links found.
 
-### 3c. Broken Internal Links
+### Pages With Too Many Outgoing Links
 
-**None found.** All `path` entries in `lib/social-tools.ts`, `lib/category-tools.ts`, and `lib/tool-categories.ts` map to existing `app/tools/[slug]/` directories confirmed by `list_dir`.
+No pages were found with more than 100 outgoing links. The `/tools` hub links to ~12 category pages; individual hub pages link to 10–15 sub-tools. All within safe limits.
 
-The two disabled tools (`/tools/background-remover`, `/tools/ai-image-generator`) are removed from all navigation arrays and are `noindex` — ✅ no dangling links.
+### Internal Linking Priority Map
 
-The removed blog post `/blog/apple-new-ceo-john-ternus-tim-cook-stepping-down` has a 301 redirect in `next.config.ts` pointing to `/blog`. ✅
-
-### 3d. Pages With Too Few Outgoing Links
-
-| Page | Outgoing Internal Links | Issue |
-|------|------------------------|-------|
-| `/tools/construction/{7 newer tools}` | RelatedCategoryTools component only | No editorial body cross-links |
-| `/tools/finance/mortgage-calculator` | RelatedCategoryTools only | No link to compound interest |
-| `/tools/finance/compound-interest-calculator` | RelatedCategoryTools only | No link to mortgage |
-| `/blog/5-free-tools-*` | 0 contextual tool links | Thin and no CTAs |
-| `/blog/ultimate-guide-social-media-content-planning` | 1 tool link | Could have 3–4 |
-| `/faq` | Footer/nav links only | FAQ answers mention tools but don't link to them |
-
-### 3e. Recommended Cross-Links with Anchor Text
-
-| Source Page | Add Link To | Anchor Text | Status |
-|-------------|-------------|-------------|--------|
-| `/tools/construction/flooring-calculator` | `/tools/construction/square-footage-calculator` | "calculate your room's square footage" | ✅ Added |
-| `/tools/construction/paint-calculator` | `/tools/construction/square-footage-calculator` | "measure your wall area first" | ✅ Added |
-| `/tools/construction/tile-calculator` | `/tools/construction/square-footage-calculator` | "find your room's square footage" | ✅ Added |
-| `/tools/construction/roofing-calculator` | `/tools/construction/roof-pitch-calculator` | "calculate your roof pitch" | ✅ Added |
-| `/tools/construction/fence-calculator` | `/tools/construction/concrete-calculator` | "estimate concrete for post holes" | ✅ Added |
-| `/tools/construction/mulch-calculator` | `/tools/construction/square-footage-calculator` | "calculate your garden bed area" | ⚠️ Not yet added |
-| `/tools/finance/mortgage-calculator` | `/tools/finance/compound-interest-calculator` | "see how compound interest grows your savings" | ✅ Added |
-| `/tools/finance/compound-interest-calculator` | `/tools/finance/mortgage-calculator` | "free mortgage calculator" | ✅ Added |
-| `/blog/instagram-hashtag-strategy-2026` | `/tools/hashtag-generator` | "free Instagram Hashtag Generator" |
-| `/blog/how-to-create-viral-twitter-content` | `/tools/tweet-generator` | "free AI Tweet Generator" |
-| `/faq` | Relevant tool pages (5–6) | Inline within FAQ answers |
-| `/about` | `/author` | "Meet the author →" |
+| From | To | Anchor Text |
+|------|----|-------------|
+| Footer "Tool Categories" | `/tools/construction` | "Construction calculators" |
+| Footer "Tool Categories" | `/tools/education` | "Education tools" |
+| Footer "Company" | `/projects` | "Projects" |
+| `/tools/instagram-tools` | `/tools/hashtag-generator`, `/tools/caption-templates`, `/tools/bio-link-generator` | "Hashtag Generator", "Caption Templates", "Bio Link Generator" |
+| `/tools/youtube-tools` | `/tools/youtube-tag-generator`, `/tools/youtube-thumbnail`, `/tools/youtube-money-calculator` | "YouTube Tag Generator", "Thumbnail Downloader", "Money Calculator" |
+| Blog posts (all) | Relevant tool pages inline in body copy | Contextual — e.g. a hashtag strategy post should link to `/tools/hashtag-generator` |
+| `/faq` | `/tools/tweet-generator`, `/tools/hashtag-generator` | "free tweet generator", "hashtag generator" |
+| `/about` | `/ai-directory`, `/tools` | "AI tools directory", "free social media tools" |
 
 ---
 
 ## Section 4 — Backlink & Authority Readiness
 
-### 4a. Most Link-Worthy Pages (Natural Backlink Targets)
+### Most Link-Worthy Pages
 
-| Page | Why Attractive | Readiness |
-|------|---------------|-----------|
-| `/tools/social-media-image-sizes` | Only free 2026-updated reference for all major platforms; very linkable from creator blogs | ✅ Excellent — ItemList schema, canonical, OG |
-| `/ai-directory` | 178-tool directory with verified pros/cons — editorial-quality resource | ✅ Excellent |
-| `/tools/construction/roofing-calculator` | Multi-shape calculator with material cost tables — linkable from contractor blogs | ✅ Good |
-| `/tools/construction/fence-calculator` | Post spacing + material + depth guide | ✅ Good |
-| `/tools/construction/mulch-calculator` | Bulk vs. bagged comparison + cubic yard charts | ✅ Good |
-| `/tools/finance/mortgage-calculator` | Amortization table, PITI breakdown, PDF export | ✅ Good |
-| `/tools/hashtag-generator` | Free AI hashtag tool — regularly linked from creator tutorial blogs | ✅ Good |
-| `/tools/instagram-tools` | Resource hub — naturally linked from "best Instagram tools" roundups | ✅ Good |
-| `/blog/complete-guide-instagram-reels-2026` | 1200+ words, comprehensive guide | ✅ Good |
-| `/tools/video-to-gif` | Browser-based converter — niche but highly linkable from design blogs | ✅ Good |
+| Page | Why Link-Worthy | Schema | Gap |
+|------|----------------|--------|-----|
+| `/tools/tweet-generator` | High utility, widely searched | ❌ Missing WebApplication | No editorial copy to hook links |
+| `/tools/hashtag-generator` | Evergreen, broadly useful | ❌ Missing | Same as above |
+| `/tools/construction/*` | Unique free tools for contractors | ✅ HowTo/ItemList | Add more explanatory copy per calculator |
+| `/faq` | Featured snippet and roundup link target | ✅ FAQPage | Expand to 20+ questions |
+| `/blog/*` | Content marketing — primary link attractor | ✅ BlogPosting | Only 21 posts; more = more links |
+| `/ai-directory` | Curated directory is a natural link magnet for AI newsletters | ✅ ItemList | Excellent as-is |
+| `/tools/finance/mortgage-calculator` | Widely linked-to tool type | ✅ Present | Add explanatory content sections |
+| `/tools/health-fitness/bmi-calculator` | Health blogs frequently link to BMI tools | ✅ Present | Good — keep editorial content high-quality |
 
-### 4b. Pages Needing More Content Before They Can Attract Links
+### Open Graph & Twitter Card Coverage
 
-| Page | Current State | Needed |
-|------|--------------|--------|
-| `/tools/analytics-calculator` | Calculation UI only | 200-word methodology + benchmarks |
-| `/tools/best-time-calculator` | UI only | Per-platform timing data table |
-| `/tools/bio-link-generator` | UI only | Example bios + best practices section |
-| `/tools/color-palette` | UI only | Use-case examples |
-| `/blog/5-free-tools-*` | 250 words | Expand to 500+ or consolidate with another post |
-| `/blog/ultimate-guide-social-media-content-planning` | 350 words | Expand to 800+ words |
-| `/projects` | ~150 words | Add project descriptions or remove from sitemap |
+| Section | OG/Twitter Status |
+|---------|-----------------|
+| Root layout (fallback for all pages) | ✅ |
+| Homepage | ✅ Dynamic `getOGImageUrl("home")` |
+| 55 live tool pages | ✅ via `generateMetadataForTool` |
+| Blog posts | ✅ Per-post OG |
+| AI directory pages | ✅ Per-tool OG |
+| Construction/finance/health calculators | ✅ Per-layout |
+| `/tools/[id]` review pages | ⚠️ Hardcoded to `og-default.png` instead of `getOGImageUrl()` |
+| `/about`, `/contact`, `/faq`, `/projects` | ✅ |
 
-### 4c. Open Graph + Twitter Card Status
+**Overall OG coverage: ~98% — Excellent**
 
-| Status | Pages |
-|--------|-------|
-| ✅ Full OG + Twitter Card + siteName: "AISocialTools" | All 51 social tool layouts, all 12 construction tools, 2 finance tools, BMI, GPA, blog posts, AI directory, about, contact, author, privacy, terms, faq, blog hub, projects |
-| ✅ robots metadata present | All live tool layouts, homepage |
-| ✅ siteName fully normalised | `lib/seo-metadata.ts` `generateMetadataForTool()` fixed this session; 0 remaining stale instances |
-| ✅ OG + Twitter added | `app/projects/page.tsx` — fixed this session |
+### Canonical Tag Coverage
 
-### 4d. Canonical Tag Audit
+| Group | Status |
+|-------|--------|
+| Homepage | ✅ Explicit |
+| 55 live social tool pages | ✅ Verified in `lib/seo-metadata.ts` line 1737 |
+| Construction calculators | ✅ Explicit in each layout |
+| Finance / health / education calculators | ✅ Explicit in each layout |
+| Hub pages (image/instagram/youtube-tools) | ✅ Present — but uses `const URL` variable (rename recommended) |
+| Blog listing + blog posts | ✅ Explicit in layout / dynamic |
+| AI directory pages | ✅ Dynamic per slug |
+| `/tools/[id]` review pages | ✅ Dynamic |
+| `/about`, `/author`, `/contact`, `/projects` | ⚠️ Relies on metadataBase auto-generation — functional but not explicit |
+| `/privacy`, `/terms` | ✅ Explicit |
 
-| Status | Detail |
-|--------|--------|
-| ✅ `metadataBase` set | `app/layout.tsx` sets `metadataBase: new URL("https://aisocialtools.co")` — relative canonical URLs resolve correctly site-wide |
-| ✅ All live tool layouts | Each has `alternates: { canonical: "https://aisocialtools.co/tools/..." }` |
-| ✅ Homepage | `alternates: { canonical: "https://aisocialtools.co" }` |
-| ✅ All hub layouts | Canonical set correctly |
-| ✅ Blog posts | `canonical: \`https://aisocialtools.co/blog/${post.slug}\`` set dynamically |
-| ⚠️ `tools/[id]` dynamic pages | Canonical set in `generateMetadata` — verify it doesn't conflict with a parent layout canonical |
-| ⚠️ noindex coming-soon pages | All have canonical set despite being noindex — harmless but adds unnecessary signals |
-| ✅ Trailing slash redirects | `next.config.ts` and `netlify.toml` both include 301 redirect for `/:path+/` → `/:path+` |
+### JSON-LD Schema Coverage
+
+| Page / Group | Schema Present | Type | Action Needed |
+|-------------|---------------|------|---------------|
+| Homepage | ✅ | Organization, WebSite (SiteLinks), FAQPage, Person | None |
+| `/tools` | ✅ | CollectionPage + BreadcrumbList | None |
+| `/tools/construction` hub | ✅ | ItemList | None |
+| All 11 construction calculators | ✅ | HowTo / calculator schema | None |
+| `/tools/finance/*` | ✅ | Present | None |
+| `/tools/health-fitness/bmi-calculator` | ✅ | Present | None |
+| `/tools/education/gpa-calculator` | ✅ | Present | None |
+| `/blog` | ✅ | Blog + BlogPosting (top 10) | None |
+| `/blog/[slug]` (21 posts) | ✅ | BlogPosting with author | None |
+| `/faq` | ✅ | FAQPage | Expand question count |
+| `/about`, `/author` | ✅ | Person | None |
+| `/ai-directory` | ✅ | ItemList | None |
+| `/ai-directory/[slug]` (177 pages) | ✅ | SoftwareApplication | None |
+| `/contact` | ✅ | Present | None |
+| `/projects` | ✅ | Present | None |
+| **55 live social tool pages** | ❌ | **None** | **Add WebApplication schema — highest priority** |
+| **17 `/tools/[id]` review pages** | ❌ | None | Add `Review` + `SoftwareApplication` schema |
+| `/privacy`, `/terms` | ❌ | None | Not required — skip |
+
+#### Recommended Schema for the 55 Tool Pages
+
+Add this to the shared `ToolLayout` component or to `generateMetadataForTool`:
+
+```tsx
+const toolSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  name: tool.name,
+  url: `https://aisocialtools.co${tool.path}`,
+  description: tool.description,
+  applicationCategory: "UtilitiesApplication",
+  operatingSystem: "Web Browser",
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "USD"
+  },
+  featureList: tool.features?.join(", ")
+};
+```
 
 ---
 
-## Section 5 — Robots.txt & Crawl Configuration
+## Section 5 — Robots.txt & Crawl Configuration Audit
 
-### 5a. Robots.txt Analysis (Current State after This Session)
+### robots.ts — Issues Found
 
-**Rendered output from `app/robots.ts`:**
+**Issue 1 — `/_next/` disallow inconsistency**
+The wildcard `*` rule disallows `/_next/` but the Googlebot and Bingbot specific rules do not include this disallow. The result is inconsistent behavior across bots. Next.js static assets at `/_next/static/` must be crawlable for Google to fully render your pages. Remove `/_next/` from the `*` rule.
 
+**Issue 2 — `/search` blocked but does not exist**
+`app/search/` directory was confirmed not to exist. This rule adds noise and could conflict if you add a search route in the future. Remove it.
+
+**Issue 3 — SEO tools blocked**
+`AhrefsBot`, `SemrushBot`, `DotBot`, `MJ12bot`, and `Screaming Frog` are blocked with `disallow: /`. This prevents you from running your own backlink audits, rank tracking, and technical SEO checks in these tools. They do not affect Google rankings. Remove this block.
+
+**Sitemap Declaration: ✅ Correct**
 ```
-User-agent: *
-Allow: /
-Disallow: /api/
-Disallow: /_next/
-Disallow: /admin/
-Disallow: /private/
-Disallow: /profile/
-Disallow: /search
-
-User-agent: Googlebot
-Allow: /
-Disallow: /api/
-Disallow: /admin/
-Disallow: /private/
-Disallow: /profile/           ← ✅ Present
-
-User-agent: Bingbot
-Allow: /
-Disallow: /api/
-Disallow: /admin/
-Disallow: /private/
-Disallow: /profile/           ← ✅ Present
-
-User-agent: GPTBot
-Allow: /                      ← ⚠️ Explicit allow list in current code; new tool pages auto-blocked
-Allow: /tools
-Allow: /blog
-Disallow: /api/
-Disallow: /admin/
-Disallow: /private/
-Disallow: /profile/
-
-User-agent: ChatGPT-User
-(same as GPTBot above)
-
-User-agent: YandexBot
-Allow: /
-Disallow: /api/
-Disallow: /admin/
-Disallow: /private/
-Disallow: /profile/
-
-User-agent: DuckDuckBot
-Allow: /
-Disallow: /api/
-Disallow: /admin/
-Disallow: /private/           ← ⚠️ Missing /profile/ disallow
-
-User-agent: baiduspider
-Allow: /
-Disallow: /api/
-Disallow: /admin/
-Disallow: /private/           ← ⚠️ Missing /profile/ disallow
-
-User-agent: AhrefsBot, SemrushBot, DotBot, MJ12bot, Screaming Frog
-Disallow: /
-
-Sitemap: https://aisocialtools.co/sitemap.xml   ✅
+Sitemap: https://aisocialtools.co/sitemap.xml
 ```
 
-**Issues:**
+### Sitemap Analysis (`app/sitemap.ts`)
 
-| Issue | Severity | Fix |
-|-------|----------|-----|
-| GPTBot uses allow-list `[/, /tools, /blog]` — any new tool route outside these isn't covered | ⚠️ Warning | Change to `allow: '/'` + targeted disallows |
-| ChatGPT-User same issue | ⚠️ Warning | Same fix |
-| DuckDuckBot and baiduspider missing `/profile/` disallow | ⚠️ Warning | Add `/profile/` to both |
-| `Screaming Frog` blocked — you may want to allow your own audits | ℹ️ Info | Intentional; document this |
-| `host:` directive was removed this session ✅ | — | Done |
+| Check | Status | Notes |
+|-------|--------|-------|
+| Homepage at priority 1.0 | ✅ | Correct |
+| `lastModified` present and using static date groups | ✅ | Avoids false "modified today" signals |
+| `changeFrequency` set appropriately | ✅ | Daily for homepage/tools, weekly for tools, monthly for static pages |
+| Hub pages included without duplication | ✅ | Hub paths not present in `socialTools` — no duplicate entries |
+| Noindex pages excluded | ✅ | cooking, developer, everyday, file-tools, location, math, real-estate, science all excluded |
+| AI directory filtered to approved only | ✅ | 177 approved pages included |
+| Blog posts ordered by featured flag | ✅ | Featured posts appear first |
+| `/tools/[id]` review pages included at priority 0.7 | ✅ | Appropriate given content depth |
+| Removed blog post has 301 redirect | ✅ | `/blog/apple-new-ceo-john-ternus...` → `/blog` in `next.config.ts` |
+| `/tools/education` in sitemap at priority 0.82 | ⚠️ | Marked `robots: { index: true }` and included — but page renders "coming soon" content. Verify this is intentional. |
+| 177 AI directory pages all at priority 0.8 | ⚠️ | Equalizes them with featured blog posts — lower to 0.65 |
 
-### 5b. Sitemap Analysis (`app/sitemap.ts`)
+### next.config.ts — Headers Review
 
-| Check | Status | Detail |
-|-------|--------|--------|
-| Sitemap declared in robots.txt | ✅ | `https://aisocialtools.co/sitemap.xml` |
-| Homepage priority 1.0 | ✅ | |
-| `/tools` priority 0.95 | ✅ | |
-| All 16 live category tools included | ✅ | Via `categoryTools` array at priority 0.88 |
-| All 51 active social tools included | ✅ | Via `socialTools` array at priority 0.9 |
-| Blog posts with real dates | ✅ | Uses `post.updatedAt ?? post.publishedAt` |
-| AI directory pages (approved only) | ✅ | Filtered by `t.approved` |
-| `/tools/real-estate` | ⚠️ Warning | **noindex page still in `staticPages`** at priority 0.6 — conflicting signal |
-| `/tools/developer` | ⚠️ Warning | **Same — noindex page still in sitemap** |
-| `/tools/file-tools` | ✅ | Now `noindex` — BUT verify it was also removed from sitemap (not in `staticPages`, but `toolCategoryHubs` status is "coming-soon"; confirm it doesn't get pulled in) |
-| Coming-soon placeholders (everyday, cooking, math, etc.) | ✅ | Not in `staticPages` — safe |
-| `lastModified` accuracy | ⚠️ Warning | All non-blog pages use `new Date()` at build time — Google sees every page as "modified today" on every deploy, which dilutes freshness signals |
-| Priority hierarchy | ✅ | Homepage 1.0 > /tools 0.95 > social-media 0.93 > ai-directory 0.92 > hubs 0.88 > tools 0.9 > blogs 0.8–0.9 |
-| toolReviewPages (`/tools/${id}`) | ⚠️ Warning | These are third-party tool review pages from `lib/tools.ts` (Buffer, Hootsuite etc.) at priority 0.7 — verify these pages return real content and aren't thin stubs |
+| Header | Value | Status |
+|--------|-------|--------|
+| `X-Frame-Options: SAMEORIGIN` | Clickjacking protection | ✅ |
+| `Strict-Transport-Security` | `max-age=31536000; includeSubDomains; preload` | ✅ |
+| `Cache-Control` for HTML | `public, max-age=0, must-revalidate` | ✅ Correct for Next.js SSR |
+| `Cache-Control` for `/_next/static/*` | `max-age=31536000, immutable` | ✅ |
+| CSP `connect-src` | Missing `https://pagead2.googlesyndication.com` | ⚠️ AdSense XHR may be blocked in strict mode |
+| `X-Robots-Tag` headers | Not present | ✅ Correct; noindex handled in metadata |
 
-### 5c. Conflicting noindex + Sitemap Entries
+**No `noindex` headers found on pages that should be indexed.** All noindex pages use the Next.js metadata API correctly.
 
-| URL | noindex? | In Sitemap? | Impact | Fix |
-|-----|---------|-------------|--------|-----|
-| `/tools/real-estate` | ✅ `index: false` | ⚠️ **YES** — `staticPages` | Conflicting signal, wastes crawl budget | **Remove from `staticPages`** |
-| `/tools/developer` | ✅ `index: false` | ⚠️ **YES** — `staticPages` | Same | **Remove from `staticPages`** |
-| `/tools/ai-image-generator` | ✅ `index: false` | ✅ Not in sitemap (removed from `socialTools`) | Safe | — |
-| `/tools/background-remover` | ✅ `index: false` | ✅ Not in sitemap | Safe | — |
+### netlify.toml — Redirect Audit
 
-### 5d. Next.config.ts + netlify.toml Review
-
-| Rule | Status | Detail |
-|------|--------|--------|
-| Trailing slash 301 | ✅ | In both `next.config.ts` and `netlify.toml` |
-| Old Netlify domain → canonical domain 301 | ✅ | `socialmediatools.netlify.app` → `aisocialtools.co` |
-| www → non-www 301 | ✅ | |
-| http → https 301 | ✅ | |
-| Removed blog post 301 | ✅ | `next.config.ts` redirects `/blog/apple-new-ceo-*` → `/blog` |
-| CSP allows Google Analytics | ✅ | Script-src includes `googletagmanager.com` |
-| Global `Cache-Control: immutable` | ⚠️ Info | Set for ALL routes (`/:path*`), including HTML pages — HTML pages should not be `immutable`. The `.html` override rule exists but may not trigger for Next.js SSG pages without `.html` extension |
-| `x-robots-tag` headers | ✅ | No noindex x-robots headers found in netlify.toml or next.config.ts |
-
----
-
-## Full Issue Table
-
-| Page / File | Issue Type | Severity | Recommended Fix |
-|-------------|-----------|----------|-----------------|
-| `app/sitemap.ts` — `staticPages` | ✅ `/tools/real-estate` already excluded (commented out) | — | — |
-| `app/sitemap.ts` — `staticPages` | ✅ `/tools/developer` already excluded (commented out) | — | — |
-| `/blog/5-free-tools-transform-social-media-workflow` | ✅ Expanded to ~550 words — **FIXED this session** | — | — |
-| `app/robots.ts` — GPTBot rule | ✅ Already uses `allow: '/'` with targeted disallows — verified in code | — | — |
-| `app/robots.ts` — ChatGPT-User | ✅ Already uses `allow: '/'` with targeted disallows — verified in code | — | — |
-| `app/robots.ts` — DuckDuckBot | ✅ `/profile/` already in disallow array — verified in code | — | — |
-| `app/robots.ts` — baiduspider | ✅ `/profile/` already in disallow array — verified in code | — | — |
-| `app/sitemap.ts` — all non-blog pages | ✅ Static date groups `CONTENT_REFRESHED` / `STATIC_PAGE_DATE` / `LEGAL_PAGE_DATE` — **FIXED this session** | — | — |
-| `/tools/construction/{7 newer tools}` | ✅ BreadcrumbList JSON-LD added to all 7 pages — **FIXED this session** | — | — |
-| `/tools/[id]` dynamic review pages | ✅ BreadcrumbList JSON-LD added (Home → Tools → tool name) — **FIXED this session** | — | — |
-| `/tools/construction/flooring-calculator` | ✅ Cross-link to sq-ft-calculator added | — | — |
-| `/tools/construction/paint-calculator` | ✅ Cross-link to sq-ft-calculator added | — | — |
-| `/tools/construction/tile-calculator` | ✅ Cross-link to sq-ft-calculator added | — | — |
-| `/tools/construction/roofing-calculator` | ✅ Cross-link to roof-pitch-calculator added | — | — |
-| `/tools/construction/fence-calculator` | ✅ Cross-link to concrete-calculator added | — | — |
-| `/tools/construction/mulch-calculator` | ✅ Cross-link to sq-ft-calculator added — **FIXED this session** | — | — |
-| `/tools/finance/mortgage-calculator` | ✅ Cross-link to compound-interest-calculator added | — | — |
-| `/tools/finance/compound-interest-calculator` | ✅ Cross-link to mortgage-calculator added | — | — |
-| `/about` | ✅ "About the author" ButtonLink to `/author` already present | — | — |
-| `/blog/ultimate-guide-social-media-content-planning` | ✅ Expanded to ~900 words — **FIXED this session** | — | — |
-| `app/projects/page.tsx` | ✅ OG + Twitter Card added — **FIXED this session** | — | — |
-| `lib/seo-metadata.ts` → `generateMetadataForTool()` | ✅ `siteName: "AISocialTools"` corrected — **FIXED this session** | — | — |
-| `/tools/analytics-calculator` | ✅ "How to use" + KPI definitions + benchmarks table added — **FIXED this session** | — | — |
-| `/tools/best-time-calculator` | ✅ Per-platform timing table + "Why timing matters" section added — **FIXED this session** | — | — |
-| `/tools/bio-link-generator` | ✅ "What is a bio link", step-by-step guide + best practices added — **FIXED this session** | — | — |
-| `next.config.ts` headers | ✅ `immutable` restricted to `/_next/static/*`; global rule changed to `must-revalidate` — **FIXED this session** | — | — |
-| `/tools/[id]` review pages (`lib/tools.ts`) | Verify pages have real content; risk of thin stubs | ℹ️ Info | Check each renders meaningful tool review |
-| `app/robots.ts` — Screaming Frog | Blocked by default — may block your own future audits | ℹ️ Info | Document as intentional or remove |
-| `/faq` | ✅ Inline `<Link>` tags added to 4 answers (tools hub, contact page) — **FIXED this session** | — | — |
-| Blog posts 2–6 | ✅ Inline markdown tool links added to posts #2, #3, #5 — **FIXED this session** | — | — |
-| `/tools/color-palette`, `/tools/emoji-picker` | ✅ "How to use" + use-cases/best-practices sections added — **FIXED this session** | — | — |
-| `/tools/content-calendar` | ✅ Weekly workflow guide + posting frequency table added — **FIXED this session** | — | — |
-| `/projects` | ✅ Page has 6 real project cards; sitemap priority raised 0.35 → 0.6 — **FIXED this session** | — | — |
-| Sitemap `toolReviewPages` (`/tools/buffer`, etc.) | Verify these return real content | ℹ️ Info | Check `app/tools/[id]/page.tsx` renders from `lib/tools.ts` |
+| Redirect Rule | Status | Notes |
+|--------------|--------|-------|
+| `socialmediatools.netlify.app` → `aisocialtools.co` (301) | ✅ | Correct domain migration SEO |
+| `www.aisocialtools.co` → `aisocialtools.co` (301) | ✅ | Canonical domain enforced |
+| `http://` → `https://` (301) | ✅ | HTTPS enforced |
+| Trailing slash `/:path+/` → `/:path+` (301) | ⚠️ **Duplicate** | Same rule in `next.config.ts` creates a redirect chain. Remove from `netlify.toml`. |
 
 ---
 
 ## Action Plan (Prioritized)
 
-### 1. Critical — Do Today
+### 🔴 Critical Fixes — Do Immediately
 
-**1.1 Remove noindex pages from sitemap** (`app/sitemap.ts`)
+**1. Fix `blog/page.tsx` — Remove `"use client"` from the page level**
 
-Delete these two entries from `staticPages` — noindex pages that remain in the sitemap send a conflicting signal to Google:
-```ts
-// DELETE both:
-{ url: `${baseUrl}/tools/real-estate`, ... },
-{ url: `${baseUrl}/tools/developer`, ... },
+The blog listing renders 21 post cards entirely in JavaScript. Google may see a near-blank shell. Extract the search/filter state into a separate client component and keep the outer page as a Server Component.
+
+```tsx
+// app/blog/page.tsx — remove "use client" from top of file
+// Move useState + useMemo search logic into:
+// app/blog/BlogFilterClient.tsx  ← "use client"
+// Import and render it inside the server component
 ```
 
-**1.2 Fix GPTBot / ChatGPT-User allow rules** (`app/robots.ts`)
+**2. Remove the duplicate H1 on all 21 blog posts (`app/blog/[slug]/page.tsx`)**
 
-Current code has an explicit allow-list. Any new tool page added outside `/tools` won't be covered:
-```ts
-// Replace:
-{
-  userAgent: 'GPTBot',
-  allow: '/',
-  disallow: ['/api/', '/admin/', '/private/', '/profile/'],
-},
-{
-  userAgent: 'ChatGPT-User',
-  allow: '/',
-  disallow: ['/api/', '/admin/', '/private/', '/profile/'],
-},
-```
+Find both `<h1` occurrences in the file. The post title should be the only H1. Demote the secondary one to `<h2>`.
 
----
+**3. Remove the duplicate H1 on `bio-link-generator/page.tsx`**
 
-### 2. Important — This Week
+One `<h1>` per page — demote the secondary to `<h2>`.
 
-> ✅ **Already completed this session:** `lastModified` static dates, BreadcrumbList on 7 construction tools, all construction + finance cross-links, `siteName` fix, blog post #6 expansion, projects OG/Twitter.
+**4. Add `WebApplication` JSON-LD schema to all 55 live tool pages**
 
-**2.1 Add `/profile/` disallow to DuckDuckBot and baiduspider** (`app/robots.ts`)
+Fastest approach: add to the `ToolLayout` shared component so every page gets it automatically. Alternatively, add it inside `generateMetadataForTool` in `lib/seo-metadata.ts`. This is one code change that fixes 55 pages simultaneously.
+
+**5. Fix `background-remover` `follow: false`**
 
 ```ts
-// DuckDuckBot:
-disallow: ['/api/', '/admin/', '/private/', '/profile/'],
-// baiduspider:
-disallow: ['/api/', '/admin/', '/private/', '/profile/'],
+// app/tools/background-remover/layout.tsx — change:
+robots: { index: false, follow: false }
+// to:
+robots: { index: false, follow: true }
 ```
 
-**2.2 Add cross-link from `/tools/construction/mulch-calculator` → square footage calculator**
+**6. Decide the fate of the 17 `/tools/[id]` thin review pages**
 
-The only construction cross-link not added this session. Add one sentence in the SEO section:
-> "Need to calculate your garden bed area first? Use our [square footage calculator](/tools/construction/square-footage-calculator)."
-
-**2.3 Add "Meet the author" link in `/about` → `/author`**
-
-The `/author` page has no inbound editorial links outside blog post bylines. Add one `<Link href="/author">Meet the author →</Link>` in `app/about/page.tsx`.
-
-**2.4 Expand blog post #7 (content-planning guide, ~350 words)**
-
-`/blog/ultimate-guide-social-media-content-planning` is borderline thin at ~350 words. Target 800+ words with a practical content calendar template section.
+If expanding: add 400+ words of editorial review per tool. If removing from index: add `robots: { index: false, follow: true }` inside the `generateMetadata` function in `app/tools/[id]/page.tsx`. Doing nothing guarantees "crawled – currently not indexed" in Search Console.
 
 ---
 
-### 3. Nice-to-Have — Next Sprint
+### 🟡 Important Fixes — Do This Week
 
-**3.1 Add content sections to thin tool pages**
+**7. Add `/tools/construction` to footer navigation**
 
-For `analytics-calculator`, `best-time-calculator`, `bio-link-generator`, `color-palette`, `emoji-picker`, `content-calendar` — add a 200-word "How it works" + use-case section below the tool UI.
+```tsx
+// components/Footer.tsx — add to tool categories:
+{ href: "/tools/construction", label: "Construction calculators" },
+```
 
-**3.2 Expand blog post #4 (content-planning guide)**
+**8. Align `blog/layout.tsx` title and OG title**
 
-- Post #7 (`/blog/ultimate-guide-social-media-content-planning`) → 800+ words with a full content calendar template
-- ~~Post #6 (5 Free Tools) → already expanded to ~550 words this session~~ ✅
+Change `openGraph.title` to match the `title` field exactly: `"Social Media Blog — Tips & Growth Strategies"`.
 
-**3.3 Fix global `Cache-Control: immutable` in `next.config.ts`**
+**9. Remove duplicate trailing-slash redirect from `netlify.toml`**
 
-The `/:path*` rule sets `Cache-Control: public, max-age=31536000, immutable` for ALL responses including HTML. HTML pages should never be `immutable`. Add an explicit override:
+Delete the `[[redirects]]` block that handles `/:path+/` → `/:path+`. This rule is already handled by `next.config.ts` and the duplication creates a redirect chain.
+
+**10. Trim page titles that exceed 60 characters**
+
+Priority order from worst to less bad:
+
+| Current title | Suggested trim |
+|--------------|----------------|
+| "Location & Travel Tools — Distance, Time Zones, Travel Cost & More (Coming Soon)" (83 chars) | "Location & Travel Tools — Distance, Time Zones & More" |
+| "File & PDF Tools — Convert, Compress, Merge, Edit PDFs & Images (Coming Soon)" (80 chars) | "File & PDF Tools — Convert, Compress & Merge" |
+| "Lumber Calculator — Free Board Feet, Framing & Sheet Goods Estimator" (69 chars) | "Lumber Calculator — Board Feet, Framing & Sheet Goods" |
+| "Flooring Calculator 2026 | Estimate Hardwood, Laminate, Tile & Carpet" (70 chars) | "Flooring Calculator — Hardwood, Laminate, Tile & Carpet" |
+| Homepage title (67 chars) | "Best Free Social Media Tools Online — No Signup Required 2026" |
+
+**11. Fix `robots.ts` — three changes**
+
 ```ts
-{ source: '/', headers: [{ key: 'Cache-Control', value: 'public, max-age=0, must-revalidate' }] },
-{ source: '/((?!_next/static).*)', headers: [{ key: 'Cache-Control', value: 'public, max-age=0, must-revalidate' }] },
+// Change 1: Remove /_next/ from wildcard rule
+disallow: ['/api/', '/admin/', '/private/', '/profile/'],  // remove /_next/ and /search
+
+// Change 2: Remove the /search disallow entry (route doesn't exist)
+
+// Change 3: Remove the entire AhrefsBot/SemrushBot/DotBot/MJ12bot/Screaming Frog block
 ```
-(Keep `immutable` only for `/_next/static/*` which already has its own rule.)
 
-**3.4 Add inline tool links to `/faq` answers**
+**12. Remove footer links to noindex pages**
 
-**3.5 Add BreadcrumbList to `/tools/[id]` review pages**
+In `components/Footer.tsx`, remove or replace:
+- `{ href: "/tools/file-tools", label: "File & PDF tools", badge: "Soon" }` — this page is noindex
+- `{ href: "/tools/location", label: "Location & travel", badge: "Soon" }` — this page is noindex
 
-**3.6 Consider adding ItemList of posts to `/blog` index page schema**
+Replace with `/tools/construction` and `/tools/education` (which are live and indexed).
 
----
+**13. Remove duplicate Google site verification tag from `app/layout.tsx`**
 
-## Quick Wins (Under 10 Minutes Each)
+```tsx
+// DELETE this line from <head> in app/layout.tsx:
+<meta name="google-site-verification" content="1MXsxJbLVHs_-NmpBgvIbP63OboURvFjZwN7Rjf6aVU" />
+// The metadata.verification.google export already handles this.
+```
 
-1. **Remove `real-estate` + `developer` from sitemap** — delete 2 entries in `app/sitemap.ts`. Eliminates noindex/sitemap conflict. *(~2 min)*
-
-2. **Fix GPTBot/ChatGPT-User to `allow: '/'`** — 4-line change in `app/robots.ts`. Ensures every new tool page is AI-crawlable. *(~2 min)*
-
-3. **Add `/profile/` disallow to DuckDuckBot and baiduspider** — 2 array additions in `app/robots.ts`. *(~1 min)*
-
-4. **Add mulch→square-footage cross-link** — one sentence + `<Link>` in `app/tools/construction/mulch-calculator/page.tsx`. Completes the full cross-link set. *(~2 min)*
-
-5. **Add "Meet the author" link in `/about`** — one `<Link href="/author">` tag. Rescues `/author` from near-orphan status. *(~2 min)*
+**14. Add `/projects` to footer navigation**
 
 ---
 
+### 🟢 Nice-to-Have Improvements
+
+**15. Add explicit canonical tags to `/about`, `/contact`, `/author`, `/projects`**
+
+metadataBase handles these correctly via auto-generation, but explicit canonicals are safer against future framework changes.
+
+**16. Rename `const URL` in three hub layout files**
+
+```ts
+// image-tools/layout.tsx, instagram-tools/layout.tsx, youtube-tools/layout.tsx
+// Change:
+const URL = "https://aisocialtools.co/tools/image-tools";
+// To:
+const CANONICAL_URL = "https://aisocialtools.co/tools/image-tools";
+// And update alternates: { canonical: CANONICAL_URL }
+```
+
+**17. Add `pagead2.googlesyndication.com` to CSP `connect-src` in `next.config.ts`**
+
+**18. Add `Review` + `SoftwareApplication` schema to `/tools/[id]` pages** (if keeping them indexed)
+
+**19. Add breadcrumb schema to all individual tool pages** — currently only on homepage and `/tools` hub
+
+**20. Lower AI directory sitemap priorities from 0.8 to 0.65**
+
+**21. Add more internal links from blog post bodies to relevant tool pages** — currently blog posts don't appear to link to tool pages, which is a missed cross-linking opportunity
+
 ---
 
-## Session Change Log (May 14, 2026)
+## Quick Wins
+*5 fixes under 10 minutes for immediate SEO improvement*
 
-| # | Change | File(s) |
-|---|--------|--------|
-| 1 | Fixed `siteName` in `generateMetadataForTool()` from `"Social Media Tools"` → `"AISocialTools"` | `lib/seo-metadata.ts` |
-| 2 | Added BreadcrumbList JSON-LD to paint-calculator | `app/tools/construction/paint-calculator/page.tsx` |
-| 3 | Added BreadcrumbList JSON-LD to flooring-calculator | `app/tools/construction/flooring-calculator/page.tsx` |
-| 4 | Added BreadcrumbList JSON-LD to tile-calculator | `app/tools/construction/tile-calculator/page.tsx` |
-| 5 | Added BreadcrumbList JSON-LD to square-footage-calculator | `app/tools/construction/square-footage-calculator/page.tsx` |
-| 6 | Added BreadcrumbList JSON-LD to roofing-calculator | `app/tools/construction/roofing-calculator/page.tsx` |
-| 7 | Added BreadcrumbList JSON-LD to fence-calculator | `app/tools/construction/fence-calculator/page.tsx` |
-| 8 | Added BreadcrumbList JSON-LD to mulch-calculator | `app/tools/construction/mulch-calculator/page.tsx` |
-| 9 | Replaced `new Date()` with static date groups (`CONTENT_REFRESHED`, `STATIC_PAGE_DATE`, `LEGAL_PAGE_DATE`) | `app/sitemap.ts` |
-| 10 | Expanded blog post #6 from ~250 → ~550 words with per-tool sections and workflow guide | `lib/blog-posts.ts` |
-| 11 | Added OG + Twitter Card metadata to `/projects` | `app/projects/page.tsx` |
-| 12 | Added cross-links: flooring→sq-ft, paint→sq-ft, tile→sq-ft, roofing→roof-pitch, fence→concrete | 5 construction `page.tsx` files |
-| 13 | Added cross-links: mortgage→compound-interest, compound-interest→mortgage | 2 finance `page.tsx` files |
+**Quick Win 1 — Fix `background-remover` `follow: false` (30 seconds)**
+One-line change in `app/tools/background-remover/layout.tsx`. Immediately re-enables Googlebot to pass link equity through this page's outbound links.
+
+**Quick Win 2 — Add `/tools/construction` to footer (2 minutes)**
+Add one entry to the footer links array in `components/Footer.tsx`. Instantly gives 11 live calculator pages proper internal linking and crawl entry points.
+
+**Quick Win 3 — Remove duplicate Google verification `<meta>` tag (1 minute)**
+Delete one line in `app/layout.tsx`. Eliminates a confusing duplicate verification tag.
+
+**Quick Win 4 — Remove non-existent `/search` Disallow from `robots.ts` (1 minute)**
+Delete one array entry. Cleans up a rule pointing at a ghost route.
+
+**Quick Win 5 — Align `blog/layout.tsx` title and OG title (2 minutes)**
+Change `openGraph.title` to match `title` in `app/blog/layout.tsx`. Fixes how your blog appears when shared on social media and eliminates a meta mismatch flag in SEO tools.
 
 ---
 
-*Audit performed via full static code analysis of `app/` and `lib/` directories. All issues verified against actual file contents as of May 14, 2026. Dynamically-rendered content and live rendering should be verified with Google Search Console URL Inspection and Google's Rich Results Test.*
+*Report generated by full static analysis of 102 `page.tsx` files, 35+ `layout.tsx` files, `app/robots.ts`, `app/sitemap.ts`, `next.config.ts`, `netlify.toml`, `lib/seo-metadata.ts`, `lib/social-tools.ts`, `lib/tools.ts`, `lib/blog-posts.ts`, and `lib/ai-directory.ts`. Dynamic runtime behavior (actual rendered HTML, live GSC data, Core Web Vitals) should be verified separately using Google Search Console and Lighthouse.*

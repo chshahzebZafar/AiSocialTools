@@ -28,6 +28,7 @@ const linkSections: FooterSection[] = [
     links: [
       { href: "/about", label: "About" },
       { href: "/author", label: "Author" },
+      { href: "/projects", label: "Projects" },
       { href: "/contact", label: "Contact" },
       { href: "/privacy", label: "Privacy" },
       { href: "/terms", label: "Terms" },
@@ -37,10 +38,10 @@ const linkSections: FooterSection[] = [
 
 const topCategories: FooterLink[] = [
   { href: "/tools/social-media", label: "Social media" },
-  { href: "/tools/file-tools", label: "File & PDF tools", badge: "Soon" },
-  { href: "/tools/finance", label: "Finance", badge: "Soon" },
-  { href: "/tools/location", label: "Location & travel", badge: "Soon" },
-  { href: "/tools/health-fitness", label: "Health & fitness", badge: "Soon" },
+  { href: "/tools/construction", label: "Construction calculators" },
+  { href: "/tools/finance", label: "Finance calculators" },
+  { href: "/tools/health-fitness", label: "Health & fitness" },
+  { href: "/tools/education", label: "Education tools" },
 ];
 
 const socialLinks = [

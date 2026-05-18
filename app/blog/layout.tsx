@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { getOGImageUrl } from "@/lib/og-image-generator";
 
 export const metadata: Metadata = {
-  title: "Social Media Blog - Tips & Growth Strategies",
+  title: "Social Media Blog — Tips & Growth Strategies",
   description: "Expert tips, strategies and insights for social media growth. Content creation, engagement tactics, and platform guides. Updated weekly.",
   keywords: [
     "social media blog",
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     "social media tips"
   ],
   openGraph: {
-    title: "Blog - Social Media Tips, Strategies & Insights",
+    title: "Social Media Blog — Tips & Growth Strategies",
     description: "Discover expert tips, strategies, and insights to help you succeed on social media.",
     type: "website",
     url: "https://aisocialtools.co/blog",
@@ -30,12 +30,16 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Blog - Social Media Tips, Strategies & Insights",
+    title: "Social Media Blog — Tips & Growth Strategies",
     description: "Discover expert tips, strategies, and insights to help you succeed on social media.",
     images: [getOGImageUrl("default")],
   },
   alternates: {
     canonical: "https://aisocialtools.co/blog",
+    languages: {
+      "en": "https://aisocialtools.co/blog",
+      "x-default": "https://aisocialtools.co/blog",
+    },
   },
 };
 

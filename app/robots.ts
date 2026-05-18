@@ -11,11 +11,9 @@ export default function robots(): MetadataRoute.Robots {
         allow: '/',
         disallow: [
           '/api/',
-          '/_next/',
           '/admin/',
           '/private/',
           '/profile/',
-          '/search',
         ],
       },
       // Googlebot - Full access
@@ -94,17 +92,6 @@ export default function robots(): MetadataRoute.Robots {
           '/private/',
           '/profile/',
         ],
-      },
-      // Block bad bots (competitor SEO crawlers)
-      {
-        userAgent: [
-          'AhrefsBot',
-          'SemrushBot',
-          'DotBot',
-          'MJ12bot',
-          'Screaming Frog',
-        ],
-        disallow: '/',
       },
     ],
     sitemap: `${baseUrl}/sitemap.xml`,

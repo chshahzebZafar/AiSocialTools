@@ -35,12 +35,8 @@
   status = 200
   force = false
 
-# Redirect trailing slashes to non-trailing (except root)
-[[redirects]]
-  from = "/:path+/"
-  to = "/:path+"
-  status = 301
-  force = true
+# Trailing-slash redirect removed — handled by next.config.ts redirects()
+# to avoid a double-redirect chain (netlify → next → destination).
 
 # Ensure HTTPS (Netlify handles this automatically, but explicit is better)
 [[redirects]]

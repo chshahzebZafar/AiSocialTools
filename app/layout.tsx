@@ -118,18 +118,16 @@ export default function RootLayout({
         <link rel="alternate" hrefLang="en" href="https://aisocialtools.co" />
         <link rel="alternate" hrefLang="x-default" href="https://aisocialtools.co" />
 
-        {/* Google Verification TAG */}
-        <meta name="google-site-verification" content="1MXsxJbLVHs_-NmpBgvIbP63OboURvFjZwN7Rjf6aVU" />
-
         {/* Bing Verification TAG */}
         <meta name="msvalidate.01" content="B5DB751F43595825223C49E26E43F282" />
-
-        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || "G-KPXLX0R9XK"} />
-        <PerformanceMonitor />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`} suppressHydrationWarning>
         <AuthProvider>{children}</AuthProvider>
         <LeadCapturePopup />
+        {/* Analytics + performance monitoring — must be in <body>, not <head>.
+            Client components in <head> break hydration and block LCP. */}
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || "G-KPXLX0R9XK"} />
+        <PerformanceMonitor />
         {/* AdSense — lazyOnload defers until browser idle, protects LCP/INP */}
         <Script
           id="adsense"

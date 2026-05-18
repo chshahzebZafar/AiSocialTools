@@ -1,6 +1,5 @@
 import { MetadataRoute } from 'next'
 import { socialTools } from '@/lib/social-tools'
-import { socialMediaTools } from '@/lib/tools'
 import { blogPosts } from '@/lib/blog-posts'
 import { aiDirectoryTools } from '@/lib/ai-directory'
 import { categoryTools } from '@/lib/category-tools'
@@ -28,14 +27,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: CONTENT_REFRESHED,
     changeFrequency: 'weekly',
     priority: 0.9,
-  }))
-
-  // Tool review pages - Medium priority
-  const toolReviewPages: MetadataRoute.Sitemap = socialMediaTools.map((tool) => ({
-    url: `${baseUrl}/tools/${tool.id}`,
-    lastModified: STATIC_PAGE_DATE,
-    changeFrequency: 'monthly',
-    priority: 0.7
   }))
 
   // Blog pages - Higher priority for featured posts
@@ -163,14 +154,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
   ]
 
-  // AI Directory tool detail pages
+  // AI Directory tool detail pages — listing pages, not editorial; lower priority
   const aiDirectoryPages: MetadataRoute.Sitemap = aiDirectoryTools
     .filter((t) => t.approved)
     .map((tool) => ({
       url: `${baseUrl}/ai-directory/${tool.slug}`,
       lastModified: CONTENT_REFRESHED,
       changeFrequency: 'weekly' as const,
-      priority: 0.8
+      priority: 0.65
     }))
 
   // Live tools under category hubs (BMI, mortgage, etc.) — high priority
@@ -190,7 +181,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...toolPages,
     ...aiDirectoryPages,
     ...blogPages.sort((a, b) => (b.priority || 0) - (a.priority || 0)), // Featured posts first
-    ...toolReviewPages
   ]
 
   return allPages

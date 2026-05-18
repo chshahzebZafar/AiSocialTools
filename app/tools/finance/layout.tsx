@@ -37,7 +37,13 @@ export const metadata: Metadata = {
     description: "Free mortgage, compound interest, and loan calculators. No signup required.",
     images: [getOGImageUrl("default")],
   },
-  alternates: { canonical: "https://aisocialtools.co/tools/finance" },
+  alternates: {
+    canonical: "https://aisocialtools.co/tools/finance",
+    languages: {
+      "en": "https://aisocialtools.co/tools/finance",
+      "x-default": "https://aisocialtools.co/tools/finance",
+    },
+  },
   robots: { index: true, follow: true },
 };
 

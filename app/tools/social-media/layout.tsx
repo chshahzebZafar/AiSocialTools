@@ -39,7 +39,13 @@ export const metadata: Metadata = {
       "Browse our complete collection of free social media tools. All tools are 100% free with no signup required.",
     images: [getOGImageUrl("tools")],
   },
-  alternates: { canonical: "https://aisocialtools.co/tools/social-media" },
+  alternates: {
+    canonical: "https://aisocialtools.co/tools/social-media",
+    languages: {
+      "en": "https://aisocialtools.co/tools/social-media",
+      "x-default": "https://aisocialtools.co/tools/social-media",
+    },
+  },
   robots: { index: true, follow: true },
 };
 

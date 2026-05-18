@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import ToolLayout from "@/components/ToolLayout";
 import { getOGImageUrl } from "@/lib/og-image-generator";
 
-const URL = "https://aisocialtools.co/tools/image-tools";
+const CANONICAL_URL = "https://aisocialtools.co/tools/image-tools";
 
 export const metadata: Metadata = {
   title: "Free Image Tools 2026 — Compressor, Converter, Resizer, Favicon",
@@ -21,12 +21,18 @@ export const metadata: Metadata = {
     "image editing tools free",
     "browser image tools no upload",
   ],
-  alternates: { canonical: URL },
+  alternates: {
+    canonical: CANONICAL_URL,
+    languages: {
+      "en": CANONICAL_URL,
+      "x-default": CANONICAL_URL,
+    },
+  },
   openGraph: {
     title: "Free Image Tools 2026 — Compress, Convert, Resize in Your Browser",
     description: "All the image tools a creator needs — compressor, converter, resizer, favicon generator. No signup, no upload.",
     type: "website",
-    url: URL,
+    url: CANONICAL_URL,
     siteName: "AISocialTools",
     images: [{ url: getOGImageUrl("default"), width: 1200, height: 630, alt: "Free Image Tools" }],
   },

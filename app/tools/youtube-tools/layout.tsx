@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import ToolLayout from "@/components/ToolLayout";
 import { getOGImageUrl } from "@/lib/og-image-generator";
 
-const URL = "https://aisocialtools.co/tools/youtube-tools";
+const CANONICAL_URL = "https://aisocialtools.co/tools/youtube-tools";
 
 export const metadata: Metadata = {
   title: "Free YouTube Tools 2026 — Tags, Descriptions, Thumbnails, Earnings",
@@ -21,12 +21,18 @@ export const metadata: Metadata = {
     "youtube thumbnail downloader",
     "youtube channel tools",
   ],
-  alternates: { canonical: URL },
+  alternates: {
+    canonical: CANONICAL_URL,
+    languages: {
+      "en": CANONICAL_URL,
+      "x-default": CANONICAL_URL,
+    },
+  },
   openGraph: {
     title: "Free YouTube Tools 2026 — Complete Creator Toolkit",
     description: "Tag generator, description builder, money calculator, thumbnail downloader. All free, no signup.",
     type: "website",
-    url: URL,
+    url: CANONICAL_URL,
     siteName: "AISocialTools",
     images: [{ url: getOGImageUrl("default"), width: 1200, height: 630, alt: "Free YouTube Tools" }],
   },

@@ -17,63 +17,15 @@ export default function GoogleAnalytics({ gaId }: GoogleAnalyticsProps) {
     return null;
   }
 
-  // Track page views and Core Web Vitals
+  // Track page views and engagement.
+  // NOTE: Web Vitals (CLS/LCP/INP/FCP/TTFB) are tracked exclusively by
+  // PerformanceMonitor — do NOT add a second web-vitals import here.
   useEffect(() => {
     if (typeof window !== "undefined" && (window as any).gtag) {
       (window as any).gtag("config", trackingId, {
         page_path: pathname,
         send_page_view: true,
       });
-
-      // Track Core Web Vitals for SEO performance monitoring
-      import("web-vitals").then(({ onCLS, onFCP, onLCP, onTTFB, onINP }) => {
-        onCLS((metric: any) => {
-          (window as any).gtag("event", "web_vitals", {
-            event_category: "Web Vitals",
-            event_label: "CLS",
-            value: Math.round(metric.value * 1000),
-            non_interaction: true,
-          });
-        });
-
-        onFCP((metric: any) => {
-          (window as any).gtag("event", "web_vitals", {
-            event_category: "Web Vitals",
-            event_label: "FCP",
-            value: Math.round(metric.value),
-            non_interaction: true,
-          });
-        });
-
-        onLCP((metric: any) => {
-          (window as any).gtag("event", "web_vitals", {
-            event_category: "Web Vitals",
-            event_label: "LCP",
-            value: Math.round(metric.value),
-            non_interaction: true,
-          });
-        });
-
-        onTTFB((metric: any) => {
-          (window as any).gtag("event", "web_vitals", {
-            event_category: "Web Vitals",
-            event_label: "TTFB",
-            value: Math.round(metric.value),
-            non_interaction: true,
-          });
-        });
-
-        onINP((metric: any) => {
-          (window as any).gtag("event", "web_vitals", {
-            event_category: "Web Vitals",
-            event_label: "INP",
-            value: Math.round(metric.value),
-            non_interaction: true,
-          });
-        });
-        }).catch(() => {
-          // web-vitals not available, skip
-        });
 
       // Track tool usage events
       if (pathname?.startsWith("/tools/")) {

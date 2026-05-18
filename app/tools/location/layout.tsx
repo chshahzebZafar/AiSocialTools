@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { getOGImageUrl } from "@/lib/og-image-generator";
 
 export const metadata: Metadata = {
-  title: "Location & Travel Tools — Distance, Time Zones, Travel Cost & More (Coming Soon)",
+  title: "Location & Travel Tools — Distance, Time Zones & More",
   description:
     "Free location and travel calculators — distance between cities, time zone converter, flight time, travel cost, ZIP code lookup, coordinates converter, and more. Coming 2026.",
   keywords: [

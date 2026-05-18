@@ -5,6 +5,7 @@ import Sidebar from "@/components/Sidebar";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import ToolSchemaInjector from "@/components/ToolSchemaInjector";
 import { X } from "lucide-react";
 
 export default function ToolLayout({
@@ -40,6 +41,10 @@ export default function ToolLayout({
 
   return (
     <div className="flex flex-col min-h-screen bg-white dark:bg-zinc-950">
+      {/* WebApplication JSON-LD schema — injected once here so all 55 tool
+          pages get structured data without touching individual page files */}
+      <ToolSchemaInjector />
+
       {/* Main Header - Full width */}
       <Header />
 

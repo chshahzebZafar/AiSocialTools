@@ -38,7 +38,13 @@ export const metadata: Metadata = {
     description: "Free fitness and health calculators — coming Q2 2026.",
     images: [getOGImageUrl("default")],
   },
-  alternates: { canonical: "https://aisocialtools.co/tools/health-fitness" },
+  alternates: {
+    canonical: "https://aisocialtools.co/tools/health-fitness",
+    languages: {
+      "en": "https://aisocialtools.co/tools/health-fitness",
+      "x-default": "https://aisocialtools.co/tools/health-fitness",
+    },
+  },
   robots: { index: true, follow: true },
 };
 

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { getOGImageUrl } from "@/lib/og-image-generator";
 
 export const metadata: Metadata = {
-  title: "Everyday Calculators — Tip, Gas, Sleep, Size Converters & More (Coming Soon)",
+  title: "Everyday Calculators — Tip, Gas, Sleep & More",
   description:
     "Free everyday calculators for tips, fuel cost, gas mileage, sleep cycles, shoe sizes, dice roller, golf handicap, and more. All client-side. Coming 2026.",
   keywords: [

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { getOGImageUrl } from "@/lib/og-image-generator";
 
 export const metadata: Metadata = {
-  title: "Math Calculators — Percentage, Fractions, Exponents & More (Coming Soon)",
+  title: "Math Calculators — Percentage, Fractions & Exponents",
   description:
     "Free math calculators for percentages, averages, fractions, exponents, square roots, prime numbers, LCM, GCF, and more — with step-by-step working. Coming 2026.",
   keywords: [
