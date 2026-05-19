@@ -4,7 +4,7 @@ import { getOGImageUrl } from "@/lib/og-image-generator";
 export const metadata: Metadata = {
   title: "Stair Calculator — Riser Height, Tread Depth, Stringer Length",
   description:
-    "Free stair calculator. Enter total rise and run to get riser count, riser height, tread depth, stringer length, headroom clearance, and materials list. IRC code-compliant. Imperial and metric.",
+    "Free stair calculator. Enter total rise and run to get riser count, riser height, tread depth, stringer length, headroom clearance, and materials list.",
   keywords: [
     "stair calculator",
     "staircase calculator",

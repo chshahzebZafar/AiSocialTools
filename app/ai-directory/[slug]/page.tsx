@@ -53,7 +53,9 @@ export async function generateMetadata({
   if (description.length > 155) description = description.slice(0, 152) + "…";
 
   return {
-    title: `${tool.name} Review — ${tool.category}`,
+    // Expanded title pattern — keeps all entries 30-60 chars instead of 18-30.
+    // "Sora Review — Video" (19) → "Sora Review 2026 — AI Video Tool" (32)
+    title: `${tool.name} Review 2026 — AI ${tool.category} Tool`,
     description,
     keywords: [
       tool.name,

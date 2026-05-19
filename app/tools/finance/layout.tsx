@@ -4,7 +4,7 @@ import { getOGImageUrl } from "@/lib/og-image-generator";
 export const metadata: Metadata = {
   title: "Free Finance Calculators 2026 | Mortgage, Compound Interest & More",
   description:
-    "Free finance calculators for mortgages, compound interest, loans, retirement, taxes, and salary. No signup required. Includes PDF export and detailed breakdowns.",
+    "Free finance calculators for mortgages, compound interest, loans, retirement, taxes, and salary. No signup required. Includes PDF export and detailed.",
   keywords: [
     "finance calculator",
     "mortgage calculator free",

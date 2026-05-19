@@ -4,7 +4,7 @@ import { getOGImageUrl } from "@/lib/og-image-generator";
 export const metadata: Metadata = {
   title: "Mulch Calculator 2026 | How Many Cubic Yards of Mulch Do I Need?",
   description:
-    "Free mulch calculator. Calculate cubic yards or cubic feet of mulch needed for any garden bed, landscape area, or yard. Supports multiple beds, depth settings, and bulk vs bagged mulch. Includes cost estimate and coverage guide.",
+    "Free mulch calculator. Calculate cubic yards or cubic feet of mulch needed for any garden bed, landscape area, or yard. Supports multiple beds, depth.",
   keywords: [
     "mulch calculator",
     "how much mulch do i need",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
   openGraph: {
     title: "Mulch Calculator | How Many Cubic Yards of Mulch Do I Need?",
-    description: "Free mulch calculator. Enter your bed dimensions and desired depth to get cubic yards, cubic feet, and bag count for any mulching project. Includes cost estimate.",
+    description: "Free mulch calculator. Enter your bed dimensions and desired depth to get cubic yards, cubic feet, and bag count for any mulching project. Includes cost.",
     url: "https://aisocialtools.co/tools/construction/mulch-calculator",
     type: "website",
     siteName: "AISocialTools",

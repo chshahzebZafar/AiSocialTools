@@ -1682,9 +1682,15 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
     }
   };
 
+  // Fallback for tools without explicit seoConfigs entries.
+  // Pad short tool.description so meta description lands ≥100 chars.
+  const fallbackDesc =
+    tool.description.length >= 100
+      ? tool.description
+      : `${tool.description}. Free, browser-based, no signup required. Works on desktop and mobile.`;
   return seoConfigs[tool.id] || {
-    title: `${tool.name} - Free Social Media Tool`,
-    description: tool.description,
+    title: `${tool.name} — Free Online Tool 2026`,
+    description: fallbackDesc,
     keywords: [tool.name.toLowerCase(), "social media tool", "free tool"],
     longTailKeywords: [`free ${tool.name.toLowerCase()}`, `online ${tool.name.toLowerCase()}`],
     structuredData: {

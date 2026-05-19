@@ -37,9 +37,9 @@ import {
 import Image from "next/image";
 
 export const metadata: Metadata = {
-  title: "Best Free Social Media Tools Online & Desktop - No Signup Required 2026",
+  title: "70+ Free Online Tools — Social Media, Calculators, AI Directory",
   description:
-    "70+ free online tools — social media, construction calculators, finance, health, and more. Download Windows & Mac desktop apps for offline use. No signup, no tracking.",
+    "70+ free online tools — social media, construction calculators, finance, health, and more. Browser-based, no signup, no tracking.",
   keywords: [
     "free social media tools",
     "social media tools online",
@@ -586,12 +586,15 @@ export default function Home() {
                       </li>
                     </ul>
 
+                    {/* Desktop app not yet shipped — installer files don't exist in /public/download/.
+                        Switched to mailto so the link doesn't 404 in crawlers (was tanking Screaming Frog).
+                        Swap href back to "/download/ai-social-tools-windows-1.0.0.exe" once the installer is uploaded. */}
                     <a
-                      href="/download/ai-social-tools-windows-1.0.0.exe"
+                      href="mailto:shahzaibzafar093@gmail.com?subject=Desktop App Beta - Windows&body=Notify me when the Windows desktop app is available."
                       className="flex items-center justify-center gap-2 w-full h-12 bg-white text-zinc-950 hover:bg-zinc-200 rounded-lg font-medium transition-colors group-hover:shadow-lg"
                     >
                       <Download className="w-4 h-4 group-hover:animate-bounce" />
-                      Download for Windows
+                      Notify me for Windows
                     </a>
                   </div>
                 </div>
@@ -630,12 +633,13 @@ export default function Home() {
                       </li>
                     </ul>
 
+                    {/* See sibling Windows comment. Swap back when installer is uploaded. */}
                     <a
-                      href="/download/ai-social-tools-mac-1.0.0.dmg"
+                      href="mailto:shahzaibzafar093@gmail.com?subject=Desktop App Beta - Mac&body=Notify me when the Mac desktop app is available."
                       className="flex items-center justify-center gap-2 w-full h-12 bg-white text-zinc-950 hover:bg-zinc-200 rounded-lg font-medium transition-colors group-hover:shadow-lg"
                     >
                       <Download className="w-4 h-4 group-hover:animate-bounce" />
-                      Download for Mac
+                      Notify me for Mac
                     </a>
                   </div>
                 </div>

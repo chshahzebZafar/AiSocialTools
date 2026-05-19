@@ -4,7 +4,7 @@ import { getOGImageUrl } from "@/lib/og-image-generator";
 export const metadata: Metadata = {
   title: "Free Construction Calculators & Estimators 2026 | Contractors & DIY",
   description:
-    "Free construction calculators for concrete, lumber, roofing, flooring, tile, paint, fencing, stairs, and more. For contractors, builders, and DIYers. No signup required.",
+    "Free construction calculators for concrete, lumber, roofing, flooring, tile, paint, fencing, stairs, and more. For contractors, builders, and DIYers. No.",
   keywords: [
     "construction tools",
     "free construction calculator",

@@ -4,7 +4,7 @@ import { getOGImageUrl } from "@/lib/og-image-generator";
 export const metadata: Metadata = {
   title: "Roofing Calculator 2026 | Estimate Shingles & Roofing Materials",
   description:
-    "Free roofing calculator. Estimate roofing squares, shingles, underlayment, and total material cost for any roof shape. Supports gable, hip, gambrel, and flat roofs. Includes waste factor and PDF export.",
+    "Free roofing calculator. Estimate roofing squares, shingles, underlayment, and total material cost for any roof shape. Supports gable, hip, gambrel, and.",
   keywords: [
     "roofing calculator",
     "roof shingle calculator",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
   openGraph: {
     title: "Roofing Calculator | Estimate Shingles & Roofing Materials",
-    description: "Free roofing calculator. Calculate roofing squares, shingles needed, underlayment, and total cost for gable, hip, gambrel, and flat roofs. Includes waste factor.",
+    description: "Free roofing calculator. Calculate roofing squares, shingles needed, underlayment, and total cost for gable, hip, gambrel, and flat roofs. Includes waste.",
     url: "https://aisocialtools.co/tools/construction/roofing-calculator",
     type: "website",
     siteName: "AISocialTools",

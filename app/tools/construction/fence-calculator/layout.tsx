@@ -4,7 +4,7 @@ import { getOGImageUrl } from "@/lib/og-image-generator";
 export const metadata: Metadata = {
   title: "Fence Calculator 2026 | Estimate Posts, Panels & Fence Material Cost",
   description:
-    "Free fence calculator. Estimate fence posts, panels, rails, concrete, and total material cost for any fence length and style. Supports wood, vinyl, chain-link, and split-rail fences. Includes gate and post spacing options.",
+    "Free fence calculator. Estimate fence posts, panels, rails, concrete, and total material cost for any fence length and style. Supports wood, vinyl.",
   keywords: [
     "fence calculator",
     "fence post calculator",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
   openGraph: {
     title: "Fence Calculator | Estimate Posts, Panels & Fence Material Cost",
-    description: "Free fence calculator. Calculate posts, rails, panels, concrete, and total material cost for wood, vinyl, and chain-link fences. Includes gate options and post spacing.",
+    description: "Free fence calculator. Calculate posts, rails, panels, concrete, and total material cost for wood, vinyl, and chain-link fences. Includes gate options and.",
     url: "https://aisocialtools.co/tools/construction/fence-calculator",
     type: "website",
     siteName: "AISocialTools",

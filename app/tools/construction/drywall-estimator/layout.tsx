@@ -4,7 +4,7 @@ import { getOGImageUrl } from "@/lib/og-image-generator";
 export const metadata: Metadata = {
   title: "Drywall Estimator — Sheets, Screws, Mud & Tape Calculator",
   description:
-    "Free drywall estimator. Calculate drywall sheets, screws, joint compound, tape, and total cost for any room. Supports multiple rooms, door/window deductions, waste factor, and PDF export.",
+    "Free drywall estimator. Calculate drywall sheets, screws, joint compound, tape, and total cost for any room. Supports multiple rooms, door/window.",
   keywords: [
     "drywall estimator",
     "drywall calculator",

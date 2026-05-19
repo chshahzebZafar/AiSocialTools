@@ -4,7 +4,7 @@ import { getOGImageUrl } from "@/lib/og-image-generator";
 export const metadata: Metadata = {
   title: "File & PDF Tools — Convert, Compress & Merge",
   description:
-    "Free browser-based file tools — PDF to Word, merge PDFs, compress images, QR code generator, file hasher, and 40+ more. Your files never leave your device. Coming 2026.",
+    "Free browser-based file tools — PDF to Word, merge PDFs, compress images, QR code generator, file hasher, and 40+ more. Your files never leave your.",
   keywords: [
     "PDF to Word converter",
     "merge PDF",

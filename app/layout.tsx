@@ -25,8 +25,10 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Best Free Social Media Tools Online - No Signup Required 2026",
-    template: "%s | AISocialTools"
+    default: "Best Free Online Tools — No Signup Required 2026",
+    // No template suffix — each page title stands alone. Adding "| AISocialTools"
+    // (15 chars) pushed 40+ pages over Google's 60-char SERP truncation limit.
+    template: "%s",
   },
   description: "70+ free online tools — social media, construction calculators, finance, health, and more. Browser-based, no signup, no tracking.",
   keywords: [
@@ -114,9 +116,10 @@ export default function RootLayout({
         <link rel="preconnect" href="https://www.google-analytics.com" />
         {/* AdSense — dns-prefetch only; the script itself loads lazily via next/script below for CWV */}
         <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
-        {/* Hreflang tags for international SEO (prepared for future expansion) */}
-        <link rel="alternate" hrefLang="en" href="https://aisocialtools.co" />
-        <link rel="alternate" hrefLang="x-default" href="https://aisocialtools.co" />
+        {/* No hreflang — English-only site. Adding hreflang requires
+            reciprocal annotations on every page, which we don't need until
+            we localize. Re-introducing these two tags caused Ahrefs to flag
+            280+ pages for "missing self-reference" — don't put them back. */}
 
         {/* Bing Verification TAG */}
         <meta name="msvalidate.01" content="B5DB751F43595825223C49E26E43F282" />

@@ -31,13 +31,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   return {
-    title: `${post.title} | Social Media Tools Blog`,
-    description: post.excerpt,
+    title: post.title.length > 60 ? post.title.slice(0, 60).replace(/[,;:\s—-]+$/, '') : post.title,
+    description: post.excerpt.length > 155 ? post.excerpt.slice(0, 152).replace(/[,;:\s—-]+$/, '') + '…' : post.excerpt,
     keywords: post.tags,
     authors: [{ name: post.author }],
     openGraph: {
       title: post.title,
-      description: post.excerpt,
+      description: post.excerpt.length > 155 ? post.excerpt.slice(0, 152).replace(/[,;:\s—-]+$/, '') + '…' : post.excerpt,
       type: "article",
       url: `https://aisocialtools.co/blog/${post.slug}`,
       siteName: "AISocialTools",
@@ -57,7 +57,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     twitter: {
       card: "summary_large_image",
       title: post.title,
-      description: post.excerpt,
+      description: post.excerpt.length > 155 ? post.excerpt.slice(0, 152).replace(/[,;:\s—-]+$/, '') + '…' : post.excerpt,
       images: [getOGImageUrl("default")],
     },
     alternates: {

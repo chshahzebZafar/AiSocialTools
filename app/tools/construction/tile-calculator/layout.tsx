@@ -4,7 +4,7 @@ import { getOGImageUrl } from "@/lib/og-image-generator";
 export const metadata: Metadata = {
   title: "Tile Calculator 2026 | Estimate Floor & Wall Tile Needs",
   description:
-    "Free tile calculator. Calculate tiles needed for floors, walls, and backsplashes. Accounts for grout spacing, pattern layout, waste factor, and cost. Supports ceramic, porcelain, subway, mosaic tiles.",
+    "Free tile calculator. Calculate tiles needed for floors, walls, and backsplashes. Accounts for grout spacing, pattern layout, waste factor, and cost.",
   keywords: [
     "tile calculator",
     "how many tiles do i need",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
   openGraph: {
     title: "Tile Calculator | Estimate Floor & Wall Tile Needs",
-    description: "Free tile calculator for floors, walls, and backsplashes. Calculate tiles needed with grout spacing, pattern layout, waste factor, and cost. Supports all tile types.",
+    description: "Free tile calculator for floors, walls, and backsplashes. Calculate tiles needed with grout spacing, pattern layout, waste factor, and cost. Supports all.",
     url: "https://aisocialtools.co/tools/construction/tile-calculator",
     type: "website",
     siteName: "AISocialTools",

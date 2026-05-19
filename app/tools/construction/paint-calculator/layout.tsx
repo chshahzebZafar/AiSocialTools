@@ -4,7 +4,7 @@ import { getOGImageUrl } from "@/lib/og-image-generator";
 export const metadata: Metadata = {
   title: "Paint Calculator 2026 | Estimate How Much Paint You'll Need",
   description:
-    "Free paint calculator for interior rooms. Estimate gallons needed for walls and ceilings. Accounts for doors, windows, multiple coats, and waste. Calculate paint cost instantly. No signup required.",
+    "Free paint calculator for interior rooms. Estimate gallons needed for walls and ceilings. Accounts for doors, windows, multiple coats, and waste.",
   keywords: [
     "paint calculator",
     "how much paint do i need",

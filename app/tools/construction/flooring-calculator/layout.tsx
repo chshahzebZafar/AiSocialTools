@@ -4,7 +4,7 @@ import { getOGImageUrl } from "@/lib/og-image-generator";
 export const metadata: Metadata = {
   title: "Flooring Calculator — Hardwood, Laminate, Tile & Carpet",
   description:
-    "Free flooring calculator. Estimate square footage, planks/tiles needed, cost for hardwood, laminate, vinyl, carpet, and tile. Includes waste factor and multiple rooms.",
+    "Free flooring calculator. Estimate square footage, planks/tiles needed, cost for hardwood, laminate, vinyl, carpet, and tile. Includes waste factor and.",
   keywords: [
     "flooring calculator",
     "floor calculator",
