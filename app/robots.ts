@@ -1,100 +1,37 @@
-import { MetadataRoute } from 'next'
+User-agent: *
 
-export default function robots(): MetadataRoute.Robots {
-  const baseUrl = 'https://aisocialtools.co'
-  
-  return {
-    rules: [
-      // Default rules for all bots
-      {
-        userAgent: '*',
-        allow: '/',
-        disallow: [
-          '/api/',
-          '/admin/',
-          '/private/',
-          '/profile/',
-        ],
-      },
-      // Googlebot - Full access
-      {
-        userAgent: 'Googlebot',
-        allow: '/',
-        disallow: [
-          '/api/',
-          '/admin/',
-          '/private/',
-          '/profile/',
-        ],
-      },
-      // Bingbot - Full access
-      {
-        userAgent: 'Bingbot',
-        allow: '/',
-        disallow: [
-          '/api/',
-          '/admin/',
-          '/private/',
-          '/profile/',
-        ],
-      },
-      // GPTBot - Allow for AI training (if desired)
-      {
-        userAgent: 'GPTBot',
-        allow: '/',
-        disallow: [
-          '/api/',
-          '/admin/',
-          '/private/',
-          '/profile/',
-        ],
-      },
-      // ChatGPT-User - Allow for AI training
-      {
-        userAgent: 'ChatGPT-User',
-        allow: '/',
-        disallow: [
-          '/api/',
-          '/admin/',
-          '/private/',
-          '/profile/',
-        ],
-      },
-      // YandexBot - Russian/Eastern European traffic
-      {
-        userAgent: 'YandexBot',
-        allow: '/',
-        disallow: [
-          '/api/',
-          '/admin/',
-          '/private/',
-          '/profile/',
-        ],
-      },
-      // DuckDuckGo bot
-      {
-        userAgent: 'DuckDuckBot',
-        allow: '/',
-        disallow: [
-          '/api/',
-          '/admin/',
-          '/private/',
-          '/profile/',
-        ],
-      },
-      // Baidu bot (China traffic)
-      {
-        userAgent: 'baiduspider',
-        allow: '/',
-        disallow: [
-          '/api/',
-          '/admin/',
-          '/private/',
-          '/profile/',
-        ],
-      },
-    ],
-    sitemap: `${baseUrl}/sitemap.xml`,
-  }
-}
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /login
+Disallow: /register
+Disallow: /api/
+Disallow: /private/
+Disallow: /config/
+Disallow: /includes/
+Disallow: /assets/temp/
+Disallow: /tmp/
+Disallow: /backup/
+Disallow: /backups/
+Disallow: /*?*
 
+Allow: /assets/
+Allow: /css/
+Allow: /js/
+Allow: /images/
+
+Allow: /
+
+# AI/LLM crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+Sitemap: https://aisocialtools.co/sitemap.xml
