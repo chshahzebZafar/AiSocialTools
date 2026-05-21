@@ -1,37 +1,43 @@
-User-agent: *
+import type { MetadataRoute } from 'next'
 
-Disallow: /admin/
-Disallow: /dashboard/
-Disallow: /login
-Disallow: /register
-Disallow: /api/
-Disallow: /private/
-Disallow: /config/
-Disallow: /includes/
-Disallow: /assets/temp/
-Disallow: /tmp/
-Disallow: /backup/
-Disallow: /backups/
-Disallow: /*?*
-
-Allow: /assets/
-Allow: /css/
-Allow: /js/
-Allow: /images/
-
-Allow: /
-
-# AI/LLM crawlers
-User-agent: GPTBot
-Allow: /
-
-User-agent: ChatGPT-User
-Allow: /
-
-User-agent: ClaudeBot
-Allow: /
-
-User-agent: PerplexityBot
-Allow: /
-
-Sitemap: https://aisocialtools.co/sitemap.xml
+export default function robots(): MetadataRoute.Robots {
+  return {
+    rules: [
+      {
+        userAgent: '*',
+        allow: '/',
+        disallow: [
+          '/admin/',
+          '/dashboard/',
+          '/login',
+          '/register',
+          '/api/',
+          '/private/',
+          '/config/',
+          '/includes/',
+          '/tmp/',
+          '/backup/',
+          '/backups/',
+          '/*?*',
+        ],
+      },
+      {
+        userAgent: 'GPTBot',
+        allow: '/',
+      },
+      {
+        userAgent: 'ChatGPT-User',
+        allow: '/',
+      },
+      {
+        userAgent: 'ClaudeBot',
+        allow: '/',
+      },
+      {
+        userAgent: 'PerplexityBot',
+        allow: '/',
+      },
+    ],
+    sitemap: 'https://aisocialtools.co/sitemap.xml',
+  }
+}
