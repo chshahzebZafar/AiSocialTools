@@ -64,32 +64,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'daily',
       priority: 0.93
     },
-    {
-      url: `${baseUrl}/tools/construction`,
-      lastModified: CONTENT_REFRESHED,
-      changeFrequency: 'weekly',
-      priority: 0.88
-    },
-    {
-      url: `${baseUrl}/tools/finance`,
-      lastModified: CONTENT_REFRESHED,
-      changeFrequency: 'weekly',
-      priority: 0.88
-    },
-    {
-      url: `${baseUrl}/tools/health-fitness`,
-      lastModified: CONTENT_REFRESHED,
-      changeFrequency: 'weekly',
-      priority: 0.85
-    },
-    {
-      url: `${baseUrl}/tools/education`,
-      lastModified: CONTENT_REFRESHED,
-      changeFrequency: 'weekly',
-      priority: 0.82
-    },
-    // noindex pages excluded from sitemap — no live tools yet
-    // /tools/real-estate, /tools/developer, /tools/everyday, /tools/cooking, /tools/location, /tools/math, /tools/science
+    // Non-social categories were removed to focus the site on social media + AI.
+    // Construction moved to freeconstructiontools.com; finance/health/education and
+    // the coming-soon placeholders (real-estate, developer, everyday, cooking,
+    // location, math, science, file-tools) are gone and 301-redirect to /tools.
     {
       url: `${baseUrl}/ai-directory`,
       lastModified: CONTENT_REFRESHED,

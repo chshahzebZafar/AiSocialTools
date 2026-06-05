@@ -38,10 +38,10 @@ const linkSections: FooterSection[] = [
 
 const topCategories: FooterLink[] = [
   { href: "/tools/social-media", label: "Social media" },
-  { href: "/tools/construction", label: "Construction calculators" },
-  { href: "/tools/finance", label: "Finance calculators" },
-  { href: "/tools/health-fitness", label: "Health & fitness" },
-  { href: "/tools/education", label: "Education tools" },
+  { href: "/tools/instagram-tools", label: "Instagram tools" },
+  { href: "/tools/youtube-tools", label: "YouTube tools" },
+  { href: "/tools/image-tools", label: "Image tools" },
+  { href: "/ai-directory", label: "AI directory" },
 ];
 
 const socialLinks = [

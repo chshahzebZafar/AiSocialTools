@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     // (15 chars) pushed 40+ pages over Google's 60-char SERP truncation limit.
     template: "%s",
   },
-  description: "70+ free online tools — social media, construction calculators, finance, health, and more. Browser-based, no signup, no tracking.",
+  description: "70+ free social media tools — content, image, video, and growth utilities, plus a curated AI directory. Browser-based, no signup, no tracking.",
   keywords: [
     "free social media tools",
     "best social media tools",
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     url: "https://aisocialtools.co",
     siteName: "AISocialTools",
     title: "Best Free Social Media Tools Online - No Signup Required 2026",
-    description: "70+ free online tools — social media, construction, finance, and health. Browser-based, no signup required.",
+    description: "70+ free social media tools — content, image, video, and growth utilities, plus a curated AI directory. Browser-based, no signup required.",
     images: [
       {
         url: getOGImageUrl("home"),
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Best Free Social Media Tools Online - No Signup Required 2026",
-    description: "70+ free online tools — social media, construction calculators, finance, health, and more. Browser-based, no signup required.",
+    description: "70+ free social media tools — content, image, video, and growth utilities, plus a curated AI directory. Browser-based, no signup required.",
     images: [getOGImageUrl("home")],
   },
   robots: {

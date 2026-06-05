@@ -1,6 +1,6 @@
 # AISocialTools — Free Social Media Tools
 
-> 70+ free online tools for social media, content creation, construction, finance, and health. No signup required. No watermarks. No tracking.
+> Free social media tools — content creation, image, video, and growth utilities — plus a curated AI directory. No signup required. No watermarks. No tracking.
 
 ## Site
 - Homepage: https://aisocialtools.co
@@ -39,21 +39,6 @@
 - Vimeo Thumbnail Grabber: https://aisocialtools.co/tools/vimeo-thumbnail
 - Tweet to Image: https://aisocialtools.co/tools/tweet-to-image
 - Video to GIF: https://aisocialtools.co/tools/video-to-gif
-
-## Construction Calculators
-- Concrete Calculator: https://aisocialtools.co/tools/construction/concrete-calculator
-- Roofing Calculator: https://aisocialtools.co/tools/construction/roofing-calculator
-- Flooring Calculator: https://aisocialtools.co/tools/construction/flooring-calculator
-- Tile Calculator: https://aisocialtools.co/tools/construction/tile-calculator
-- Paint Calculator: https://aisocialtools.co/tools/construction/paint-calculator
-- Lumber Calculator: https://aisocialtools.co/tools/construction/lumber-calculator
-
-## Finance Tools
-- Mortgage Calculator: https://aisocialtools.co/tools/finance/mortgage-calculator
-- Compound Interest Calculator: https://aisocialtools.co/tools/finance/compound-interest-calculator
-
-## Health & Fitness
-- BMI Calculator: https://aisocialtools.co/tools/health-fitness/bmi-calculator
 
 ## About
 - About: https://aisocialtools.co/about
