@@ -1,11 +1,10 @@
 /**
  * Top-level tool category hubs — the cards shown on /tools.
  *
- * Adding a new category:
- *   1. Append an entry below.
- *   2. Create `app/tools/{slug}/page.tsx` and `layout.tsx`.
- *   3. Add to sitemap.ts.
- *   4. Rebuild + redeploy.
+ * The site is focused on social media tools + the AI directory. Other
+ * categories (construction, finance, health, education, and the various
+ * "coming soon" placeholders) were removed; construction moved to its own
+ * site (freeconstructiontools.com).
  *
  * Status:
  *   - "live"        = clickable, has tools
@@ -14,26 +13,8 @@
  */
 
 import type { LucideIcon } from "lucide-react";
-import {
-  Share2,
-  HardHat,
-  Wallet,
-  Home,
-  HeartPulse,
-  Code2,
-  GraduationCap,
-  Compass,
-  Atom,
-  Calculator,
-  UtensilsCrossed,
-  FileText,
-  MapPin,
-} from "lucide-react";
+import { Share2 } from "lucide-react";
 import { socialTools } from "./social-tools";
-import { categoryTools } from "./category-tools";
-
-const countLive = (slug: string) =>
-  categoryTools.filter((t) => t.category === slug).length;
 
 export type ToolCategoryStatus = "live" | "coming-soon" | "planned";
 
@@ -66,210 +47,6 @@ export const toolCategoryHubs: ToolCategoryHub[] = [
       "Image & video tools",
       "Analytics calculators",
       "Platform utilities",
-    ],
-  },
-  {
-    slug: "construction",
-    name: "Construction Tools",
-    tagline: "Free calculators and planners for builders.",
-    description:
-      "Calculators, estimators, and planners for contractors, builders, and DIYers. First tool live, more on the way.",
-    url: "/tools/construction",
-    icon: HardHat,
-    toolCount: countLive("construction"),
-    status: countLive("construction") > 0 ? "live" : "coming-soon",
-    highlights: [
-      "Material estimators",
-      "Cost calculators",
-      "Roof & stair planners",
-      "Unit converters",
-    ],
-  },
-  {
-    slug: "finance",
-    name: "Finance Tools",
-    tagline: "Free calculators for everyday money decisions.",
-    description:
-      "Mortgage, compound interest, loan, retirement, and tax calculators. First two live, more on the way.",
-    url: "/tools/finance",
-    icon: Wallet,
-    toolCount: countLive("finance"),
-    status: countLive("finance") > 0 ? "live" : "coming-soon",
-    highlights: [
-      "Mortgage & loans",
-      "Compound interest",
-      "Tax & income",
-      "Retirement planning",
-    ],
-  },
-  {
-    slug: "real-estate",
-    name: "Real Estate Tools",
-    tagline: "Calculators for buyers, sellers, and investors.",
-    description:
-      "Coming soon — affordability, rent vs. buy, cap rate, ROI, and closing-cost calculators for the real-estate workflow.",
-    url: "/tools/real-estate",
-    icon: Home,
-    toolCount: 0,
-    status: "coming-soon",
-    highlights: [
-      "Mortgage affordability",
-      "Rent vs. buy",
-      "Cap rate & ROI",
-      "Closing cost estimator",
-    ],
-  },
-  {
-    slug: "health-fitness",
-    name: "Health & Fitness Tools",
-    tagline: "Calculators for body, training, and nutrition.",
-    description:
-      "BMI, calorie, body-fat, heart-rate, and training calculators. BMI live now, more on the way.",
-    url: "/tools/health-fitness",
-    icon: HeartPulse,
-    toolCount: countLive("health-fitness"),
-    status: countLive("health-fitness") > 0 ? "live" : "coming-soon",
-    highlights: [
-      "BMI & body fat",
-      "Calories & TDEE",
-      "Heart-rate zones",
-      "Pace & training",
-    ],
-  },
-  {
-    slug: "developer",
-    name: "Developer Tools",
-    tagline: "Quick utilities every coder needs daily.",
-    description:
-      "Coming soon — JSON formatter, base64, URL encoder, UUID, regex tester, and dozens more. All client-side, your data never leaves your browser.",
-    url: "/tools/developer",
-    icon: Code2,
-    toolCount: 0,
-    status: "coming-soon",
-    highlights: [
-      "Formatters & converters",
-      "Encoders & hashes",
-      "Generators (UUID, lorem)",
-      "Regex & validators",
-    ],
-  },
-  {
-    slug: "education",
-    name: "Education Tools",
-    tagline: "Calculators and helpers for students.",
-    description:
-      "GPA, grade, citation, study planner, and reading-time calculators. GPA Calculator live, more on the way.",
-    url: "/tools/education",
-    icon: GraduationCap,
-    toolCount: countLive("education"),
-    status: countLive("education") > 0 ? "live" : "coming-soon",
-    highlights: [
-      "GPA & grade calculators",
-      "Citation generators",
-      "Study planners",
-      "Reading-time estimators",
-    ],
-  },
-  {
-    slug: "location",
-    name: "Location & Travel Tools",
-    tagline: "Distance, time zones, travel cost, and more.",
-    description:
-      "Coming soon — distance calculator, time zone converter, flight time, travel cost, ZIP code lookup, coordinates converter, and more.",
-    url: "/tools/location",
-    icon: MapPin,
-    toolCount: 0,
-    status: "coming-soon",
-    highlights: [
-      "Distance calculator",
-      "Time zone converter",
-      "Travel cost planner",
-      "ZIP & country lookup",
-    ],
-  },
-  {
-    slug: "file-tools",
-    name: "File & PDF Tools",
-    tagline: "Convert, compress, merge, and edit files in your browser.",
-    description:
-      "Coming soon — PDF to Word, merge PDFs, compress images, convert file formats, and 20+ more file tools. All client-side, your files never leave your device.",
-    url: "/tools/file-tools",
-    icon: FileText,
-    toolCount: 0,
-    status: "coming-soon",
-    highlights: [
-      "PDF conversions",
-      "Merge & split PDF",
-      "Image converter",
-      "Archive extractor",
-    ],
-  },
-  {
-    slug: "math",
-    name: "Math Calculators",
-    tagline: "Percentages, fractions, exponents, and more.",
-    description:
-      "Coming soon — percentage, average, fraction, exponent, square root, prime checker, and a dozen more math tools with step-by-step working.",
-    url: "/tools/math",
-    icon: Calculator,
-    toolCount: 0,
-    status: "coming-soon",
-    highlights: [
-      "Percentage & averages",
-      "Fractions & exponents",
-      "Prime & root calculators",
-      "Geometry tools",
-    ],
-  },
-  {
-    slug: "cooking",
-    name: "Cooking Calculators",
-    tagline: "Recipe scaling, unit conversion, and kitchen math.",
-    description:
-      "Coming soon — cooking unit converter, recipe scaler, temperature converter, baking ratios, and more kitchen math tools.",
-    url: "/tools/cooking",
-    icon: UtensilsCrossed,
-    toolCount: 0,
-    status: "coming-soon",
-    highlights: [
-      "Recipe scaler",
-      "Unit converter",
-      "Temperature converter",
-      "Baking ratios",
-    ],
-  },
-  {
-    slug: "everyday",
-    name: "Everyday Calculators",
-    tagline: "Quick tools for tips, gas, sleep, and more.",
-    description:
-      "Coming soon — tip splitter, fuel cost, gas mileage, sleep cycles, shoe sizes, dice roller, golf handicap, and more daily-use tools.",
-    url: "/tools/everyday",
-    icon: Compass,
-    toolCount: 0,
-    status: "coming-soon",
-    highlights: [
-      "Tip & bill splitter",
-      "Fuel & mileage",
-      "Sleep cycle planner",
-      "Size converters",
-    ],
-  },
-  {
-    slug: "science",
-    name: "Science & Engineering",
-    tagline: "Physics, chemistry, and engineering calculators.",
-    description:
-      "Coming soon — density, speed, molarity, molecular weight, horsepower, wind chill, heat index, and more scientific calculators.",
-    url: "/tools/science",
-    icon: Atom,
-    toolCount: 0,
-    status: "coming-soon",
-    highlights: [
-      "Physics formulas",
-      "Chemistry calculators",
-      "Engineering utilities",
-      "Weather calculations",
     ],
   },
 ];

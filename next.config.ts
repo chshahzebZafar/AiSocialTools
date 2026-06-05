@@ -73,6 +73,18 @@ const nextConfig: NextConfig = {
       { source: '/tools/mention',        destination: '/tools/social-media', permanent: true },
       { source: '/tools/tailwind',       destination: '/tools/social-media', permanent: true },
       { source: '/tools/buzzsumo',       destination: '/tools/social-media', permanent: true },
+
+      // Construction calculators moved to their own site (freeconstructiontools.com)
+      // with FLAT URLs (e.g. /tools/construction/concrete-calculator -> /concrete-calculator).
+      // The wildcard maps every old calculator path to its new flat equivalent.
+      { source: '/tools/construction', destination: 'https://freeconstructiontools.com', permanent: true },
+      { source: '/tools/construction/:slug*', destination: 'https://freeconstructiontools.com/:slug*', permanent: true },
+
+      // Removed non-social categories — the site is now focused on social media + AI.
+      // Finance/health/education calculators and the coming-soon placeholders all
+      // 301-redirect to the /tools hub so any inbound links / bookmarks survive.
+      { source: '/tools/:cat(finance|health-fitness|education|real-estate|developer|location|file-tools|math|cooking|everyday|science)', destination: '/tools', permanent: true },
+      { source: '/tools/:cat(finance|health-fitness|education|real-estate|developer|location|file-tools|math|cooking|everyday|science)/:slug*', destination: '/tools', permanent: true },
     ];
   },
 

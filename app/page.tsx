@@ -37,9 +37,9 @@ import {
 import Image from "next/image";
 
 export const metadata: Metadata = {
-  title: "70+ Free Online Tools — Social Media, Calculators, AI Directory",
+  title: "70+ Free Social Media Tools + AI Directory — No Signup",
   description:
-    "70+ free online tools — social media, construction calculators, finance, health, and more. Browser-based, no signup, no tracking.",
+    "70+ free social media tools — content, image, video, and growth utilities, plus a curated AI directory. Browser-based, no signup, no tracking.",
   keywords: [
     "free social media tools",
     "social media tools online",
@@ -70,7 +70,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Best Free Social Media Tools Online & Desktop - No Signup Required 2026",
     description:
-      "70+ free online tools — social media, construction calculators, finance, and health. Browser-based & desktop apps for Windows & Mac. No signup required.",
+      "70+ free social media tools — content, image, video, and growth utilities, plus a curated AI directory. Browser-based & desktop apps for Windows & Mac. No signup required.",
     type: "website",
     url: "https://aisocialtools.co",
     siteName: "AISocialTools",
@@ -87,7 +87,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Best Free Social Media Tools Online & Desktop - No Signup Required 2026",
     description:
-      "70+ free online tools — social media, construction, finance, and health. Browser-based & desktop apps. No signup required.",
+      "70+ free social media tools — content, image, video, and growth utilities, plus a curated AI directory. Browser-based & desktop apps. No signup required.",
     images: [getOGImageUrl("home")],
   },
   alternates: {
@@ -682,73 +682,6 @@ export default function Home() {
               <span className="text-zinc-400 font-medium">Free forever.</span> No sign-up required. 
               Downloads include all {totalTools}+ tools and AI Directory access.
             </p>
-          </div>
-        </section>
-
-        {/* ==========================================================
-             MORE TOOL CATEGORIES
-             ========================================================== */}
-        <section className="border-b border-zinc-200 dark:border-zinc-800">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
-            <div className="max-w-2xl mb-10">
-              <Badge variant="neutral" className="mb-4">More Categories</Badge>
-              <h2 className="text-3xl sm:text-4xl font-semibold text-zinc-950 dark:text-white tracking-tight mb-3">
-                Not just social media.
-              </h2>
-              <p className="text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                Free calculators and tools for construction, finance, and health — all browser-based, no signup.
-              </p>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <Reveal>
-                <Link href="/tools/construction" className="group flex flex-col h-full bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-xl p-6 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-sm hover:-translate-y-0.5 transition-all duration-200">
-                  <div className="w-10 h-10 rounded-lg bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/30 flex items-center justify-center mb-4">
-                    <svg className="w-5 h-5 text-amber-600 dark:text-amber-400" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M11.42 15.17 17.25 21A2.652 2.652 0 0 0 21 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 1 1-3.586-3.586l5.654-4.654m5.96-4.994a2.652 2.652 0 0 0-3.01-.534l-1.714 1.714" /></svg>
-                  </div>
-                  <h3 className="font-semibold text-base text-zinc-950 dark:text-white mb-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
-                    Construction Calculators
-                  </h3>
-                  <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed flex-1">
-                    Concrete, roofing, flooring, lumber, paint, tile, fencing, stairs, and more.
-                  </p>
-                  <span className="mt-4 text-xs text-indigo-600 dark:text-indigo-400 font-medium inline-flex items-center gap-1">
-                    Browse calculators <ArrowRight className="w-3 h-3" />
-                  </span>
-                </Link>
-              </Reveal>
-              <Reveal delay={60}>
-                <Link href="/tools/finance" className="group flex flex-col h-full bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-xl p-6 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-sm hover:-translate-y-0.5 transition-all duration-200">
-                  <div className="w-10 h-10 rounded-lg bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/30 flex items-center justify-center mb-4">
-                    <svg className="w-5 h-5 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
-                  </div>
-                  <h3 className="font-semibold text-base text-zinc-950 dark:text-white mb-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
-                    Finance Calculators
-                  </h3>
-                  <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed flex-1">
-                    Mortgage, compound interest, loan amortization, and retirement planning tools.
-                  </p>
-                  <span className="mt-4 text-xs text-indigo-600 dark:text-indigo-400 font-medium inline-flex items-center gap-1">
-                    Browse calculators <ArrowRight className="w-3 h-3" />
-                  </span>
-                </Link>
-              </Reveal>
-              <Reveal delay={120}>
-                <Link href="/tools/health-fitness" className="group flex flex-col h-full bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-xl p-6 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-sm hover:-translate-y-0.5 transition-all duration-200">
-                  <div className="w-10 h-10 rounded-lg bg-rose-50 dark:bg-rose-500/10 border border-rose-200 dark:border-rose-500/30 flex items-center justify-center mb-4">
-                    <svg className="w-5 h-5 text-rose-600 dark:text-rose-400" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" /></svg>
-                  </div>
-                  <h3 className="font-semibold text-base text-zinc-950 dark:text-white mb-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
-                    Health &amp; Fitness Tools
-                  </h3>
-                  <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed flex-1">
-                    BMI calculator, calorie tracker, body fat, macro calculator, and more.
-                  </p>
-                  <span className="mt-4 text-xs text-indigo-600 dark:text-indigo-400 font-medium inline-flex items-center gap-1">
-                    Browse tools <ArrowRight className="w-3 h-3" />
-                  </span>
-                </Link>
-              </Reveal>
-            </div>
           </div>
         </section>
 

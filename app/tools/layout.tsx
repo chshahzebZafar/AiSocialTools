@@ -4,13 +4,12 @@ import { getOGImageUrl } from "@/lib/og-image-generator";
 export const metadata: Metadata = {
   title: "All Tools — Browse by Category",
   description:
-    "Free, browser-based tools organized by what you're trying to do. Social media tools, construction tools (coming soon), and more.",
+    "Free, browser-based tools organized by what you're trying to do. Social media tools, finance and health calculators, and more.",
   keywords: [
     "all tools",
     "free tools",
     "tool categories",
     "social media tools",
-    "construction tools",
     "free online tools",
     "tools by category",
     "free tools for creators",
