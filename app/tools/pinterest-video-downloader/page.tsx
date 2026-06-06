@@ -483,7 +483,7 @@ export default function PinterestVideoDownloaderPage() {
             <div className="border-b border-slate-100 pb-4">
               <h3 className="font-semibold text-slate-900 mb-2">Can I download entire Pinterest boards?</h3>
               <p className="text-slate-600">
-                Currently, <strong>AisocialTools</strong> downloads individual pins one at a time. For downloading entire boards, you would need to copy each pin's URL separately. We recommend organizing your downloads in folders by board name. For batch processing images, try our <a href="/tools/image-converter" className="text-red-600 hover:underline font-medium">Image Converter</a> or <a href="/tools/pdf-merger" className="text-red-600 hover:underline font-medium">PDF Merger</a> tools to combine multiple files.
+                Currently, <strong>AisocialTools</strong> downloads individual pins one at a time. For downloading entire boards, you would need to copy each pin's URL separately. We recommend organizing your downloads in folders by board name. For converting your saved images between formats, try our <a href="/tools/image-converter" className="text-red-600 hover:underline font-medium">Image Converter</a> tool.
               </p>
             </div>
 

@@ -85,6 +85,10 @@ const nextConfig: NextConfig = {
       // 301-redirect to the /tools hub so any inbound links / bookmarks survive.
       { source: '/tools/:cat(finance|health-fitness|education|real-estate|developer|location|file-tools|math|cooking|everyday|science)', destination: '/tools', permanent: true },
       { source: '/tools/:cat(finance|health-fitness|education|real-estate|developer|location|file-tools|math|cooking|everyday|science)/:slug*', destination: '/tools', permanent: true },
+
+      // Off-brand document/file utilities removed to keep the site focused on
+      // social media + AI. PDF tools and the favicon generator 301 to /tools.
+      { source: '/tools/:tool(pdf-merger|pdf-splitter|pdf-to-image|image-to-pdf|word-to-pdf|favicon-generator)', destination: '/tools', permanent: true },
     ];
   },
 

@@ -7,7 +7,7 @@ const WHILE_YOU_WAIT = [
   { name: "Color Palette Generator", href: "/tools/color-palette", note: "Pull brand colors from any image" },
   { name: "Tweet to Image", href: "/tools/tweet-to-image", note: "Turn tweets into shareable images" },
   { name: "SVG Pattern Generator", href: "/tools/svg-pattern-generator", note: "Mandalas, grids, waves for backgrounds" },
-  { name: "Favicon Generator", href: "/tools/favicon-generator", note: "Every favicon size + HTML snippet" },
+  { name: "Image Upscaler", href: "/tools/image-upscaler", note: "Enhance and upscale images with AI" },
 ];
 
 export default function AIImageGeneratorComingSoon() {
