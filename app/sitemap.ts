@@ -9,7 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Static date groups — avoids every page appearing "modified today" on every deploy.
   // Update CONTENT_REFRESHED when you do a meaningful content pass.
-  const CONTENT_REFRESHED = new Date('2026-05-14')  // last major content / tools update
+  const CONTENT_REFRESHED = new Date('2026-06-07')  // refocus pass: removed off-brand tools/categories
   const STATIC_PAGE_DATE  = new Date('2026-01-01')  // structural pages that rarely change
   const LEGAL_PAGE_DATE   = new Date('2025-06-01')  // privacy / terms — changes rarely
 
