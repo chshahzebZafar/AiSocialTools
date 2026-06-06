@@ -6,10 +6,7 @@ const TOOL_IDS = [
   "image-compressor",
   "image-converter",
   "image-resizer",
-  "favicon-generator",
   "color-palette",
-  "image-to-pdf",
-  "pdf-to-image",
   "svg-pattern-generator",
   "tweet-to-image",
   "text-to-handwriting",
@@ -135,10 +132,10 @@ export default function ImageToolsHub() {
             Most online image tools work like this: you upload your file, wait for a server to process it, then download the result. That model has three problems — you&rsquo;re handing your images to a third party, you&rsquo;re limited by their queue and file-size caps, and the output usually comes with a watermark or upsell. Our image toolkit takes the opposite approach. Every tool on this page runs entirely in your browser using the Canvas and File APIs. Your images never leave your device, the processing is as fast as your hardware, and the output is clean.
           </p>
           <p>
-            Start with the core four. The <Link href="/tools/image-compressor" className="text-indigo-600 dark:text-indigo-400 underline">Image Compressor</Link> uses quality-based compression to shrink JPG, PNG, and WebP files by 40–70% with no visible quality loss. The <Link href="/tools/image-converter" className="text-indigo-600 dark:text-indigo-400 underline">Image Format Converter</Link> swaps between PNG, JPG, and WebP — perfect for converting old PNGs to smaller WebP for your website. The <Link href="/tools/image-resizer" className="text-indigo-600 dark:text-indigo-400 underline">Image Resizer</Link> has platform presets for every Instagram, TikTok, YouTube, and LinkedIn dimension. The <Link href="/tools/favicon-generator" className="text-indigo-600 dark:text-indigo-400 underline">Favicon Generator</Link> turns any image into a full favicon pack with the HTML snippet to paste into your site&rsquo;s head.
+            Start with the core four. The <Link href="/tools/image-compressor" className="text-indigo-600 dark:text-indigo-400 underline">Image Compressor</Link> uses quality-based compression to shrink JPG, PNG, and WebP files by 40–70% with no visible quality loss. The <Link href="/tools/image-converter" className="text-indigo-600 dark:text-indigo-400 underline">Image Format Converter</Link> swaps between PNG, JPG, and WebP — perfect for converting old PNGs to smaller WebP for your website. The <Link href="/tools/image-resizer" className="text-indigo-600 dark:text-indigo-400 underline">Image Resizer</Link> has platform presets for every Instagram, TikTok, YouTube, and LinkedIn dimension.
           </p>
           <p>
-            For creative work, the <Link href="/tools/color-palette" className="text-indigo-600 dark:text-indigo-400 underline">Color Palette Generator</Link> extracts brand colors from any uploaded image, the <Link href="/tools/svg-pattern-generator" className="text-indigo-600 dark:text-indigo-400 underline">SVG Pattern Generator</Link> creates tileable backgrounds, the <Link href="/tools/tweet-to-image" className="text-indigo-600 dark:text-indigo-400 underline">Tweet to Image</Link> converter makes pretty tweet screenshots, and the <Link href="/tools/video-to-gif" className="text-indigo-600 dark:text-indigo-400 underline">Video to GIF</Link> tool turns clips into shareable loops. File-format conversions round out the kit — <Link href="/tools/image-to-pdf" className="text-indigo-600 dark:text-indigo-400 underline">Image to PDF</Link> and <Link href="/tools/pdf-to-image" className="text-indigo-600 dark:text-indigo-400 underline">PDF to Image</Link>.
+            For creative work, the <Link href="/tools/color-palette" className="text-indigo-600 dark:text-indigo-400 underline">Color Palette Generator</Link> extracts brand colors from any uploaded image, the <Link href="/tools/svg-pattern-generator" className="text-indigo-600 dark:text-indigo-400 underline">SVG Pattern Generator</Link> creates tileable backgrounds, the <Link href="/tools/tweet-to-image" className="text-indigo-600 dark:text-indigo-400 underline">Tweet to Image</Link> converter makes pretty tweet screenshots, and the <Link href="/tools/video-to-gif" className="text-indigo-600 dark:text-indigo-400 underline">Video to GIF</Link> tool turns clips into shareable loops.
           </p>
           <p>
             Before you upload anywhere, check the <Link href="/tools/social-media-image-sizes" className="text-indigo-600 dark:text-indigo-400 underline">Social Media Image Sizes 2026</Link> reference to make sure you&rsquo;re using the exact dimensions each network expects — it directly affects engagement and thumbnail clarity.
