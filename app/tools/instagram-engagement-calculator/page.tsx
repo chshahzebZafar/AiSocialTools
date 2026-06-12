@@ -4,12 +4,11 @@ import { useMemo, useState } from "react";
 import { TrendingUp, Instagram } from "lucide-react";
 import { getToolById } from "@/lib/social-tools";
 import ToolSEO from "@/components/ToolSEO";
+import ToolHero from "@/components/ToolHero";
 import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { ToolComments } from "@/components/ToolComments";
-import ShareButtons from "@/components/ShareButtons";
-import { FavoriteButton } from "@/components/FavoriteButton";
 
 type Mode = "per-post" | "account";
 
@@ -54,27 +53,16 @@ export default function InstagramEngagementCalculatorPage() {
   return (
     <>
       {tool && <ToolSEO tool={tool} />}
+      <ToolHero
+        toolId={tool?.id}
+        icon={Instagram}
+        iconGradient="from-pink-500 to-purple-600"
+        title="Instagram Engagement Rate Calculator — Free & Instant"
+        description="Calculate your Instagram engagement rate in seconds. Compare against 2026 benchmarks, get a per-post or account-wide breakdown, and see which interaction type drives the most engagement."
+        shareTitle="Instagram Engagement Calculator"
+        shareText="Free Instagram engagement rate calculator with 2026 benchmarks."
+      />
       <div className="p-8 max-w-5xl mx-auto">
-        <div className="mb-8">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-purple-600 rounded-lg flex items-center justify-center">
-              <Instagram className="w-6 h-6 text-white" />
-            </div>
-            <div className="flex-1">
-              <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100">
-                Instagram Engagement Rate Calculator — Free & Instant
-              </h1>
-              <p className="text-slate-600 dark:text-slate-300">
-                Calculate your Instagram engagement rate in seconds. Compare against 2026 benchmarks, get a per-post or account-wide breakdown, and see which interaction type drives the most engagement.
-              </p>
-            </div>
-          </div>
-          <div className="mt-4 flex items-center gap-3 flex-wrap">
-            {tool && <FavoriteButton toolId={tool.id} />}
-            <ShareButtons title="Instagram Engagement Calculator" text="Free Instagram engagement rate calculator with 2026 benchmarks." />
-          </div>
-        </div>
-
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 space-y-4">
             <div>

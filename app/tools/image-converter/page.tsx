@@ -4,13 +4,12 @@ import { useCallback, useState } from "react";
 import { Replace, Upload, Download, Loader2 } from "lucide-react";
 import { getToolById } from "@/lib/social-tools";
 import ToolSEO from "@/components/ToolSEO";
+import ToolHero from "@/components/ToolHero";
 import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import ToolContentSection from "@/components/ToolContentSection";
 import { ToolComments } from "@/components/ToolComments";
-import ShareButtons from "@/components/ShareButtons";
-import { FavoriteButton } from "@/components/FavoriteButton";
 
 type Format = "image/png" | "image/jpeg" | "image/webp";
 
@@ -103,27 +102,16 @@ export default function ImageConverterPage() {
   return (
     <>
       {tool && <ToolSEO tool={tool} />}
+      <ToolHero
+        toolId={tool?.id}
+        icon={Replace}
+        iconGradient="from-indigo-500 to-violet-500"
+        title="Image Format Converter — PNG, JPG, WebP, Free in Your Browser"
+        description="Convert between PNG, JPG, and WebP with full quality control. Everything runs in your browser — no file upload, no watermark, no signup."
+        shareTitle="Image Format Converter"
+        shareText="Free PNG, JPG, WebP image converter — runs entirely in the browser."
+      />
       <div className="p-8 max-w-5xl mx-auto">
-        <div className="mb-8">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 bg-indigo-500 rounded-lg flex items-center justify-center">
-              <Replace className="w-6 h-6 text-white" />
-            </div>
-            <div className="flex-1">
-              <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100">
-                Image Format Converter — PNG, JPG, WebP, Free in Your Browser
-              </h1>
-              <p className="text-slate-600 dark:text-slate-300">
-                Convert between PNG, JPG, and WebP with full quality control. Everything runs in your browser — no file upload, no watermark, no signup.
-              </p>
-            </div>
-          </div>
-          <div className="mt-4 flex items-center gap-3 flex-wrap">
-            {tool && <FavoriteButton toolId={tool.id} />}
-            <ShareButtons title="Image Format Converter" text="Free PNG, JPG, WebP image converter — runs entirely in the browser." />
-          </div>
-        </div>
-
         <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 mb-6">
           <label className="block border-2 border-dashed border-slate-300 dark:border-slate-600 rounded-xl p-8 text-center cursor-pointer hover:border-indigo-500 transition">
             <input

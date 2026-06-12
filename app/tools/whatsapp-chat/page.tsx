@@ -5,12 +5,11 @@ import { MessageCircle, Copy, ExternalLink, Send, QrCode, Download, Code, Share2
 import { QRCodeSVG } from "qrcode.react";
 import { getToolById } from "@/lib/social-tools";
 import ToolSEO from "@/components/ToolSEO";
+import ToolHero from "@/components/ToolHero";
 import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { ToolComments } from "@/components/ToolComments";
-import ShareButtons from "@/components/ShareButtons";
-import { FavoriteButton } from "@/components/FavoriteButton";
 
 const countryCodes = [
   { name: "Afghanistan", code: "93", flag: "🇦🇫" },
@@ -400,30 +399,16 @@ export default function WhatsAppChatPage() {
   return (
     <>
       {tool && <ToolSEO tool={tool} />}
+      <ToolHero
+        toolId={tool?.id}
+        icon={MessageCircle}
+        iconGradient="from-emerald-500 to-green-600"
+        title="WhatsApp Chat Link Generator - Start Direct Chat"
+        description="Generate WhatsApp direct chat links with pre-filled messages. Create clickable links to start conversations instantly."
+        shareTitle="WhatsApp Chat Link Generator"
+        shareText="Check out this free WhatsApp chat link generator tool!"
+      />
       <div className="p-4 sm:p-6 lg:p-8 max-w-4xl mx-auto w-full">
-        <div className="mb-6 sm:mb-8">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-4">
-            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center flex-shrink-0">
-              <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-            </div>
-            <div className="flex-1 min-w-0">
-              <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900">
-                WhatsApp Chat Link Generator - Start Direct Chat
-              </h1>
-              <p className="text-sm sm:text-base text-slate-600 mt-1">
-                Generate WhatsApp direct chat links with pre-filled messages. 
-                Create clickable links to start conversations instantly.
-              </p>
-            </div>
-          </div>
-          <div className="mt-4 flex items-center gap-3 flex-wrap">
-            {tool && <FavoriteButton toolId={tool.id} />}
-          <ShareButtons
-              title="WhatsApp Chat Link Generator"
-              text="Check out this free WhatsApp chat link generator tool!"
-            />
-          </div>
-        </div>
 
         <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-6">
           <div className="space-y-4">

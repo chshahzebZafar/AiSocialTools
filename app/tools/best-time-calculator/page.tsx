@@ -4,13 +4,12 @@ import { useState } from "react";
 import { Clock, TrendingUp } from "lucide-react";
 import { getToolById } from "@/lib/social-tools";
 import ToolSEO from "@/components/ToolSEO";
+import ToolHero from "@/components/ToolHero";
 import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { ToolComments } from "@/components/ToolComments";
 import { getSEOMetadata } from "@/lib/seo-metadata";
-import ShareButtons from "@/components/ShareButtons";
-import { FavoriteButton } from "@/components/FavoriteButton";
 
 export default function BestTimeCalculatorPage() {
   const tool = getToolById("best-time-calculator");
@@ -50,25 +49,16 @@ export default function BestTimeCalculatorPage() {
   return (
     <>
       {tool && <ToolSEO tool={tool} />}
+      <ToolHero
+        toolId={tool?.id}
+        icon={Clock}
+        iconGradient="from-amber-500 to-orange-600"
+        title="Best Time to Post Calculator - Find Optimal Posting Times Free"
+        description="Find the best times to post on Instagram, Twitter, Facebook, LinkedIn, and TikTok. Free posting time calculator with platform-specific recommendations. Maximize engagement."
+        shareTitle="Best Time to Post Calculator"
+        shareText="Check out this free posting time calculator tool!"
+      />
       <div className="p-8 max-w-4xl mx-auto">
-      <div className="mb-8">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center">
-            <Clock className="w-6 h-6 text-white" />
-          </div>
-          <div className="flex-1">
-            <h1 className="text-3xl font-bold text-slate-900">Best Time to Post Calculator - Find Optimal Posting Times Free</h1>
-            <p className="text-slate-600">Find the best times to post on Instagram, Twitter, Facebook, LinkedIn, and TikTok. Free posting time calculator with platform-specific recommendations. Maximize engagement.</p>
-          </div>
-        </div>
-        <div className="mt-4 flex items-center gap-3 flex-wrap">
-          {tool && <FavoriteButton toolId={tool.id} />}
-          <ShareButtons
-            title="Best Time to Post Calculator"
-            text="Check out this free posting time calculator tool!"
-          />
-        </div>
-      </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="space-y-6">

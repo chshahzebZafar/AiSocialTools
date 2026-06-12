@@ -4,12 +4,12 @@ import { useMemo, useState } from "react";
 import { Linkedin, Copy, Check, RefreshCw } from "lucide-react";
 import { getToolById } from "@/lib/social-tools";
 import ToolSEO from "@/components/ToolSEO";
+import ToolHero from "@/components/ToolHero";
 import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { ToolComments } from "@/components/ToolComments";
 import ShareButtons from "@/components/ShareButtons";
-import { FavoriteButton } from "@/components/FavoriteButton";
 
 const MAX_CHARS = 220;
 
@@ -78,27 +78,16 @@ export default function LinkedInHeadlineGeneratorPage() {
   return (
     <>
       {tool && <ToolSEO tool={tool} />}
+      <ToolHero
+        toolId={tool?.id}
+        icon={Linkedin}
+        iconGradient="from-sky-500 to-blue-600"
+        title="LinkedIn Headline Generator — 15+ Free Professional Headlines"
+        description="Tell us your role, expertise, and who you help — get 15+ LinkedIn headline variations instantly. Every suggestion stays under the 220-character limit and follows what recruiters search for in 2026."
+        shareTitle="LinkedIn Headline Generator"
+        shareText="Free LinkedIn headline generator, 15+ variations."
+      />
       <div className="p-8 max-w-5xl mx-auto">
-        <div className="mb-8">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 bg-[#0A66C2] rounded-lg flex items-center justify-center">
-              <Linkedin className="w-6 h-6 text-white" />
-            </div>
-            <div className="flex-1">
-              <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100">
-                LinkedIn Headline Generator — 15+ Free Professional Headlines
-              </h1>
-              <p className="text-slate-600 dark:text-slate-300">
-                Tell us your role, expertise, and who you help — get 15+ LinkedIn headline variations instantly. Every suggestion stays under the 220-character limit and follows what recruiters search for in 2026.
-              </p>
-            </div>
-          </div>
-          <div className="mt-4 flex items-center gap-3 flex-wrap">
-            {tool && <FavoriteButton toolId={tool.id} />}
-            <ShareButtons title="LinkedIn Headline Generator" text="Free LinkedIn headline generator, 15+ variations." />
-          </div>
-        </div>
-
         <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 mb-6 space-y-4">
           <Field label="Your role / job title (required)">
             <input value={inputs.role} onChange={(e) => update("role", e.target.value)} placeholder="e.g. Product Designer" className="field" />

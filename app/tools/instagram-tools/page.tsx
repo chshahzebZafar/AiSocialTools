@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Instagram, ArrowRight, Sparkles, TrendingUp, Users, Zap } from "lucide-react";
 import { getToolById } from "@/lib/social-tools";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 const TOOL_IDS = [
   "instagram-post-generator",
@@ -92,6 +93,7 @@ export default function InstagramToolsHub() {
       <div className="p-8 max-w-6xl mx-auto">
         {/* Hero */}
         <div className="text-center mb-12">
+          <Breadcrumbs center />
           <div className="inline-flex items-center gap-2 rounded-full border border-pink-200 bg-pink-50 dark:border-pink-800 dark:bg-pink-900/30 px-3 py-1 text-xs font-medium text-pink-700 dark:text-pink-300 mb-4">
             <Instagram className="w-3 h-3" />
             {tools.length} free Instagram tools

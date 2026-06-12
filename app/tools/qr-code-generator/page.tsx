@@ -5,6 +5,7 @@ import { QrCode, Download, Copy } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import { getToolById } from "@/lib/social-tools";
 import ToolSEO from "@/components/ToolSEO";
+import ToolHero from "@/components/ToolHero";
 import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
@@ -80,25 +81,15 @@ export default function QRCodeGeneratorPage() {
   return (
     <>
       {tool && <ToolSEO tool={tool} />}
+      <ToolHero
+        icon={QrCode}
+        iconGradient="from-emerald-500 to-green-600"
+        title="Free QR Code Generator - Create QR Codes for Social Media Links"
+        description="Generate QR codes for Instagram, Twitter, Facebook, and any URL. Free QR code generator with customizable colors and sizes. Download QR codes as PNG. Perfect for social media marketing."
+        shareTitle="Free QR Code Generator"
+        shareText="Check out this free QR code generator tool!"
+      />
       <div className="p-8 max-w-6xl mx-auto">
-      <div className="mb-8">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center">
-            <QrCode className="w-6 h-6 text-white" />
-          </div>
-          <div className="flex-1">
-            <h1 className="text-3xl font-bold text-slate-900">Free QR Code Generator - Create QR Codes for Social Media Links</h1>
-            <p className="text-slate-600">Generate QR codes for Instagram, Twitter, Facebook, and any URL. Free QR code generator with customizable colors and sizes. Download QR codes as PNG. Perfect for social media marketing.</p>
-          </div>
-        </div>
-        <div className="mt-4">
-          <ShareButtons
-            title="Free QR Code Generator"
-            text="Check out this free QR code generator tool!"
-          />
-        </div>
-      </div>
-
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="space-y-6">
           <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">

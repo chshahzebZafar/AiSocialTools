@@ -4,13 +4,12 @@ import { useState, useEffect } from "react";
 import { Type, Copy } from "lucide-react";
 import { getToolById } from "@/lib/social-tools";
 import ToolSEO from "@/components/ToolSEO";
+import ToolHero from "@/components/ToolHero";
 import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import ToolContentSection from "@/components/ToolContentSection";
 import { getSEOMetadata } from "@/lib/seo-metadata";
-import ShareButtons from "@/components/ShareButtons";
-import { FavoriteButton } from "@/components/FavoriteButton";
 import { ToolComments } from "@/components/ToolComments";
 
 interface PlatformLimit {
@@ -57,25 +56,16 @@ export default function CharacterCounterPage() {
   return (
     <>
       {tool && <ToolSEO tool={tool} />}
+      <ToolHero
+        toolId={tool?.id}
+        icon={Type}
+        iconGradient="from-sky-500 to-blue-600"
+        title="Social Media Character Counter - Count Characters for All Platforms Free"
+        description="Count characters for Twitter, Instagram, Facebook, LinkedIn, and more. Free social media character counter with platform limits. Track character count in real-time."
+        shareTitle="Social Media Character Counter"
+        shareText="Check out this free character counter tool!"
+      />
       <div className="p-8 max-w-4xl mx-auto">
-      <div className="mb-8">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center">
-            <Type className="w-6 h-6 text-white" />
-          </div>
-          <div className="flex-1">
-            <h1 className="text-3xl font-bold text-slate-900">Social Media Character Counter - Count Characters for All Platforms Free</h1>
-            <p className="text-slate-600">Count characters for Twitter, Instagram, Facebook, LinkedIn, and more. Free social media character counter with platform limits. Track character count in real-time.</p>
-          </div>
-        </div>
-        <div className="mt-4 flex items-center gap-3 flex-wrap">
-          {tool && <FavoriteButton toolId={tool.id} />}
-          <ShareButtons
-            title="Social Media Character Counter"
-            text="Check out this free character counter tool!"
-          />
-        </div>
-      </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-6">

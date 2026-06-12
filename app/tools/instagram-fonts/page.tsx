@@ -4,13 +4,12 @@ import { useMemo, useState } from "react";
 import { CaseSensitive, Copy, Check } from "lucide-react";
 import { getToolById } from "@/lib/social-tools";
 import ToolSEO from "@/components/ToolSEO";
+import ToolHero from "@/components/ToolHero";
 import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import ToolContentSection from "@/components/ToolContentSection";
 import { ToolComments } from "@/components/ToolComments";
-import ShareButtons from "@/components/ShareButtons";
-import { FavoriteButton } from "@/components/FavoriteButton";
 
 type MapFn = (text: string) => string;
 
@@ -99,27 +98,16 @@ export default function InstagramFontsPage() {
   return (
     <>
       {tool && <ToolSEO tool={tool} />}
+      <ToolHero
+        toolId={tool?.id}
+        icon={CaseSensitive}
+        iconGradient="from-pink-500 to-purple-600"
+        title="Instagram Font Generator — 20+ Free Stylish Fonts for Bio & Captions"
+        description="Type once, see your text in 20+ stylish Instagram fonts — bold, italic, script, small caps, upside down, and more. One-click copy, works in bio, captions, and stories."
+        shareTitle="Instagram Font Generator"
+        shareText="Free Instagram fonts — 20+ styles, copy in one click."
+      />
       <div className="p-8 max-w-4xl mx-auto">
-        <div className="mb-8">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-purple-600 rounded-lg flex items-center justify-center">
-              <CaseSensitive className="w-6 h-6 text-white" />
-            </div>
-            <div className="flex-1">
-              <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100">
-                Instagram Font Generator — 20+ Free Stylish Fonts for Bio & Captions
-              </h1>
-              <p className="text-slate-600 dark:text-slate-300">
-                Type once, see your text in 20+ stylish Instagram fonts — bold, italic, script, small caps, upside down, and more. One-click copy, works in bio, captions, and stories.
-              </p>
-            </div>
-          </div>
-          <div className="mt-4 flex items-center gap-3 flex-wrap">
-            {tool && <FavoriteButton toolId={tool.id} />}
-            <ShareButtons title="Instagram Font Generator" text="Free Instagram fonts — 20+ styles, copy in one click." />
-          </div>
-        </div>
-
         <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 mb-6">
           <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">Your text</label>
           <input

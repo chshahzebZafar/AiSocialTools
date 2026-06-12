@@ -4,12 +4,11 @@ import { useState } from "react";
 import { Download, Pin, AlertCircle, Video, Image as ImageIcon, Smartphone, Monitor, Shield, FileVideo, Music, Image as ImgIcon, CheckCircle } from "lucide-react";
 import { getToolById } from "@/lib/social-tools";
 import ToolSEO from "@/components/ToolSEO";
+import ToolHero from "@/components/ToolHero";
 import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { getSEOMetadata } from "@/lib/seo-metadata";
-import ShareButtons from "@/components/ShareButtons";
-import { FavoriteButton } from "@/components/FavoriteButton";
 import { ToolComments } from "@/components/ToolComments";
 
 interface PinData {
@@ -105,26 +104,16 @@ export default function PinterestVideoDownloaderPage() {
   return (
     <>
       {tool && <ToolSEO tool={tool} />}
+      <ToolHero
+        toolId={tool?.id}
+        icon={Pin}
+        iconGradient="from-red-600 to-red-800"
+        title="Pinterest Video Downloader - Download Pinterest Videos & Images Free"
+        description="Download videos and images from Pinterest pins. Free Pinterest downloader tool. Save Pinterest content in HD quality for offline viewing. No signup required."
+        shareTitle="Pinterest Video Downloader"
+        shareText="Check out this free Pinterest video downloader tool!"
+      />
       <div className="p-8 max-w-4xl mx-auto">
-        <div className="mb-8">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 bg-gradient-to-br from-red-600 to-red-800 rounded-lg flex items-center justify-center">
-              <Pin className="w-6 h-6 text-white" />
-            </div>
-            <div className="flex-1">
-              <h1 className="text-3xl font-bold text-slate-900">Pinterest Video Downloader - Download Pinterest Videos & Images Free</h1>
-              <p className="text-slate-600">Download videos and images from Pinterest pins. Free Pinterest downloader tool. Save Pinterest content in HD quality for offline viewing. No signup required.</p>
-            </div>
-          </div>
-          <div className="mt-4 flex items-center gap-3 flex-wrap">
-            {tool && <FavoriteButton toolId={tool.id} />}
-            <ShareButtons
-              title="Pinterest Video Downloader"
-              text="Check out this free Pinterest video downloader tool!"
-            />
-          </div>
-        </div>
-
         <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-6">
           <label className="block text-sm font-medium text-slate-700 mb-2">
             Pinterest Pin URL

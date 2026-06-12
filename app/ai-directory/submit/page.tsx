@@ -115,11 +115,10 @@ export default function SubmitAIToolPage() {
       <Header />
 
       <main className="flex-1">
-        <Breadcrumbs />
-
         {/* Hero */}
         <section className="border-b border-zinc-200 dark:border-zinc-800">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+            <Breadcrumbs embedded />
             <Link
               href="/ai-directory"
               className="inline-flex items-center gap-1.5 text-sm text-zinc-500 hover:text-zinc-950 dark:hover:text-white transition-colors mb-6"

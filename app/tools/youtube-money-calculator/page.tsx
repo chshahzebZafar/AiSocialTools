@@ -4,13 +4,12 @@ import { useMemo, useState } from "react";
 import { DollarSign, Youtube } from "lucide-react";
 import { getToolById } from "@/lib/social-tools";
 import ToolSEO from "@/components/ToolSEO";
+import ToolHero from "@/components/ToolHero";
 import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import ToolContentSection from "@/components/ToolContentSection";
 import { ToolComments } from "@/components/ToolComments";
-import ShareButtons from "@/components/ShareButtons";
-import { FavoriteButton } from "@/components/FavoriteButton";
 
 type ContentType = "long-form" | "shorts";
 
@@ -76,27 +75,16 @@ export default function YouTubeMoneyCalculatorPage() {
   return (
     <>
       {tool && <ToolSEO tool={tool} />}
+      <ToolHero
+        toolId={tool?.id}
+        icon={DollarSign}
+        iconGradient="from-emerald-500 to-green-600"
+        title="YouTube Money Calculator — Free YouTube Earnings Estimator"
+        description="Estimate YouTube ad revenue from monthly views, CPM, and niche. Separate modes for long-form videos and Shorts. Results reflect YouTube’s standard 55% creator share."
+        shareTitle="YouTube Money Calculator"
+        shareText="Free YouTube earnings estimator — long-form and Shorts modes."
+      />
       <div className="p-8 max-w-5xl mx-auto">
-        <div className="mb-8">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center">
-              <DollarSign className="w-6 h-6 text-white" />
-            </div>
-            <div className="flex-1">
-              <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100">
-                YouTube Money Calculator — Free YouTube Earnings Estimator
-              </h1>
-              <p className="text-slate-600 dark:text-slate-300">
-                Estimate YouTube ad revenue from monthly views, CPM, and niche. Separate modes for long-form videos and Shorts. Results reflect YouTube&rsquo;s standard 55% creator share.
-              </p>
-            </div>
-          </div>
-          <div className="mt-4 flex items-center gap-3 flex-wrap">
-            {tool && <FavoriteButton toolId={tool.id} />}
-            <ShareButtons title="YouTube Money Calculator" text="Free YouTube earnings estimator — long-form and Shorts modes." />
-          </div>
-        </div>
-
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 space-y-4">
             <div>

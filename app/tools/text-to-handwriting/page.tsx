@@ -4,12 +4,11 @@ import { useState, useRef, useEffect } from "react";
 import { PenTool, Download, Upload, Image as ImageIcon, Type, Palette, Settings, FileImage, FileText, Bold, Italic, Underline, Sparkles, Layers, Frame, Droplet, Zap, Heading, AlignCenter } from "lucide-react";
 import { getToolById } from "@/lib/social-tools";
 import ToolSEO from "@/components/ToolSEO";
+import ToolHero from "@/components/ToolHero";
 import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { ToolComments } from "@/components/ToolComments";
-import ShareButtons from "@/components/ShareButtons";
-import { FavoriteButton } from "@/components/FavoriteButton";
 
 // Handwriting fonts from Google Fonts
 const handwritingFonts = [
@@ -471,30 +470,16 @@ export default function TextToHandwritingPage() {
   return (
     <>
       {tool && <ToolSEO tool={tool} />}
+      <ToolHero
+        toolId={tool?.id}
+        icon={PenTool}
+        iconGradient="from-purple-500 to-pink-600"
+        title="Text to Handwriting Converter"
+        description="Convert your text into beautiful handwriting with custom fonts, colors, and backgrounds"
+        shareTitle="Text to Handwriting Converter"
+        shareText="Check out this free text to handwriting converter tool!"
+      />
       <div className="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto w-full">
-        <div className="mb-6 sm:mb-8">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-4">
-            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-purple-500 to-pink-600 rounded-lg flex items-center justify-center flex-shrink-0">
-              <PenTool className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-            </div>
-            <div className="flex-1 min-w-0">
-              <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900">
-                Text to Handwriting Converter
-              </h1>
-              <p className="text-sm sm:text-base text-slate-600 mt-1">
-                Convert your text into beautiful handwriting with custom fonts, colors, and backgrounds
-              </p>
-            </div>
-          </div>
-          <div className="mt-4 flex items-center gap-3 flex-wrap">
-            {tool && <FavoriteButton toolId={tool.id} />}
-          <ShareButtons
-              title="Text to Handwriting Converter"
-              text="Check out this free text to handwriting converter tool!"
-            />
-          </div>
-        </div>
-
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Controls Panel */}
           <div className="lg:col-span-1 space-y-6">

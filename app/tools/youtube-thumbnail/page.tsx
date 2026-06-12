@@ -4,14 +4,13 @@ import { useState } from "react";
 import { Youtube, Download, ExternalLink } from "lucide-react";
 import { getToolById } from "@/lib/social-tools";
 import ToolSEO from "@/components/ToolSEO";
+import ToolHero from "@/components/ToolHero";
 import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import ToolContentSection from "@/components/ToolContentSection";
 import { ToolComments } from "@/components/ToolComments";
 import { getSEOMetadata } from "@/lib/seo-metadata";
-import ShareButtons from "@/components/ShareButtons";
-import { FavoriteButton } from "@/components/FavoriteButton";
 
 export default function YouTubeThumbnailPage() {
   const tool = getToolById("youtube-thumbnail");
@@ -80,30 +79,16 @@ export default function YouTubeThumbnailPage() {
   return (
     <>
       {tool && <ToolSEO tool={tool} />}
+      <ToolHero
+        toolId={tool?.id}
+        icon={Youtube}
+        iconGradient="from-red-500 to-rose-600"
+        title="Best Free YouTube Thumbnail Downloader Online - Download HD Thumbnails 2026"
+        description="Extract and download YouTube video thumbnails in high quality with the best free YouTube thumbnail downloader online. Download thumbnails in max resolution (1280x720), HQ, MQ, or SD quality instantly. Perfect for content creators, marketers, and video editors. No signup required - 100% free tool."
+        shareTitle="YouTube Thumbnail Grabber"
+        shareText="Check out this free YouTube thumbnail grabber tool!"
+      />
       <div className="p-8 max-w-4xl mx-auto">
-      <div className="mb-8">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="w-12 h-12 bg-red-500 rounded-lg flex items-center justify-center">
-            <Youtube className="w-6 h-6 text-white" />
-          </div>
-          <div className="flex-1">
-            <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100">Best Free YouTube Thumbnail Downloader Online - Download HD Thumbnails 2026</h1>
-            <p className="text-slate-600 dark:text-slate-300">
-              Extract and download YouTube video thumbnails in high quality with the best free YouTube thumbnail downloader online. 
-              Download thumbnails in max resolution (1280x720), HQ, MQ, or SD quality instantly. Perfect for content creators, 
-              marketers, and video editors. No signup required - 100% free tool.
-            </p>
-          </div>
-        </div>
-        <div className="mt-4 flex items-center gap-3 flex-wrap">
-          {tool && <FavoriteButton toolId={tool.id} />}
-          <ShareButtons
-            title="YouTube Thumbnail Grabber"
-            text="Check out this free YouTube thumbnail grabber tool!"
-          />
-        </div>
-      </div>
-
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-6">
         <label className="block text-sm font-medium text-slate-700 mb-2">
           YouTube Video URL

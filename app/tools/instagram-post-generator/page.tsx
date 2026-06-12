@@ -1,15 +1,15 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import Link from "next/link";
 import { Instagram, Download, Upload, Image as ImageIcon, MoreHorizontal, Bookmark, Share2, MessageCircle, Heart, MapPin, X } from "lucide-react";
 import { getToolById } from "@/lib/social-tools";
 import ToolSEO from "@/components/ToolSEO";
+import ToolHero from "@/components/ToolHero";
 import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { ToolComments } from "@/components/ToolComments";
-import ShareButtons from "@/components/ShareButtons";
-import { FavoriteButton } from "@/components/FavoriteButton";
 
 export default function InstagramPostGeneratorPage() {
   const tool = getToolById("instagram-post-generator");
@@ -209,29 +209,16 @@ export default function InstagramPostGeneratorPage() {
   return (
     <>
       {tool && <ToolSEO tool={tool} />}
+      <ToolHero
+        toolId={tool?.id}
+        icon={Instagram}
+        iconGradient="from-purple-500 to-pink-500"
+        title="Instagram Post Generator - Create Beautiful Instagram Post Mockups"
+        description="Create professional Instagram post mockups with customizable images, captions, comments, and engagement metrics. Perfect for marketing, design, and social media planning."
+        shareTitle="Instagram Post Generator"
+        shareText="Check out this free Instagram post generator tool!"
+      />
       <div className="p-8 max-w-7xl mx-auto">
-        <div className="mb-8">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
-              <Instagram className="w-6 h-6 text-white" />
-            </div>
-            <div className="flex-1">
-              <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100">
-                Instagram Post Generator - Create Beautiful Instagram Post Mockups
-              </h1>
-              <p className="text-slate-600 dark:text-slate-300 mt-2">
-                Create professional Instagram post mockups with customizable images, captions, comments, and engagement metrics. Perfect for marketing, design, and social media planning.
-              </p>
-            </div>
-          </div>
-          <div className="mt-4 flex items-center gap-3 flex-wrap">
-            {tool && <FavoriteButton toolId={tool.id} />}
-            <ShareButtons
-              title="Instagram Post Generator"
-              text="Check out this free Instagram post generator tool!"
-            />
-          </div>
-        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Preview Section */}
@@ -750,6 +737,169 @@ export default function InstagramPostGeneratorPage() {
             </div>
           </div>
         </div>
+
+        {/* SEO content */}
+        <section className="mt-12 max-w-3xl mx-auto">
+          <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-3">
+            Instagram Post Generator: Create Better Social Media Content Faster
+          </h2>
+
+          <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-3">What Is an Instagram Post Generator?</h2>
+          <p className="text-slate-600 leading-relaxed mb-4">
+            An Instagram Post Generator is a tool that helps users create engaging Instagram content
+            quickly and easily. Instead of spending a long time thinking about captions, ideas, and
+            designs, you can use an Instagram Post Generator to simplify the process. Many people also
+            use a social media post generator to create content that attracts more attention and
+            increases engagement.
+          </p>
+          <p className="text-slate-600 leading-relaxed mb-4">
+            Today, social media is highly competitive. That is why many creators and businesses rely
+            on an AI Instagram post generator to save time and maintain a consistent posting schedule.
+            These tools can help users create professional-looking posts without advanced marketing
+            skills.
+          </p>
+
+          <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-3">Why Use an Instagram Post Generator?</h2>
+          <p className="text-slate-600 leading-relaxed mb-4">
+            Using an Instagram Post Generator offers many benefits for content creators, influencers,
+            and businesses. It helps users generate fresh ideas and publish content faster. A good
+            social media post generator can reduce the stress of creating daily content while improving
+            productivity.
+          </p>
+          <p className="text-slate-600 leading-relaxed mb-4">
+            Many users choose an AI Instagram post generator because it can suggest captions,{" "}
+            <Link href="/tools/hashtag-generator" className="text-purple-600 hover:text-purple-700 underline">
+              hashtags
+            </Link>
+            , and{" "}
+            <Link href="/tools/content-ideas" className="text-purple-600 hover:text-purple-700 underline">
+              content ideas
+            </Link>{" "}
+            within seconds. Some tools also work as an Instagram automation tool, helping users manage
+            their content strategy more efficiently.
+          </p>
+
+          <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-3">How Does an Instagram Post Generator Work?</h2>
+          <p className="text-slate-600 leading-relaxed mb-4">
+            An Instagram Post Generator uses smart technology to create content suggestions based on
+            user input. You simply enter a topic, product, or idea, and the tool generates content that
+            matches your needs. Many modern tools function as an AI Instagram post generator, making the
+            process even faster.
+          </p>
+          <p className="text-slate-600 leading-relaxed mb-4">
+            Some platforms also include a free Instagram post maker that allows users to create
+            attractive graphics and captions in one place. Combined with an Instagram automation tool,
+            these features can help users build a stronger online presence.
+          </p>
+
+          <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-3">Benefits of Using an Instagram Post Generator</h2>
+          <p className="text-slate-600 leading-relaxed mb-4">
+            There are several reasons why people use an Instagram Post Generator for their content
+            creation needs. The biggest advantage is saving time while maintaining quality. A reliable
+            social media post generator can help users produce content regularly without running out of
+            ideas. Another major benefit is consistency — an AI Instagram post generator helps maintain
+            a similar tone and style across all posts, which builds trust and recognition.
+          </p>
+          <h3 className="text-lg font-semibold text-slate-900 mt-6 mb-2">Save Time and Effort</h3>
+          <p className="text-slate-600 leading-relaxed mb-4">
+            Creating content every day can be difficult. An Instagram Post Generator makes the process
+            easier by providing instant content ideas and captions. Many creators use a free Instagram
+            post maker to quickly design posts without hiring professional designers. In addition, an
+            Instagram automation tool can schedule content in advance — plan it all out with a{" "}
+            <Link href="/tools/content-calendar" className="text-purple-600 hover:text-purple-700 underline">
+              content calendar
+            </Link>
+            .
+          </p>
+          <h3 className="text-lg font-semibold text-slate-900 mt-6 mb-2">Improve Content Quality</h3>
+          <p className="text-slate-600 leading-relaxed mb-4">
+            A good Instagram Post Generator can improve the quality of social media content by
+            suggesting engaging captions and creative ideas. An advanced AI Instagram post generator can
+            also analyze trends and recommend content that matches audience interests, leading to better
+            engagement and stronger social media performance.
+          </p>
+
+          <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-3">Features to Look for in an Instagram Post Generator</h2>
+          <p className="text-slate-600 leading-relaxed mb-4">
+            Not all tools offer the same features. When choosing an Instagram Post Generator, look for
+            tools that meet your content needs. A useful social media post generator should be easy to
+            use and provide helpful suggestions. Many users prefer tools that combine an AI Instagram
+            post generator with a free Instagram post maker, so they can create both written content and
+            visual designs from one platform.
+          </p>
+          <h3 className="text-lg font-semibold text-slate-900 mt-6 mb-2">AI-Powered Content Suggestions</h3>
+          <p className="text-slate-600 leading-relaxed mb-4">
+            One of the most valuable features of an Instagram Post Generator is AI-powered content
+            creation. An AI Instagram post generator can quickly generate captions, ideas, and hashtags
+            that fit your topic. Browse ready-made formats with our{" "}
+            <Link href="/tools/caption-templates" className="text-purple-600 hover:text-purple-700 underline">
+              caption templates
+            </Link>{" "}
+            to stay active online without spending hours brainstorming.
+          </p>
+          <h3 className="text-lg font-semibold text-slate-900 mt-6 mb-2">Design and Visual Tools</h3>
+          <p className="text-slate-600 leading-relaxed mb-4">
+            Visual content is important on Instagram. That is why many platforms include a free Instagram
+            post maker alongside their content generation features. Add stylish text with our{" "}
+            <Link href="/tools/instagram-fonts" className="text-purple-600 hover:text-purple-700 underline">
+              Instagram Font Generator
+            </Link>
+            . A complete social media post generator often includes templates, graphics, and editing
+            options to help you create posts that capture attention.
+          </p>
+
+          <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-3">Who Can Benefit from an Instagram Post Generator?</h2>
+          <p className="text-slate-600 leading-relaxed mb-4">
+            Almost anyone who uses Instagram can benefit from an Instagram Post Generator. Small business
+            owners can create marketing content more efficiently. Influencers can generate new ideas for
+            audience engagement. Even beginners can use a social media post generator to improve their
+            posting strategy.
+          </p>
+          <p className="text-slate-600 leading-relaxed mb-4">
+            An AI Instagram post generator is especially useful for people who struggle with writer&apos;s
+            block. It provides inspiration and helps users stay consistent. When paired with an Instagram
+            automation tool, content management becomes even easier.
+          </p>
+
+          <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-3">Tips for Using an Instagram Post Generator</h2>
+          <p className="text-slate-600 leading-relaxed mb-4">
+            To get the best results from an Instagram Post Generator, always review the generated content
+            before publishing. While an AI Instagram post generator can create excellent suggestions,
+            adding a personal touch makes the content more authentic. Use a free Instagram post maker to
+            create visuals that match your brand style, and combine strong visuals with high-quality
+            captions to improve engagement. Finally, use an Instagram automation tool responsibly —
+            genuine interaction with followers remains important for long-term success.
+          </p>
+
+          <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-3">Common Mistakes to Avoid</h2>
+          <p className="text-slate-600 leading-relaxed mb-4">
+            While an Instagram Post Generator can be very helpful, users should avoid relying on it
+            completely. A social media post generator should support creativity, not replace it. Another
+            mistake is posting content without reviewing it — even when using an AI Instagram post
+            generator, check accuracy and relevance. Avoid excessive automation when using an Instagram
+            automation tool, as audience engagement still requires a human touch.
+          </p>
+
+          <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-3">The Future of Instagram Post Generator Tools</h2>
+          <p className="text-slate-600 leading-relaxed mb-4">
+            The future of the Instagram Post Generator looks promising as technology continues to improve.
+            New features will likely provide even better content suggestions and smarter personalization.
+            Many experts believe the AI Instagram post generator will become an essential part of social
+            media marketing. As more businesses adopt automation, the role of the Instagram automation
+            tool will continue to grow, while a free Instagram post maker will help creators produce
+            professional content without large budgets.
+          </p>
+
+          <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-3">Conclusion</h2>
+          <p className="text-slate-600 leading-relaxed mb-4">
+            An Instagram Post Generator is a valuable tool for anyone who wants to create better Instagram
+            content in less time. Whether you use a social media post generator for captions, an AI
+            Instagram post generator for creative ideas, an Instagram automation tool for scheduling, or a
+            free Instagram post maker for designs, these tools can improve your content creation process.
+            By using them wisely and adding your own creativity, you can build a stronger Instagram
+            presence and connect with your audience more effectively.
+          </p>
+        </section>
 
         {tool && <ToolComments toolId={tool.id} />}
         {tool && <ToolFAQ tool={tool} />}

@@ -13,38 +13,33 @@ interface SEOConfig {
 export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
   const seoConfigs: Record<string, SEOConfig> = {
     "tweet-generator": {
-      title: "Best Free AI Tweet Generator Online - Create Engaging Tweets 2026",
-      description: "Generate creative tweets instantly with our free AI tweet generator. Create viral Twitter content and optimize character count. No signup required.",
+      title: "Best Twitter Post Generator Tools for Viral Tweets in 2026",
+      description: "Create engaging tweets with Twitter post generator tools in 2026. Generate viral ideas, captions, and content quickly to boost your engagement.",
       keywords: [
-        "tweet generator",
         "twitter post generator",
-        "AI tweet generator",
-        "free tweet generator",
-        "best tweet generator",
+        "ai twitter post generator",
+        "ai generated twitter posts",
+        "fake twitter post generator",
+        "tweet generator",
         "twitter content generator",
         "generate tweets online",
-        "tweet ideas generator",
-        "social media tweet generator",
+        "twitter post ideas",
+        "ai tweet generator",
         "free twitter post generator",
-        "online tweet generator",
-        "tweet generator tool",
-        "create tweets online",
-        "twitter content creator",
-        "free AI tweet maker"
+        "x post generator",
+        "best tweet generator"
       ],
       longTailKeywords: [
-        "how to generate engaging tweets",
-        "best free AI tweet generator online",
-        "best tweet generator tool free",
-        "create viral tweets automatically",
-        "twitter post generator free online",
-        "generate tweet ideas for business",
-        "AI powered tweet creator free",
-        "how to create engaging twitter posts",
-        "free tweet generator no signup",
-        "best twitter content generator",
-        "online tweet generator free",
-        "what is the best tweet generator"
+        "best twitter post generator tools for viral tweets",
+        "ai twitter post generator free",
+        "generate fake twitter post examples",
+        "how to create viral tweets with ai",
+        "ai generated twitter posts for business",
+        "twitter post generator with content ideas",
+        "free twitter post generator no signup",
+        "best ai tweet generator 2026",
+        "create engaging tweets fast",
+        "fake twitter post generator for mockups"
       ],
       structuredData: {
         "@context": "https://schema.org",
@@ -62,24 +57,33 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
       }
     },
     "tweet-to-image": {
-      title: "Tweet to Image Converter - Convert Tweets to Images",
-      description: "Convert Twitter posts into shareable images. Free tweet to image converter with custom themes. Download as PNG. No signup required.",
+      title: "Download Tweet as Image Easily in 2026",
+      description: "Convert and download tweets as images in 2026. Save Twitter posts as shareable visuals quickly with simple online tools.",
       keywords: [
+        "download tweet as image",
+        "tweet to image converter",
+        "tweet screenshot generator",
+        "tweet to image generator",
+        "twitter card image generator",
         "tweet to image",
-        "twitter to image converter",
         "convert tweet to image",
-        "tweet image generator",
-        "twitter screenshot generator",
+        "twitter to image converter",
         "tweet image maker",
-        "social media image creator"
+        "save tweet as image",
+        "twitter screenshot generator",
+        "tweet image generator"
       ],
       longTailKeywords: [
-        "how to convert tweet to image",
-        "free tweet to image converter online",
+        "how to download tweet as image",
+        "download tweet as image online free",
+        "tweet to image converter free",
+        "tweet screenshot generator no signup",
+        "twitter card image generator online",
+        "convert twitter post to png image",
+        "save tweets as images for sharing",
+        "best tweet to image generator 2026",
         "create image from twitter post",
-        "download tweet as image",
-        "tweet screenshot generator free",
-        "convert twitter post to PNG"
+        "download twitter post as picture"
       ],
       structuredData: {
         "@context": "https://schema.org",
@@ -133,34 +137,33 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
       }
     },
     "instagram-post-generator": {
-      title: "Best Free Instagram Post Generator Online - Create Engaging Captions 2026",
-      description: "Generate engaging Instagram captions with our free post generator. Templates, hashtags, and emoji suggestions. No signup required.",
+      title: "Powerful Instagram Post Generator Tools for 2026",
+      description: "Create engaging content with Instagram post generator tools in 2026. Generate captions, ideas, and posts quickly to boost your social media growth.",
       keywords: [
         "instagram post generator",
+        "best instagram post generator",
+        "ai instagram post generator",
+        "social media post generator",
+        "free instagram post maker",
+        "instagram automation tool",
         "instagram caption generator",
         "instagram content generator",
-        "free instagram post generator",
-        "best instagram post generator",
-        "instagram caption maker",
         "instagram post ideas",
-        "social media caption generator",
-        "instagram caption generator free",
-        "online instagram post generator",
-        "free instagram caption tool",
-        "instagram content creator"
+        "instagram caption maker",
+        "free instagram post generator",
+        "online instagram post generator"
       ],
       longTailKeywords: [
-        "how to generate instagram posts",
-        "best free instagram caption generator online",
-        "create engaging instagram captions",
-        "instagram post generator with hashtags",
-        "generate instagram content ideas",
-        "best instagram caption generator free",
-        "how to create instagram captions",
-        "free instagram post generator no signup",
+        "powerful instagram post generator tools for 2026",
+        "ai instagram post generator free",
         "best instagram post generator 2026",
-        "online instagram caption generator",
-        "what is the best instagram caption generator"
+        "free instagram post maker no signup",
+        "instagram automation tool for scheduling",
+        "how to generate instagram posts with ai",
+        "social media post generator for captions",
+        "create engaging instagram captions fast",
+        "instagram post generator with hashtags",
+        "best free instagram post generator online"
       ],
       structuredData: {
         "@context": "https://schema.org",
@@ -423,24 +426,33 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
       }
     },
     "twitter-ad-revenue": {
-      title: "Twitter Ad Revenue Calculator - Calculate Revenue",
-      description: "Calculate potential Twitter ad revenue based on followers, engagement, and CPM. Free Twitter ad revenue calculator. Estimate earnings from Twitter monetization.",
+      title: "Best Twitter Monetization Calculator to Estimate Earnings in 2026",
+      description: "Estimate your earnings with a Twitter monetization calculator in 2026. Calculate income from engagement, impressions, and audience growth easily.",
       keywords: [
-        "twitter ad revenue calculator",
-        "twitter revenue calculator",
-        "calculate twitter ad revenue",
         "twitter monetization calculator",
+        "x monetization calculator",
+        "twitter payout calculator",
+        "twitter ad revenue calculator",
+        "how much does twitter pay per 1000 views",
         "twitter earnings calculator",
+        "twitter revenue calculator",
         "x ad revenue calculator",
-        "twitter revenue estimator"
+        "twitter monetization",
+        "creator earnings calculator",
+        "twitter revenue estimator",
+        "calculate twitter earnings"
       ],
       longTailKeywords: [
-        "how to calculate twitter ad revenue",
-        "free twitter revenue calculator online",
-        "estimate twitter ad revenue",
-        "calculate twitter monetization",
+        "best twitter monetization calculator to estimate earnings",
+        "how much does twitter pay per 1000 views",
+        "x monetization calculator free",
+        "twitter payout calculator online",
+        "estimate twitter ad revenue 2026",
+        "how to calculate twitter earnings",
+        "twitter creator earnings estimate",
+        "calculate income from twitter engagement",
         "twitter ad revenue estimator tool",
-        "how much can you earn from twitter ads"
+        "free twitter monetization calculator"
       ],
       structuredData: {
         "@context": "https://schema.org",
@@ -453,24 +465,33 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
       }
     },
     "instagram-filters": {
-      title: "Instagram Filters - Apply Photo Filters Online",
-      description: "Apply beautiful Instagram-style filters to your photos. Free Instagram filter tool with multiple filter options. Edit photos online, no app required.",
+      title: "Best Instagram Filters to Enhance Photos in 2026",
+      description: "Discover the best Instagram filters in 2026. Enhance your photos, improve aesthetics, and create stunning social media content with ease.",
       keywords: [
         "instagram filters",
+        "best instagram filters",
+        "instagram photo filters",
+        "instagram filters app",
+        "instagram filters names",
         "photo filters",
-        "instagram filter app",
+        "free instagram filters",
+        "instagram filter tool",
         "apply instagram filters",
-        "photo filter tool",
         "instagram style filters",
-        "free photo filters"
+        "online photo filters",
+        "instagram filters online"
       ],
       longTailKeywords: [
+        "best instagram filters to enhance photos",
         "how to apply instagram filters online",
-        "free instagram filter tool",
-        "apply filters to photos",
-        "instagram photo filter generator",
-        "photo editing with instagram filters",
-        "online instagram filter app"
+        "free instagram photo filters online",
+        "best instagram filters for travel photos",
+        "instagram filters app free no signup",
+        "popular instagram filters names list",
+        "best instagram filters for portraits",
+        "instagram filters for a consistent feed",
+        "how do instagram filters work",
+        "vintage instagram filters online"
       ],
       structuredData: {
         "@context": "https://schema.org",
@@ -781,24 +802,33 @@ export const getSEOMetadata = (tool: SocialTool): SEOConfig => {
       }
     },
     "instagram-photo-downloader": {
-      title: "Instagram Photo Downloader - Download Photos & Videos",
-      description: "Download photos and videos from Instagram posts. Free Instagram downloader tool. Save Instagram content for offline viewing. No signup required.",
+      title: "Best Instagram Profile Photo Downloader Tools in 2026",
+      description: "Download Instagram profile photos easily in 2026. Use safe and fast tools to view and save high-quality Instagram DP images in seconds.",
       keywords: [
-        "instagram downloader",
+        "instagram profile photo downloader",
         "instagram photo downloader",
+        "instagram dp downloader",
+        "download instagram profile picture",
+        "instagram photo downloader app",
+        "view instagram profile picture full size",
+        "instagram downloader",
         "download instagram photos",
-        "instagram video downloader",
         "save instagram photos",
-        "instagram content downloader",
-        "free instagram downloader"
+        "instagram profile picture viewer",
+        "instagram private photo downloader",
+        "free instagram photo downloader"
       ],
       longTailKeywords: [
-        "how to download instagram photos",
-        "free instagram photo downloader online",
-        "download instagram images",
-        "save instagram photos to computer",
-        "instagram content downloader tool",
-        "download instagram posts free"
+        "best instagram profile photo downloader tools",
+        "how to download instagram profile photo",
+        "view instagram profile picture in full size",
+        "download instagram dp in high quality",
+        "can photos be downloaded from instagram",
+        "instagram photo downloader app free",
+        "save instagram profile picture online",
+        "instagram profile picture downloader hd",
+        "how to see instagram profile picture clearly",
+        "free instagram photo downloader no signup"
       ],
       structuredData: {
         "@context": "https://schema.org",

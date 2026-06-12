@@ -5,12 +5,11 @@ import { useDebounce } from "@/lib/useDebounce";
 import { Sparkles, Maximize2, X } from "lucide-react";
 import { getToolById } from "@/lib/social-tools";
 import ToolSEO from "@/components/ToolSEO";
+import ToolHero from "@/components/ToolHero";
 import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { getSEOMetadata } from "@/lib/seo-metadata";
-import ShareButtons from "@/components/ShareButtons";
-import { FavoriteButton } from "@/components/FavoriteButton";
 import { ToolComments } from "@/components/ToolComments";
 import PatternPreview from "@/components/PatternPreview";
 import PatternControls from "@/components/PatternControls";
@@ -114,30 +113,16 @@ export default function SVGPatternGeneratorPage() {
   return (
     <>
       {tool && <ToolSEO tool={tool} />}
+      <ToolHero
+        toolId={tool?.id}
+        icon={Sparkles}
+        iconGradient="from-purple-500 to-fuchsia-500"
+        title="SVG Pattern Generator - Create Beautiful Patterns"
+        description="Generate stunning SVG patterns including mandalas, dots, grids, waves, and more. Customize colors, size, spacing, rotation, and export for social media."
+        shareTitle="SVG Pattern Generator"
+        shareText="Check out this free SVG pattern generator tool!"
+      />
       <div className="p-8 max-w-7xl mx-auto">
-        <div className="mb-8">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center">
-              <Sparkles className="w-6 h-6 text-white" />
-            </div>
-            <div className="flex-1">
-              <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100">
-                SVG Pattern Generator - Create Beautiful Patterns
-              </h1>
-              <p className="text-slate-600 dark:text-slate-400">
-                Generate stunning SVG patterns including mandalas, dots, grids, waves, and more. Customize colors, size, spacing, rotation, and export for social media.
-              </p>
-            </div>
-          </div>
-          <div className="mt-4 flex items-center gap-3 flex-wrap">
-            {tool && <FavoriteButton toolId={tool.id} />}
-          <ShareButtons
-              title="SVG Pattern Generator"
-              text="Check out this free SVG pattern generator tool!"
-            />
-          </div>
-        </div>
-
         {/* Main Tool Interface */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
           {/* Left Side - Preview */}

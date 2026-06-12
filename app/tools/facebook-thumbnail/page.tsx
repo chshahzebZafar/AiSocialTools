@@ -4,12 +4,11 @@ import { useState } from "react";
 import { Facebook, Download, Copy, ExternalLink, Smartphone, Monitor, CheckCircle2 } from "lucide-react";
 import { getToolById } from "@/lib/social-tools";
 import ToolSEO from "@/components/ToolSEO";
+import ToolHero from "@/components/ToolHero";
 import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { ToolComments } from "@/components/ToolComments";
-import ShareButtons from "@/components/ShareButtons";
-import { FavoriteButton } from "@/components/FavoriteButton";
 import Link from "next/link";
 
 export default function FacebookThumbnailPage() {
@@ -97,26 +96,16 @@ export default function FacebookThumbnailPage() {
   return (
     <>
       {tool && <ToolSEO tool={tool} />}
+      <ToolHero
+        toolId={tool?.id}
+        icon={Facebook}
+        iconGradient="from-sky-500 to-blue-600"
+        title="Facebook Thumbnail Downloader - Free Online Tool"
+        description="Download high-resolution thumbnails from Facebook videos, reels, stories, groups, images, and carousel posts. Extract thumbnail sprites and HD images instantly."
+        shareTitle="Facebook Thumbnail Grabber"
+        shareText="Check out this free Facebook thumbnail grabber tool!"
+      />
       <div className="p-8 max-w-4xl mx-auto">
-        <div className="mb-8">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center">
-              <Facebook className="w-6 h-6 text-white" />
-            </div>
-            <div className="flex-1">
-              <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100">Facebook Thumbnail Downloader - Free Online Tool</h1>
-              <p className="text-slate-600 dark:text-slate-400">Download high-resolution thumbnails from Facebook videos, reels, stories, groups, images, and carousel posts. Extract thumbnail sprites and HD images instantly.</p>
-            </div>
-          </div>
-          <div className="mt-4 flex items-center gap-3 flex-wrap">
-            {tool && <FavoriteButton toolId={tool.id} />}
-          <ShareButtons
-              title="Facebook Thumbnail Grabber"
-              text="Check out this free Facebook thumbnail grabber tool!"
-            />
-          </div>
-        </div>
-
         <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 mb-6">
           <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
             Facebook Video URL

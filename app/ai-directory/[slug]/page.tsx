@@ -155,8 +155,6 @@ export default async function AIDirectoryDetailPage({
       <Header />
 
       <main className="flex-1">
-        <Breadcrumbs />
-
         {/* ============================================================
              HERO — same aurora + dot-grid pattern as other pages
              ============================================================ */}
@@ -164,6 +162,7 @@ export default async function AIDirectoryDetailPage({
           <div className="aurora" aria-hidden />
           <div className="absolute inset-0 bg-dot-grid-animated opacity-50" aria-hidden />
           <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+            <Breadcrumbs embedded />
             <Link
               href="/ai-directory"
               className="inline-flex items-center gap-1.5 text-sm text-zinc-500 hover:text-zinc-950 dark:hover:text-white transition-colors mb-8"

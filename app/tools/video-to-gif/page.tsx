@@ -4,12 +4,11 @@ import { useState, useRef, useCallback, useEffect } from "react";
 import { Video, Upload, Download, RefreshCw, Play, Pause, Settings, AlertCircle, Sparkles } from "lucide-react";
 import { getToolById } from "@/lib/social-tools";
 import ToolSEO from "@/components/ToolSEO";
+import ToolHero from "@/components/ToolHero";
 import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { ToolComments } from "@/components/ToolComments";
-import ShareButtons from "@/components/ShareButtons";
-import { FavoriteButton } from "@/components/FavoriteButton";
 
 // Import gif.js dynamically
 let GIF: any = null;
@@ -315,35 +314,16 @@ export default function VideoToGifPage() {
   return (
     <>
       {tool && <ToolSEO tool={tool} />}
+      <ToolHero
+        toolId={tool?.id}
+        icon={Video}
+        iconGradient="from-purple-500 to-pink-600"
+        title="Video to GIF Converter - Free Online Tool"
+        description="Convert video clips to animated GIFs instantly. Free video to GIF converter with frame rate control, quality optimization, and size reduction. Perfect for social media, memes, and presentations."
+        shareTitle="Video to GIF Converter"
+        shareText="Check out this free video to GIF converter tool!"
+      />
       <div className="p-8 max-w-6xl mx-auto">
-        <div className="mb-8">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-600 rounded-lg flex items-center justify-center">
-              <Video className="w-6 h-6 text-white" />
-            </div>
-            <div className="flex-1">
-              <div className="flex items-center gap-2 mb-2">
-                <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100">
-                  Video to GIF Converter - Free Online Tool
-                </h1>
-                <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-gradient-to-r from-green-500 to-emerald-600 text-white animate-pulse">
-                  New
-                </span>
-              </div>
-              <p className="text-slate-600 dark:text-slate-300">
-                Convert video clips to animated GIFs instantly. Free video to GIF converter with frame rate control, 
-                quality optimization, and size reduction. Perfect for social media, memes, and presentations.
-              </p>
-            </div>
-          </div>
-          <div className="mt-4 flex items-center gap-3 flex-wrap">
-            {tool && <FavoriteButton toolId={tool.id} />}
-            <ShareButtons
-              title="Video to GIF Converter"
-              text="Check out this free video to GIF converter tool!"
-            />
-          </div>
-        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Upload & Video Section */}
