@@ -238,6 +238,13 @@ export default async function BlogPostPage({ params }: PageProps) {
           {/* Featured Image */}
           <div className="mb-8 rounded-2xl overflow-hidden">
             <div className="relative h-64 sm:h-96 bg-gradient-to-br from-blue-500 to-purple-600">
+              {post.image && (
+                <div
+                  className="absolute inset-0 bg-cover bg-center"
+                  style={{ backgroundImage: `url("${encodeURI(post.image)}")` }}
+                  aria-hidden="true"
+                />
+              )}
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
               <div className="absolute bottom-6 left-6 right-6">
                 <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">
