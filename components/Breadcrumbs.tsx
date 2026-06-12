@@ -9,7 +9,10 @@ interface BreadcrumbItem {
   href: string;
 }
 
-export default function Breadcrumbs() {
+export default function Breadcrumbs({
+  center = false,
+  embedded = false,
+}: { center?: boolean; embedded?: boolean } = {}) {
   const pathname = usePathname();
 
   if (pathname === "/") return null;
@@ -53,10 +56,16 @@ export default function Breadcrumbs() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
       <nav
-        className="flex items-center gap-1.5 text-xs text-zinc-500 dark:text-zinc-500 px-4 sm:px-6 lg:px-8 pt-4 pb-1"
+        className={
+          center
+            ? "flex items-center justify-center gap-1.5 text-xs text-zinc-500 dark:text-zinc-500 mb-6"
+            : embedded
+            ? "flex items-center gap-1.5 text-xs text-zinc-500 dark:text-zinc-500 mb-4"
+            : "flex items-center gap-1.5 text-xs text-zinc-500 dark:text-zinc-500 px-4 sm:px-6 lg:px-8 pt-4 pb-1"
+        }
         aria-label="Breadcrumb"
       >
-        <ol className="flex items-center gap-1.5 flex-wrap">
+        <ol className="flex items-center justify-center gap-1.5 flex-wrap">
           {breadcrumbs.map((crumb, index) => {
             const isLast = index === breadcrumbs.length - 1;
             return (

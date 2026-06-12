@@ -4,13 +4,13 @@ import { useState } from "react";
 import { User, Copy, RefreshCw } from "lucide-react";
 import { getToolById } from "@/lib/social-tools";
 import ToolSEO from "@/components/ToolSEO";
+import ToolHero from "@/components/ToolHero";
 import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { ToolComments } from "@/components/ToolComments";
 import { getSEOMetadata } from "@/lib/seo-metadata";
 import ShareButtons from "@/components/ShareButtons";
-import { FavoriteButton } from "@/components/FavoriteButton";
 
 export default function UsernameGeneratorPage() {
   const tool = getToolById("username-generator");
@@ -89,25 +89,16 @@ export default function UsernameGeneratorPage() {
   return (
     <>
       {tool && <ToolSEO tool={tool} />}
+      <ToolHero
+        toolId={tool?.id}
+        icon={User}
+        iconGradient="from-indigo-500 to-violet-500"
+        title="Username Generator - Generate Unique Social Media Usernames Free"
+        description="Generate unique and available usernames for social media"
+        shareTitle="Username Generator"
+        shareText="Check out this free username generator tool!"
+      />
       <div className="p-8 max-w-4xl mx-auto">
-      <div className="mb-8">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="w-12 h-12 bg-indigo-500 rounded-lg flex items-center justify-center">
-            <User className="w-6 h-6 text-white" />
-          </div>
-          <div className="flex-1">
-            <h1 className="text-3xl font-bold text-slate-900">Username Generator - Generate Unique Social Media Usernames Free</h1>
-            <p className="text-slate-600">Generate unique and available usernames for social media</p>
-          </div>
-        </div>
-        <div className="mt-4 flex items-center gap-3 flex-wrap">
-          {tool && <FavoriteButton toolId={tool.id} />}
-          <ShareButtons
-            title="Username Generator"
-            text="Check out this free username generator tool!"
-          />
-        </div>
-      </div>
 
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-6">
         <div className="space-y-4">

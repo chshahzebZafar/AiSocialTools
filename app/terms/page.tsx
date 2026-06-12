@@ -44,8 +44,8 @@ export default function TermsPage() {
     <div className="flex flex-col min-h-screen bg-slate-50 dark:bg-slate-950">
       <Header />
       <main className="flex-1">
-        <Breadcrumbs />
         <div className="p-4 sm:p-6 lg:p-8 max-w-4xl mx-auto w-full">
+          <Breadcrumbs embedded />
           <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 sm:p-8">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">

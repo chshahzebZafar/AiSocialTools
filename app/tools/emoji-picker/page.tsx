@@ -4,13 +4,12 @@ import { useState } from "react";
 import { Smile, Copy, Search } from "lucide-react";
 import { getToolById } from "@/lib/social-tools";
 import ToolSEO from "@/components/ToolSEO";
+import ToolHero from "@/components/ToolHero";
 import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { ToolComments } from "@/components/ToolComments";
 import { getSEOMetadata } from "@/lib/seo-metadata";
-import ShareButtons from "@/components/ShareButtons";
-import { FavoriteButton } from "@/components/FavoriteButton";
 
 const emojiCategories = {
   "Smileys & People": ["😀", "😃", "😄", "😁", "😆", "😅", "🤣", "😂", "🙂", "🙃", "😉", "😊", "😇", "🥰", "😍", "🤩", "😘", "😗", "😚", "😙", "😋", "😛", "😜", "🤪", "😝", "🤑", "🤗", "🤭", "🤫", "🤔"],
@@ -64,26 +63,16 @@ export default function EmojiPickerPage() {
   return (
     <>
       {tool && <ToolSEO tool={tool} />}
+      <ToolHero
+        toolId={tool?.id}
+        icon={Smile}
+        iconGradient="from-amber-500 to-orange-600"
+        title="Emoji Picker & Generator - Copy Emojis for Social Media Free"
+        description="Browse and copy emojis for Instagram, Twitter, Facebook posts. Free emoji picker with categories. Find the perfect emoji for your social media content."
+        shareTitle="Emoji Picker & Generator"
+        shareText="Check out this free emoji picker tool!"
+      />
       <div className="p-8 max-w-6xl mx-auto">
-      <div className="mb-8">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="w-12 h-12 bg-yellow-500 rounded-lg flex items-center justify-center">
-            <Smile className="w-6 h-6 text-white" />
-          </div>
-          <div className="flex-1">
-            <h1 className="text-3xl font-bold text-slate-900">Emoji Picker & Generator - Copy Emojis for Social Media Free</h1>
-            <p className="text-slate-600">Browse and copy emojis for Instagram, Twitter, Facebook posts. Free emoji picker with categories. Find the perfect emoji for your social media content.</p>
-          </div>
-        </div>
-        <div className="mt-4 flex items-center gap-3 flex-wrap">
-          {tool && <FavoriteButton toolId={tool.id} />}
-          <ShareButtons
-            title="Emoji Picker & Generator"
-            text="Check out this free emoji picker tool!"
-          />
-        </div>
-      </div>
-
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2">
           <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-6">

@@ -5,12 +5,12 @@ import { Lightbulb, RefreshCw, Copy } from "lucide-react";
 import Link from "next/link";
 import { getToolById } from "@/lib/social-tools";
 import ToolSEO from "@/components/ToolSEO";
+import ToolHero from "@/components/ToolHero";
 import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { getSEOMetadata } from "@/lib/seo-metadata";
 import ShareButtons from "@/components/ShareButtons";
-import { FavoriteButton } from "@/components/FavoriteButton";
 import { ToolComments } from "@/components/ToolComments";
 
 const contentIdeas = {
@@ -107,41 +107,30 @@ export default function ContentIdeasPage() {
           }),
         }}
       />
+      <ToolHero
+        toolId={tool?.id}
+        icon={Lightbulb}
+        iconGradient="from-amber-500 to-orange-600"
+        title="Content Ideas Generator - Generate Social Media Content Ideas Free"
+        description="Generate creative content ideas for Instagram, Twitter, LinkedIn, and TikTok. Free content ideas generator. Get inspiration for your next viral post."
+        shareTitle="Content Ideas Generator"
+        shareText="Check out this free content ideas generator tool!"
+      />
       <div className="p-8 max-w-4xl mx-auto">
-      <div className="mb-8">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="w-12 h-12 bg-yellow-500 rounded-lg flex items-center justify-center">
-            <Lightbulb className="w-6 h-6 text-white" />
-          </div>
-          <div className="flex-1">
-            <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100">Content Ideas Generator - Generate Social Media Content Ideas Free</h1>
-            <p className="text-slate-600 dark:text-slate-300">
-              Generate creative content ideas for Instagram, Twitter, LinkedIn, and TikTok. Free content ideas generator. Get inspiration for your next viral post.
-              {" "}
-              <Link href="/tools/tweet-generator" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">
-                Turn ideas into tweets
-              </Link>
-              {" "}with our Tweet Generator, create{" "}
-              <Link href="/tools/social-bio-generator" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">
-                compelling bios
-              </Link>
-              {" "}for your profile, or{" "}
-              <Link href="/tools/hashtag-generator" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">
-                find the perfect hashtags
-              </Link>
-              {" "}to maximize reach.
-            </p>
-          </div>
-        </div>
-        <div className="mt-4 flex items-center gap-3 flex-wrap">
-          {tool && <FavoriteButton toolId={tool.id} />}
-          <ShareButtons
-            title="Content Ideas Generator"
-            text="Check out this free content ideas generator tool!"
-          />
-        </div>
-      </div>
-
+      <p className="text-slate-600 dark:text-slate-300 mb-6">
+        <Link href="/tools/tweet-generator" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">
+          Turn ideas into tweets
+        </Link>
+        {" "}with our Tweet Generator, create{" "}
+        <Link href="/tools/social-bio-generator" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">
+          compelling bios
+        </Link>
+        {" "}for your profile, or{" "}
+        <Link href="/tools/hashtag-generator" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">
+          find the perfect hashtags
+        </Link>
+        {" "}to maximize reach.
+      </p>
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-6">
         <label className="block text-sm font-medium text-slate-700 mb-2">
           Platform

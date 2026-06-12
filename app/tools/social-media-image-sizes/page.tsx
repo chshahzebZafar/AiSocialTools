@@ -4,12 +4,11 @@ import Link from "next/link";
 import { Ruler, ArrowRight } from "lucide-react";
 import { getToolById } from "@/lib/social-tools";
 import ToolSEO from "@/components/ToolSEO";
+import ToolHero from "@/components/ToolHero";
 import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { ToolComments } from "@/components/ToolComments";
-import ShareButtons from "@/components/ShareButtons";
-import { FavoriteButton } from "@/components/FavoriteButton";
 
 interface Size {
   name: string;
@@ -133,27 +132,16 @@ export default function SocialMediaImageSizesPage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(imageListSchema) }} />
       {tool && <ToolSEO tool={tool} />}
+      <ToolHero
+        toolId={tool?.id}
+        icon={Ruler}
+        iconGradient="from-blue-500 to-purple-600"
+        title="Social Media Image Sizes 2026 — Complete Size Guide (Every Platform)"
+        description="The complete 2026 reference of every social media image and video size — Instagram, TikTok, YouTube, LinkedIn, X, Facebook, Pinterest, and Threads. Bookmark this page; we keep it updated as platforms change their specs."
+        shareTitle="Social Media Image Sizes 2026"
+        shareText="Complete social media image size reference, every platform, updated 2026."
+      />
       <div className="p-8 max-w-6xl mx-auto">
-        <div className="mb-8">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-              <Ruler className="w-6 h-6 text-white" />
-            </div>
-            <div className="flex-1">
-              <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100">
-                Social Media Image Sizes 2026 — Complete Size Guide (Every Platform)
-              </h1>
-              <p className="text-slate-600 dark:text-slate-300">
-                The complete 2026 reference of every social media image and video size — Instagram, TikTok, YouTube, LinkedIn, X, Facebook, Pinterest, and Threads. Bookmark this page; we keep it updated as platforms change their specs.
-              </p>
-            </div>
-          </div>
-          <div className="mt-4 flex items-center gap-3 flex-wrap">
-            {tool && <FavoriteButton toolId={tool.id} />}
-            <ShareButtons title="Social Media Image Sizes 2026" text="Complete social media image size reference, every platform, updated 2026." />
-          </div>
-        </div>
-
         <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-5 mb-8 text-sm text-blue-900 dark:text-blue-100">
           <p className="font-semibold mb-1">Need to resize an image right now?</p>
           <p>

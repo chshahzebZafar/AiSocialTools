@@ -4,12 +4,11 @@ import { useMemo, useState } from "react";
 import { Hash, Copy } from "lucide-react";
 import { getToolById } from "@/lib/social-tools";
 import ToolSEO from "@/components/ToolSEO";
+import ToolHero from "@/components/ToolHero";
 import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { ToolComments } from "@/components/ToolComments";
-import ShareButtons from "@/components/ShareButtons";
-import { FavoriteButton } from "@/components/FavoriteButton";
 
 const HASHTAG_REGEX = /#[\p{L}\p{N}_]+/gu;
 
@@ -53,27 +52,16 @@ export default function HashtagCounterPage() {
   return (
     <>
       {tool && <ToolSEO tool={tool} />}
+      <ToolHero
+        toolId={tool?.id}
+        icon={Hash}
+        iconGradient="from-purple-500 to-pink-500"
+        title="Hashtag Counter — Free Caption Hashtag Counter for Instagram, TikTok & Twitter"
+        description="Paste your caption and instantly see how many hashtags it contains, which ones are duplicates, and whether you’re within Instagram, TikTok, Twitter, LinkedIn, and YouTube limits."
+        shareTitle="Hashtag Counter"
+        shareText="Free hashtag counter that warns you about platform limits."
+      />
       <div className="p-8 max-w-5xl mx-auto">
-        <div className="mb-8">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
-              <Hash className="w-6 h-6 text-white" />
-            </div>
-            <div className="flex-1">
-              <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100">
-                Hashtag Counter — Free Caption Hashtag Counter for Instagram, TikTok & Twitter
-              </h1>
-              <p className="text-slate-600 dark:text-slate-300">
-                Paste your caption and instantly see how many hashtags it contains, which ones are duplicates, and whether you&rsquo;re within Instagram, TikTok, Twitter, LinkedIn, and YouTube limits.
-              </p>
-            </div>
-          </div>
-          <div className="mt-4 flex items-center gap-3 flex-wrap">
-            {tool && <FavoriteButton toolId={tool.id} />}
-            <ShareButtons title="Hashtag Counter" text="Free hashtag counter that warns you about platform limits." />
-          </div>
-        </div>
-
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 space-y-6">
             <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">

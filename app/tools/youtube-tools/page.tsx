@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Youtube, ArrowRight, Rocket, DollarSign, Search, TrendingUp } from "lucide-react";
 import { getToolById } from "@/lib/social-tools";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 const TOOL_IDS = [
   "youtube-thumbnail",
@@ -79,6 +80,7 @@ export default function YouTubeToolsHub() {
 
       <div className="p-8 max-w-6xl mx-auto">
         <div className="text-center mb-12">
+          <Breadcrumbs center />
           <div className="inline-flex items-center gap-2 rounded-full border border-red-200 bg-red-50 dark:border-red-800 dark:bg-red-900/30 px-3 py-1 text-xs font-medium text-red-700 dark:text-red-300 mb-4">
             <Youtube className="w-3 h-3" />
             {tools.length} free YouTube tools

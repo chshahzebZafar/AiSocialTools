@@ -1,10 +1,11 @@
 "use client";
 
-import Link from "next/link";
 import { useState, useMemo } from "react";
+import Link from "next/link";
 import { socialTools } from "@/lib/social-tools";
-import { ArrowUpRight, Search } from "lucide-react";
+import { ArrowUpRight, Search, Sparkles } from "lucide-react";
 import ToolLayout from "@/components/ToolLayout";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import { Badge } from "@/components/ui/Badge";
 import { Reveal } from "@/components/animations/Reveal";
 import {
@@ -78,25 +79,34 @@ export default function SocialMediaToolsPage() {
 
   return (
     <ToolLayout>
-      <div className="p-4 sm:p-6 lg:p-8 max-w-6xl mx-auto w-full">
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionPageSchema) }} />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionPageSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
-        {/* Page header */}
-        <div className="mb-12">
-          <Badge variant="neutral" className="mb-4">
+      {/* Hero */}
+      <section className="relative overflow-hidden border-b border-zinc-200 dark:border-zinc-800">
+        <div className="aurora" aria-hidden />
+        <div className="absolute inset-0 bg-dot-grid-animated opacity-50" aria-hidden />
+        <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24 text-center">
+          <Breadcrumbs center />
+          <Badge variant="accent" className="mb-6 float-soft">
+            <Sparkles className="w-3 h-3" />
             Social Media · {socialTools.length} tools
           </Badge>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-zinc-950 dark:text-white tracking-tight mb-4">
-            Every social media tool, one click away.
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold text-zinc-950 dark:text-white tracking-tight leading-[1.05] mb-5 max-w-3xl mx-auto">
+            Every social media tool,
+            <br />
+            <span className="text-zinc-500 dark:text-zinc-400">one click away.</span>
           </h1>
-          <p className="text-lg text-zinc-600 dark:text-zinc-400 max-w-2xl leading-relaxed">
+          <p className="text-lg sm:text-xl text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto leading-relaxed">
             Browse the complete collection. Filter by platform or search for what you need —
             every tool is free, browser-based, and works without an account.
           </p>
         </div>
+      </section>
 
+      {/* Filters + grid */}
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full">
         {/* Filters */}
         <div className="flex flex-col sm:flex-row gap-3 mb-8">
           <div className="relative flex-1">

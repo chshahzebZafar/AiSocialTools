@@ -4,6 +4,7 @@ import { useState } from "react";
 import { CaseSensitive, Copy } from "lucide-react";
 import { getToolById } from "@/lib/social-tools";
 import ToolSEO from "@/components/ToolSEO";
+import ToolHero from "@/components/ToolHero";
 import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
@@ -68,26 +69,16 @@ export default function TextCaseConverterPage() {
   return (
     <>
       {tool && <ToolSEO tool={tool} />}
+      <ToolHero
+        toolId={tool?.id}
+        icon={CaseSensitive}
+        iconGradient="from-indigo-500 to-violet-500"
+        title="Text Case Converter - Convert Text to Uppercase, Lowercase, Title Case Free"
+        description="Convert text to uppercase, lowercase, title case, camelCase, snake_case, and more. Free text case converter tool. Transform text formatting instantly for social media posts."
+        shareTitle="Text Case Converter"
+        shareText="Check out this free text case converter tool!"
+      />
       <div className="p-8 max-w-6xl mx-auto">
-      <div className="mb-8">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="w-12 h-12 bg-teal-500 rounded-lg flex items-center justify-center">
-            <CaseSensitive className="w-6 h-6 text-white" />
-          </div>
-          <div className="flex-1">
-            <h1 className="text-3xl font-bold text-slate-900">Text Case Converter - Convert Text to Uppercase, Lowercase, Title Case Free</h1>
-            <p className="text-slate-600">Convert text to uppercase, lowercase, title case, camelCase, snake_case, and more. Free text case converter tool. Transform text formatting instantly for social media posts.</p>
-          </div>
-        </div>
-        <div className="mt-4 flex items-center gap-3 flex-wrap">
-          {tool && <FavoriteButton toolId={tool.id} />}
-          <ShareButtons
-            title="Text Case Converter"
-            text="Check out this free text case converter tool!"
-          />
-        </div>
-      </div>
-
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-6">
         <label className="block text-sm font-medium text-slate-700 mb-2">
           Enter Text

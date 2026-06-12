@@ -4,12 +4,11 @@ import { useMemo, useState } from "react";
 import { MessageCircle, Copy, Check } from "lucide-react";
 import { getToolById } from "@/lib/social-tools";
 import ToolSEO from "@/components/ToolSEO";
+import ToolHero from "@/components/ToolHero";
 import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { ToolComments } from "@/components/ToolComments";
-import ShareButtons from "@/components/ShareButtons";
-import { FavoriteButton } from "@/components/FavoriteButton";
 
 function splitIntoThread(text: string, maxLen: number, numbered: boolean): string[] {
   const trimmed = text.trim();
@@ -86,26 +85,16 @@ export default function TweetThreadMakerPage() {
   return (
     <>
       {tool && <ToolSEO tool={tool} />}
+      <ToolHero
+        toolId={tool?.id}
+        icon={MessageCircle}
+        iconGradient="from-sky-500 to-blue-600"
+        title="Tweet Thread Maker — Free Twitter / X Thread Generator"
+        description="Paste long text and get a neatly split, numbered Twitter / X thread. Smart sentence boundaries keep every tweet readable. Free, no signup, no limits."
+        shareTitle="Tweet Thread Maker"
+        shareText="Free tweet thread generator with smart sentence splits."
+      />
       <div className="p-8 max-w-4xl mx-auto">
-        <div className="mb-8">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 bg-sky-500 rounded-lg flex items-center justify-center">
-              <MessageCircle className="w-6 h-6 text-white" />
-            </div>
-            <div className="flex-1">
-              <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100">
-                Tweet Thread Maker — Free Twitter / X Thread Generator
-              </h1>
-              <p className="text-slate-600 dark:text-slate-300">
-                Paste long text and get a neatly split, numbered Twitter / X thread. Smart sentence boundaries keep every tweet readable. Free, no signup, no limits.
-              </p>
-            </div>
-          </div>
-          <div className="mt-4 flex items-center gap-3 flex-wrap">
-            {tool && <FavoriteButton toolId={tool.id} />}
-            <ShareButtons title="Tweet Thread Maker" text="Free tweet thread generator with smart sentence splits." />
-          </div>
-        </div>
 
         <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 mb-6">
           <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">Your long text</label>

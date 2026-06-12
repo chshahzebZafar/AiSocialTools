@@ -149,13 +149,12 @@ export default function ProjectsPage() {
       />
       <Header />
       <main className="flex-1">
-        <Breadcrumbs />
-
         {/* Hero */}
         <section className="relative overflow-hidden border-b border-zinc-200 dark:border-zinc-800">
           <div className="aurora" aria-hidden />
           <div className="absolute inset-0 bg-dot-grid-animated opacity-50" aria-hidden />
           <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+            <Breadcrumbs embedded />
             <Badge variant="accent" className="mb-5">
               Projects
             </Badge>

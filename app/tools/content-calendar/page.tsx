@@ -4,13 +4,12 @@ import { useState } from "react";
 import { Calendar, Plus, Trash2 } from "lucide-react";
 import { getToolById } from "@/lib/social-tools";
 import ToolSEO from "@/components/ToolSEO";
+import ToolHero from "@/components/ToolHero";
 import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { ToolComments } from "@/components/ToolComments";
 import { getSEOMetadata } from "@/lib/seo-metadata";
-import ShareButtons from "@/components/ShareButtons";
-import { FavoriteButton } from "@/components/FavoriteButton";
 
 interface CalendarEvent {
   id: string;
@@ -79,26 +78,16 @@ export default function ContentCalendarPage() {
   return (
     <>
       {tool && <ToolSEO tool={tool} />}
+      <ToolHero
+        toolId={tool?.id}
+        icon={Calendar}
+        iconGradient="from-sky-500 to-blue-600"
+        title="Social Media Content Calendar - Plan & Schedule Posts Free"
+        description="Plan and schedule your social media content with our free content calendar. Organize posts, track publishing dates, and manage multiple platforms. Boost your social media strategy."
+        shareTitle="Social Media Content Calendar"
+        shareText="Check out this free content calendar tool!"
+      />
       <div className="p-8 max-w-7xl mx-auto">
-      <div className="mb-8">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center">
-            <Calendar className="w-6 h-6 text-white" />
-          </div>
-          <div className="flex-1">
-            <h1 className="text-3xl font-bold text-slate-900">Social Media Content Calendar - Plan & Schedule Posts Free</h1>
-            <p className="text-slate-600">Plan and schedule your social media content with our free content calendar. Organize posts, track publishing dates, and manage multiple platforms. Boost your social media strategy.</p>
-          </div>
-        </div>
-        <div className="mt-4 flex items-center gap-3 flex-wrap">
-          {tool && <FavoriteButton toolId={tool.id} />}
-          <ShareButtons
-            title="Social Media Content Calendar"
-            text="Check out this free content calendar tool!"
-          />
-        </div>
-      </div>
-
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2">
           <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-6">

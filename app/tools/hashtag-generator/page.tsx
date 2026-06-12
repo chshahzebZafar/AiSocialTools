@@ -2,16 +2,15 @@
 
 import { useState } from "react";
 import { Hash, Copy, Download } from "lucide-react";
-import Link from "next/link";
 import { getToolById } from "@/lib/social-tools";
 import ToolSEO from "@/components/ToolSEO";
+import ToolHero from "@/components/ToolHero";
 import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import ToolContentSection from "@/components/ToolContentSection";
 import { getSEOMetadata } from "@/lib/seo-metadata";
 import ShareButtons from "@/components/ShareButtons";
-import { FavoriteButton } from "@/components/FavoriteButton";
 import { ToolComments } from "@/components/ToolComments";
 
 export default function HashtagGeneratorPage() {
@@ -115,42 +114,16 @@ export default function HashtagGeneratorPage() {
           }),
         }}
       />
+      <ToolHero
+        toolId={tool?.id}
+        icon={Hash}
+        iconGradient="from-purple-500 to-fuchsia-500"
+        title="Best Free Hashtag Generator Online - Boost Your Social Media Reach 2026"
+        description="Hashtags are the secret weapon of social media success, but finding the right ones shouldn't be a guessing game. Our intelligent hashtag generator analyzes your content and delivers platform-optimized hashtags that actually work. Get discovered by your target audience on Instagram, Twitter, TikTok, and LinkedIn—no more posting into the void. Our tool suggests trending, niche, and branded hashtags tailored to your content, helping you reach thousands more people with every post."
+        shareTitle="Free Hashtag Generator"
+        shareText="Check out this free hashtag generator tool!"
+      />
       <div className="p-8 max-w-4xl mx-auto">
-        <div className="mb-8">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center">
-              <Hash className="w-6 h-6 text-white" />
-            </div>
-            <div className="flex-1">
-              <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100">
-                Best Free Hashtag Generator Online - Boost Your Social Media Reach 2026
-              </h1>
-              <p className="text-slate-600 dark:text-slate-300 text-lg leading-relaxed">
-                Hashtags are the secret weapon of social media success, but finding the right ones shouldn't be a guessing game. 
-                Our intelligent hashtag generator analyzes your content and delivers platform-optimized hashtags that actually 
-                work. Get discovered by your target audience on Instagram, Twitter, TikTok, and LinkedIn—no more posting into 
-                the void. Our tool suggests trending, niche, and branded hashtags tailored to your content, helping you reach 
-                thousands more people with every post.{" "}
-                <Link href="/tools/tweet-generator" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">
-                  Create compelling tweets
-                </Link>
-                {" "}or{" "}
-                <Link href="/tools/content-ideas" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">
-                  generate fresh content ideas
-                </Link>
-                {" "}to complete your social media toolkit. Start growing your audience today—completely free.
-              </p>
-            </div>
-          </div>
-          <div className="mt-4 flex items-center gap-3 flex-wrap">
-            {tool && <FavoriteButton toolId={tool.id} />}
-            <ShareButtons
-              title="Free Hashtag Generator"
-              text="Check out this free hashtag generator tool!"
-            />
-          </div>
-        </div>
-
       <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 mb-6">
         <div className="space-y-4">
           <div>

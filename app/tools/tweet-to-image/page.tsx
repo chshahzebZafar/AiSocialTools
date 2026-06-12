@@ -1,16 +1,16 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import Link from "next/link";
 import { FileImage, Download, Settings, X, Maximize2, Twitter, Check, Sliders, Image as ImageIcon, Globe, Eye, EyeOff, Link as LinkIcon, ExternalLink, Share2, MessageCircle, Facebook, Copy } from "lucide-react";
 import { getToolById } from "@/lib/social-tools";
 import ToolSEO from "@/components/ToolSEO";
+import ToolHero from "@/components/ToolHero";
 import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { ToolComments } from "@/components/ToolComments";
 import { getSEOMetadata } from "@/lib/seo-metadata";
-import ShareButtons from "@/components/ShareButtons";
-import { FavoriteButton } from "@/components/FavoriteButton";
 
 type LayoutType = "wide" | "compact" | "square";
 type BackgroundType = "gradient" | "solid" | "image";
@@ -409,29 +409,16 @@ export default function TweetToImagePage() {
   return (
     <>
       {tool && <ToolSEO tool={tool} />}
+      <ToolHero
+        toolId={tool?.id}
+        icon={FileImage}
+        iconGradient="from-purple-500 to-fuchsia-500"
+        title="Tweet to Image Converter - Convert Twitter/X Posts to Images"
+        description="Convert any Twitter/X tweet into a beautiful, customizable image with gradients, themes, and advanced settings. Perfect for social media sharing and marketing."
+        shareTitle="Tweet to Image Converter"
+        shareText="Check out this free tweet to image converter tool!"
+      />
       <div className="p-8 max-w-7xl mx-auto">
-        <div className="mb-8">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center">
-              <FileImage className="w-6 h-6 text-white" />
-            </div>
-            <div className="flex-1">
-              <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100">
-                Tweet to Image Converter - Convert Twitter/X Posts to Images
-              </h1>
-              <p className="text-slate-600 dark:text-slate-300 text-lg leading-relaxed">
-                Convert any Twitter/X tweet into a beautiful, customizable image with gradients, themes, and advanced settings. Perfect for social media sharing and marketing.
-              </p>
-            </div>
-          </div>
-          <div className="mt-4 flex items-center gap-3 flex-wrap">
-            {tool && <FavoriteButton toolId={tool.id} />}
-            <ShareButtons
-              title="Tweet to Image Converter"
-              text="Check out this free tweet to image converter tool!"
-            />
-          </div>
-        </div>
 
         {/* Top Section - URL Input and Actions */}
         <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 mb-6">
@@ -1265,6 +1252,161 @@ export default function TweetToImagePage() {
             </div>
           </div>
         )}
+
+        {/* SEO content */}
+        <section className="mt-12 max-w-3xl mx-auto">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mt-8 mb-3">
+            Download Tweet as Image: A Simple Guide for Social Media Users
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+            Download Tweet as Image is a feature that allows users to save a tweet as an image file
+            instead of copying text or taking a manual screenshot. This makes sharing tweets easier across
+            different platforms. Many people use a tweet screenshot generator when they want a cleaner and
+            more professional-looking image.
+          </p>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+            Today, content creators often use a tweet to image converter to turn important tweets into
+            shareable graphics. This method helps preserve the original appearance of the tweet while making
+            it easier to post on websites, blogs, and social media channels.
+          </p>
+
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mt-8 mb-3">Why Use Download Tweet as Image?</h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+            The main reason people choose Download Tweet as Image is convenience. Images are easier to share
+            and often attract more attention than plain text. A good tweet to image generator can create
+            high-quality images that look professional and visually appealing.
+          </p>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+            Many marketers also use a Twitter card image generator to create attractive graphics that match
+            their branding. These tools help transform simple tweets into engaging visual content. Need a
+            tweet to convert? Create one first with our{" "}
+            <Link href="/tools/tweet-generator" className="text-blue-600 hover:text-blue-700 underline">
+              tweet generator
+            </Link>
+            .
+          </p>
+
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mt-8 mb-3">How Does Download Tweet as Image Work?</h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+            The Download Tweet as Image process is usually very simple. Users copy the tweet link, paste it
+            into a tool, and generate an image version of the tweet. A tweet screenshot generator often
+            automates this process and creates a polished result.
+          </p>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+            Some platforms use a tweet to image converter to generate images in different sizes. This allows
+            users to choose formats that work best for websites, presentations, or social media posts. You
+            can fine-tune the final dimensions with our{" "}
+            <Link href="/tools/image-resizer" className="text-blue-600 hover:text-blue-700 underline">
+              Image Resizer
+            </Link>
+            .
+          </p>
+
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mt-8 mb-3">Benefits of Using Download Tweet as Image</h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+            There are many advantages to using Download Tweet as Image tools. One major benefit is that
+            images maintain the original tweet layout while making content easier to share. Many users rely
+            on a tweet to image generator because it creates professional results without requiring design
+            skills, and a Twitter card image generator can help improve content presentation and increase
+            audience engagement.
+          </p>
+          <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mt-6 mb-2">Easy Content Sharing</h3>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+            One reason people use Download Tweet as Image is to share content across multiple platforms. Not
+            every platform supports tweet embedding, but images can be uploaded almost anywhere. A tweet
+            screenshot generator lets you save tweets quickly, while a tweet to image converter helps
+            maintain visual quality.
+          </p>
+          <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mt-6 mb-2">Better Visual Appeal</h3>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+            Visual content usually performs better online. With Download Tweet as Image, users can turn plain
+            tweets into attractive graphics that capture attention. Many content creators use a tweet to
+            image generator to improve the appearance of their posts, and some use a Twitter card image
+            generator to create branded visuals that look more professional.
+          </p>
+
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mt-8 mb-3">Features to Look for in a Download Tweet as Image Tool</h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+            Not all tools offer the same features. When choosing a Download Tweet as Image solution, select
+            one that provides quality images and a simple user experience. A reliable tweet screenshot
+            generator should create clear images without losing formatting, and many users prefer a tweet to
+            image converter that offers different download sizes and customization options.
+          </p>
+          <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mt-6 mb-2">High-Quality Image Output</h3>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+            A good Download Tweet as Image tool should generate sharp and readable images. Poor-quality
+            images can reduce the impact of shared content. Many users choose a tweet to image generator
+            because it creates professional-looking graphics, and a quality Twitter card image generator can
+            improve image presentation for marketing purposes.
+          </p>
+          <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mt-6 mb-2">Fast and Easy Process</h3>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+            Speed is another important feature. The best Download Tweet as Image tools allow users to
+            generate images within seconds. A simple tweet screenshot generator saves time and reduces
+            effort, and a tweet to image converter should work smoothly without requiring technical knowledge.
+          </p>
+
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mt-8 mb-3">Who Can Benefit from Download Tweet as Image?</h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+            Many different users can benefit from Download Tweet as Image tools. Bloggers often use them to
+            include social media content in articles. Businesses use them for marketing campaigns and
+            audience engagement. Content creators frequently rely on a tweet to image generator when sharing
+            valuable social media insights, and a Twitter card image generator is useful for creating
+            promotional materials that look professional.
+          </p>
+
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mt-8 mb-3">Using Download Tweet as Image for Marketing</h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+            Marketing teams often use Download Tweet as Image to highlight customer feedback, testimonials,
+            announcements, and trending discussions. A tweet screenshot generator can quickly create visuals
+            for presentations and reports, while a tweet to image converter allows businesses to reuse social
+            media content across different channels while maintaining a consistent look. Adding a Twitter
+            card image generator can further improve branding and audience engagement.
+          </p>
+
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mt-8 mb-3">Best Practices for Download Tweet as Image</h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+            To get the best results from Download Tweet as Image, always ensure the tweet content is accurate
+            and relevant before creating an image. Many users use a tweet to image generator to preserve
+            important messages and discussions. Reviewing the final image before sharing helps avoid mistakes
+            and improves professionalism, and a tweet screenshot generator can save time as long as the
+            content aligns with your audience and goals.
+          </p>
+
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mt-8 mb-3">Common Mistakes to Avoid</h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+            When using Download Tweet as Image, one common mistake is creating images with poor readability.
+            Small text or low-quality graphics can make content difficult to understand. Choosing a
+            high-quality tweet to image converter helps prevent this issue. Users should also avoid
+            over-editing images generated by a Twitter card image generator, as excessive changes may reduce
+            authenticity. Another mistake is sharing outdated content — always verify information before using
+            a tweet screenshot generator to create and distribute images. For more editing options, browse our{" "}
+            <Link href="/tools/image-tools" className="text-blue-600 hover:text-blue-700 underline">
+              free image tools
+            </Link>
+            .
+          </p>
+
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mt-8 mb-3">The Future of Download Tweet as Image Tools</h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+            The demand for Download Tweet as Image tools continues to grow as social media becomes more
+            visual. Users increasingly prefer content that is easy to consume and share. Future versions of
+            the tweet to image generator may offer advanced customization and branding features, and a
+            smarter Twitter card image generator could provide automatic design suggestions. At the same
+            time, improvements in tweet screenshot generator technology will likely make the image creation
+            process even faster and more user-friendly.
+          </p>
+
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mt-8 mb-3">Conclusion</h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+            Download Tweet as Image is a useful solution for anyone who wants to share tweets in a more
+            visual and professional way. Whether you use a tweet screenshot generator, a tweet to image
+            converter, a tweet to image generator, or a Twitter card image generator, these tools make
+            content easier to save, present, and distribute. By choosing reliable tools and following best
+            practices, users can create attractive tweet images that improve engagement and enhance their
+            social media strategy.
+          </p>
+        </section>
 
         {tool && <ToolComments toolId={tool.id} />}
         {tool && <ToolFAQ tool={tool} />}

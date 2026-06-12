@@ -4,12 +4,12 @@ import { useState } from "react";
 import { User, Copy, RefreshCw, Check } from "lucide-react";
 import { getToolById } from "@/lib/social-tools";
 import ToolSEO from "@/components/ToolSEO";
+import ToolHero from "@/components/ToolHero";
 import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { ToolComments } from "@/components/ToolComments";
 import ShareButtons from "@/components/ShareButtons";
-import { FavoriteButton } from "@/components/FavoriteButton";
 
 const VIRAL_SUFFIXES = ["tv", "official", "fyp", "viral", "trends", "vibes", "creates", "creator", "studio", "daily", "hq", "it", "world", "zone", "central", "lab"];
 const VIBE_PREFIXES = ["its", "iam", "real", "the", "official", "team", "house", "that"];
@@ -82,27 +82,16 @@ export default function TikTokUsernameGeneratorPage() {
   return (
     <>
       {tool && <ToolSEO tool={tool} />}
+      <ToolHero
+        toolId={tool?.id}
+        icon={User}
+        iconGradient="from-indigo-500 to-violet-500"
+        title="TikTok Username Generator — Free Unique TikTok Name Ideas"
+        description="Generate catchy, TikTok-compliant usernames in seconds. All results follow TikTok’s rules (2 – 24 characters, letters / numbers / underscores / periods only) and are ready to copy."
+        shareTitle="TikTok Username Generator"
+        shareText="Free TikTok username generator with viral-inspired suffixes."
+      />
       <div className="p-8 max-w-4xl mx-auto">
-        <div className="mb-8">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 bg-slate-900 rounded-lg flex items-center justify-center">
-              <User className="w-6 h-6 text-white" />
-            </div>
-            <div className="flex-1">
-              <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100">
-                TikTok Username Generator — Free Unique TikTok Name Ideas
-              </h1>
-              <p className="text-slate-600 dark:text-slate-300">
-                Generate catchy, TikTok-compliant usernames in seconds. All results follow TikTok&rsquo;s rules (2 – 24 characters, letters / numbers / underscores / periods only) and are ready to copy.
-              </p>
-            </div>
-          </div>
-          <div className="mt-4 flex items-center gap-3 flex-wrap">
-            {tool && <FavoriteButton toolId={tool.id} />}
-            <ShareButtons title="TikTok Username Generator" text="Free TikTok username generator with viral-inspired suffixes." />
-          </div>
-        </div>
-
         <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 mb-6 space-y-4">
           <div>
             <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">Name or keyword</label>

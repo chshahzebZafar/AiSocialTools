@@ -5,13 +5,12 @@ import { Minimize2, Upload, Download, Loader2 } from "lucide-react";
 import imageCompression from "browser-image-compression";
 import { getToolById } from "@/lib/social-tools";
 import ToolSEO from "@/components/ToolSEO";
+import ToolHero from "@/components/ToolHero";
 import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import ToolContentSection from "@/components/ToolContentSection";
 import { ToolComments } from "@/components/ToolComments";
-import ShareButtons from "@/components/ShareButtons";
-import { FavoriteButton } from "@/components/FavoriteButton";
 
 function formatBytes(b: number): string {
   if (b < 1024) return `${b} B`;
@@ -88,27 +87,16 @@ export default function ImageCompressorPage() {
   return (
     <>
       {tool && <ToolSEO tool={tool} />}
+      <ToolHero
+        toolId={tool?.id}
+        icon={Minimize2}
+        iconGradient="from-emerald-500 to-green-600"
+        title="Image Compressor — Free Browser-Side JPG, PNG & WebP Compression"
+        description="Compress images without losing quality, right in your browser. Live quality control, instant before-and-after size comparison, and nothing is ever uploaded to a server."
+        shareTitle="Image Compressor"
+        shareText="Free browser-side image compressor. No uploads."
+      />
       <div className="p-8 max-w-5xl mx-auto">
-        <div className="mb-8">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 bg-emerald-500 rounded-lg flex items-center justify-center">
-              <Minimize2 className="w-6 h-6 text-white" />
-            </div>
-            <div className="flex-1">
-              <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100">
-                Image Compressor — Free Browser-Side JPG, PNG & WebP Compression
-              </h1>
-              <p className="text-slate-600 dark:text-slate-300">
-                Compress images without losing quality, right in your browser. Live quality control, instant before-and-after size comparison, and nothing is ever uploaded to a server.
-              </p>
-            </div>
-          </div>
-          <div className="mt-4 flex items-center gap-3 flex-wrap">
-            {tool && <FavoriteButton toolId={tool.id} />}
-            <ShareButtons title="Image Compressor" text="Free browser-side image compressor. No uploads." />
-          </div>
-        </div>
-
         <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 mb-6">
           <label className="block border-2 border-dashed border-slate-300 dark:border-slate-600 rounded-xl p-8 text-center cursor-pointer hover:border-emerald-500 transition">
             <input

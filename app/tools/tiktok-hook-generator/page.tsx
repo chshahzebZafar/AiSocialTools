@@ -4,12 +4,12 @@ import { useState } from "react";
 import { Video, Copy, Loader2, Sparkles } from "lucide-react";
 import { getToolById } from "@/lib/social-tools";
 import ToolSEO from "@/components/ToolSEO";
+import ToolHero from "@/components/ToolHero";
 import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { ToolComments } from "@/components/ToolComments";
 import ShareButtons from "@/components/ShareButtons";
-import { FavoriteButton } from "@/components/FavoriteButton";
 
 interface GeneratedHook {
   hook: string;
@@ -333,31 +333,16 @@ export default function TikTokHookGeneratorPage() {
   return (
     <>
       {tool && <ToolSEO tool={tool} />}
+      <ToolHero
+        toolId={tool?.id}
+        icon={Video}
+        iconGradient="from-pink-500 to-purple-600"
+        title="TikTok Hook & Idea Generator - Free TikTok Hook Generator"
+        description="Generate viral TikTok hooks and content ideas for your short-form videos. Create engaging hooks that capture attention and boost your views."
+        shareTitle="TikTok Hook Generator"
+        shareText="Check out this free TikTok hook generator tool!"
+      />
       <div className="p-8 max-w-4xl mx-auto">
-        <div className="mb-8">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-purple-600 rounded-lg flex items-center justify-center">
-              <Video className="w-6 h-6 text-white" />
-            </div>
-            <div className="flex-1">
-              <h1 className="text-3xl font-bold text-slate-900">
-                TikTok Hook & Idea Generator - Free TikTok Hook Generator
-              </h1>
-              <p className="text-slate-600">
-                Generate viral TikTok hooks and content ideas for your short-form videos. 
-                Create engaging hooks that capture attention and boost your views.
-              </p>
-            </div>
-          </div>
-          <div className="mt-4 flex items-center gap-3 flex-wrap">
-            {tool && <FavoriteButton toolId={tool.id} />}
-          <ShareButtons
-              title="TikTok Hook Generator"
-              text="Check out this free TikTok hook generator tool!"
-            />
-          </div>
-        </div>
-
         <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-6">
           <div className="space-y-4">
             <div>

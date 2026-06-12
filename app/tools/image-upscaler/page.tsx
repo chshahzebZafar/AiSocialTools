@@ -4,12 +4,11 @@ import { useState, useRef, useCallback, useEffect } from "react";
 import { Maximize2, Upload, Download, RefreshCw, AlertCircle, Sparkles, ZoomIn, ZoomOut, Settings, History, X, CheckCircle } from "lucide-react";
 import { getToolById } from "@/lib/social-tools";
 import ToolSEO from "@/components/ToolSEO";
+import ToolHero from "@/components/ToolHero";
 import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { ToolComments } from "@/components/ToolComments";
-import ShareButtons from "@/components/ShareButtons";
-import { FavoriteButton } from "@/components/FavoriteButton";
 
 interface HistoryItem {
   id: string;
@@ -359,32 +358,16 @@ export default function ImageUpscalerPage() {
   return (
     <>
       {tool && <ToolSEO tool={tool} />}
+      <ToolHero
+        toolId={tool?.id}
+        icon={Maximize2}
+        iconGradient="from-purple-500 to-pink-500"
+        title="AI Image Upscaler - Enhance Image Quality"
+        description="Upscale images up to 8x using AI technology. Enhance resolution, reduce noise, and improve sharpness."
+        shareTitle="AI Image Upscaler - Free Online Tool"
+        shareText="Upscale and enhance your images with AI technology!"
+      />
       <div className="p-8 max-w-6xl mx-auto">
-        {/* Header Section */}
-        <div className="mb-8">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
-              <Maximize2 className="w-6 h-6 text-white" />
-            </div>
-            <div className="flex-1">
-              <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100">
-                AI Image Upscaler - Enhance Image Quality
-              </h1>
-              <p className="text-slate-600 dark:text-slate-400 mt-1">
-                Upscale images up to 8x using AI technology. Enhance resolution, reduce noise, and improve sharpness.
-              </p>
-            </div>
-          </div>
-          
-          <div className="mt-4 flex items-center gap-3 flex-wrap">
-            {tool && <FavoriteButton toolId={tool.id} />}
-            <ShareButtons
-              title="AI Image Upscaler - Free Online Tool"
-              text="Upscale and enhance your images with AI technology!"
-            />
-          </div>
-        </div>
-
         {/* API Status Banner */}
         {!process.env.NEXT_PUBLIC_REPLICATE_API_KEY ? (
           <div className="bg-amber-50 dark:bg-amber-900/20 rounded-lg p-4 mb-6 border border-amber-200 dark:border-amber-800">
