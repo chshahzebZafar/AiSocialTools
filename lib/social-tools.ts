@@ -34,7 +34,9 @@ import {
   Replace,
   Linkedin,
   Ruler,
-  Wand2
+  Wand2,
+  Ghost,
+  Flame
 } from "lucide-react";
 
 export interface SocialTool {
@@ -474,6 +476,97 @@ export const socialTools: SocialTool[] = [
   //   category: "Design",
   //   isNew: true
   // }
+  // ── Snapchat ──────────────────────────────────────────────
+  {
+    id: "snapchat-username-generator",
+    name: "Snapchat Username Generator",
+    description: "Generate unique, available-style Snapchat usernames from your name or niche. Every result follows Snapchat's real rules (3–15 chars, must start with a letter). Free, one-click copy.",
+    icon: Ghost,
+    path: "/tools/snapchat-username-generator",
+    category: "Snapchat",
+    isNew: true
+  },
+  {
+    id: "snapchat-bio-generator",
+    name: "Snapchat Bio Generator",
+    description: "Create catchy Snapchat bios with emojis in seconds. Pick a vibe — funny, aesthetic, baddie, simple — and get ready-to-paste bios under Snapchat's character limit. Free, no signup.",
+    icon: PenTool,
+    path: "/tools/snapchat-bio-generator",
+    category: "Snapchat",
+    isNew: true
+  },
+  {
+    id: "snapchat-emoji-meaning",
+    name: "Snapchat Emoji Meaning Finder",
+    description: "Look up what every Snapchat friend emoji means — yellow heart, red heart, 😎, 😬, 🔥 streak, ⌛ hourglass and more. Searchable, accurate 2026 reference. Free.",
+    icon: Smile,
+    path: "/tools/snapchat-emoji-meaning",
+    category: "Snapchat",
+    isNew: true
+  },
+  {
+    id: "funny-snapchat-username-generator",
+    name: "Funny Snapchat Username Generator",
+    description: "Generate hilarious, meme-worthy Snapchat usernames that get a laugh. Every idea follows Snapchat's rules and is ready to copy. Free, no signup.",
+    icon: Ghost,
+    path: "/tools/funny-snapchat-username-generator",
+    category: "Snapchat",
+    isNew: true
+  },
+  {
+    id: "cool-snapchat-username-generator",
+    name: "Cool Snapchat Username Generator",
+    description: "Generate cool, edgy Snapchat usernames that stand out. Valid Snapchat handles (3–15 chars, starts with a letter), one-click copy. Free.",
+    icon: Ghost,
+    path: "/tools/cool-snapchat-username-generator",
+    category: "Snapchat",
+    isNew: true
+  },
+  {
+    id: "aesthetic-snapchat-username-generator",
+    name: "Aesthetic Snapchat Username Generator",
+    description: "Generate soft, aesthetic Snapchat usernames — dreamy, minimal, lowercase vibes. Snapchat-valid and ready to copy. Free, no signup.",
+    icon: Ghost,
+    path: "/tools/aesthetic-snapchat-username-generator",
+    category: "Snapchat",
+    isNew: true
+  },
+  {
+    id: "gaming-snapchat-username-generator",
+    name: "Gaming Snapchat Username Generator",
+    description: "Generate gamer-style Snapchat usernames with pro tags and sharp suffixes. Valid Snapchat handles, one-click copy. Free.",
+    icon: Ghost,
+    path: "/tools/gaming-snapchat-username-generator",
+    category: "Snapchat",
+    isNew: true
+  },
+  {
+    id: "girl-snapchat-username-generator",
+    name: "Girl Snapchat Username Generator",
+    description: "Generate cute and girly Snapchat usernames in seconds. Snapchat-valid (3–15 chars, starts with a letter) and ready to copy. Free.",
+    icon: Ghost,
+    path: "/tools/girl-snapchat-username-generator",
+    category: "Snapchat",
+    isNew: true
+  },
+  {
+    id: "boy-snapchat-username-generator",
+    name: "Boy Snapchat Username Generator",
+    description: "Generate cool Snapchat usernames for boys — strong, clean handle ideas. Snapchat-valid and ready to copy. Free, no signup.",
+    icon: Ghost,
+    path: "/tools/boy-snapchat-username-generator",
+    category: "Snapchat",
+    isNew: true
+  },
+  {
+    id: "business-snapchat-username-generator",
+    name: "Business Snapchat Username Generator",
+    description: "Generate professional, brandable Snapchat usernames for your business or creator account. Snapchat-valid and ready to copy. Free.",
+    icon: Ghost,
+    path: "/tools/business-snapchat-username-generator",
+    category: "Snapchat",
+    isNew: true
+  }
 ];
 
 export const getToolById = (id: string): SocialTool | undefined => {

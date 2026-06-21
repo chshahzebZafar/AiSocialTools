@@ -330,7 +330,7 @@ export default function InstagramPhotoDownloaderPage() {
             It is also important to respect privacy and avoid misuse. While users may ask, can photos be
             downloaded from Instagram, ethical use should always guide the decision. Explore more of our
             free{" "}
-            <Link href="/tools/image-tools" className="text-purple-600 hover:text-purple-700 underline">
+            <Link href="/tools/image-design" className="text-purple-600 hover:text-purple-700 underline">
               image tools
             </Link>{" "}
             for editing images you are allowed to use.

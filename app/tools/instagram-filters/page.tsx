@@ -294,7 +294,7 @@ export default function InstagramFiltersPage() {
           While Instagram provides built-in filters, many users also choose an Instagram filters app
           for extra editing tools, advanced adjustments, and unique effects. You can find more free,
           browser-based options in our{" "}
-          <Link href="/tools/image-tools" className="text-purple-600 hover:text-purple-700 underline">
+          <Link href="/tools/image-design" className="text-purple-600 hover:text-purple-700 underline">
             image tools
           </Link>{" "}
           collection — no download required.

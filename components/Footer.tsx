@@ -27,8 +27,6 @@ const linkSections: FooterSection[] = [
     title: "Company",
     links: [
       { href: "/about", label: "About" },
-      { href: "/author", label: "Author" },
-      { href: "/projects", label: "Projects" },
       { href: "/contact", label: "Contact" },
       { href: "/privacy", label: "Privacy" },
       { href: "/terms", label: "Terms" },
@@ -38,9 +36,9 @@ const linkSections: FooterSection[] = [
 
 const topCategories: FooterLink[] = [
   { href: "/tools/social-media", label: "Social media" },
-  { href: "/tools/instagram-tools", label: "Instagram tools" },
-  { href: "/tools/youtube-tools", label: "YouTube tools" },
-  { href: "/tools/image-tools", label: "Image tools" },
+  { href: "/tools/instagram", label: "Instagram tools" },
+  { href: "/tools/youtube", label: "YouTube tools" },
+  { href: "/tools/image-design", label: "Image tools" },
   { href: "/ai-directory", label: "AI directory" },
 ];
 

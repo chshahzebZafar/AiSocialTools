@@ -3657,7 +3657,7 @@ An X post image creator makes it easier to share content on platforms like Insta
 
 ## Turning Text into Visual Content with a Text to Graphic Tool
 
-Not everyone enjoys reading long blocks of text. A Tweet-to-Image Converter acts as a text to graphic tool that transforms simple tweets into visually attractive content. Explore more of our <a href="/tools/image-tools" class="text-blue-600 dark:text-blue-400 underline">free image tools</a> to round out your workflow.
+Not everyone enjoys reading long blocks of text. A Tweet-to-Image Converter acts as a text to graphic tool that transforms simple tweets into visually attractive content. Explore more of our <a href="/tools/image-design" class="text-blue-600 dark:text-blue-400 underline">free image tools</a> to round out your workflow.
 
 A text to graphic tool helps users communicate ideas quickly and effectively. Visual posts often receive more attention because they are easier to consume and understand.
 

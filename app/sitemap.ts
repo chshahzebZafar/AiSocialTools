@@ -3,6 +3,7 @@ import { socialTools } from '@/lib/social-tools'
 import { blogPosts } from '@/lib/blog-posts'
 import { aiDirectoryTools } from '@/lib/ai-directory'
 import { categoryTools } from '@/lib/category-tools'
+import { toolCategories } from '@/lib/tool-groups'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://aisocialtools.co'
@@ -37,13 +38,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: post.featured ? 0.9 : 0.8,
   }))
 
-  // Hub pages - cluster SEO plays, high priority
-  const hubPages: MetadataRoute.Sitemap = [
-    '/tools/instagram-tools',
-    '/tools/youtube-tools',
-    '/tools/image-tools'
-  ].map((path) => ({
-    url: `${baseUrl}${path}`,
+  // Category pages (platform + function) - cluster SEO plays, high priority
+  const hubPages: MetadataRoute.Sitemap = toolCategories.map((c) => ({
+    url: `${baseUrl}/tools/${c.slug}`,
     lastModified: CONTENT_REFRESHED,
     changeFrequency: 'weekly' as const,
     priority: 0.9
@@ -88,12 +85,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     // Medium priority pages
     {
-      url: `${baseUrl}/projects`,
-      lastModified: STATIC_PAGE_DATE,
-      changeFrequency: 'monthly',
-      priority: 0.6
-    },
-    {
       url: `${baseUrl}/about`,
       lastModified: STATIC_PAGE_DATE,
       changeFrequency: 'monthly',
@@ -110,12 +101,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: CONTENT_REFRESHED,
       changeFrequency: 'monthly',
       priority: 0.75,
-    },
-    {
-      url: `${baseUrl}/author`,
-      lastModified: STATIC_PAGE_DATE,
-      changeFrequency: 'monthly',
-      priority: 0.6
     },
     // Low priority legal pages
     {

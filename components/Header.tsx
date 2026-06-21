@@ -16,7 +16,6 @@ const navLinks: Array<{ href: string; label: string; badge?: string }> = [
   { href: "/tools", label: "Tools" },
   { href: "/ai-directory", label: "AI Directory", badge: "New" },
   { href: "/blog", label: "Blog" },
-  { href: "/projects", label: "Projects" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
   { href: "/faq", label: "FAQ" },

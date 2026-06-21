@@ -30,7 +30,7 @@ export function getEnhancedArticleSchema(post: BlogPost) {
     "author": {
       "@type": "Person",
       "name": post.author,
-      "url": `${BASE_URL}/author`
+      "url": `${BASE_URL}/about`
     },
     "publisher": {
       "@type": "Organization",
@@ -221,8 +221,8 @@ export function getAuthorSchema() {
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Shahzeb Zafar",
-    "url": `${BASE_URL}/author`,
-    "image": `${BASE_URL}/author-image.jpg`,
+    "url": `${BASE_URL}/about`,
+    "image": `${BASE_URL}/og-default.png`,
     "sameAs": [
       // Add your social media profiles
       // "https://twitter.com/yourhandle",

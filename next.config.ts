@@ -56,6 +56,8 @@ const nextConfig: NextConfig = {
         destination: '/ai-directory',
         permanent: true,
       },
+      // Author page consolidated into /about.
+      { source: '/author',   destination: '/about', permanent: true },
       // Removed the 15 SaaS-review pages (low-value templated content).
       // Redirect each to the closest live destination so any inbound links survive.
       { source: '/tools/buffer',         destination: '/tools/social-media', permanent: true },
@@ -89,6 +91,11 @@ const nextConfig: NextConfig = {
       // Off-brand document/file utilities removed to keep the site focused on
       // social media + AI. PDF tools and the favicon generator 301 to /tools.
       { source: '/tools/:tool(pdf-merger|pdf-splitter|pdf-to-image|image-to-pdf|word-to-pdf|favicon-generator)', destination: '/tools', permanent: true },
+
+      // Old curated hub pages were replaced by platform/function categories.
+      { source: '/tools/instagram-tools', destination: '/tools/instagram', permanent: true },
+      { source: '/tools/youtube-tools', destination: '/tools/youtube', permanent: true },
+      { source: '/tools/image-tools', destination: '/tools/image-design', permanent: true },
     ];
   },
 
@@ -131,7 +138,7 @@ const nextConfig: NextConfig = {
           // Content Security Policy
           {
             key: 'Content-Security-Policy',
-            value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://cdn.jsdelivr.net https://unpkg.com https://pagead2.googlesyndication.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://cdn.jsdelivr.net https://unpkg.com https://*.googleapis.com https://*.firebaseio.com https://*.cloudfunctions.net https://firebase.googleapis.com https://firestore.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://image.pollinations.ai https://api.remove.bg https://api.replicate.com https://replicate.delivery https://*.replicate.delivery https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net; frame-src 'self' https://googleads.g.doubleclick.net; worker-src 'self' blob: https://cdn.jsdelivr.net https://unpkg.com; media-src 'self' blob: https:;"
+            value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://cdn.jsdelivr.net https://unpkg.com https://pagead2.googlesyndication.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://api.datamuse.com https://www.google-analytics.com https://www.googletagmanager.com https://cdn.jsdelivr.net https://unpkg.com https://*.googleapis.com https://*.firebaseio.com https://*.cloudfunctions.net https://firebase.googleapis.com https://firestore.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://image.pollinations.ai https://api.remove.bg https://api.replicate.com https://replicate.delivery https://*.replicate.delivery https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net; frame-src 'self' https://googleads.g.doubleclick.net; worker-src 'self' blob: https://cdn.jsdelivr.net https://unpkg.com; media-src 'self' blob: https:;"
           },
           // Cache Control for HTML pages — must-revalidate so content updates are picked up
           {

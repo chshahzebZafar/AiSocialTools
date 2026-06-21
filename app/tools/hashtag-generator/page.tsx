@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { Hash, Copy, Download } from "lucide-react";
+import { useRef, useState } from "react";
+import { Hash, Copy, Download, RefreshCw, Plus, Loader2, Check } from "lucide-react";
 import { getToolById } from "@/lib/social-tools";
 import ToolSEO from "@/components/ToolSEO";
 import ToolHero from "@/components/ToolHero";
@@ -9,77 +9,61 @@ import ToolFAQ from "@/components/ToolFAQ";
 import RelatedTools from "@/components/RelatedTools";
 import ToolDetailsSection from "@/components/ToolDetailsSection";
 import ToolContentSection from "@/components/ToolContentSection";
-import { getSEOMetadata } from "@/lib/seo-metadata";
 import ShareButtons from "@/components/ShareButtons";
 import { ToolComments } from "@/components/ToolComments";
+import { buildHashtagPool, optimizedSet, type Hashtag, type HashtagPool, type Tier } from "@/lib/hashtag-engine";
+import { topicWords } from "@/lib/datamuse";
+
+const TIER_STYLES: Record<Tier, string> = {
+  niche: "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-100",
+  medium: "bg-purple-50 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 hover:bg-purple-100",
+  popular: "bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 hover:bg-amber-100",
+};
+const TIER_LABEL: Record<Tier, string> = { niche: "Niche / branded", medium: "Category", popular: "Popular reach" };
+const BATCH = 30;
 
 export default function HashtagGeneratorPage() {
   const tool = getToolById("hashtag-generator");
-  const seo = tool ? getSEOMetadata(tool) : null;
   const [keyword, setKeyword] = useState("");
   const [platform, setPlatform] = useState("instagram");
-  const [generatedHashtags, setGeneratedHashtags] = useState<string[]>([]);
+  const [pool, setPool] = useState<Hashtag[]>([]);
+  const [visible, setVisible] = useState(0);
+  const [optimized, setOptimized] = useState<string[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [copied, setCopied] = useState<string | null>(null);
+  const [error, setError] = useState("");
+  const builtRef = useRef<HashtagPool | null>(null);
 
-  const hashtagCategories: Record<string, string[]> = {
-    business: ["#business", "#entrepreneur", "#startup", "#success", "#motivation", "#leadership", "#innovation"],
-    fashion: ["#fashion", "#style", "#ootd", "#fashionista", "#trendy", "#outfit", "#fashionblogger"],
-    food: ["#food", "#foodie", "#delicious", "#yummy", "#foodporn", "#instafood", "#foodstagram"],
-    travel: ["#travel", "#wanderlust", "#adventure", "#explore", "#travelgram", "#instatravel", "#vacation"],
-    fitness: ["#fitness", "#workout", "#gym", "#health", "#fit", "#training", "#fitnessmotivation"],
-    tech: ["#technology", "#tech", "#innovation", "#digital", "#ai", "#coding", "#software"],
-    photography: ["#photography", "#photo", "#photooftheday", "#picoftheday", "#instagood", "#photographer"],
-    art: ["#art", "#artist", "#creative", "#design", "#artwork", "#drawing", "#painting"],
-  };
-
-  const generateHashtags = () => {
+  const generateHashtags = async () => {
     if (!keyword.trim()) {
-      alert("Please enter a keyword");
+      setError("Please enter a keyword or topic.");
       return;
     }
-
-    const baseHashtags: string[] = [];
-    const keywordLower = keyword.toLowerCase();
-    
-    // Add keyword variations
-    baseHashtags.push(`#${keywordLower.replace(/\s+/g, "")}`);
-    baseHashtags.push(`#${keywordLower.replace(/\s+/g, "_")}`);
-    
-    // Add related hashtags based on keyword matching
-    for (const [category, tags] of Object.entries(hashtagCategories)) {
-      if (keywordLower.includes(category) || category.includes(keywordLower)) {
-        baseHashtags.push(...tags);
-      }
-    }
-
-    // Add generic popular hashtags
-    const popular = ["#love", "#instagood", "#photooftheday", "#beautiful", "#happy", "#follow", "#like4like"];
-    baseHashtags.push(...popular.slice(0, 5));
-
-    // Add trending variations
-    const variations = [
-      `#${keywordLower}`,
-      `#${keywordLower}life`,
-      `#${keywordLower}lover`,
-      `#${keywordLower}addict`,
-      `#${keywordLower}community`,
-    ];
-    baseHashtags.push(...variations);
-
-    // Limit based on platform
-    const limit = platform === "instagram" ? 30 : platform === "twitter" ? 3 : 10;
-    const uniqueHashtags = Array.from(new Set(baseHashtags)).slice(0, limit);
-    
-    setGeneratedHashtags(uniqueHashtags);
+    setError("");
+    setLoading(true);
+    const related = await topicWords(keyword, 40); // free Datamuse topical words, soft-fails to []
+    const built = buildHashtagPool(keyword, related);
+    builtRef.current = built;
+    setPool(built.all);
+    setVisible(Math.min(BATCH, built.all.length));
+    setOptimized(optimizedSet(built, platform));
+    setLoading(false);
   };
 
-  const copyHashtags = () => {
-    const text = generatedHashtags.join(" ");
-    navigator.clipboard.writeText(text);
-    alert("Hashtags copied to clipboard!");
+  const loadMore = () => setVisible((v) => Math.min(v + BATCH, pool.length));
+
+  const reshuffleOptimized = () => {
+    if (builtRef.current) setOptimized(optimizedSet(builtRef.current, platform));
+  };
+
+  const copyText = async (text: string, key: string) => {
+    await navigator.clipboard.writeText(text);
+    setCopied(key);
+    setTimeout(() => setCopied(null), 1500);
   };
 
   const downloadHashtags = () => {
-    const blob = new Blob([generatedHashtags.join("\n")], { type: "text/plain" });
+    const blob = new Blob([pool.map((h) => h.tag).join("\n")], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
@@ -87,6 +71,8 @@ export default function HashtagGeneratorPage() {
     a.click();
     URL.revokeObjectURL(url);
   };
+
+  const shown = pool.slice(0, visible);
 
   return (
     <>
@@ -145,7 +131,11 @@ export default function HashtagGeneratorPage() {
             </label>
             <select
               value={platform}
-              onChange={(e) => setPlatform(e.target.value)}
+              onChange={(e) => {
+                const p = e.target.value;
+                setPlatform(p);
+                if (builtRef.current) setOptimized(optimizedSet(builtRef.current, p));
+              }}
               className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100"
             >
               <option value="instagram">Instagram (up to 30)</option>
@@ -157,57 +147,93 @@ export default function HashtagGeneratorPage() {
 
           <button
             onClick={generateHashtags}
-            className="w-full bg-purple-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-purple-700 transition-colors"
+            disabled={loading}
+            className="w-full bg-purple-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-purple-700 transition-colors flex items-center justify-center gap-2 disabled:opacity-60"
           >
-            Generate Hashtags
+            {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Hash className="w-5 h-5" />}
+            {loading ? "Generating…" : "Generate Hashtags"}
           </button>
+          {error && <p className="text-sm text-red-600 dark:text-red-400">{error}</p>}
         </div>
       </div>
 
-      {generatedHashtags.length > 0 && (
-        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
-          <div className="flex items-center justify-between mb-4">
+      {optimized.length > 0 && (
+        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 mb-6">
+          <div className="flex items-center justify-between mb-3 flex-wrap gap-2">
             <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">
-              Generated Hashtags ({generatedHashtags.length})
+              Optimized set for {platform[0].toUpperCase() + platform.slice(1)} ({optimized.length})
             </h2>
             <div className="flex gap-2">
               <button
-                onClick={copyHashtags}
-                className="p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors"
-                title="Copy all"
+                onClick={reshuffleOptimized}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition"
+                title="Reshuffle the optimized set"
               >
-                <Copy className="w-5 h-5" />
+                <RefreshCw className="w-4 h-4" /> Shuffle
               </button>
               <button
-                onClick={downloadHashtags}
-                className="p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors"
-                title="Download"
+                onClick={() => copyText(optimized.join(" "), "opt")}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm bg-purple-600 text-white hover:bg-purple-700 transition"
               >
+                {copied === "opt" ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />} Copy set
+              </button>
+            </div>
+          </div>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">
+            A ready-to-paste mix following the 70-20-10 rule (niche · category · popular) within {platform}&apos;s best-practice limit.
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {optimized.map((tag) => (
+              <span key={tag} className="px-3 py-1.5 bg-slate-100 dark:bg-slate-700 text-slate-800 dark:text-slate-100 rounded-full text-sm">{tag}</span>
+            ))}
+          </div>
+          <div className="mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
+            <ShareButtons title="Generated Hashtags" text="Check out these hashtags I generated!" resultText={optimized.join(" ")} />
+          </div>
+        </div>
+      )}
+
+      {pool.length > 0 && (
+        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+          <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
+            <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">
+              All hashtags ({pool.length})
+            </h2>
+            <div className="flex gap-2">
+              <button onClick={() => copyText(pool.map((h) => h.tag).join(" "), "all")} className="p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors" title="Copy all">
+                {copied === "all" ? <Check className="w-5 h-5 text-green-600" /> : <Copy className="w-5 h-5" />}
+              </button>
+              <button onClick={downloadHashtags} className="p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors" title="Download">
                 <Download className="w-5 h-5" />
               </button>
             </div>
           </div>
-          <div className="mb-4 pb-4 border-b border-slate-200 dark:border-slate-700">
-            <ShareButtons
-              title="Generated Hashtags"
-              text={`Check out these ${generatedHashtags.length} hashtags I generated!`}
-              resultText={generatedHashtags.join(" ")}
-            />
+          <div className="flex flex-wrap gap-3 mb-4 text-xs text-slate-500 dark:text-slate-400">
+            {(["niche", "medium", "popular"] as Tier[]).map((t) => (
+              <span key={t} className="inline-flex items-center gap-1.5">
+                <span className={`w-2.5 h-2.5 rounded-full ${TIER_STYLES[t].split(" ")[0]}`} /> {TIER_LABEL[t]}
+              </span>
+            ))}
           </div>
           <div className="flex flex-wrap gap-2">
-            {generatedHashtags.map((tag, index) => (
+            {shown.map((h) => (
               <button
-                key={index}
-                onClick={() => {
-                  navigator.clipboard.writeText(tag);
-                  alert(`Copied: ${tag}`);
-                }}
-                className="px-3 py-1.5 bg-purple-50 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full text-sm hover:bg-purple-100 dark:hover:bg-purple-900/50 transition-colors"
+                key={h.tag}
+                onClick={() => copyText(h.tag, h.tag)}
+                className={`px-3 py-1.5 rounded-full text-sm transition-colors ${TIER_STYLES[h.tier]}`}
               >
-                {tag}
+                {copied === h.tag ? "Copied!" : h.tag}
               </button>
             ))}
           </div>
+          {visible < pool.length && (
+            <button
+              onClick={loadMore}
+              className="mt-5 inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium bg-slate-100 dark:bg-slate-700 text-slate-800 dark:text-slate-100 hover:bg-slate-200 dark:hover:bg-slate-600 transition"
+            >
+              <Plus className="w-4 h-4" /> Load more ({pool.length - visible} more)
+            </button>
+          )}
         </div>
       )}
 
