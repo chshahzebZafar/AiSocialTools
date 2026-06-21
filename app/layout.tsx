@@ -85,7 +85,7 @@ export const metadata: Metadata = {
     canonical: "https://aisocialtools.co",
   },
   verification: {
-    google: "rSzbil6iTeObZLttAxiRP7L7aYbEX8BtQEta8AzxfHk",
+    google: "1MXsxJbLVHs_-NmpBgvIbP63OboURvFjZwN7Rjf6aVU",
     yandex: "4937df008dc17e31",
   },
   metadataBase: new URL("https://aisocialtools.co"),
