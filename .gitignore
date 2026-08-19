@@ -46,3 +46,13 @@ next-env.d.ts
 # Electron build output
 /dist/
 /release/
+
+# Local SEO tooling and scratch files (added 2026-08-19)
+claude-seo/
+__pycache__/
+*.pyc
+start-bcrypt.bat
+verify_xml.py
+debug_blogs.py
+convert_blogs_to_wordpress.py
+aisocialtools.co-audit/

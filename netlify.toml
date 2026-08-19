@@ -1,3 +1,19 @@
+# ############################################################################
+# INACTIVE — THIS FILE HAS NO EFFECT ON THE LIVE SITE.
+#
+# aisocialtools.co is served by Vercel, not Netlify (live responses carry
+# "Server: Vercel"). Every header the site actually sends comes from the
+# headers() block in next.config.ts.
+#
+# Proof: this file declares Referrer-Policy = "origin-when-cross-origin",
+# but the live site sends "strict-origin-when-cross-origin" — the value in
+# next.config.ts. The Cache-Control rule for "/*.html" never matches either,
+# since App Router routes are not served with .html extensions.
+#
+# Edit next.config.ts to change headers. Kept only for a possible Netlify
+# migration; delete it if that is not planned.
+# ############################################################################
+
 [build]
   command = "npm run build"
   publish = ".next"

@@ -45,22 +45,22 @@ export async function generateMetadata({
     };
   }
   const url = `https://aisocialtools.co/ai-directory/${tool.slug}`;
-  // Pad short taglines so meta descriptions land in the 80-160 sweet spot.
-  // Avoids Ahrefs "too short" warnings on ~170 directory entries.
-  const padding = ` ${tool.name} review with pros, cons, pricing, and alternatives.`;
-  let description = tool.tagline;
-  if (description.length < 90) description = description + padding;
-  if (description.length > 155) description = description.slice(0, 152) + "…";
+  // Description is the tool's own tagline, unpadded. The previous version
+  // appended "review with pros, cons, pricing, and alternatives" to clear an
+  // Ahrefs minimum-length warning — but this page renders none of those things.
+  // Ahrefs measures string length; Google reads the page. GSC confirmed the
+  // cost: these URLs are "Crawled — currently not indexed" or never crawled.
+  const description =
+    tool.tagline.length > 155 ? tool.tagline.slice(0, 152) + "…" : tool.tagline;
 
   return {
-    // Expanded title pattern — keeps all entries 30-60 chars instead of 18-30.
-    // "Sora Review — Video" (19) → "Sora Review 2026 — AI Video Tool" (32)
-    title: `${tool.name} Review 2026 — AI ${tool.category} Tool`,
+    // Plain descriptive title. The previous "X Review 2026" pattern advertised
+    // editorial content this page does not contain. Restore the review wording
+    // only when real review content ships with it.
+    title: `${tool.name} — AI ${tool.category} Tool`,
     description,
     keywords: [
       tool.name,
-      `${tool.name} review`,
-      `${tool.name} pricing`,
       `${tool.name} alternatives`,
       ...(tool.tags || []),
       tool.category.toLowerCase(),
@@ -78,7 +78,16 @@ export async function generateMetadata({
       description,
     },
     alternates: { canonical: url },
-    robots: { index: true, follow: true },
+    // Directory entries are noindex until they carry original analysis —
+    // hands-on testing, pricing breakdown, real pros and cons. At ~66 words of
+    // third-party description they were already being declined by Google
+    // ("Crawled — currently not indexed"); noindex makes that explicit and
+    // stops 179 thin URLs consuming a very scarce crawl budget.
+    //
+    // Per-page reversible: give an entry genuine review content, flip it back
+    // to index: true, and re-add that slug to app/sitemap.ts. The goal is
+    // 10-15 real reviews that rank, not 179 stubs that do not.
+    robots: { index: false, follow: true },
   };
 }
 

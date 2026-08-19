@@ -1,7 +1,6 @@
 import { MetadataRoute } from 'next'
 import { socialTools } from '@/lib/social-tools'
 import { blogPosts } from '@/lib/blog-posts'
-import { aiDirectoryTools } from '@/lib/ai-directory'
 import { categoryTools } from '@/lib/category-tools'
 import { toolCategories } from '@/lib/tool-groups'
 
@@ -117,15 +116,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
   ]
 
-  // AI Directory tool detail pages — listing pages, not editorial; lower priority
-  const aiDirectoryPages: MetadataRoute.Sitemap = aiDirectoryTools
-    .filter((t) => t.approved)
-    .map((tool) => ({
-      url: `${baseUrl}/ai-directory/${tool.slug}`,
-      lastModified: CONTENT_REFRESHED,
-      changeFrequency: 'weekly' as const,
-      priority: 0.65
-    }))
+  // AI Directory detail pages are deliberately absent from this sitemap.
+  // They are noindex (see app/ai-directory/[slug]/page.tsx) until they carry
+  // original analysis, and advertising noindex URLs in a sitemap sends Google
+  // contradictory signals. The /ai-directory hub itself stays listed via
+  // staticPages so the section remains discoverable.
+  //
+  // Context: GSC shows crawl budget on this domain is extremely scarce — some
+  // tool pages are still "unknown to Google" months after launch. Spending it
+  // on 179 thin stubs was actively harmful.
+  //
+  // When individual entries earn real review content and flip back to
+  // index: true, re-add just those slugs here.
 
   // Live tools under category hubs (BMI, mortgage, etc.) — high priority
   const liveCategoryToolPages: MetadataRoute.Sitemap = categoryTools.map((tool) => ({
@@ -142,7 +144,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...hubPages,
     ...liveCategoryToolPages,
     ...toolPages,
-    ...aiDirectoryPages,
     ...blogPages.sort((a, b) => (b.priority || 0) - (a.priority || 0)), // Featured posts first
   ]
 
