@@ -11,6 +11,7 @@ import ToolDetailsSection from "@/components/ToolDetailsSection";
 import { ToolComments } from "@/components/ToolComments";
 import { getSEOMetadata } from "@/lib/seo-metadata";
 import ShareButtons from "@/components/ShareButtons";
+import EmbedSnippet from "@/components/EmbedSnippet";
 
 export default function EngagementCalculatorPage() {
   const tool = getToolById("engagement-calculator");
@@ -222,6 +223,13 @@ export default function EngagementCalculatorPage() {
           </div>
         </div>
       </div>
+
+      <EmbedSnippet
+        embedId="engagement-calculator"
+        toolPath="/tools/engagement-calculator"
+        linkText="Engagement Rate Calculator"
+        height={420}
+      />
 
       {tool && <ToolComments toolId={tool.id} />}
       {tool && <ToolFAQ tool={tool} />}

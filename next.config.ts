@@ -102,8 +102,29 @@ const nextConfig: NextConfig = {
   // Headers for SEO, Security, and Performance
   async headers() {
     return [
+      // Embeddable widgets — must be framable by third-party sites, so this
+      // rule deliberately omits X-Frame-Options and sets frame-ancestors *.
+      // It is listed FIRST and the rule below excludes /embed/, otherwise the
+      // site-wide SAMEORIGIN would apply and every external embed would be
+      // blocked with nothing but a console error to show for it.
       {
-        source: '/:path*',
+        source: '/embed/:path*',
+        headers: [
+          { key: 'X-DNS-Prefetch-Control', value: 'on' },
+          { key: 'X-Content-Type-Options', value: 'nosniff' },
+          { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+          { key: 'Strict-Transport-Security', value: 'max-age=31536000; includeSubDomains; preload' },
+          // frame-ancestors * is the modern replacement for X-Frame-Options
+          // here. X-Frame-Options has no "allow any origin" value, so the only
+          // way to permit third-party framing is to not send it at all.
+          { key: 'Content-Security-Policy', value: "frame-ancestors *;" },
+          // Widgets are static once built; let intermediaries cache them.
+          { key: 'Cache-Control', value: 'public, max-age=0, s-maxage=3600, stale-while-revalidate=86400' },
+        ],
+      },
+      {
+        // Everything except /embed/ — see the rule above.
+        source: '/((?!embed/).*)',
         headers: [
           // DNS and Performance - Critical for Core Web Vitals
           {
