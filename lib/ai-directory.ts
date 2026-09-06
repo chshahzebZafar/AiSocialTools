@@ -5462,6 +5462,32 @@ export const aiDirectoryTools: AIDirectoryTool[] = [
     founder: "Polycam",
     approved: true,
   },
+  /* ───────────── Community submission — Sept 2026 ───────────── */
+  {
+    slug: "saycraft",
+    name: "SayCraft",
+    tagline: "Turn your product meeting into a working prototype.",
+    description:
+      "Talk through the idea with your team while SayCraft builds live. When the meeting ends, you get a running web app with a shareable preview URL everyone can open, test, and review. Free includes the live preview during the meeting and replay afterward. Pro adds access to the permanent deploy link, and Max adds source download.",
+    url: "https://saycraft.ai",
+    category: "Code",
+    pricing: "Freemium",
+    pricingDetails:
+      "Free: live preview during the meeting, plus replay. Pro: permanent deploy link. Max: source download.",
+    features: [
+      "Build a web app live from a product meeting",
+      "Shareable preview for team testing and review",
+      "Meeting replay",
+    ],
+    // No pros/cons listed: those are editorial judgements and this tool has not
+    // been hands-on tested. Add them after an actual trial rather than
+    // paraphrasing the vendor's own copy.
+    alternatives: ["lovable", "bolt-new", "v0"],
+    tags: ["code", "app builder", "prototyping", "meetings", "vibe coding"],
+    addedAt: "2026-09-06",
+    isNew: true,
+    approved: true,
+  },
 ];
 
 /* =====================================================================

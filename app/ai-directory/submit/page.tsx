@@ -22,6 +22,9 @@ const pricingOptions = ["Free", "Freemium", "Paid", "Open Source"] as const;
 export default function SubmitAIToolPage() {
   const [state, setState] = useState<SubmissionState>("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  // Reference returned by the API — shown on screen so the submitter has a
+  // receipt even if the confirmation email is delayed or filtered.
+  const [reference, setReference] = useState("");
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -55,6 +58,7 @@ export default function SubmitAIToolPage() {
       if (!res.ok) {
         throw new Error(data.error || "Failed to submit");
       }
+      setReference(typeof data.reference === "string" ? data.reference : "");
       setState("success");
       (e.target as HTMLFormElement).reset();
     } catch (err) {
@@ -150,16 +154,35 @@ export default function SubmitAIToolPage() {
                 <h2 className="text-2xl font-semibold text-zinc-950 dark:text-white tracking-tight mb-3">
                   Submission received.
                 </h2>
-                <p className="text-zinc-600 dark:text-zinc-400 mb-6 max-w-md mx-auto">
-                  Thanks. We&apos;ll review it within 7 days and email you if we have any
-                  questions. If accepted, the tool goes live the same day.
+
+                {reference && (
+                  <div className="mb-5">
+                    <p className="text-xs uppercase tracking-[0.16em] text-zinc-500 dark:text-zinc-500 font-semibold mb-1.5">
+                      Your reference
+                    </p>
+                    <p className="font-mono text-lg font-semibold text-zinc-950 dark:text-white tracking-tight">
+                      {reference}
+                    </p>
+                  </div>
+                )}
+
+                <p className="text-zinc-600 dark:text-zinc-400 mb-2 max-w-md mx-auto">
+                  Thanks — we&apos;ve logged your submission and sent a confirmation
+                  email with these details. We review within 7 days and will reply if
+                  we have questions. If accepted, the listing goes live the same day.
+                </p>
+                <p className="text-sm text-zinc-500 dark:text-zinc-500 mb-6 max-w-md mx-auto">
+                  Listings are free and editorial. Quote your reference if you follow up.
                 </p>
                 <div className="flex flex-wrap gap-3 justify-center">
                   <ButtonLink href="/ai-directory" size="md">
                     Browse the directory
                   </ButtonLink>
                   <button
-                    onClick={() => setState("idle")}
+                    onClick={() => {
+                      setReference("");
+                      setState("idle");
+                    }}
                     className="inline-flex items-center justify-center gap-2 h-10 px-4 text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white transition-colors"
                   >
                     Submit another tool
