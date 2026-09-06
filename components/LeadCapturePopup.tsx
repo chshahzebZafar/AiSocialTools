@@ -62,11 +62,18 @@ export default function LeadCapturePopup() {
     }
     setLoading(true);
     try {
-      await fetch("/api/subscribe", {
+      // The response was previously ignored, so a 400 or 500 still showed the
+      // success panel while the address was silently dropped. Check it.
+      const res = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        setError(data.error || "We couldn't sign you up. Please try again.");
+        return;
+      }
       setSubmitted(true);
       setTimeout(() => {
         setVisible(false);
@@ -251,10 +258,11 @@ export default function LeadCapturePopup() {
                   />
                 </div>
                 <h3 className="text-xl font-semibold text-zinc-950 tracking-tight mb-2">
-                  You&apos;re in.
+                  You&apos;re subscribed.
                 </h3>
                 <p className="text-sm text-zinc-600 max-w-[280px] mx-auto leading-relaxed">
-                  First edition is heading to your inbox now. Welcome.
+                  A confirmation is on its way to your inbox. We&apos;ll email you
+                  when we ship new tools — nothing else.
                 </p>
               </div>
             )}
