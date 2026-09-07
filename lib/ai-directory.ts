@@ -5488,6 +5488,35 @@ export const aiDirectoryTools: AIDirectoryTool[] = [
     isNew: true,
     approved: true,
   },
+  /* ───────────── Community submission — Sept 2026 ───────────── */
+  {
+    slug: "yuan-doctor",
+    name: "Yuan Doctor",
+    tagline:
+      "Bedside clinical scores, care pathways and research tools for licensed clinicians.",
+    description:
+      "Yuan Doctor (元医生) is a free clinical and research toolset for licensed clinicians, covering bedside calculators and scores, care pathways, guideline decision aids and medication-safety checks. Calculations run locally in the browser and data is not uploaded. It is explicitly not an EMR, and the site states results do not replace clinical judgement. Note: the interface is entirely in Chinese.",
+    url: "https://www.yuandoctor.com",
+    category: "Healthcare",
+    pricing: "Free",
+    pricingDetails:
+      "Free for licensed clinicians. No account required for the core pathways.",
+    features: [
+      "Bedside scene short links (sepsis, stroke code, PE)",
+      "Bedside calculators, scores and care pathways",
+      "Guideline decision aids and medication-safety checks",
+      "Local in-browser computation — no data upload",
+      "No login required for core pathways",
+    ],
+    // No pros/cons: this is clinical software and has not been trialled here.
+    // Evaluating medical decision support is not something to do from a
+    // vendor's own description.
+    tags: ["healthcare", "clinical", "medical", "calculators", "chinese"],
+    addedAt: "2026-09-07",
+    isNew: true,
+    approved: true,
+    founder: "Zhongfu Tian",
+  },
 ];
 
 /* =====================================================================
