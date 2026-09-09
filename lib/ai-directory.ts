@@ -5517,6 +5517,63 @@ export const aiDirectoryTools: AIDirectoryTool[] = [
     approved: true,
     founder: "Zhongfu Tian",
   },
+  {
+    slug: "rules-health-check",
+    name: "Rules Health Check by Handoff",
+    tagline:
+      "Scores your AGENTS.md or .cursorrules file and lists what to fix.",
+    description:
+      "Paste an AGENTS.md, .cursorrules or .mdc file and get a health score with specific fixes. It grades length, hierarchy, alwaysApply cues, wording, sectioning, duplication and compaction risk, then explains what each score means — a short file scores badly with the note that agents will invent the gaps. Runs entirely in the browser; nothing is uploaded. Useful before handing a rules file to Cursor or a multi-agent setup.",
+    url: "https://handoff-rules-health.vercel.app",
+    category: "Code",
+    pricing: "Free",
+    pricingDetails: "Free to use in the browser. No account required.",
+    features: [
+      "Scores AGENTS.md, .cursorrules and .mdc files",
+      "Grades length, hierarchy, wording, sectioning and duplication",
+      "Flags compaction risk and alwaysApply cues",
+      "Lists specific fixes per issue",
+      "Runs locally in the browser — nothing uploaded",
+    ],
+    alternatives: ["cursor", "cline", "windsurf"],
+    tags: ["agents", "cursor", "rules", "ai coding", "linter"],
+    addedAt: "2026-09-09",
+    isNew: true,
+    approved: true,
+    twitter: "HandoffHQ",
+    founder: "Handoff",
+  },
+  // Listed as the local-business directory the site actually is. The
+  // submission also claimed weekly AI-citation reports across ChatGPT, Claude,
+  // Perplexity and Gemini plus a site-level AI visibility checker; none of that
+  // existed on findloc.ai when this was added — every candidate path 404'd and
+  // no page mentioned those models. Those claims are therefore not described
+  // in the public copy. Revisit if they ship.
+  {
+    slug: "findloc",
+    name: "findloc.ai",
+    tagline:
+      "Free map-based directory of local tradies and professionals in New Zealand.",
+    description:
+      "findloc is a free, map-based directory for finding plumbers, electricians, builders, lawyers, accountants and other local trades and professionals across New Zealand, listing close to 12,000 businesses. Browse by category or location, compare ratings, and contact businesses directly. Businesses can add their own listing free of charge and it goes live immediately.",
+    url: "https://findloc.ai",
+    category: "Marketing",
+    pricing: "Free",
+    pricingDetails:
+      "Free to browse and free for businesses to list.",
+    features: [
+      "Map-based search for local trades and professionals",
+      "Close to 12,000 New Zealand businesses",
+      "Browse by category or location",
+      "Ratings and direct contact details",
+      "Free self-serve business listing",
+    ],
+    tags: ["directory", "local", "new zealand", "trades", "local seo"],
+    addedAt: "2026-09-09",
+    isNew: true,
+    approved: true,
+    founder: "Daniel Duan",
+  },
 ];
 
 /* =====================================================================
