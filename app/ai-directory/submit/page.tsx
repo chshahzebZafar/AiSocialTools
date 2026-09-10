@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -25,6 +25,13 @@ export default function SubmitAIToolPage() {
   // Reference returned by the API — shown on screen so the submitter has a
   // receipt even if the confirmation email is delayed or filtered.
   const [reference, setReference] = useState("");
+  // Stamped once on mount. The API rejects submissions that arrive faster than
+  // a human could plausibly fill the form. useRef, not useState, so it is not
+  // reset by re-renders and never triggers one.
+  const formLoadedAt = useRef<number>(0);
+  useEffect(() => {
+    formLoadedAt.current = Date.now();
+  }, []);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -46,6 +53,10 @@ export default function SubmitAIToolPage() {
       submitterName: formData.get("submitterName"),
       submitterEmail: formData.get("submitterEmail"),
       submitterRole: formData.get("submitterRole"),
+      // Anti-bot: honeypot must arrive empty, and the API rejects submissions
+      // that arrive faster than a human could fill the form.
+      companyWebsite: formData.get("companyWebsite"),
+      formLoadedAt: formLoadedAt.current,
     };
 
     try {
@@ -191,6 +202,37 @@ export default function SubmitAIToolPage() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-10">
+                {/*
+                  Honeypot. Bots fill every field they find; people never see
+                  this one. Hidden with CSS rather than type="hidden" — some
+                  form-fillers skip hidden inputs but will happily fill a text
+                  field they can parse. aria-hidden + tabIndex -1 keep it away
+                  from screen readers and keyboard navigation, and
+                  autoComplete="off" stops browsers auto-filling it.
+                */}
+                <div
+                  aria-hidden="true"
+                  style={{
+                    position: "absolute",
+                    left: "-9999px",
+                    width: 1,
+                    height: 1,
+                    overflow: "hidden",
+                  }}
+                >
+                  <label htmlFor="companyWebsite">
+                    Company website (leave blank)
+                  </label>
+                  <input
+                    type="text"
+                    id="companyWebsite"
+                    name="companyWebsite"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    defaultValue=""
+                  />
+                </div>
+
                 {/* Section: Tool basics */}
                 <fieldset className="space-y-6">
                   <legend className="text-xs uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-500 font-semibold mb-4 w-full pb-2 border-b border-zinc-200 dark:border-zinc-800">

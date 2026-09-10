@@ -30,7 +30,31 @@ interface SubmissionPayload {
   submitterName?: string;
   submitterEmail?: string;
   submitterRole?: string;
+  /** Honeypot. Hidden from users; only bots fill it. Must arrive empty. */
+  companyWebsite?: string;
+  /** ms epoch stamped when the form mounted, used to reject instant submits. */
+  formLoadedAt?: number;
 }
+
+/** Minimum time a human plausibly needs to fill this form. */
+const MIN_FILL_MS = 3000;
+
+/** Upper bounds per field — stops multi-megabyte payloads being posted. */
+const MAX_LENGTHS: Record<string, number> = {
+  name: 120,
+  url: 500,
+  tagline: 120,
+  description: 5000,
+  category: 60,
+  pricing: 30,
+  pricingDetails: 500,
+  features: 2000,
+  twitter: 50,
+  founder: 120,
+  submitterName: 120,
+  submitterEmail: 200,
+  submitterRole: 30,
+};
 
 function isHttpUrl(value: string | undefined): value is string {
   if (!value) return false;
@@ -65,6 +89,44 @@ export async function POST(req: Request) {
       { error: "Invalid JSON body" },
       { status: 400 }
     );
+  }
+
+  // ── Bot checks ──────────────────────────────────────────────────────────
+  // Honeypot: the field is hidden from users, so anything in it means an
+  // automated form-filler. Respond as though it succeeded — telling a bot it
+  // was caught just teaches whoever wrote it which field to skip next time.
+  // Nothing is stored or emailed.
+  if (typeof body.companyWebsite === "string" && body.companyWebsite.trim()) {
+    // eslint-disable-next-line no-console
+    console.warn("[ai-directory submission] honeypot triggered — discarded");
+    return NextResponse.json(
+      { ok: true, reference: "SC-00000000-0000", message: "Submission received." },
+      { status: 200 }
+    );
+  }
+
+  // Timing: a human cannot complete nine fields in under three seconds.
+  // This one returns a real error, because an unusually fast legitimate user
+  // should be told to retry rather than silently dropped.
+  if (typeof body.formLoadedAt === "number" && Number.isFinite(body.formLoadedAt)) {
+    const elapsed = Date.now() - body.formLoadedAt;
+    if (elapsed >= 0 && elapsed < MIN_FILL_MS) {
+      return NextResponse.json(
+        { error: "That was submitted unusually quickly. Please try again." },
+        { status: 400 }
+      );
+    }
+  }
+
+  // Size caps: reject oversized payloads before any further work.
+  for (const [field, max] of Object.entries(MAX_LENGTHS)) {
+    const value = body[field as keyof SubmissionPayload];
+    if (typeof value === "string" && value.length > max) {
+      return NextResponse.json(
+        { error: `${field} is too long (max ${max} characters)` },
+        { status: 400 }
+      );
+    }
   }
 
   // Required fields

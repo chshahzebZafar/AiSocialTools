@@ -84,7 +84,14 @@ export type AICategory =
   | "Social Media"
   | "E-commerce"
   | "Security"
-  | "Healthcare";
+  | "Healthcare"
+  | "AI Models & APIs"
+  | "AI Agents & Automation"
+  | "Presentations & Documents"
+  | "Translation"
+  | "Real Estate"
+  | "Construction & Engineering"
+  | "Gaming";
 
 export const aiCategories: AICategory[] = [
   "Chat & Writing",
@@ -107,6 +114,13 @@ export const aiCategories: AICategory[] = [
   "E-commerce",
   "Security",
   "Healthcare",
+  "AI Models & APIs",
+  "AI Agents & Automation",
+  "Presentations & Documents",
+  "Translation",
+  "Real Estate",
+  "Construction & Engineering",
+  "Gaming",
 ];
 
 /* =====================================================================
@@ -5573,6 +5587,127 @@ export const aiDirectoryTools: AIDirectoryTool[] = [
     isNew: true,
     approved: true,
     founder: "Daniel Duan",
+  },
+  {
+    slug: "freyavideo",
+    name: "FreyaVideo",
+    tagline:
+      "Turns photos, flyers and prompts into short AI marketing videos.",
+    description:
+      "FreyaVideo generates short videos from a still image, a script or a text prompt. Its Animate Photo tool takes portraits, product shots or flyers and adds AI motion to produce a clip ready for social or ads; the wider suite covers text-to-video, image-to-video and video-to-video transforms. Aimed at creators and marketers who want usable clips without running a full video editing suite. Billing is credit-based pay-per-use rather than a required subscription.",
+    url: "https://freyavideo.com",
+    category: "Video",
+    pricing: "Paid",
+    pricingDetails:
+      "Credit-based pay-per-use; subscriptions also offered.",
+    features: [
+      "Animate Photo — still images to short video",
+      "Text-to-video and script-to-scene generation",
+      "Image-to-video and video-to-video transforms",
+      "Output sized for social and ad placements",
+      "Pay-as-you-go credits, no subscription required",
+    ],
+    tags: ["video", "image to video", "animation", "marketing", "creator tools"],
+    addedAt: "2026-09-10",
+    isNew: true,
+    approved: true,
+    twitter: "FreyaVideo",
+    founder: "FreyaVideo",
+  },
+  {
+    slug: "puppyone",
+    name: "PuppyOne",
+    tagline:
+      "Local-first workspace that gives your AI assistants your real project files.",
+    description:
+      "PuppyOne is an open-source, local-first desktop workspace that keeps documents, notes, PDFs, research, drafts and AI-generated output together in one project. Rather than being another chatbot, it gives the AI assistants and agents you already use persistent access to the same project materials across sessions, so you are not re-uploading files and re-explaining context each time. Built-in version history records every AI-made change and lets you restore earlier work. Aimed at researchers, students, creators and knowledge workers who want AI in a long-term workflow while keeping files under their own control.",
+    url: "https://www.puppyone.ai",
+    category: "Productivity",
+    pricing: "Freemium",
+    features: [
+      "Local-first project workspace — files stay on your machine",
+      "Shared project context across AI sessions",
+      "Built-in version history with restore",
+      "Open-source desktop app",
+    ],
+    tags: ["local-first", "open source", "files", "agents", "workspace"],
+    addedAt: "2026-09-10",
+    isNew: true,
+    approved: true,
+    twitter: "puppyone_ai",
+    founder: "Steve Mu",
+  },
+  {
+    slug: "studyarena",
+    name: "StudyArena",
+    tagline:
+      "Compare several anonymous AI answers side by side before trusting one.",
+    description:
+      "StudyArena sends a homework question, lecture or assignment to several AI models at once and shows the answers side by side without revealing which model produced which. The point is comparison: seeing where models agree, where they diverge, and picking the response that actually holds up, rather than trusting a single answer. Core access is free with optional paid upgrades. Available on the web, as desktop apps for Mac (Apple Silicon) and Windows, and via Chrome, iOS and Android.",
+    url: "https://studyarena.com",
+    category: "Education",
+    pricing: "Freemium",
+    pricingDetails: "Free core access; optional paid upgrades.",
+    features: [
+      "Multiple AI answers shown side by side",
+      "Model names hidden to avoid brand bias",
+      "Desktop apps for Mac (Apple Silicon) and Windows",
+      "Also on web, Chrome, iOS and Android",
+    ],
+    tags: ["education", "homework", "study", "model comparison", "students"],
+    addedAt: "2026-09-10",
+    isNew: true,
+    approved: true,
+    founder: "StudyArena",
+  },
+  {
+    slug: "resumerank-pro",
+    name: "ResumeRank Pro",
+    tagline:
+      "Ranks a batch of resumes against a job description, with evidence for each score.",
+    description:
+      "ResumeRank Pro is resume screening software for recruiters. Paste a job description, upload a batch of resumes (up to 50 per run), and it returns a ranked shortlist with each candidate scored out of 100. Scores are backed by evidence pulled from work history — including verified years of experience per skill — so a ranking can be checked rather than taken on trust. Deliberately narrow: it screens and ranks, it is not a full applicant tracking system.",
+    url: "https://www.resumerankpro.com",
+    category: "HR & Recruiting",
+    pricing: "Freemium",
+    pricingDetails:
+      "10 free rankings per account, no card required; paid plans beyond that.",
+    features: [
+      "Paste a job description, upload resumes in bulk",
+      "Ranked shortlist scored out of 100",
+      "Skills evidence drawn from work history",
+      "Verified years of experience per skill",
+      "Screening only — not a full ATS",
+    ],
+    tags: ["recruiting", "resume screening", "hiring", "shortlist", "ats"],
+    addedAt: "2026-09-10",
+    isNew: true,
+    approved: true,
+    founder: "ResumeRank Pro",
+  },
+  {
+    slug: "levelup-it",
+    name: "Level Up IT",
+    tagline:
+      "Searchable database of 1.2M+ IT resumes with contact details, for recruiter sourcing.",
+    description:
+      "Level Up IT is an IT resume database aimed at recruiters and staffing firms. Search across more than 1.2 million IT resumes, filter by skills, job title and location, and download verified contact information for outbound sourcing. It is a sourcing database rather than a job board — candidates are not applying to you, you are finding and contacting them. Not a managed IT services provider despite the name.",
+    url: "https://www.levelupitus.com",
+    category: "HR & Recruiting",
+    pricing: "Freemium",
+    pricingDetails:
+      "10 free resume downloads, no card required; paid plans beyond that.",
+    features: [
+      "Search 1.2M+ IT resumes",
+      "Filter by skills, title and location",
+      "Verified contact details for outbound sourcing",
+      "Built for recruiters and staffing firms",
+    ],
+    tags: ["recruiting", "sourcing", "resume database", "staffing", "it hiring"],
+    addedAt: "2026-09-10",
+    isNew: true,
+    approved: true,
+    founder: "Level Up IT",
   },
 ];
 
