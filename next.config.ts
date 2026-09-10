@@ -122,9 +122,23 @@ const nextConfig: NextConfig = {
           { key: 'Cache-Control', value: 'public, max-age=0, s-maxage=3600, stale-while-revalidate=86400' },
         ],
       },
+      // The bulk directory index is a large, rarely-changing data file fetched
+      // on demand by /ai-directory. Under the site-wide must-revalidate rule it
+      // costs a round-trip on every search session, so it is excluded below and
+      // cached properly here instead.
       {
-        // Everything except /embed/ — see the rule above.
-        source: '/((?!embed/).*)',
+        source: '/ai-directory-index.json',
+        headers: [
+          { key: 'Content-Type', value: 'application/json; charset=utf-8' },
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800',
+          },
+        ],
+      },
+      {
+        // Everything except /embed/ and the directory index — see rules above.
+        source: '/((?!embed/|ai-directory-index\\.json).*)',
         headers: [
           // DNS and Performance - Critical for Core Web Vitals
           {
