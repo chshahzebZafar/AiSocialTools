@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useDeferredValue } from "react";
+import { useState, useMemo, useDeferredValue, useEffect, useRef } from "react";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -96,6 +96,71 @@ function ToolCard({ tool }: { tool: AIDirectoryTool }) {
   );
 }
 
+/**
+ * Entry from the bulk index (public/ai-directory-index.json).
+ *
+ * These have no detail page — the card links straight to the tool. They are
+ * unreviewed third-party listings, so the link carries rel="nofollow ugc":
+ * passing ranking signal to ~19k unvetted domains is what a link farm looks
+ * like, and none of these have been checked by hand.
+ */
+interface IndexedTool {
+  name: string;
+  tagline: string;
+  url: string;
+  category: string;
+  pricing: string;
+}
+
+function IndexedToolCard({ tool }: { tool: IndexedTool }) {
+  const initial = tool.name.charAt(0).toUpperCase();
+  const isFree = tool.pricing === "Free" || tool.pricing === "Open Source";
+  return (
+    <a
+      href={tool.url}
+      target="_blank"
+      rel="nofollow ugc noopener"
+      className="group relative flex flex-col h-full bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-lg p-5 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-sm hover:-translate-y-0.5 transition-all duration-200"
+    >
+      <div className="flex items-start justify-between gap-3 mb-3">
+        <div className="w-10 h-10 rounded-md bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center justify-center text-zinc-700 dark:text-zinc-300 font-semibold text-sm group-hover:bg-indigo-50 group-hover:border-indigo-200 group-hover:text-indigo-700 dark:group-hover:bg-indigo-500/10 dark:group-hover:border-indigo-500/30 dark:group-hover:text-indigo-300 transition-colors flex-shrink-0">
+          {initial}
+        </div>
+        <ArrowUpRight className="w-4 h-4 text-zinc-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+      </div>
+      <h3 className="font-semibold text-[15px] text-zinc-950 dark:text-white mb-1">
+        {tool.name}
+      </h3>
+      <p className="text-sm text-zinc-600 dark:text-zinc-400 line-clamp-2 mb-3 leading-relaxed flex-1">
+        {tool.tagline}
+      </p>
+      <div className="flex items-center justify-between gap-2 pt-3 border-t border-zinc-100 dark:border-zinc-900">
+        <span className="text-xs text-zinc-500 dark:text-zinc-500">
+          {tool.category}
+        </span>
+        <span
+          className={`text-[10px] uppercase tracking-wider font-semibold ${
+            isFree
+              ? "text-emerald-600 dark:text-emerald-400"
+              : "text-zinc-500 dark:text-zinc-500"
+          }`}
+        >
+          {tool.pricing}
+        </span>
+      </div>
+    </a>
+  );
+}
+
+/** Wire format of public/ai-directory-index.json — positional to keep it small. */
+interface DirectoryIndex {
+  v: number;
+  categories: string[];
+  pricing: string[];
+  /** [name, tagline, url, categoryIndex, pricingIndex] */
+  tools: [string, string, string, number, number][];
+}
+
 const faqs = [
   {
     q: "What is the AI Directory?",
@@ -146,6 +211,61 @@ export default function AIDirectoryPage() {
     () => aiDirectoryTools.filter((t) => t.approved),
     []
   );
+
+  // ── Wider index ─────────────────────────────────────────────────────────
+  // ~19k imported listings live in a separate JSON served from /public, not in
+  // the bundle. It is fetched only once the visitor actually searches or
+  // filters — the default view is the curated set and costs no extra bytes.
+  const [index, setIndex] = useState<DirectoryIndex | null>(null);
+  const [indexState, setIndexState] = useState<"idle" | "loading" | "error">("idle");
+  const indexRequested = useRef(false);
+
+  const isFiltering =
+    searchQuery.trim().length > 0 ||
+    selectedCategory !== "All" ||
+    selectedPricing !== "All";
+
+  useEffect(() => {
+    if (!isFiltering || indexRequested.current) return;
+    indexRequested.current = true;
+    setIndexState("loading");
+    fetch("/ai-directory-index.json")
+      .then((r) => {
+        if (!r.ok) throw new Error(String(r.status));
+        return r.json();
+      })
+      .then((data: DirectoryIndex) => {
+        setIndex(data);
+        setIndexState("idle");
+      })
+      .catch(() => {
+        // Non-fatal: the curated results above still render.
+        setIndexState("error");
+      });
+  }, [isFiltering]);
+
+  const MAX_INDEX_RESULTS = 120;
+
+  const indexResults = useMemo(() => {
+    if (!index || !isFiltering) return { items: [] as IndexedTool[], total: 0 };
+    const q = deferredSearch.trim().toLowerCase();
+    const items: IndexedTool[] = [];
+    let total = 0;
+    for (const [name, tagline, url, ci, pi] of index.tools) {
+      const category = index.categories[ci] ?? "";
+      const pricing = index.pricing[pi] ?? "";
+      if (selectedCategory !== "All" && category !== selectedCategory) continue;
+      if (selectedPricing !== "All" && pricing !== selectedPricing) continue;
+      if (q && !`${name} ${tagline}`.toLowerCase().includes(q)) continue;
+      total++;
+      // Count everything for the heading, but only build cards for the first
+      // page of results — rendering thousands of nodes locks up the tab.
+      if (items.length < MAX_INDEX_RESULTS) {
+        items.push({ name, tagline, url, category, pricing });
+      }
+    }
+    return { items, total };
+  }, [index, isFiltering, deferredSearch, selectedCategory, selectedPricing]);
   const filtered = useMemo(() => {
     return approved.filter((tool) => {
       if (
@@ -339,7 +459,7 @@ export default function AIDirectoryPage() {
               {deferredSearch && ` matching "${deferredSearch}"`}
             </p>
 
-            {filtered.length > 0 ? (
+            {filtered.length > 0 && (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                 {filtered.map((tool, i) => (
                   <Reveal key={tool.slug} delay={Math.min(i * 30, 250)}>
@@ -347,12 +467,69 @@ export default function AIDirectoryPage() {
                   </Reveal>
                 ))}
               </div>
-            ) : (
-              <div className="text-center py-20 border border-dashed border-zinc-200 dark:border-zinc-800 rounded-xl">
-                <p className="text-zinc-500 dark:text-zinc-400 mb-1">No tools match those filters</p>
-                <p className="text-xs text-zinc-400 dark:text-zinc-500">Try a different category, pricing, or search term</p>
+            )}
+
+            {/* ── Wider index ──────────────────────────────────────────────
+                Results from the ~19k imported listings. Kept visually and
+                textually separate from the reviewed set above: those carry a
+                Verified badge and a detail page, these link straight out and
+                have not been checked by hand. Conflating the two would make
+                the Verified badge meaningless.
+                Only rendered once the visitor searches or filters. */}
+            {isFiltering && (
+              <div className="mt-12">
+                {indexState === "loading" && (
+                  <p className="text-sm text-zinc-500 dark:text-zinc-400 text-center py-8">
+                    Searching the wider index…
+                  </p>
+                )}
+
+                {indexState === "error" && (
+                  <p className="text-sm text-zinc-500 dark:text-zinc-400 text-center py-8">
+                    Couldn&apos;t load the wider index. The reviewed listings
+                    above are unaffected.
+                  </p>
+                )}
+
+                {index && indexResults.total > 0 && (
+                  <>
+                    <div className="flex items-baseline justify-between gap-4 flex-wrap mb-1 pt-8 border-t border-zinc-200 dark:border-zinc-800">
+                      <h3 className="text-lg font-semibold text-zinc-950 dark:text-white tracking-tight">
+                        More from the wider index
+                      </h3>
+                      <span className="text-sm text-zinc-500 dark:text-zinc-400">
+                        {indexResults.total.toLocaleString()}{" "}
+                        {indexResults.total === 1 ? "match" : "matches"}
+                      </span>
+                    </div>
+                    <p className="text-xs text-zinc-500 dark:text-zinc-500 mb-5">
+                      Not yet reviewed — these link straight to the tool.
+                    </p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                      {indexResults.items.map((tool, i) => (
+                        <IndexedToolCard key={`${tool.url}-${i}`} tool={tool} />
+                      ))}
+                    </div>
+                    {indexResults.total > indexResults.items.length && (
+                      <p className="text-xs text-zinc-500 dark:text-zinc-500 mt-5 text-center">
+                        Showing the first {indexResults.items.length} of{" "}
+                        {indexResults.total.toLocaleString()}. Narrow your
+                        search to see fewer, more relevant results.
+                      </p>
+                    )}
+                  </>
+                )}
               </div>
             )}
+
+            {filtered.length === 0 &&
+              (!isFiltering ||
+                (indexState !== "loading" && indexResults.total === 0)) && (
+                <div className="text-center py-20 border border-dashed border-zinc-200 dark:border-zinc-800 rounded-xl">
+                  <p className="text-zinc-500 dark:text-zinc-400 mb-1">No tools match those filters</p>
+                  <p className="text-xs text-zinc-400 dark:text-zinc-500">Try a different category, pricing, or search term</p>
+                </div>
+              )}
           </div>
         </section>
 
