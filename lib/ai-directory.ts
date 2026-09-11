@@ -5709,6 +5709,58 @@ export const aiDirectoryTools: AIDirectoryTool[] = [
     approved: true,
     founder: "Level Up IT",
   },
+  {
+    slug: "whats-trending",
+    name: "What's Trending",
+    tagline:
+      "Monitors public conversations and competitor content, keeping the sources, and turns it into content ideas.",
+    description:
+      "What's Trending is content intelligence for lean marketing teams. It monitors public conversations and competitor content relevant to your market, keeps the source link behind every signal so claims can be checked, surfaces what is spiking against the longer-running conversation, and turns timely signals into content ideas. You can start with a free scan of your own website, no card required, before choosing a paid plan.",
+    url: "https://whatstrending.cc",
+    category: "Social Media",
+    pricing: "Freemium",
+    pricingDetails:
+      "Free scan, no card required; paid plans at $20/mo and $50/mo.",
+    features: [
+      "Public conversation monitoring",
+      "Competitor content tracking",
+      "Source links preserved for every signal",
+      "Trend spikes compared against the longer conversation",
+      "Content idea workflows",
+    ],
+    tags: ["social listening", "trends", "content ideas", "competitor tracking", "marketing"],
+    addedAt: "2026-09-11",
+    isNew: true,
+    approved: true,
+    twitter: "fyidhrumil",
+    founder: "Dhrumil Barot",
+  },
+  // Submitted as "a downloadable checklist and workflow", but the Gumroad
+  // product page describes a Chrome extension that highlights ChatGPT-style
+  // cliches. Listed as what the product page says is being sold.
+  {
+    slug: "slopspot-pro",
+    name: "SlopSpot Pro",
+    tagline:
+      "Chrome extension that highlights overused ChatGPT-style cliches as you read or write.",
+    description:
+      "SlopSpot Pro is a Chrome extension that highlights overused ChatGPT-style cliches in page text and inside editable fields, so AI writing tells can be caught before a draft goes out. Detection runs locally in the browser, so the text being checked is not sent anywhere. Aimed at freelancers and small teams reviewing AI-assisted blog posts, landing pages and social posts. Sold as a one-time purchase on Gumroad.",
+    url: "https://naveenred.gumroad.com/l/dtmugm",
+    category: "Chat & Writing",
+    pricing: "Paid",
+    pricingDetails: "One-time purchase, GBP 15, via Gumroad.",
+    features: [
+      "Highlights ChatGPT-style cliches in page text",
+      "Works inside editable fields while you write",
+      "Runs locally in the browser - nothing uploaded",
+      "One-time purchase, no subscription",
+    ],
+    tags: ["writing", "ai writing tells", "editing", "chrome extension", "content quality"],
+    addedAt: "2026-09-11",
+    isNew: true,
+    approved: true,
+    founder: "Naveen Ala",
+  },
 ];
 
 /* =====================================================================
