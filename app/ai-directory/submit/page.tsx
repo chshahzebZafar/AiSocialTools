@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import Script from "next/script";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
@@ -19,6 +20,28 @@ type SubmissionState = "idle" | "submitting" | "success" | "error";
 
 const pricingOptions = ["Free", "Freemium", "Paid", "Open Source"] as const;
 
+/**
+ * Public Turnstile site key. NEXT_PUBLIC_ values are inlined at build time, so
+ * after setting it in Vercel the site must be redeployed. Empty disables the
+ * widget, matching the API, which only enforces verification when
+ * TURNSTILE_SECRET_KEY is set.
+ */
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? "";
+
+interface TurnstileRenderOptions {
+  sitekey: string;
+  callback: (token: string) => void;
+  "expired-callback"?: () => void;
+  "error-callback"?: () => void;
+}
+
+type TurnstileWindow = Window & {
+  turnstile?: {
+    render: (el: HTMLElement, options: TurnstileRenderOptions) => string;
+    remove: (widgetId: string) => void;
+  };
+};
+
 export default function SubmitAIToolPage() {
   const [state, setState] = useState<SubmissionState>("idle");
   const [errorMessage, setErrorMessage] = useState("");
@@ -33,8 +56,52 @@ export default function SubmitAIToolPage() {
     formLoadedAt.current = Date.now();
   }, []);
 
+  // -- Cloudflare Turnstile ------------------------------------------------
+  // Tokens are single-use, so the widget is rebuilt after every failed attempt
+  // (turnstileEpoch) and whenever the form remounts after "Submit another tool".
+  const turnstileContainer = useRef<HTMLDivElement>(null);
+  const turnstileWidgetId = useRef<string | null>(null);
+  const turnstileToken = useRef("");
+  const [turnstileReady, setTurnstileReady] = useState(false);
+  const [turnstileEpoch, setTurnstileEpoch] = useState(0);
+  const formMounted = state !== "success";
+
+  useEffect(() => {
+    if (!TURNSTILE_SITE_KEY || !turnstileReady || !formMounted) return;
+    const el = turnstileContainer.current;
+    const ts = (window as TurnstileWindow).turnstile;
+    if (!el || !ts) return;
+    turnstileToken.current = "";
+    turnstileWidgetId.current = ts.render(el, {
+      sitekey: TURNSTILE_SITE_KEY,
+      callback: (token: string) => {
+        turnstileToken.current = token;
+      },
+      "expired-callback": () => {
+        turnstileToken.current = "";
+      },
+      "error-callback": () => {
+        turnstileToken.current = "";
+      },
+    });
+    return () => {
+      if (turnstileWidgetId.current) {
+        ts.remove(turnstileWidgetId.current);
+        turnstileWidgetId.current = null;
+      }
+      turnstileToken.current = "";
+    };
+  }, [turnstileReady, formMounted, turnstileEpoch]);
+
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    // Catch a missing token here rather than round-tripping to the API for the
+    // same answer. The API still verifies independently.
+    if (TURNSTILE_SITE_KEY && !turnstileToken.current) {
+      setState("error");
+      setErrorMessage("Please complete the verification check above the submit button.");
+      return;
+    }
     setState("submitting");
     setErrorMessage("");
 
@@ -57,6 +124,7 @@ export default function SubmitAIToolPage() {
       // that arrive faster than a human could fill the form.
       companyWebsite: formData.get("companyWebsite"),
       formLoadedAt: formLoadedAt.current,
+      turnstileToken: turnstileToken.current,
     };
 
     try {
@@ -75,6 +143,8 @@ export default function SubmitAIToolPage() {
     } catch (err) {
       setState("error");
       setErrorMessage(err instanceof Error ? err.message : "Unknown error");
+      // The token was spent on this attempt; get a fresh challenge for the retry.
+      setTurnstileEpoch((n) => n + 1);
     }
   }
 
@@ -363,6 +433,17 @@ export default function SubmitAIToolPage() {
                       </p>
                       <p className="text-red-700 dark:text-red-300">{errorMessage}</p>
                     </div>
+                  </div>
+                )}
+
+                {TURNSTILE_SITE_KEY && (
+                  <div>
+                    <Script
+                      src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"
+                      strategy="afterInteractive"
+                      onReady={() => setTurnstileReady(true)}
+                    />
+                    <div ref={turnstileContainer} />
                   </div>
                 )}
 

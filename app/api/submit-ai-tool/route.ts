@@ -6,14 +6,22 @@ import { NextResponse } from "next/server";
  * Receives AI-directory submissions from /ai-directory/submit.
  *
  * Storage strategy:
- *   - Logs the submission to the server console (visible in Netlify Function logs).
+ *   - Logs the submission to the server console (visible in Vercel function logs).
  *   - Sends an email via Resend if RESEND_API_KEY is set.
  *   - Falls back gracefully if email isn't configured — submission still succeeds.
  *
  * To wire up email delivery later:
  *   1. Sign up at https://resend.com (free tier: 100 emails/day)
- *   2. Set RESEND_API_KEY and SUBMISSION_TO_EMAIL in your Netlify env
+ *   2. Set RESEND_API_KEY and SUBMISSION_TO_EMAIL in the Vercel project environment variables
  *   3. Redeploy — no code changes needed
+ *
+ * Bot protection:
+ *   - Honeypot field `companyWebsite`, a 3s minimum fill time, and per-field
+ *     length caps. Always on.
+ *   - Cloudflare Turnstile, enforced only when TURNSTILE_SECRET_KEY is set. Set
+ *     NEXT_PUBLIC_TURNSTILE_SITE_KEY at the same time and redeploy -
+ *     NEXT_PUBLIC_ values are inlined at build time, so the widget will not
+ *     appear on an existing deployment.
  */
 
 interface SubmissionPayload {
@@ -34,6 +42,8 @@ interface SubmissionPayload {
   companyWebsite?: string;
   /** ms epoch stamped when the form mounted, used to reject instant submits. */
   formLoadedAt?: number;
+  /** Cloudflare Turnstile token from the widget; verified server-side. */
+  turnstileToken?: string;
 }
 
 /** Minimum time a human plausibly needs to fill this form. */
@@ -167,6 +177,74 @@ export async function POST(req: Request) {
       { error: "Tagline must be 120 chars or less" },
       { status: 400 }
     );
+  }
+
+  // -- Cloudflare Turnstile ------------------------------------------------
+  // The honeypot and timing checks stop naive form-fillers. They do not stop an
+  // AI agent that fills every field properly and takes its time, which is how an
+  // agent-built "company" on a staging host got submitted on 2026-09-11.
+  // Turnstile targets exactly that kind of automation.
+  //
+  // Enforced only when TURNSTILE_SECRET_KEY is set, so submissions keep working
+  // until the keys exist. Set it together with NEXT_PUBLIC_TURNSTILE_SITE_KEY:
+  // with the secret but no site key the widget never renders, and every
+  // submission would then fail verification.
+  //
+  // Hostname pinning is left to Cloudflare - restrict the widget to
+  // aisocialtools.co in the Turnstile dashboard. (Pinning it here as well would
+  // break Cloudflare's test keys, which report hostname example.com.)
+  const TURNSTILE_SECRET_KEY = process.env.TURNSTILE_SECRET_KEY;
+  if (TURNSTILE_SECRET_KEY) {
+    const token =
+      typeof body.turnstileToken === "string" ? body.turnstileToken.trim() : "";
+    if (!token) {
+      return NextResponse.json(
+        { error: "Please complete the verification check, then submit again." },
+        { status: 400 }
+      );
+    }
+
+    const ip =
+      req.headers.get("cf-connecting-ip") ??
+      req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
+      "";
+
+    let verified = false;
+    try {
+      const form = new URLSearchParams({
+        secret: TURNSTILE_SECRET_KEY,
+        response: token,
+      });
+      if (ip) form.set("remoteip", ip);
+      const verifyRes = await fetch(
+        "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+        { method: "POST", body: form }
+      );
+      const outcome = (await verifyRes.json()) as {
+        success?: boolean;
+        "error-codes"?: string[];
+      };
+      verified = outcome.success === true;
+      if (!verified) {
+        // eslint-disable-next-line no-console
+        console.warn(
+          "[ai-directory submission] Turnstile rejected:",
+          outcome["error-codes"] ?? []
+        );
+      }
+    } catch (err) {
+      // Fail closed. If verification cannot complete, reject: a real person can
+      // retry, but an unverified bot should not slip through during an outage.
+      // eslint-disable-next-line no-console
+      console.warn("[ai-directory submission] Turnstile verification error:", err);
+    }
+
+    if (!verified) {
+      return NextResponse.json(
+        { error: "Verification failed. Please try the check again." },
+        { status: 400 }
+      );
+    }
   }
 
   const submittedAt = new Date().toISOString();
