@@ -57,7 +57,9 @@ export async function generateMetadata({
     // Plain descriptive title. The previous "X Review 2026" pattern advertised
     // editorial content this page does not contain. Restore the review wording
     // only when real review content ships with it.
-    title: `${tool.name} — AI ${tool.category} Tool`,
+    // Categories added in Sept 2026 ("AI Models & APIs", "AI Agents &
+    // Automation") already start with "AI", so don't prefix it again.
+    title: `${tool.name} — ${/^AI\b/.test(tool.category) ? "" : "AI "}${tool.category} Tool`,
     description,
     keywords: [
       tool.name,

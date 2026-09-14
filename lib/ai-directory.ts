@@ -5761,6 +5761,54 @@ export const aiDirectoryTools: AIDirectoryTool[] = [
     approved: true,
     founder: "Naveen Ala",
   },
+  {
+    slug: "unifybench",
+    name: "UnifyBench",
+    tagline:
+      "Compare AI models across published benchmarks, with weights you choose.",
+    description:
+      "UnifyBench ranks language models by combining results from published, sourced benchmarks into a single comparison. You can set optional weights for the capabilities that matter to your use case, compare models by performance within a budget using sourced costs, and read the methodology behind the ranking. Where a model has no published result for a benchmark, it is shown as unknown rather than guessed. The overall ranking is labelled experimental and uses a fixed reference panel. Free to use, no sign-up.",
+    url: "https://unifybench.ai",
+    category: "AI Models & APIs",
+    pricing: "Free",
+    pricingDetails: "Free to use, no account required.",
+    features: [
+      "Rankings built from sourced, published benchmarks",
+      "Optional capability weights you set",
+      "Performance-within-budget view using sourced costs",
+      "Missing results shown as unknown, not estimated",
+      "Published methodology and coverage data",
+    ],
+    tags: ["benchmarks", "llm comparison", "model rankings", "evaluation", "leaderboard"],
+    addedAt: "2026-09-14",
+    isNew: true,
+    approved: true,
+    founder: "Moes Mufti",
+  },
+  {
+    slug: "iron-os",
+    name: "IRON/OS",
+    tagline:
+      "Claude skill that interviews you once and builds a training programme plus a phone workout app.",
+    description:
+      "IRON/OS is a Claude skill for strength training. It interviews you once about your goal, equipment, schedule, current lifts and any injuries, writes a training programme for you to read and approve, then builds a single-file workout app you keep on your phone. After a session you paste the app's summary back to Claude, which rewrites the plan based on what you logged — and if a movement starts hurting, you say so in plain words and it swaps in an alternative and rebuilds the app. Requires Claude; installers are provided for Windows and Mac. It states it is fitness guidance, not medical advice, and to see a physiotherapist or doctor for pain that is severe, worsening, or follows an injury.",
+    url: "https://luisandoin.gumroad.com/l/ironos",
+    category: "AI Agents & Automation",
+    pricing: "Paid",
+    pricingDetails: "One-time purchase, GBP 25. No subscription. Requires Claude.",
+    features: [
+      "One interview covering goals, equipment, schedule and injuries",
+      "Programme you review and approve before starting",
+      "Builds a single-file workout app for your phone",
+      "Rewrites the plan from your logged sessions",
+      "Swaps out movements that cause pain",
+    ],
+    tags: ["fitness", "strength training", "claude skill", "workout app", "personal training"],
+    addedAt: "2026-09-14",
+    isNew: true,
+    approved: true,
+    founder: "Luis Garcia de Andoin",
+  },
 ];
 
 /* =====================================================================
