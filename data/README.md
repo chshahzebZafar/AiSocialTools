@@ -3,7 +3,7 @@
 ## `ai-directory-import.json`
 
 19,012 AI tools imported from `ai-directory-master-19k.csv` on 2026-09-10;
-18,920 after the 2026-09-14 content removals (see "Blocklist" below).
+18,869 after the 2026-09-14 content removals (see "Blocklist" below).
 
 **Nothing in this file is live.** Every entry has `approved: false`, and no
 application code imports this file. It exists so the data is in the repo and
@@ -77,12 +77,14 @@ affected — but treat that file as a partial snapshot, not the source of truth.
 script excludes them by slug **and by domain**, so a removed tool cannot come
 back under a new slug when the CSV is re-imported.
 
-Removed on 2026-09-14 (92 entries):
+Removed on 2026-09-14 (143 entries):
 
 | Reason | Count | What it covers |
 |---|---|---|
 | `explicit-adult` | 87 | Porn/NSFW generators, explicit chat and erotic companion apps |
 | `deepfake-creator` | 5 | Tools built for making deepfakes of real people |
+| `ncii` | 18 | "Undress"/"nudify" apps that generate nude images from photos of real people |
+| `adult-companion` | 33 | "AI girlfriend" apps, removed even where the listing itself is not explicit |
 
 The site has no age gate and is aimed at a general audience, so it should not
 be sending visitors to explicit content.

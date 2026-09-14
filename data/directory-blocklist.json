@@ -1,5 +1,5 @@
 {
- "policy": "Tools excluded from the AI directory. Matched by slug and by domain, so a blocked tool cannot return under a new slug via re-import. Reasons: explicit-adult (porn/NSFW generation, explicit chat), deepfake-creator (tools for making deepfakes of real people). Safety tools (content filters, porn blockers, addiction recovery, detection) are deliberately NOT blocked.",
+ "policy": "Tools excluded from the AI directory. Matched by slug and by domain, so a blocked tool cannot return under a new slug via re-import. Reasons: ncii (tools that generate nude images from photos of real people), explicit-adult (porn/NSFW generation, explicit chat), adult-companion (\"AI girlfriend\" apps), deepfake-creator (tools for making deepfakes of real people). Safety tools (content filters, porn blockers, addiction recovery, detection) are deliberately NOT blocked.",
  "entries": [
   {
    "slug": "dittin-ai",
@@ -735,6 +735,414 @@
    "url": "https://www.bestfreevideoeditingsoftwarenowatermark.com",
    "domain": "bestfreevideoeditingsoftwarenowatermark.com",
    "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "avatar-one",
+   "name": "Avatar One",
+   "url": "https://www.avatar.one/",
+   "domain": "avatar.one",
+   "reason": "adult-companion",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "undress-ai-app",
+   "name": "Undress Ai App",
+   "url": "https://undress.app/ref/9df9731c7fb14e01afded4cc",
+   "domain": "undress.app",
+   "reason": "ncii",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "promptchan-ai",
+   "name": "Promptchan Ai",
+   "url": "https://promptchan.com",
+   "domain": "promptchan.com",
+   "reason": "adult-companion",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "undresser-ai-undress",
+   "name": "Undresser Ai Undress",
+   "url": "https://undresser.ai",
+   "domain": "undresser.ai",
+   "reason": "ncii",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "penly-undress-ai",
+   "name": "Penly Undress Ai",
+   "url": "https://aff.penly.ai/ref/bUhZZXNFbkVuUkpBb0wwalZzYSs3QT09-OS0x",
+   "domain": "aff.penly.ai",
+   "reason": "ncii",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "undress-ai-tool",
+   "name": "Undress Ai Tool",
+   "url": "https://www.undressaitool.com",
+   "domain": "undressaitool.com",
+   "reason": "ncii",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "herahaven",
+   "name": "Herahaven",
+   "url": "https://herahaven.com/",
+   "domain": "herahaven.com",
+   "reason": "adult-companion",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "aigirlfriends-ai",
+   "name": "Aigirlfriends Ai",
+   "url": "https://aigirlfriends.ai",
+   "domain": "aigirlfriends.ai",
+   "reason": "adult-companion",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "funtalk-ai",
+   "name": "Funtalk Ai",
+   "url": "https://www.funtalk.ai",
+   "domain": "funtalk.ai",
+   "reason": "adult-companion",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "deep-realms",
+   "name": "Deep Realms",
+   "url": "https://www.deeprealms.io",
+   "domain": "deeprealms.io",
+   "reason": "adult-companion",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "funfun-ai",
+   "name": "Funfun Ai",
+   "url": "https://www.funfun.ai",
+   "domain": "funfun.ai",
+   "reason": "adult-companion",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "undress-ai-v2",
+   "name": "Undress Ai V2",
+   "url": "https://try9.ai/secret-ai",
+   "domain": "try9.ai",
+   "reason": "ncii",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "deepany-ai-deepnude-deepfake-face-swap",
+   "name": "Deepany Ai Deepnude Deepfake Face Swap",
+   "url": "https://deepany.ai",
+   "domain": "deepany.ai",
+   "reason": "ncii",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "big-breast-ai",
+   "name": "Big Breast Ai",
+   "url": "https://aistudio.pics",
+   "domain": "aistudio.pics",
+   "reason": "ncii",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "secret-desires-ai",
+   "name": "Secret Desires Ai",
+   "url": "https://secretdesires.ai",
+   "domain": "secretdesires.ai",
+   "reason": "adult-companion",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "agentstore",
+   "name": "Agentstore",
+   "url": "https://agent.store",
+   "domain": "agent.store",
+   "reason": "adult-companion",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "ai-clothes-remover",
+   "name": "Ai Clothes Remover",
+   "url": "https://anieraser.media.io/remove-clothes-from-photo.html",
+   "domain": "anieraser.media.io",
+   "reason": "ncii",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "undress-ai",
+   "name": "Undress Ai",
+   "url": "https://nudify.online/undress-ai",
+   "domain": "nudify.online",
+   "reason": "ncii",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "undressing-io",
+   "name": "Undressing Io",
+   "url": "https://undressing.io/ref/7VUeSAE",
+   "domain": "undressing.io",
+   "reason": "ncii",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "fantasygf-ai-girlfriend-generator",
+   "name": "Fantasygf Ai Girlfriend Generator",
+   "url": "https://fantasygf.ai",
+   "domain": "fantasygf.ai",
+   "reason": "adult-companion",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "flipped-chat",
+   "name": "Flipped Chat",
+   "url": "https://flipped.chat",
+   "domain": "flipped.chat",
+   "reason": "adult-companion",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "wemate",
+   "name": "Wemate",
+   "url": "https://wemate.ai",
+   "domain": "wemate.ai",
+   "reason": "adult-companion",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "vmate-ai-roleplay-chatbot",
+   "name": "Vmate Ai Roleplay Chatbot",
+   "url": "https://vmate.ai",
+   "domain": "vmate.ai",
+   "reason": "adult-companion",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "discordpal",
+   "name": "Discordpal",
+   "url": "https://discordpal.com",
+   "domain": "discordpal.com",
+   "reason": "adult-companion",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "lovescape-ai",
+   "name": "Lovescape Ai",
+   "url": "https://go.xlviiirdr.com/ls",
+   "domain": "go.xlviiirdr.com",
+   "reason": "adult-companion",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "golove",
+   "name": "Golove",
+   "url": "https://golove.ai",
+   "domain": "golove.ai",
+   "reason": "adult-companion",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "ai-girlfriend-alice",
+   "name": "Ai Girlfriend Alice",
+   "url": "https://aigirl.one",
+   "domain": "aigirl.one",
+   "reason": "adult-companion",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "couple-me",
+   "name": "Couple Me",
+   "url": "https://www.couple.me",
+   "domain": "couple.me",
+   "reason": "adult-companion",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "ai-girlfriend-1",
+   "name": "Ai Girlfriend 1",
+   "url": "https://aigirlfriend.com",
+   "domain": "aigirlfriend.com",
+   "reason": "adult-companion",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "wifeapp",
+   "name": "Wifeapp",
+   "url": "https://wife.app",
+   "domain": "wife.app",
+   "reason": "adult-companion",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "lovecore-ai",
+   "name": "Lovecore Ai",
+   "url": "https://lovecoreai.com",
+   "domain": "lovecoreai.com",
+   "reason": "adult-companion",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "outpeach",
+   "name": "Outpeach",
+   "url": "https://outpeach.com",
+   "domain": "outpeach.com",
+   "reason": "adult-companion",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "joi-ai-companion",
+   "name": "Joi Ai Companion",
+   "url": "https://www.joiai.com",
+   "domain": "joiai.com",
+   "reason": "adult-companion",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "ai-girlfriend-emma",
+   "name": "Ai Girlfriend Emma",
+   "url": "https://aigirlfriend.space",
+   "domain": "aigirlfriend.space",
+   "reason": "adult-companion",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "ai-girlfriend",
+   "name": "Ai Girlfriend",
+   "url": "https://ai-girlfriend.live",
+   "domain": "ai-girlfriend.live",
+   "reason": "adult-companion",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "dreamgf-ai",
+   "name": "Dreamgf Ai",
+   "url": "https://dreamgf.ai/",
+   "domain": "dreamgf.ai",
+   "reason": "adult-companion",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "chatsweetie-ai-girlfriend-online",
+   "name": "Chatsweetie Ai Girlfriend Online",
+   "url": "https://chatsweetie.ai",
+   "domain": "chatsweetie.ai",
+   "reason": "adult-companion",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "ai-girlfriend-wtf",
+   "name": "Ai Girlfriend Wtf",
+   "url": "https://www.aigirlfriend.wtf",
+   "domain": "aigirlfriend.wtf",
+   "reason": "adult-companion",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "flave-ai",
+   "name": "Flave Ai",
+   "url": "https://www.flave.ai",
+   "domain": "flave.ai",
+   "reason": "adult-companion",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "clothoff",
+   "name": "Clothoff",
+   "url": "https://clothoff.net/r/toolifyai1224",
+   "domain": "clothoff.net",
+   "reason": "ncii",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "undressbaby-ai",
+   "name": "Undressbaby Ai",
+   "url": "https://undressbaby.com",
+   "domain": "undressbaby.com",
+   "reason": "ncii",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "deep-nudes",
+   "name": "Deep Nudes",
+   "url": "https://deep-nudes.com/referral/cZN4ASpKklcN6LiqRZ0g3uE8/referral",
+   "domain": "deep-nudes.com",
+   "reason": "ncii",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "undressing-ai",
+   "name": "Undressing Ai",
+   "url": "https://undressing.ai",
+   "domain": "undressing.ai",
+   "reason": "ncii",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "nudeitnow-com-undress-by-photo-online",
+   "name": "Nudeitnow Com Undress By Photo Online",
+   "url": "https://nudeitnow.com",
+   "domain": "nudeitnow.com",
+   "reason": "ncii",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "undressly-ai",
+   "name": "Undressly Ai",
+   "url": "https://www.undressly.com",
+   "domain": "undressly.com",
+   "reason": "ncii",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "ndfy-app",
+   "name": "Ndfy App",
+   "url": "https://ndfy.app",
+   "domain": "ndfy.app",
+   "reason": "ncii",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "undress-ai-pro",
+   "name": "Undress Ai Pro",
+   "url": "https://undress.show",
+   "domain": "undress.show",
+   "reason": "ncii",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "nectar-ai",
+   "name": "Nectar Ai",
+   "url": "https://trynectar.ai",
+   "domain": "trynectar.ai",
+   "reason": "adult-companion",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "glam-girls-ai",
+   "name": "Glam Girls Ai",
+   "url": "https://www.glamgirls.ai",
+   "domain": "glamgirls.ai",
+   "reason": "adult-companion",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "cuties-ai",
+   "name": "Cuties Ai",
+   "url": "https://track.the-cuties.ai/66e21a289f12a9bb8d24addb",
+   "domain": "track.the-cuties.ai",
+   "reason": "adult-companion",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "chatbunny-ai-girlfriend",
+   "name": "Chatbunny Ai Girlfriend",
+   "url": "https://chatbunny.com",
+   "domain": "chatbunny.com",
+   "reason": "adult-companion",
    "removedAt": "2026-09-14"
   }
  ]
