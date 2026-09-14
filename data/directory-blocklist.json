@@ -1,0 +1,741 @@
+{
+ "policy": "Tools excluded from the AI directory. Matched by slug and by domain, so a blocked tool cannot return under a new slug via re-import. Reasons: explicit-adult (porn/NSFW generation, explicit chat), deepfake-creator (tools for making deepfakes of real people). Safety tools (content filters, porn blockers, addiction recovery, detection) are deliberately NOT blocked.",
+ "entries": [
+  {
+   "slug": "dittin-ai",
+   "name": "Dittin Ai",
+   "url": "https://dittin.ai/",
+   "domain": "dittin.ai",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "sexy-ai",
+   "name": "Sexy Ai",
+   "url": "https://sexy.ai",
+   "domain": "sexy.ai",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "sharesome-ai",
+   "name": "Sharesome Ai",
+   "url": "https://sharesome.com/ai",
+   "domain": "sharesome.com",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "seducedai",
+   "name": "Seducedai",
+   "url": "https://www.seduced.com",
+   "domain": "seduced.com",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "ai-hentai-generator",
+   "name": "Ai Hentai Generator",
+   "url": "https://aihentaigenerator.net",
+   "domain": "aihentaigenerator.net",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "erogen",
+   "name": "Erogen",
+   "url": "https://erogen.ai/",
+   "domain": "erogen.ai",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "nsfwcharacter-ai",
+   "name": "Nsfwcharacter Ai",
+   "url": "https://fallfor.ai/index",
+   "domain": "fallfor.ai",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "nsfwbots",
+   "name": "Nsfwbots",
+   "url": "https://www.nsfwbots.com",
+   "domain": "nsfwbots.com",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "fanfinity-ai",
+   "name": "Fanfinity Ai",
+   "url": "https://fanfinity.ai/",
+   "domain": "fanfinity.ai",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "dreamy-ai-1",
+   "name": "Dreamy Ai 1",
+   "url": "https://dreamyai.vip",
+   "domain": "dreamyai.vip",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "hotgens",
+   "name": "Hotgens",
+   "url": "https://hotgens.app/r/toolifyai1224",
+   "domain": "hotgens.app",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "rushchatai",
+   "name": "Rushchatai",
+   "url": "https://rushchat.ai",
+   "domain": "rushchat.ai",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "romanticai-com",
+   "name": "Romanticai Com",
+   "url": "https://romanticai.app/",
+   "domain": "romanticai.app",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "juicy-ai",
+   "name": "Juicy Ai",
+   "url": "https://juicy-ai.com",
+   "domain": "juicy-ai.com",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "talkiemate",
+   "name": "Talkiemate",
+   "url": "https://talkiemate.com",
+   "domain": "talkiemate.com",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "ai-girlfriend-chat",
+   "name": "Ai Girlfriend Chat",
+   "url": "https://aichatgpt.social",
+   "domain": "aichatgpt.social",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "lustgf-ai-girlfriend",
+   "name": "Lustgf Ai Girlfriend",
+   "url": "https://lustgf.com",
+   "domain": "lustgf.com",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "sextingme",
+   "name": "Sextingme",
+   "url": "https://www.sextingme.ai",
+   "domain": "sextingme.ai",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "nsfw-976",
+   "name": "Nsfw 976",
+   "url": "http://www.976.ai",
+   "domain": "976.ai",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "deepfakes-web",
+   "name": "Deepfakes Web",
+   "url": "https://deepfakesweb.com",
+   "domain": "deepfakesweb.com",
+   "reason": "deepfake-creator",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "gptgirlfriend",
+   "name": "Gptgirlfriend",
+   "url": "https://gptgirlfriend.online",
+   "domain": "gptgirlfriend.online",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "nsfwartgenerator-ai",
+   "name": "Nsfwartgenerator Ai",
+   "url": "https://nsfwartgenerator.ai",
+   "domain": "nsfwartgenerator.ai",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "rprp-ai",
+   "name": "Rprp Ai",
+   "url": "https://rprp.ai",
+   "domain": "rprp.ai",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "nsfwgirlfriend",
+   "name": "Nsfwgirlfriend",
+   "url": "http://www.nsfwgirlfriend.com",
+   "domain": "nsfwgirlfriend.com",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "off-robe-ai",
+   "name": "Off Robe Ai",
+   "url": "https://offrobe.com",
+   "domain": "offrobe.com",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "savro",
+   "name": "Savro",
+   "url": "https://savro.ai/",
+   "domain": "savro.ai",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "nsfwlover",
+   "name": "Nsfwlover",
+   "url": "https://www.nsfwlover.com/",
+   "domain": "nsfwlover.com",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "vmate-ai",
+   "name": "Vmate Ai",
+   "url": "https://vmateai.com",
+   "domain": "vmateai.com",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "muah-ai",
+   "name": "Muah Ai",
+   "url": "https://muah.ai",
+   "domain": "muah.ai",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "onlychar-ai",
+   "name": "Onlychar Ai",
+   "url": "https://www.onlychar.ai",
+   "domain": "onlychar.ai",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "lustgf-ai",
+   "name": "Lustgf Ai",
+   "url": "https://www.lustgf.ai",
+   "domain": "lustgf.ai",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "dreamle",
+   "name": "Dreamle",
+   "url": "http://dreamle.ai/",
+   "domain": "dreamle.ai",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "messengerx",
+   "name": "Messengerx",
+   "url": "https://messengerx.io",
+   "domain": "messengerx.io",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "rolemantic-ai",
+   "name": "Rolemantic Ai",
+   "url": "https://rolemantic.ai",
+   "domain": "rolemantic.ai",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "sextingai",
+   "name": "Sextingai",
+   "url": "https://sextingai.co",
+   "domain": "sextingai.co",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "deepfakes-lol",
+   "name": "Deepfakes Lol",
+   "url": "https://deepfakes.lol",
+   "domain": "deepfakes.lol",
+   "reason": "deepfake-creator",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "janitorai",
+   "name": "Janitorai",
+   "url": "https://janitorai.com",
+   "domain": "janitorai.com",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "crushon-ai",
+   "name": "Crushon Ai",
+   "url": "https://crushon.ai",
+   "domain": "crushon.ai",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "pephop",
+   "name": "Pephop",
+   "url": "https://pephop.ai/nsfw-character-ai",
+   "domain": "pephop.ai",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "aroused-ai",
+   "name": "Aroused Ai",
+   "url": "https://www.aroused.ai/",
+   "domain": "aroused.ai",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "eroplay-ai",
+   "name": "Eroplay Ai",
+   "url": "https://eroplay.ai",
+   "domain": "eroplay.ai",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "dream-companion",
+   "name": "Dream Companion",
+   "url": "https://www.mydreamcompanion.com",
+   "domain": "mydreamcompanion.com",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "craveu-ai",
+   "name": "Craveu Ai",
+   "url": "https://craveu.ai",
+   "domain": "craveu.ai",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "kink-ai",
+   "name": "Kink Ai",
+   "url": "https://chat.kink.ai",
+   "domain": "chat.kink.ai",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "bot3-ai",
+   "name": "Bot3 Ai",
+   "url": "https://bot3.ai",
+   "domain": "bot3.ai",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "nsfwchatai",
+   "name": "Nsfwchatai",
+   "url": "https://nsfwchatai.ai/",
+   "domain": "nsfwchatai.ai",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "nextpart-ai",
+   "name": "Nextpart Ai",
+   "url": "https://nextpart.ai/",
+   "domain": "nextpart.ai",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "alice-ai",
+   "name": "Alice Ai",
+   "url": "https://alice-ai.com/",
+   "domain": "alice-ai.com",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "nsfw-ai-chat-ai",
+   "name": "Nsfw Ai Chat Ai",
+   "url": "https://nsfwaichat.com",
+   "domain": "nsfwaichat.com",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "intimate-ai-girlfriend",
+   "name": "Intimate Ai Girlfriend",
+   "url": "https://myintimate.app",
+   "domain": "myintimate.app",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "fallfor-ai",
+   "name": "Fallfor Ai",
+   "url": "https://fallfor.ai",
+   "domain": "fallfor.ai",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "girlfriendly-ai",
+   "name": "Girlfriendly Ai",
+   "url": "https://girlfriendly.ai",
+   "domain": "girlfriendly.ai",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "wowow-ai",
+   "name": "Wowow Ai",
+   "url": "https://wowow.ai",
+   "domain": "wowow.ai",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "alphazria",
+   "name": "Alphazria",
+   "url": "https://alphazria.com/",
+   "domain": "alphazria.com",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "nsfw-ai-chat",
+   "name": "Nsfw Ai Chat",
+   "url": "https://nsfw-ai-chat.com",
+   "domain": "nsfw-ai-chat.com",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "mygirl-your-ai-girlfriend",
+   "name": "Mygirl Your Ai Girlfriend",
+   "url": "https://mygirl.tech",
+   "domain": "mygirl.tech",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "texthub-me",
+   "name": "Texthub Me",
+   "url": "https://texthub.me",
+   "domain": "texthub.me",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "tickles-ai-chatbot",
+   "name": "Tickles Ai Chatbot",
+   "url": "https://tickles.ai",
+   "domain": "tickles.ai",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "roleplay-hub-ai-free-nsfw-girlfriend-chat",
+   "name": "Roleplay Hub Ai Free Nsfw Girlfriend Chat",
+   "url": "https://www.roleplayhub.app",
+   "domain": "roleplayhub.app",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "ehentai-chat",
+   "name": "Ehentai Chat",
+   "url": "https://www.ehentai.chat",
+   "domain": "ehentai.chat",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "honeychat-ai",
+   "name": "Honeychat Ai",
+   "url": "https://honeychat.ai",
+   "domain": "honeychat.ai",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "crush",
+   "name": "Crush",
+   "url": "https://www.crush.to",
+   "domain": "crush.to",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "virtugf",
+   "name": "Virtugf",
+   "url": "https://virtugf.com",
+   "domain": "virtugf.com",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "naughtybot",
+   "name": "Naughtybot",
+   "url": "https://naughtybot.link",
+   "domain": "naughtybot.link",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "xmate-ai",
+   "name": "Xmate Ai",
+   "url": "https://www.xmate.ai",
+   "domain": "xmate.ai",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "janitoraichat-com",
+   "name": "Janitoraichat Com",
+   "url": "https://janitoraichat.com",
+   "domain": "janitoraichat.com",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "aipornchat-online",
+   "name": "Aipornchat Online",
+   "url": "https://www.aipornchat.online",
+   "domain": "aipornchat.online",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "juicychat-ai",
+   "name": "Juicychat Ai",
+   "url": "https://www.juicychat.ai/",
+   "domain": "juicychat.ai",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "hot-talks-ai",
+   "name": "Hot Talks Ai",
+   "url": "https://hottalks.ai/",
+   "domain": "hottalks.ai",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "nsfwgpt-ai",
+   "name": "Nsfwgpt Ai",
+   "url": "https://nsfwgpt.ai/",
+   "domain": "nsfwgpt.ai",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "my-dreams-studio-nsfw-ai-image-generator",
+   "name": "My Dreams Studio Nsfw Ai Image Generator",
+   "url": "https://mydreams.studio/nsfw-adult-ai-image-generator/ref/i8h6suc/",
+   "domain": "mydreams.studio",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "joi",
+   "name": "Joi",
+   "url": "https://joiaigirlfriend.com",
+   "domain": "joiaigirlfriend.com",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "heyhoney-ai",
+   "name": "Heyhoney Ai",
+   "url": "https://heyhoney.ai",
+   "domain": "heyhoney.ai",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "ai-girlfriend-the-perfect-virtual-gf",
+   "name": "Ai Girlfriend The Perfect Virtual Gf",
+   "url": "https://ai-girlfriend.co",
+   "domain": "ai-girlfriend.co",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "drty-bot",
+   "name": "Drty Bot",
+   "url": "https://drt.fm",
+   "domain": "drt.fm",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "hush-hush",
+   "name": "Hush Hush",
+   "url": "https://www.hushhushai.com",
+   "domain": "hushhushai.com",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "sexting-ai-your-ai-girlfriend-18",
+   "name": "Sexting Ai Your Ai Girlfriend 18",
+   "url": "https://sextingai.xyz",
+   "domain": "sextingai.xyz",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "desireforge",
+   "name": "Desireforge",
+   "url": "https://nsfwai.fun",
+   "domain": "nsfwai.fun",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "monobar",
+   "name": "Monobar",
+   "url": "http://monobar.pro",
+   "domain": "monobar.pro",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "smutfinder",
+   "name": "Smutfinder",
+   "url": "https://www.smutfinder.com",
+   "domain": "smutfinder.com",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "erota",
+   "name": "Erota",
+   "url": "https://erota.app",
+   "domain": "erota.app",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "free-ai-deepfake-maker",
+   "name": "Free Ai Deepfake Maker",
+   "url": "https://deepfakemaker.io",
+   "domain": "deepfakemaker.io",
+   "reason": "deepfake-creator",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "deepswap",
+   "name": "Deepswap",
+   "url": "https://www.deepswap.ai",
+   "domain": "deepswap.ai",
+   "reason": "deepfake-creator",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "face-swap-com",
+   "name": "Face Swap Com",
+   "url": "https://face-swap.com",
+   "domain": "face-swap.com",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "bdsm-ai",
+   "name": "Bdsm Ai",
+   "url": "https://www.bdsmai.vip",
+   "domain": "bdsmai.vip",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "genice",
+   "name": "Genice",
+   "url": "https://genice.hotbee.co",
+   "domain": "genice.hotbee.co",
+   "reason": "deepfake-creator",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "nude-ai",
+   "name": "Nude Ai",
+   "url": "https://nude-ai.ai",
+   "domain": "nude-ai.ai",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "feelme-com",
+   "name": "Feelme Com",
+   "url": "https://feelme.com",
+   "domain": "feelme.com",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "dirty-pickup-lines",
+   "name": "Dirty Pickup Lines",
+   "url": "https://dirtypickuplines.org",
+   "domain": "dirtypickuplines.org",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "lustlab-ai",
+   "name": "Lustlab Ai",
+   "url": "https://www.lustlab.ca",
+   "domain": "lustlab.ca",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "magic-dash-ai",
+   "name": "Magic Dash Ai",
+   "url": "https://getmagicdashai.com",
+   "domain": "getmagicdashai.com",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  },
+  {
+   "slug": "chat2videoedit",
+   "name": "Chat2Videoedit",
+   "url": "https://www.bestfreevideoeditingsoftwarenowatermark.com",
+   "domain": "bestfreevideoeditingsoftwarenowatermark.com",
+   "reason": "explicit-adult",
+   "removedAt": "2026-09-14"
+  }
+ ]
+}
