@@ -24,6 +24,23 @@ import {
   ArrowRight,
 } from "lucide-react";
 import type { Metadata } from "next";
+import { asDirectoryTool, getLiveToolBySlug } from "@/lib/directory-live";
+
+// Approved submissions are published from Firestore without a deploy, so this
+// route must also serve slugs that did not exist at build time. Those render on
+// demand and are cached for 5 minutes.
+export const revalidate = 300;
+
+/**
+ * Curated entries win; anything else falls back to an approved submission.
+ * Returns undefined when neither has it, so callers still 404.
+ */
+async function resolveTool(slug: string) {
+  const curated = getDirectoryToolBySlug(slug);
+  if (curated) return curated;
+  const live = await getLiveToolBySlug(slug);
+  return live ? asDirectoryTool(live) : undefined;
+}
 
 export async function generateStaticParams() {
   return aiDirectoryTools
@@ -37,7 +54,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const tool = getDirectoryToolBySlug(slug);
+  const tool = await resolveTool(slug);
   if (!tool) {
     return {
       title: "Tool not found",
@@ -99,7 +116,7 @@ export default async function AIDirectoryDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const tool = getDirectoryToolBySlug(slug);
+  const tool = await resolveTool(slug);
   if (!tool) notFound();
 
   const initial = tool.name.charAt(0).toUpperCase();

@@ -207,10 +207,43 @@ export default function AIDirectoryPage() {
   const [selectedPricing, setSelectedPricing] = useState<"All" | AIPricing>("All");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
-  const approved = useMemo(
-    () => aiDirectoryTools.filter((t) => t.approved),
-    []
-  );
+  // Tools approved in /admin are published from Firestore without a deploy.
+  // Fetched once on mount; the endpoint is cached for 5 minutes and returns
+  // listing fields only. A failure here is silent - the curated directory still
+  // renders, which matters more than showing the newest few entries.
+  const [liveTools, setLiveTools] = useState<AIDirectoryTool[]>([]);
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/directory/approved")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        if (cancelled || !data?.tools) return;
+        setLiveTools(
+          data.tools.map((t: Record<string, string>) => ({
+            slug: t.slug,
+            name: t.name,
+            tagline: t.tagline,
+            description: t.tagline,
+            url: t.url,
+            category: t.category as AICategory,
+            pricing: t.pricing as AIPricing,
+            features: [],
+            addedAt: "",
+            approved: true,
+          })) as AIDirectoryTool[]
+        );
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const approved = useMemo(() => {
+    const curated = aiDirectoryTools.filter((t) => t.approved);
+    const taken = new Set(curated.map((t) => t.slug));
+    return [...curated, ...liveTools.filter((t) => !taken.has(t.slug))];
+  }, [liveTools]);
 
   // ── Wider index ─────────────────────────────────────────────────────────
   // ~19k imported listings live in a separate JSON served from /public, not in

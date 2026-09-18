@@ -42,9 +42,12 @@ function loadServiceAccount() {
   return account;
 }
 
-const records = JSON.parse(
-  readFileSync(join(ROOT, "data", "submissions-backfill.json"), "utf8")
-);
+// Which file to load: pass a name from data/, e.g.
+//   node scripts/backfill-submissions.mjs submissions-backfill-2.json
+const fileArg = process.argv.slice(2).find((a) => !a.startsWith("--"));
+const FILE = fileArg || "submissions-backfill.json";
+const records = JSON.parse(readFileSync(join(ROOT, "data", FILE), "utf8"));
+console.log(`source: data/${FILE}`);
 
 console.log(`${records.length} records to backfill${dryRun ? " (dry run)" : ""}`);
 

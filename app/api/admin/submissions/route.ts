@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { ADMIN_COOKIE, verifySessionToken } from "@/lib/admin-auth";
 import { getDb, SUBMISSIONS, type SubmissionStatus } from "@/lib/firebase-admin";
+import { slugify } from "@/lib/directory-live";
+import { aiDirectoryTools } from "@/lib/ai-directory";
 
 export const runtime = "nodejs";
 // Always read live data; an admin inbox must never be served from a cache.
@@ -100,6 +102,23 @@ export async function PATCH(req: Request) {
   }
 
   try {
+    // Approving publishes the tool, so it needs a stable slug. Assigned once,
+    // on first approval, and kept afterwards so a published URL never moves.
+    // Curated entries own their slugs, so a clash gets a suffix rather than
+    // shadowing the code file.
+    if (update.status === "approved") {
+      const snap = await db.collection(SUBMISSIONS).doc(body.id).get();
+      const data = snap.data();
+      if (data && !data.slug) {
+        const base = slugify(String(data.name ?? "")) || body.id.toLowerCase();
+        const taken = new Set(aiDirectoryTools.map((t) => t.slug));
+        let slug = base;
+        let n = 2;
+        while (taken.has(slug)) slug = `${base}-${n++}`;
+        update.slug = slug;
+      }
+    }
+
     await db.collection(SUBMISSIONS).doc(body.id).update(update);
     return NextResponse.json({ ok: true });
   } catch (err) {
