@@ -56,3 +56,10 @@ verify_xml.py
 debug_blogs.py
 convert_blogs_to_wordpress.py
 aisocialtools.co-audit/
+
+# Service-account keys and credentials - never commit these
+*service-account*.json
+*serviceaccount*.json
+*-firebase-adminsdk-*.json
+client_secret*.json
+*.base64.txt
