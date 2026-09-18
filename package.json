@@ -32,14 +32,31 @@
     },
     "asar": true,
     "win": {
-      "target": [{ "target": "portable", "arch": ["x64"] }]
+      "target": [
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
     },
     "mac": {
-      "target": [{ "target": "dmg", "arch": ["x64", "arm64"] }],
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
+      ],
       "category": "public.app-category.utilities"
     },
     "linux": {
-      "target": ["AppImage"]
+      "target": [
+        "AppImage"
+      ]
     },
     "nsis": {
       "oneClick": false,
@@ -52,6 +69,7 @@
     "browser-image-compression": "^2.0.2",
     "cheerio": "^1.2.0",
     "firebase": "^12.6.0",
+    "firebase-admin": "^14.4.0",
     "gif.js": "^0.2.0",
     "html2canvas": "^1.4.1",
     "jspdf": "^3.0.4",
@@ -64,6 +82,7 @@
     "react-colorful": "^5.6.1",
     "react-dom": "19.2.0",
     "replicate": "^1.4.0",
+    "server-only": "^0.0.1",
     "web-vitals": "^5.1.0"
   },
   "devDependencies": {

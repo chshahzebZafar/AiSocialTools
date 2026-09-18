@@ -1,4 +1,8 @@
 import { NextResponse } from "next/server";
+import { getDb, SUBMISSIONS } from "@/lib/firebase-admin";
+
+// firebase-admin requires the Node runtime.
+export const runtime = "nodejs";
 
 /**
  * POST /api/submit-ai-tool
@@ -409,6 +413,25 @@ ${Object.entries(summary)
       // eslint-disable-next-line no-console
       console.warn("[ai-directory submission] Email error:", err);
     }
+  }
+
+  // Persist for /admin. Failure-tolerant on purpose: the submission has already
+  // passed validation, and the details are in the function log and the
+  // notification email, so a storage outage must not become a failed submission
+  // for someone who did nothing wrong.
+  try {
+    const db = getDb();
+    if (db) {
+      await db.collection(SUBMISSIONS).doc(reference).set({
+        ...summary,
+        status: "new",
+        notes: "",
+        source: "form",
+      });
+    }
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.warn("[ai-directory submission] failed to persist:", err);
   }
 
   return NextResponse.json(
