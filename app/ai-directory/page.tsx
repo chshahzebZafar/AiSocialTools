@@ -8,6 +8,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import { Badge } from "@/components/ui/Badge";
 import { ButtonLink } from "@/components/ui/Button";
 import { Reveal } from "@/components/animations/Reveal";
+import { directoryCategories } from "@/lib/directory-categories";
 import {
   aiDirectoryTools,
   aiCategories,
@@ -563,6 +564,34 @@ export default function AIDirectoryPage() {
                   <p className="text-xs text-zinc-400 dark:text-zinc-500">Try a different category, pricing, or search term</p>
                 </div>
               )}
+          </div>
+        </section>
+
+        {/* Browse by category - real links, so these pages are crawlable and
+            linkable. The filter buttons above are client-side only and produce
+            no URL, which is why the category pages exist. */}
+        <section className="border-b border-zinc-200 dark:border-zinc-800">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+            <div className="mb-6">
+              <Badge variant="neutral" className="mb-3">Browse</Badge>
+              <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-950 dark:text-white tracking-tight">
+                Browse by category
+              </h2>
+              <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-2">
+                Each category page compares the reviewed tools and explains what to check before you commit.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {directoryCategories.map((c) => (
+                <Link
+                  key={c.slug}
+                  href={`/ai-directory/category/${c.slug}`}
+                  className="inline-flex items-center h-9 px-3.5 text-sm rounded-full border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 hover:border-zinc-300 dark:hover:border-zinc-700 hover:text-zinc-950 dark:hover:text-white transition-colors"
+                >
+                  {c.name}
+                </Link>
+              ))}
+            </div>
           </div>
         </section>
 

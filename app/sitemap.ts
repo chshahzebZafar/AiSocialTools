@@ -2,6 +2,8 @@ import { MetadataRoute } from 'next'
 import { socialTools } from '@/lib/social-tools'
 import { blogPosts } from '@/lib/blog-posts'
 import { categoryTools } from '@/lib/category-tools'
+import { aiDirectoryTools } from '@/lib/ai-directory'
+import { directoryCategories, MIN_TOOLS_TO_INDEX } from '@/lib/directory-categories'
 import { toolCategories } from '@/lib/tool-groups'
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -129,6 +131,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // When individual entries earn real review content and flip back to
   // index: true, re-add just those slugs here.
 
+  // AI directory category pages - the directory's indexable surface.
+  // Only those with enough reviewed tools are listed; the rest render for
+  // visitors but are noindex, so they do not belong in the sitemap either.
+  const directoryCategoryPages: MetadataRoute.Sitemap = directoryCategories
+    .filter(
+      (c) =>
+        aiDirectoryTools.filter((t) => t.approved && t.category === c.name).length >=
+        MIN_TOOLS_TO_INDEX
+    )
+    .map((c) => ({
+      url: `${baseUrl}/ai-directory/category/${c.slug}`,
+      lastModified: CONTENT_REFRESHED,
+      changeFrequency: 'weekly' as const,
+      priority: 0.8,
+    }))
+
   // Live tools under category hubs (BMI, mortgage, etc.) — high priority
   const liveCategoryToolPages: MetadataRoute.Sitemap = categoryTools.map((tool) => ({
     url: `${baseUrl}${tool.path}`,
@@ -141,6 +159,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const allPages: MetadataRoute.Sitemap = [
     homepage,
     ...staticPages,
+    ...directoryCategoryPages,
     ...hubPages,
     ...liveCategoryToolPages,
     ...toolPages,
