@@ -4,6 +4,7 @@ import { blogPosts } from '@/lib/blog-posts'
 import { categoryTools } from '@/lib/category-tools'
 import { aiDirectoryTools } from '@/lib/ai-directory'
 import { directoryCategories, MIN_TOOLS_TO_INDEX } from '@/lib/directory-categories'
+import { directoryCollections } from '@/lib/directory-collections'
 import { toolCategories } from '@/lib/tool-groups'
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -147,6 +148,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     }))
 
+  // AI directory collection pages - hand-written editorial lists ("best free
+  // AI video generators"). Every pick carries a written reason, so unlike the
+  // category pages there is no tool-count threshold to clear; all are indexable.
+  const directoryCollectionPages: MetadataRoute.Sitemap = directoryCollections.map((c) => ({
+    url: `${baseUrl}/ai-directory/collections/${c.slug}`,
+    lastModified: CONTENT_REFRESHED,
+    changeFrequency: 'weekly' as const,
+    priority: 0.85,
+  }))
+
   // Live tools under category hubs (BMI, mortgage, etc.) — high priority
   const liveCategoryToolPages: MetadataRoute.Sitemap = categoryTools.map((tool) => ({
     url: `${baseUrl}${tool.path}`,
@@ -160,6 +171,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     homepage,
     ...staticPages,
     ...directoryCategoryPages,
+    ...directoryCollectionPages,
     ...hubPages,
     ...liveCategoryToolPages,
     ...toolPages,
