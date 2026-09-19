@@ -422,6 +422,75 @@ export default function AIDirectoryPage() {
         </section>
 
         {/* ── Browse all tools — right after hero ── */}
+        {/* Curated routes into the directory. These sit ABOVE the full grid
+            on purpose: they used to render at 83% page depth, below 217 tool
+            cards, which made the category pages effectively unreachable
+            without typing the URL.
+
+            Collections first - categories say what
+            exists; these answer a question ("what can I use for free") and give
+            a reason for every pick, which is what gets linked to. */}
+        <section className="border-b border-zinc-200 dark:border-zinc-800">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+            <div className="mb-6">
+              <Badge variant="neutral" className="mb-3">Curated</Badge>
+              <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-950 dark:text-white tracking-tight">
+                Collections
+              </h2>
+              <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-2">
+                Hand-picked shortlists with a written reason for every tool on them - and a note on what was left out.
+              </p>
+            </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {directoryCollections.map((c) => (
+                <Link
+                  key={c.slug}
+                  href={`/ai-directory/collections/${c.slug}`}
+                  className="group rounded-xl border border-zinc-200 dark:border-zinc-800 p-5 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-sm transition-all"
+                >
+                  <p className="text-base font-semibold text-zinc-950 dark:text-white mb-1.5 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                    {c.heading}
+                  </p>
+                  <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-3">
+                    {c.description}
+                  </p>
+                  <span className="text-xs text-zinc-400 dark:text-zinc-500">
+                    {c.picks.length} picks
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Browse by category - real links, so these pages are crawlable and
+            linkable. The filter buttons above are client-side only and produce
+            no URL, which is why the category pages exist. */}
+        <section className="border-b border-zinc-200 dark:border-zinc-800">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+            <div className="mb-6">
+              <Badge variant="neutral" className="mb-3">Browse</Badge>
+              <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-950 dark:text-white tracking-tight">
+                Browse by category
+              </h2>
+              <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-2">
+                Each category page compares the reviewed tools and explains what to check before you commit.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {directoryCategories.map((c) => (
+                <Link
+                  key={c.slug}
+                  href={`/ai-directory/category/${c.slug}`}
+                  className="inline-flex items-center h-9 px-3.5 text-sm rounded-full border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 hover:border-zinc-300 dark:hover:border-zinc-700 hover:text-zinc-950 dark:hover:text-white transition-colors"
+                >
+                  {c.name}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <section id="all-tools" className="border-b border-zinc-200 dark:border-zinc-800">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
             <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
@@ -565,70 +634,6 @@ export default function AIDirectoryPage() {
                   <p className="text-xs text-zinc-400 dark:text-zinc-500">Try a different category, pricing, or search term</p>
                 </div>
               )}
-          </div>
-        </section>
-
-        {/* Curated collections - the editorial layer. Categories say what
-            exists; these answer a question ("what can I use for free") and give
-            a reason for every pick, which is what gets linked to. */}
-        <section className="border-b border-zinc-200 dark:border-zinc-800">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-            <div className="mb-6">
-              <Badge variant="neutral" className="mb-3">Curated</Badge>
-              <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-950 dark:text-white tracking-tight">
-                Collections
-              </h2>
-              <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-2">
-                Hand-picked shortlists with a written reason for every tool on them - and a note on what was left out.
-              </p>
-            </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {directoryCollections.map((c) => (
-                <Link
-                  key={c.slug}
-                  href={`/ai-directory/collections/${c.slug}`}
-                  className="group rounded-xl border border-zinc-200 dark:border-zinc-800 p-5 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-sm transition-all"
-                >
-                  <p className="text-base font-semibold text-zinc-950 dark:text-white mb-1.5 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
-                    {c.heading}
-                  </p>
-                  <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-3">
-                    {c.description}
-                  </p>
-                  <span className="text-xs text-zinc-400 dark:text-zinc-500">
-                    {c.picks.length} picks
-                  </span>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Browse by category - real links, so these pages are crawlable and
-            linkable. The filter buttons above are client-side only and produce
-            no URL, which is why the category pages exist. */}
-        <section className="border-b border-zinc-200 dark:border-zinc-800">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-            <div className="mb-6">
-              <Badge variant="neutral" className="mb-3">Browse</Badge>
-              <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-950 dark:text-white tracking-tight">
-                Browse by category
-              </h2>
-              <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-2">
-                Each category page compares the reviewed tools and explains what to check before you commit.
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {directoryCategories.map((c) => (
-                <Link
-                  key={c.slug}
-                  href={`/ai-directory/category/${c.slug}`}
-                  className="inline-flex items-center h-9 px-3.5 text-sm rounded-full border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 hover:border-zinc-300 dark:hover:border-zinc-700 hover:text-zinc-950 dark:hover:text-white transition-colors"
-                >
-                  {c.name}
-                </Link>
-              ))}
-            </div>
           </div>
         </section>
 

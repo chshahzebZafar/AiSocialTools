@@ -24,6 +24,20 @@ const linkSections: FooterSection[] = [
     ],
   },
   {
+    // Site-wide route into the directory's indexable pages. Without this the
+    // only path to a category or collection was scrolling to the bottom of
+    // /ai-directory - so every one of them sat 2 clicks deep at best.
+    title: "AI directory",
+    links: [
+      { href: "/ai-directory/collections/free-ai-video-generators", label: "Free AI video" },
+      { href: "/ai-directory/collections/ai-coding-assistants", label: "Coding assistants" },
+      { href: "/ai-directory/collections/open-source-ai-tools", label: "Open source AI" },
+      { href: "/ai-directory/category/chat-writing", label: "Chat & writing" },
+      { href: "/ai-directory/category/image-generation", label: "Image generation" },
+      { href: "/ai-directory/submit", label: "Submit a tool" },
+    ],
+  },
+  {
     title: "Company",
     links: [
       { href: "/about", label: "About" },

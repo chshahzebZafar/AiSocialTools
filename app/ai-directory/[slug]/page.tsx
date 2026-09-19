@@ -9,6 +9,7 @@ import {
   aiDirectoryTools,
   getDirectoryToolBySlug,
 } from "@/lib/ai-directory";
+import { getCategorySlug } from "@/lib/directory-categories";
 import {
   ExternalLink,
   Check,
@@ -209,7 +210,17 @@ export default async function AIDirectoryDetailPage({
               <div className="flex-1 min-w-0">
                 {/* Badge row — uses Badge component, consistent variants */}
                 <div className="flex flex-wrap items-center gap-2 mb-4">
-                  <Badge variant="neutral">{tool.category}</Badge>
+                  {/* Links out to the category hub - a tool page was a dead
+                      end before, with no route back into the directory. */}
+                  {getCategorySlug(tool.category) ? (
+                    <Link href={`/ai-directory/category/${getCategorySlug(tool.category)}`}>
+                      <Badge variant="neutral" className="hover:border-zinc-300 dark:hover:border-zinc-700 transition-colors">
+                        {tool.category}
+                      </Badge>
+                    </Link>
+                  ) : (
+                    <Badge variant="neutral">{tool.category}</Badge>
+                  )}
                   <Badge variant={isFree ? "success" : "neutral"}>
                     {tool.pricing}
                   </Badge>
@@ -385,7 +396,16 @@ export default async function AIDirectoryDetailPage({
                         Category
                       </dt>
                       <dd className="text-zinc-950 dark:text-white font-medium">
-                        {tool.category}
+                        {getCategorySlug(tool.category) ? (
+                          <Link
+                            href={`/ai-directory/category/${getCategorySlug(tool.category)}`}
+                            className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                          >
+                            {tool.category}
+                          </Link>
+                        ) : (
+                          tool.category
+                        )}
                       </dd>
                     </div>
                     {tool.founder && (
