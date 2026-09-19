@@ -55,7 +55,7 @@ export async function generateMetadata({
 
   const url = `https://aisocialtools.co/ai-directory/collections/${collection.slug}`;
   return {
-    title: `${collection.heading} (${new Date().getFullYear()})`,
+    title: `${collection.title} (${new Date().getFullYear()})`,
     description: collection.description,
     alternates: { canonical: url },
     openGraph: {

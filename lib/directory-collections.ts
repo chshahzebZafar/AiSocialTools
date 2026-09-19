@@ -20,8 +20,15 @@ export interface CollectionPick {
 
 export interface DirectoryCollection {
   slug: string;
-  /** Page title and H1. */
+  /** The H1 - plain and readable on the page itself. */
   heading: string;
+  /**
+   * SERP title. Separate from the heading because the two jobs differ: the H1
+   * reads as a page title, this one has to earn a click in 60 characters and
+   * match the Title Case the rest of the site uses. Rendered with the current
+   * year appended.
+   */
+  title: string;
   /** Meta description. */
   description: string;
   /** Editorial opening - two short paragraphs. */
@@ -36,6 +43,7 @@ export interface DirectoryCollection {
 export const directoryCollections: DirectoryCollection[] = [
   {
     slug: "free-ai-video-generators",
+    title: "Free AI Video Generators — What Each Free Tier Gives",
     heading: "Free AI video generators",
     description:
       "AI video tools you can actually try without paying, with what each free tier really gives you and where the limits bite.",
@@ -63,6 +71,7 @@ export const directoryCollections: DirectoryCollection[] = [
   },
   {
     slug: "ai-coding-assistants",
+    title: "AI Coding Assistants Compared — Editor, Terminal, Web",
     heading: "AI coding assistants",
     description:
       "Coding tools compared by how they fit your workflow - editor, terminal or browser - and how much you can review before they change anything.",
@@ -91,6 +100,7 @@ export const directoryCollections: DirectoryCollection[] = [
   },
   {
     slug: "open-source-ai-tools",
+    title: "Open Source AI Tools — Self-Host, Inspect, Run Locally",
     heading: "Open source AI tools",
     description:
       "AI tools you can self-host, inspect or run without depending on a vendor staying in business or keeping its pricing.",
@@ -115,6 +125,7 @@ export const directoryCollections: DirectoryCollection[] = [
   },
   {
     slug: "ai-tools-that-run-locally",
+    title: "AI Tools That Run Locally — Nothing Leaves Your Machine",
     heading: "AI tools that run on your own machine",
     description:
       "Tools that process your files, footage or audio locally, so nothing gets uploaded to someone else's servers.",
@@ -140,6 +151,7 @@ export const directoryCollections: DirectoryCollection[] = [
   },
   {
     slug: "ai-tools-for-recruiters",
+    title: "AI Tools for Recruiters — Sourcing, Screening, Hiring",
     heading: "AI tools for recruiters",
     description:
       "Sourcing, screening and hiring tools, with a note on where automated decisions carry legal weight.",
@@ -165,6 +177,7 @@ export const directoryCollections: DirectoryCollection[] = [
   },
   {
     slug: "free-ai-tools-no-signup",
+    title: "AI Tools With No Signup — Free, No Account Needed",
     heading: "AI tools with no signup",
     description:
       "Tools you can open and use immediately - no account, no email, no card.",
