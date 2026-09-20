@@ -13,6 +13,7 @@ import { directoryCollections } from "@/lib/directory-collections";
 import {
   aiDirectoryTools,
   aiCategories,
+  isSponsored,
   type AIDirectoryTool,
   type AICategory,
   type AIPricing,
@@ -28,6 +29,20 @@ import {
   ChevronDown,
   ChevronUp,
 } from "lucide-react";
+
+type SortKey = "featured" | "recent" | "trending" | "name";
+
+/**
+ * Sort applies to the curated set only. The 19k index is name + tagline +
+ * category + pricing with no dates, so "recently added" has nothing to sort
+ * on there; those results stay in index order and the UI says so.
+ */
+const sortOptions: Array<{ key: SortKey; label: string }> = [
+  { key: "featured", label: "Featured" },
+  { key: "recent", label: "Recently added" },
+  { key: "trending", label: "Trending" },
+  { key: "name", label: "Name A-Z" },
+];
 
 const pricingFilters: Array<"All" | AIPricing> = [
   "All",
@@ -207,6 +222,7 @@ export default function AIDirectoryPage() {
   const deferredSearch = useDeferredValue(searchQuery);
   const [selectedCategory, setSelectedCategory] = useState<"All" | AICategory>("All");
   const [selectedPricing, setSelectedPricing] = useState<"All" | AIPricing>("All");
+  const [sortBy, setSortBy] = useState<SortKey>("featured");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   // Tools approved in /admin are published from Firestore without a deploy.
@@ -329,6 +345,43 @@ export default function AIDirectoryPage() {
       return true;
     });
   }, [approved, selectedCategory, selectedPricing, deferredSearch]);
+
+  const sorted = useMemo(() => {
+    // Paid placements ride at the top of every sort order except A-Z, where
+    // alphabetical has to mean alphabetical or the control is lying.
+    const rank = (t: AIDirectoryTool) => (isSponsored(t) ? 0 : 1);
+    const byDate = (a: AIDirectoryTool, b: AIDirectoryTool) =>
+      Date.parse(b.addedAt) - Date.parse(a.addedAt);
+
+    const out = [...filtered];
+    switch (sortBy) {
+      case "recent":
+        // 177 entries share the original seed date, so ties fall back to name
+        // rather than whatever order the array happened to be in.
+        out.sort((a, b) => rank(a) - rank(b) || byDate(a, b) || a.name.localeCompare(b.name));
+        break;
+      case "trending":
+        out.sort(
+          (a, b) =>
+            rank(a) - rank(b) ||
+            Number(!!b.trending) - Number(!!a.trending) ||
+            byDate(a, b)
+        );
+        break;
+      case "name":
+        out.sort((a, b) => a.name.localeCompare(b.name));
+        break;
+      default:
+        out.sort(
+          (a, b) =>
+            rank(a) - rank(b) ||
+            Number(!!b.featured) - Number(!!a.featured) ||
+            Number(!!b.trending) - Number(!!a.trending) ||
+            a.name.localeCompare(b.name)
+        );
+    }
+    return out;
+  }, [filtered, sortBy]);
 
   const totalTools = approved.length;
   const totalCategories = aiCategories.length;
@@ -554,18 +607,41 @@ export default function AIDirectoryPage() {
                   </button>
                 ))}
               </div>
+
+              {/* Sort. Sits with the filters because it is the same job -
+                  narrowing 221 entries down to the handful worth looking at. */}
+              <div className="flex flex-wrap items-center gap-1.5">
+                <span className="text-xs uppercase tracking-wider text-zinc-400 dark:text-zinc-500 mr-1">Sort:</span>
+                {sortOptions.map((o) => (
+                  <button
+                    key={o.key}
+                    onClick={() => setSortBy(o.key)}
+                    aria-pressed={sortBy === o.key}
+                    className={`px-3 h-7 text-xs font-medium rounded-lg border transition-colors ${
+                      sortBy === o.key
+                        ? "bg-indigo-600 text-white border-indigo-600"
+                        : "bg-white dark:bg-zinc-900 text-zinc-700 dark:text-zinc-300 border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700"
+                    }`}
+                  >
+                    {o.label}
+                  </button>
+                ))}
+              </div>
             </div>
 
             <p className="text-xs text-zinc-400 dark:text-zinc-500 mb-5">
-              {filtered.length} {filtered.length === 1 ? "tool" : "tools"}
+              {sorted.length} {sorted.length === 1 ? "tool" : "tools"}
               {selectedCategory !== "All" && ` in ${selectedCategory}`}
               {selectedPricing !== "All" && ` · ${selectedPricing}`}
               {deferredSearch && ` matching "${deferredSearch}"`}
+              {sortBy !== "featured" && ` · sorted by ${sortOptions
+                .find((o) => o.key === sortBy)
+                ?.label.toLowerCase()}`}
             </p>
 
-            {filtered.length > 0 && (
+            {sorted.length > 0 && (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                {filtered.map((tool, i) => (
+                {sorted.map((tool, i) => (
                   <Reveal key={tool.slug} delay={Math.min(i * 30, 250)}>
                     <ToolCard tool={tool} />
                   </Reveal>
@@ -626,7 +702,7 @@ export default function AIDirectoryPage() {
               </div>
             )}
 
-            {filtered.length === 0 &&
+            {sorted.length === 0 &&
               (!isFiltering ||
                 (indexState !== "loading" && indexResults.total === 0)) && (
                 <div className="text-center py-20 border border-dashed border-zinc-200 dark:border-zinc-800 rounded-xl">

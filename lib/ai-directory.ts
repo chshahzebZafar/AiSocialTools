@@ -40,8 +40,29 @@ export interface AIDirectoryTool {
   alternatives?: string[];
   /** lightweight tag list for search */
   tags?: string[];
-  /** show on homepage / featured strip */
+  /**
+   * Editorial pick - we chose it. Drives the homepage strip and nothing is
+   * paid for it. Keep it that way: the moment money can buy this flag, it
+   * stops carrying information and every other pick on the page is devalued
+   * with it. Paid placement is `sponsored` below.
+   */
   featured?: boolean;
+  /**
+   * Paid placement. Deliberately a separate field from `featured` so the two
+   * can never be confused in a filter, a sort, or by a reader.
+   *
+   * Anything rendered from this MUST carry a visible "Sponsored" label -
+   * undisclosed paid placement is a deceptive-advertising problem in the US
+   * (FTC endorsement guides), the UK (CAP Code) and the EU, not merely a
+   * question of taste.
+   */
+  sponsored?: boolean;
+  /**
+   * ISO date the placement runs out. Required alongside `sponsored` so a
+   * lapsed sponsor stops rendering on its own rather than sitting on the
+   * homepage forever because nobody remembered to remove it.
+   */
+  sponsoredUntil?: string;
   /** trending in last 30 days */
   trending?: boolean;
   /** isNew if added < 30 days ago */
@@ -6365,6 +6386,23 @@ export const aiDirectoryTools: AIDirectoryTool[] = [
     founder: "Worldesk",
   },
 ];
+
+/**
+ * A sponsorship counts only while it is paid up. Both flags must agree, and
+ * the date is compared in UTC so the placement expires at the same instant
+ * for everyone rather than whenever the viewer's midnight happens to be.
+ *
+ * Call this everywhere instead of reading `tool.sponsored` directly - that
+ * field on its own says a placement was sold, not that it is still running.
+ */
+export function isSponsored(
+  tool: Pick<AIDirectoryTool, "sponsored" | "sponsoredUntil">,
+  now: Date = new Date()
+): boolean {
+  if (!tool.sponsored || !tool.sponsoredUntil) return false;
+  const until = Date.parse(`${tool.sponsoredUntil}T23:59:59Z`);
+  return Number.isFinite(until) && until >= now.getTime();
+}
 
 /* =====================================================================
    Helpers
