@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getDb, SUBMISSIONS } from "@/lib/firebase-admin";
+import { getDb, SUBMISSIONS, verifyIdToken } from "@/lib/firebase-admin";
 
 // firebase-admin requires the Node runtime.
 export const runtime = "nodejs";
@@ -419,6 +419,19 @@ ${Object.entries(summary)
   // passed validation, and the details are in the function log and the
   // notification email, so a storage outage must not become a failed submission
   // for someone who did nothing wrong.
+  // If the submitter happened to be signed in, tie the record to their account
+  // so it shows up under /account. Verified server-side from the ID token, not
+  // taken from the form body - otherwise anyone could post a uid and claim
+  // someone else's submission. Signing in stays optional: a failed or absent
+  // token just means the submission is not linked to anybody.
+  let submitterUid: string | undefined;
+  try {
+    const who = await verifyIdToken(req.headers.get("authorization"));
+    if (who) submitterUid = who.uid;
+  } catch {
+    // Not being able to identify the submitter is not a reason to reject them.
+  }
+
   try {
     const db = getDb();
     if (db) {
@@ -427,6 +440,7 @@ ${Object.entries(summary)
         status: "new",
         notes: "",
         source: "form",
+        ...(submitterUid ? { submitterUid } : {}),
       });
     }
   } catch (err) {

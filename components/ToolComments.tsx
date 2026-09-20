@@ -15,6 +15,15 @@ import {
 } from "firebase/firestore";
 import { firestore, isFirebaseReady } from "@/lib/firebase";
 import { useAuth } from "./AuthProvider";
+
+/**
+ * Posting stays off. It used to be held shut by auth being stubbed out; now
+ * that accounts work, that would have quietly switched on unmoderated public
+ * comments across every tool page. There is no moderation queue behind this -
+ * addDoc writes straight to Firestore and it renders - so turning it on is a
+ * decision to make on purpose, with moderation built first.
+ */
+const COMMENTS_OPEN_FOR_POSTING = false;
 import { AuthButtons } from "./AuthButtons";
 import { MessageCircle, Send, Edit2, Trash2, X, Check } from "lucide-react";
 
@@ -125,7 +134,7 @@ export function ToolComments({ toolId }: ToolCommentsProps) {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    // Auth is temporarily disabled - comments cannot be posted
+    if (!COMMENTS_OPEN_FOR_POSTING) return;
     if (!user || !text.trim() || !isFirebaseReady || !firestore) return;
 
     // Type guard - user should never be truthy when auth is disabled
@@ -215,11 +224,11 @@ export function ToolComments({ toolId }: ToolCommentsProps) {
           </h2>
         </div>
 
-        {/* Auth is temporarily disabled - comments are view-only */}
-        {!user && (
+        {/* View-only until COMMENTS_OPEN_FOR_POSTING is turned on. */}
+        {(!user || !COMMENTS_OPEN_FOR_POSTING) && (
           <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
             <p className="text-sm text-blue-800 dark:text-blue-200">
-              💬 Comments are view-only. Authentication is temporarily disabled.
+              💬 Comments are view-only for now.
             </p>
           </div>
         )}

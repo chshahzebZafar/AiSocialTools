@@ -90,6 +90,41 @@ export function getDb(): Firestore | null {
   return cached;
 }
 
+/**
+ * Verifies a Firebase ID token sent by the browser and returns who it belongs
+ * to, or null if it is missing, expired, forged or unverifiable.
+ *
+ * getDb() is called first purely for its side effect of initialising the admin
+ * app under APP_NAME - without that there is no credential to verify against.
+ *
+ * emailVerified is passed through because it decides whether we may match old
+ * submissions by email address. Anyone can put any address in a signup form;
+ * only a verified one proves they can read that inbox.
+ */
+export async function verifyIdToken(
+  authorizationHeader: string | null
+): Promise<{ uid: string; email: string | null; emailVerified: boolean } | null> {
+  const token = authorizationHeader?.startsWith("Bearer ")
+    ? authorizationHeader.slice(7).trim()
+    : "";
+  if (!token) return null;
+  if (!getDb()) return null;
+
+  try {
+    const { getAuth } = await import("firebase-admin/auth");
+    const decoded = await getAuth(getApp(APP_NAME)).verifyIdToken(token);
+    return {
+      uid: decoded.uid,
+      email: decoded.email ?? null,
+      emailVerified: decoded.email_verified === true,
+    };
+  } catch {
+    // Expired or tampered-with tokens are routine, not incidents. The caller
+    // turns this into a 401.
+    return null;
+  }
+}
+
 /** Collection holding AI-directory submissions. */
 export const SUBMISSIONS = "aiDirectorySubmissions";
 
@@ -111,6 +146,8 @@ export interface StoredSubmission {
   submitterName: string;
   submitterEmail: string;
   submitterRole: string;
+  /** Firebase uid of the account that submitted it, when signed in. */
+  submitterUid?: string;
   status: SubmissionStatus;
   /** Private reviewer notes, never shown publicly. */
   notes: string;

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { useAuth } from "@/components/AuthProvider";
 import Link from "next/link";
 import Script from "next/script";
 import Header from "@/components/Header";
@@ -43,6 +44,9 @@ type TurnstileWindow = Window & {
 };
 
 export default function SubmitAIToolPage() {
+  // Optional: when signed in, the submission is tied to the account so it
+  // shows up under /account. Nothing here requires an account.
+  const { getIdToken } = useAuth();
   const [state, setState] = useState<SubmissionState>("idle");
   const [errorMessage, setErrorMessage] = useState("");
   // Reference returned by the API — shown on screen so the submitter has a
@@ -128,9 +132,13 @@ export default function SubmitAIToolPage() {
     };
 
     try {
+      const idToken = await getIdToken().catch(() => null);
       const res = await fetch("/api/submit-ai-tool", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          ...(idToken ? { Authorization: `Bearer ${idToken}` } : {}),
+        },
         body: JSON.stringify(payload),
       });
       const data = await res.json();
