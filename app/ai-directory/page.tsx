@@ -350,26 +350,38 @@ export default function AIDirectoryPage() {
     // Paid placements ride at the top of every sort order except A-Z, where
     // alphabetical has to mean alphabetical or the control is lying.
     const rank = (t: AIDirectoryTool) => (isSponsored(t) ? 0 : 1);
-    const byDate = (a: AIDirectoryTool, b: AIDirectoryTool) =>
-      Date.parse(b.addedAt) - Date.parse(a.addedAt);
+
+    // Must never return NaN. Live entries published from the admin inbox take
+    // addedAt from submittedAt, and a backfilled record can have neither, so
+    // Date.parse returns NaN for some rows. NaN is falsy, so `byDate(a, b) ||
+    // name` quietly fell through to alphabetical for exactly those rows - which
+    // makes the comparator non-transitive and scrambles the entire result, not
+    // just the undated entries. Undated sorts as oldest instead.
+    const time = (t: AIDirectoryTool) => {
+      const ms = Date.parse(t.addedAt ?? "");
+      return Number.isFinite(ms) ? ms : 0;
+    };
+    const byDate = (a: AIDirectoryTool, b: AIDirectoryTool) => time(b) - time(a);
+    const byName = (a: AIDirectoryTool, b: AIDirectoryTool) => a.name.localeCompare(b.name);
 
     const out = [...filtered];
     switch (sortBy) {
       case "recent":
         // 177 entries share the original seed date, so ties fall back to name
         // rather than whatever order the array happened to be in.
-        out.sort((a, b) => rank(a) - rank(b) || byDate(a, b) || a.name.localeCompare(b.name));
+        out.sort((a, b) => rank(a) - rank(b) || byDate(a, b) || byName(a, b));
         break;
       case "trending":
         out.sort(
           (a, b) =>
             rank(a) - rank(b) ||
             Number(!!b.trending) - Number(!!a.trending) ||
-            byDate(a, b)
+            byDate(a, b) ||
+            byName(a, b)
         );
         break;
       case "name":
-        out.sort((a, b) => a.name.localeCompare(b.name));
+        out.sort(byName);
         break;
       default:
         out.sort(
@@ -377,7 +389,7 @@ export default function AIDirectoryPage() {
             rank(a) - rank(b) ||
             Number(!!b.featured) - Number(!!a.featured) ||
             Number(!!b.trending) - Number(!!a.trending) ||
-            a.name.localeCompare(b.name)
+            byName(a, b)
         );
     }
     return out;
