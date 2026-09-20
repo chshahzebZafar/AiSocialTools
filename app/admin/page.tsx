@@ -34,6 +34,8 @@ interface Submission {
   sponsored?: boolean;
   sponsoredUntil?: string;
   sponsorshipNote?: string;
+  notifiedStatus?: string;
+  notifiedAt?: string;
   source?: string;
   reviewedAt?: string;
 }
@@ -405,6 +407,14 @@ export default function AdminPage() {
                         placeholder="What was charged, invoice ref, who paid — private"
                       />
                     </div>
+
+                    {(s.status === "approved" || s.status === "declined") && (
+                      <p className="text-xs text-zinc-500">
+                        {s.notifiedStatus === s.status && s.notifiedAt
+                          ? `Submitter emailed ${s.notifiedAt.slice(0, 10)}.`
+                          : "Submitter not emailed yet — set the status again to retry."}
+                      </p>
+                    )}
 
                     <div>
                       <label className="block text-xs font-medium text-zinc-500 mb-1">Private notes</label>

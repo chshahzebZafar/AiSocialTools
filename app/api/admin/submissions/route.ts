@@ -3,6 +3,7 @@ import { cookies } from "next/headers";
 import { ADMIN_COOKIE, verifySessionToken } from "@/lib/admin-auth";
 import { getDb, SUBMISSIONS, type SubmissionStatus } from "@/lib/firebase-admin";
 import { slugify } from "@/lib/directory-live";
+import { sendDecisionEmail } from "@/lib/submission-emails";
 import { aiDirectoryTools } from "@/lib/ai-directory";
 
 export const runtime = "nodejs";
@@ -156,24 +157,58 @@ export async function PATCH(req: Request) {
   }
 
   try {
+    // Read once, up front: the slug assignment below needs it, and so does
+    // deciding whether this is a real decision or the same button pressed
+    // twice. Without the "before" state a second click would send a second
+    // email saying the same thing.
+    const snap = await db.collection(SUBMISSIONS).doc(body.id).get();
+    const data = snap.data();
+
     // Approving publishes the tool, so it needs a stable slug. Assigned once,
     // on first approval, and kept afterwards so a published URL never moves.
     // Curated entries own their slugs, so a clash gets a suffix rather than
     // shadowing the code file.
-    if (update.status === "approved") {
-      const snap = await db.collection(SUBMISSIONS).doc(body.id).get();
-      const data = snap.data();
-      if (data && !data.slug) {
-        const base = slugify(String(data.name ?? "")) || body.id.toLowerCase();
-        const taken = new Set(aiDirectoryTools.map((t) => t.slug));
-        let slug = base;
-        let n = 2;
-        while (taken.has(slug)) slug = `${base}-${n++}`;
-        update.slug = slug;
+    if (update.status === "approved" && data && !data.slug) {
+      const base = slugify(String(data.name ?? "")) || body.id.toLowerCase();
+      const taken = new Set(aiDirectoryTools.map((t) => t.slug));
+      let slug = base;
+      let n = 2;
+      while (taken.has(slug)) slug = `${base}-${n++}`;
+      update.slug = slug;
+    }
+
+    // Tell the submitter, once, when the decision actually changes. The guard
+    // is the status we last emailed about rather than the previous status:
+    // approved -> declined -> approved is two genuine decisions to communicate,
+    // but approved -> approved is not.
+    const newStatus = typeof update.status === "string" ? update.status : "";
+    const shouldNotify =
+      !!data &&
+      (newStatus === "approved" || newStatus === "declined") &&
+      data.notifiedStatus !== newStatus;
+
+    await db.collection(SUBMISSIONS).doc(body.id).update(update);
+
+    if (shouldNotify && data) {
+      const outcome = await sendDecisionEmail(newStatus, {
+        to: String(data.submitterEmail ?? ""),
+        toolName: String(data.name ?? "your tool"),
+        reference: String(data.reference ?? body.id),
+        slug: String(update.slug ?? data.slug ?? ""),
+      });
+      // Recorded only on success, so a provider outage leaves it retryable
+      // rather than marking someone as told when they were not. Written
+      // separately from the main update: the decision is already saved and
+      // must not be rolled back because a bookkeeping write failed.
+      if (outcome === "sent") {
+        await db
+          .collection(SUBMISSIONS)
+          .doc(body.id)
+          .update({ notifiedStatus: newStatus, notifiedAt: new Date().toISOString() })
+          .catch(() => {});
       }
     }
 
-    await db.collection(SUBMISSIONS).doc(body.id).update(update);
     return NextResponse.json({ ok: true });
   } catch (err) {
     // eslint-disable-next-line no-console

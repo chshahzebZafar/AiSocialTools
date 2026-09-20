@@ -164,4 +164,12 @@ export interface StoredSubmission {
   sponsoredUntil?: string;
   /** Free-text record of what was charged. Never rendered publicly. */
   sponsorshipNote?: string;
+  /**
+   * The status the submitter was last emailed about. Guards against sending a
+   * second "you're listed" when the same button is pressed twice; written only
+   * after the send succeeds, so a provider outage stays retryable.
+   */
+  notifiedStatus?: "approved" | "declined";
+  /** ISO timestamp of that email. */
+  notifiedAt?: string;
 }
