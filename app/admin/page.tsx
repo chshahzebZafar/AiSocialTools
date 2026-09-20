@@ -31,6 +31,9 @@ interface Submission {
   submitterRole?: string;
   status?: Status;
   notes?: string;
+  sponsored?: boolean;
+  sponsoredUntil?: string;
+  sponsorshipNote?: string;
   source?: string;
   reviewedAt?: string;
 }
@@ -141,7 +144,16 @@ export default function AdminPage() {
     setAuthed(false);
   }
 
-  async function patch(id: string, patchBody: { status?: Status; notes?: string }) {
+  async function patch(
+    id: string,
+    patchBody: {
+      status?: Status;
+      notes?: string;
+      sponsored?: boolean;
+      sponsoredUntil?: string;
+      sponsorshipNote?: string;
+    }
+  ) {
     // Optimistic: the list updates immediately and rolls back if the save fails.
     const before = items;
     setItems((prev) => prev.map((s) => (s.id === id ? { ...s, ...patchBody } : s)));
@@ -325,6 +337,73 @@ export default function AdminPage() {
                       >
                         {copiedId === s.id ? "Copied" : "Copy directory entry"}
                       </button>
+                    </div>
+
+                    {/* Paid placement. Sold by hand: agree a price, take the
+                        money, set the end date here. The listing promotes
+                        itself to the homepage strip and the top of the
+                        directory, labelled Sponsored, and drops off by itself
+                        the day after the date below. */}
+                    <div className="rounded-md border border-amber-200 bg-amber-50/60 p-3">
+                      <div className="flex flex-wrap items-center gap-3 mb-2">
+                        <label className="flex items-center gap-2 text-sm font-medium text-amber-900">
+                          <input
+                            type="checkbox"
+                            checked={!!s.sponsored}
+                            onChange={(e) => {
+                              const on = e.target.checked;
+                              // The API rejects a placement with no end date, so
+                              // default to 30 days out rather than bouncing the
+                              // admin with an error they then have to fix.
+                              const fallback = new Date(Date.now() + 30 * 864e5)
+                                .toISOString()
+                                .slice(0, 10);
+                              void patch(s.id, {
+                                sponsored: on,
+                                sponsoredUntil: on ? s.sponsoredUntil || fallback : s.sponsoredUntil,
+                              });
+                            }}
+                            disabled={s.status !== "approved"}
+                          />
+                          Sponsored placement
+                        </label>
+                        <label className="flex items-center gap-2 text-xs text-amber-900">
+                          Runs until
+                          <input
+                            type="date"
+                            defaultValue={s.sponsoredUntil || ""}
+                            onBlur={(e) => {
+                              if (e.target.value !== (s.sponsoredUntil || "")) {
+                                void patch(s.id, { sponsoredUntil: e.target.value });
+                              }
+                            }}
+                            className="px-2 py-1 text-xs border border-amber-300 rounded"
+                          />
+                        </label>
+                      </div>
+                      {s.status !== "approved" && (
+                        <p className="text-xs text-amber-800 mb-2">
+                          Approve the listing first — an unapproved tool is not published, so a
+                          placement on it would show nowhere.
+                        </p>
+                      )}
+                      {s.sponsored && s.sponsoredUntil && (
+                        <p className="text-xs text-amber-800 mb-2">
+                          {Date.parse(`${s.sponsoredUntil}T23:59:59Z`) < Date.now()
+                            ? "Expired — no longer showing anywhere on the site."
+                            : `Live until ${s.sponsoredUntil}.`}
+                        </p>
+                      )}
+                      <input
+                        defaultValue={s.sponsorshipNote || ""}
+                        onBlur={(e) => {
+                          if (e.target.value !== (s.sponsorshipNote || "")) {
+                            void patch(s.id, { sponsorshipNote: e.target.value });
+                          }
+                        }}
+                        className="w-full px-3 py-2 text-xs border border-amber-300 rounded-md bg-white"
+                        placeholder="What was charged, invoice ref, who paid — private"
+                      />
                     </div>
 
                     <div>

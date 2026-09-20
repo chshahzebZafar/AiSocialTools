@@ -117,4 +117,14 @@ export interface StoredSubmission {
   /** How it arrived: the live form, or a manual backfill of earlier records. */
   source: "form" | "backfill";
   reviewedAt?: string;
+  /**
+   * Paid placement, sold manually: agree a price, take payment however you
+   * normally do, then set these in /admin. No checkout integration involved.
+   * Both are required for the placement to render - see isSponsored().
+   */
+  sponsored?: boolean;
+  /** ISO date (YYYY-MM-DD) the placement runs to, inclusive. */
+  sponsoredUntil?: string;
+  /** Free-text record of what was charged. Never rendered publicly. */
+  sponsorshipNote?: string;
 }

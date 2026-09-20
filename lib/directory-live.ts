@@ -35,6 +35,8 @@ export interface LiveTool {
   founder?: string;
   twitter?: string;
   addedAt: string;
+  sponsored?: boolean;
+  sponsoredUntil?: string;
   /** Marks entries published from the admin inbox rather than the code file. */
   live: true;
 }
@@ -119,6 +121,8 @@ export async function getLiveApprovedTools(): Promise<LiveTool[]> {
         founder: String(d.founder ?? "").trim() || undefined,
         twitter: String(d.twitter ?? "").replace(/^@/, "").trim() || undefined,
         addedAt: String(d.submittedAt ?? "").slice(0, 10),
+        sponsored: d.sponsored === true,
+        sponsoredUntil: d.sponsoredUntil ? String(d.sponsoredUntil) : undefined,
         live: true,
       });
     }
@@ -151,6 +155,8 @@ export function asDirectoryTool(t: LiveTool): AIDirectoryTool {
     features: t.features,
     tags: [] as string[],
     addedAt: t.addedAt,
+    sponsored: t.sponsored,
+    sponsoredUntil: t.sponsoredUntil,
     approved: true,
     founder: t.founder,
     twitter: t.twitter,

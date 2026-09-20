@@ -63,7 +63,7 @@ export async function GET(req: Request) {
   }
 }
 
-/** PATCH /api/admin/submissions — update status and/or notes on one submission. */
+/** PATCH /api/admin/submissions — update status, notes or paid placement. */
 export async function PATCH(req: Request) {
   const denied = await requireAdmin();
   if (denied) return denied;
@@ -73,7 +73,14 @@ export async function PATCH(req: Request) {
     return NextResponse.json({ error: "Storage is not configured." }, { status: 503 });
   }
 
-  let body: { id?: string; status?: string; notes?: string };
+  let body: {
+    id?: string;
+    status?: string;
+    notes?: string;
+    sponsored?: boolean;
+    sponsoredUntil?: string;
+    sponsorshipNote?: string;
+  };
   try {
     body = await req.json();
   } catch {
@@ -99,6 +106,53 @@ export async function PATCH(req: Request) {
       return NextResponse.json({ error: "notes must be a string under 5000 chars." }, { status: 400 });
     }
     update.notes = body.notes;
+  }
+
+  // Paid placement, sold manually. Validated here rather than trusted from the
+  // form: a bad date would otherwise store a placement that either never shows
+  // or never expires, and neither failure is visible until someone complains.
+  if (body.sponsored !== undefined) {
+    if (typeof body.sponsored !== "boolean") {
+      return NextResponse.json({ error: "sponsored must be true or false." }, { status: 400 });
+    }
+    update.sponsored = body.sponsored;
+  }
+  if (body.sponsoredUntil !== undefined) {
+    const raw = body.sponsoredUntil;
+    if (raw === "") {
+      update.sponsoredUntil = "";
+    } else if (typeof raw !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(raw)) {
+      return NextResponse.json(
+        { error: "sponsoredUntil must be a YYYY-MM-DD date." },
+        { status: 400 }
+      );
+    } else if (!Number.isFinite(Date.parse(`${raw}T00:00:00Z`))) {
+      return NextResponse.json({ error: "sponsoredUntil is not a real date." }, { status: 400 });
+    } else {
+      update.sponsoredUntil = raw;
+    }
+  }
+  if (body.sponsorshipNote !== undefined) {
+    if (typeof body.sponsorshipNote !== "string" || body.sponsorshipNote.length > 2000) {
+      return NextResponse.json(
+        { error: "sponsorshipNote must be a string under 2000 chars." },
+        { status: 400 }
+      );
+    }
+    update.sponsorshipNote = body.sponsorshipNote;
+  }
+
+  // Turning a placement on without an end date would run forever. Reject it
+  // rather than inventing a date on the admin's behalf.
+  if (update.sponsored === true) {
+    const until =
+      typeof update.sponsoredUntil === "string" ? update.sponsoredUntil : undefined;
+    if (until === undefined || until === "") {
+      return NextResponse.json(
+        { error: "A sponsored listing needs an end date." },
+        { status: 400 }
+      );
+    }
   }
 
   try {
