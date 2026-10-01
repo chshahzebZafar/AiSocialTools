@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { Badge } from "@/components/ui/Badge";
+import { ToolIcon } from "@/components/ToolIcon";
 import { ButtonLink } from "@/components/ui/Button";
 import {
   aiDirectoryTools,
@@ -119,7 +120,6 @@ export default async function AIDirectoryDetailPage({
   const tool = await resolveTool(slug);
   if (!tool) notFound();
 
-  const initial = tool.name.charAt(0).toUpperCase();
   const alternatives = (tool.alternatives || [])
     .map((altSlug) => getDirectoryToolBySlug(altSlug))
     .filter((t): t is NonNullable<typeof t> => Boolean(t));
@@ -200,10 +200,14 @@ export default async function AIDirectoryDetailPage({
             </Link>
 
             <div className="flex flex-col sm:flex-row sm:items-start gap-6 sm:gap-8 mb-8">
-              {/* Avatar — solid zinc, no gradient */}
-              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-xl bg-zinc-950 dark:bg-white flex items-center justify-center text-3xl sm:text-4xl font-semibold text-white dark:text-zinc-950 tracking-tight flex-shrink-0 ring-1 ring-zinc-200 dark:ring-zinc-800">
-                {initial}
-              </div>
+              {/* The tool's own favicon, falling back to its initial. */}
+              <ToolIcon
+                name={tool.name}
+                url={tool.url}
+                logoUrl={tool.logoUrl}
+                size={88}
+                className="ring-1 ring-zinc-200 dark:ring-zinc-800"
+              />
 
               {/* Title block */}
               <div className="flex-1 min-w-0">
@@ -492,9 +496,7 @@ export default async function AIDirectoryDetailPage({
                       className="group relative block h-full bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-lg p-5 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-sm hover:-translate-y-0.5 transition-all duration-200"
                     >
                       <div className="flex items-start justify-between gap-3 mb-3">
-                        <div className="w-10 h-10 rounded-md bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center justify-center text-zinc-700 dark:text-zinc-300 font-semibold text-sm group-hover:bg-indigo-50 group-hover:border-indigo-200 group-hover:text-indigo-700 dark:group-hover:bg-indigo-500/10 dark:group-hover:border-indigo-500/30 dark:group-hover:text-indigo-300 transition-colors">
-                          {alt.name.charAt(0)}
-                        </div>
+                        <ToolIcon name={alt.name} url={alt.url} logoUrl={alt.logoUrl} size={40} rounded="rounded-md" />
                         <ArrowUpRight className="w-4 h-4 text-zinc-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
                       </div>
                       <h3 className="font-semibold text-[15px] text-zinc-950 dark:text-white mb-1">

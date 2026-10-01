@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/Badge";
 import { WordRotator } from "@/components/animations/WordRotator";
 import { CountUp } from "@/components/animations/CountUp";
 import { Reveal } from "@/components/animations/Reveal";
+import { ToolIcon } from "@/components/ToolIcon";
 import { PlatformMarquee } from "@/components/animations/PlatformMarquee";
 import { socialTools } from "@/lib/social-tools";
 import { aiDirectoryTools, isSponsored } from "@/lib/ai-directory";
@@ -505,9 +506,7 @@ export default function Home() {
                     className="group relative flex flex-col h-full bg-white dark:bg-zinc-950 border border-amber-200 dark:border-amber-500/30 rounded-xl p-5 hover:border-amber-300 dark:hover:border-amber-500/50 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
                   >
                     <div className="flex items-start justify-between gap-3 mb-3">
-                      <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center text-white font-bold text-base shadow-sm flex-shrink-0">
-                        {tool.name.charAt(0)}
-                      </div>
+                      <ToolIcon name={tool.name} url={tool.url} logoUrl={tool.logoUrl} size={44} />
                       <span className="text-[10px] uppercase tracking-wider font-bold text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/30 rounded px-1.5 py-0.5">
                         Sponsored
                       </span>
@@ -536,9 +535,7 @@ export default function Home() {
                   >
                     <div className="flex items-start justify-between gap-3 mb-3">
                       <div className="relative flex-shrink-0">
-                        <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold text-base shadow-sm">
-                          {tool.name.charAt(0)}
-                        </div>
+                        <ToolIcon name={tool.name} url={tool.url} logoUrl={tool.logoUrl} size={44} />
                         <div className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-blue-500 border-2 border-white dark:border-zinc-950 flex items-center justify-center">
                           <BadgeCheck className="w-2.5 h-2.5 text-white" strokeWidth={3} />
                         </div>

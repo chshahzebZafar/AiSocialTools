@@ -8,6 +8,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import { Badge } from "@/components/ui/Badge";
 import { ButtonLink } from "@/components/ui/Button";
 import { Reveal } from "@/components/animations/Reveal";
+import { ToolIcon } from "@/components/ToolIcon";
 import { directoryCategories } from "@/lib/directory-categories";
 import { directoryCollections } from "@/lib/directory-collections";
 import {
@@ -53,7 +54,6 @@ const pricingFilters: Array<"All" | AIPricing> = [
 ];
 
 function ToolCard({ tool }: { tool: AIDirectoryTool }) {
-  const initial = tool.name.charAt(0).toUpperCase();
   const isFree = tool.pricing === "Free" || tool.pricing === "Open Source";
   return (
     <Link
@@ -61,11 +61,15 @@ function ToolCard({ tool }: { tool: AIDirectoryTool }) {
       className="group relative flex flex-col h-full bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-lg p-5 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-sm hover:-translate-y-0.5 transition-all duration-200"
     >
       <div className="flex items-start justify-between gap-3 mb-3">
-        {/* Avatar — neutral zinc, indigo tint on hover. Matches /tools cards. */}
+        {/* The tool's own favicon, falling back to its initial. */}
         <div className="relative flex-shrink-0">
-          <div className="w-10 h-10 rounded-md bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center justify-center text-zinc-700 dark:text-zinc-300 font-semibold text-sm group-hover:bg-indigo-50 group-hover:border-indigo-200 group-hover:text-indigo-700 dark:group-hover:bg-indigo-500/10 dark:group-hover:border-indigo-500/30 dark:group-hover:text-indigo-300 transition-colors">
-            {initial}
-          </div>
+          <ToolIcon
+            name={tool.name}
+            url={tool.url}
+            logoUrl={tool.logoUrl}
+            size={40}
+            rounded="rounded-md"
+          />
           {tool.approved && (
             <div
               className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-indigo-600 ring-2 ring-white dark:ring-zinc-950 flex items-center justify-center"
@@ -130,7 +134,6 @@ interface IndexedTool {
 }
 
 function IndexedToolCard({ tool }: { tool: IndexedTool }) {
-  const initial = tool.name.charAt(0).toUpperCase();
   const isFree = tool.pricing === "Free" || tool.pricing === "Open Source";
   return (
     <a
@@ -140,9 +143,7 @@ function IndexedToolCard({ tool }: { tool: IndexedTool }) {
       className="group relative flex flex-col h-full bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-lg p-5 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-sm hover:-translate-y-0.5 transition-all duration-200"
     >
       <div className="flex items-start justify-between gap-3 mb-3">
-        <div className="w-10 h-10 rounded-md bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center justify-center text-zinc-700 dark:text-zinc-300 font-semibold text-sm group-hover:bg-indigo-50 group-hover:border-indigo-200 group-hover:text-indigo-700 dark:group-hover:bg-indigo-500/10 dark:group-hover:border-indigo-500/30 dark:group-hover:text-indigo-300 transition-colors flex-shrink-0">
-          {initial}
-        </div>
+        <ToolIcon name={tool.name} url={tool.url} size={40} rounded="rounded-md" />
         <ArrowUpRight className="w-4 h-4 text-zinc-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
       </div>
       <h3 className="font-semibold text-[15px] text-zinc-950 dark:text-white mb-1">
