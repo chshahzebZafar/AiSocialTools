@@ -1,49 +1,35 @@
 "use client";
 
 import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
-import {
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-  signInWithEmailAndPassword,
-  signInWithPopup,
-  signOut,
-  sendPasswordResetEmail,
-  type User,
-} from "firebase/auth";
-import { auth, googleProvider, isFirebaseReady } from "@/lib/firebase";
+import type { Session, User } from "@supabase/supabase-js";
+import { supabaseBrowser, isSupabaseReady } from "@/lib/supabase";
 
 /**
- * Accounts exist for one job: a submitter signs in, sees the tools they sent
- * us, and manages the one they paid to feature. Everything else an account
- * could do is deliberately not wired up here.
+ * Accounts, on Supabase.
  *
- * This replaces a stub that always returned `user: null` ("auth is temporarily
- * disabled"). Two things that stub was holding shut are worth knowing about:
+ * Previously this pointed at Firebase Auth, which was never configured in
+ * production, so /account permanently said "accounts are not switched on".
+ * Supabase needs only the two public env vars to sign people in - the
+ * service-role key is for server-side reads and is deliberately not involved
+ * here.
  *
- *  - ToolComments posts straight to Firestore with no moderation queue. It is
- *    kept shut by its own flag now rather than by auth being broken, so
- *    turning comments on becomes a decision instead of a side effect.
- *  - /profile is a 612-line page that assumes a real user. It comes back to
- *    life with this change.
- *
- * When Firebase is not configured (NEXT_PUBLIC_FIREBASE_* absent, as in a
- * preview build or a fork), `auth` is undefined. Every method below degrades
- * to a clear error instead of throwing on undefined, and `ready` is false so
- * the UI can hide sign-in rather than offer something that cannot work.
+ * Scope is unchanged: an account exists so a submitter can see the tools they
+ * sent us and manage a paid placement. Comment posting stays shut behind its
+ * own flag in ToolComments; working auth must not switch unmoderated public
+ * UGC on across 40+ tool pages as a side effect.
  */
 
 type AuthContextValue = {
   user: User | null;
+  session: Session | null;
   loading: boolean;
-  /** False when Firebase env vars are missing - sign-in cannot work at all. */
+  /** False when Supabase is not configured - UI hides what cannot work. */
   ready: boolean;
-  signInWithGoogle: () => Promise<void>;
   signInWithEmail: (email: string, password: string) => Promise<void>;
   signUpWithEmail: (email: string, password: string) => Promise<void>;
+  signInWithGoogle: () => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
   logout: () => Promise<void>;
-  /** Fresh ID token for calling our own API as this user. Null when signed out. */
-  getIdToken: () => Promise<string | null>;
 };
 
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -51,50 +37,84 @@ const AuthContext = createContext<AuthContextValue | null>(null);
 const NOT_CONFIGURED = "Sign-in is not available right now.";
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
-  // Starts true only when there is an auth instance to wait on; otherwise the
-  // UI would sit on a spinner forever in an unconfigured environment.
-  const [loading, setLoading] = useState(isFirebaseReady && !!auth);
+  const [session, setSession] = useState<Session | null>(null);
+  // Only wait on a client that exists; otherwise the UI would spin forever in
+  // an unconfigured environment.
+  const [loading, setLoading] = useState(isSupabaseReady);
 
   useEffect(() => {
-    if (!auth) return;
-    return onAuthStateChanged(auth, (u) => {
-      setUser(u);
+    const supabase = supabaseBrowser();
+    if (!supabase) return;
+
+    // getSession() resolves from local storage immediately; the listener then
+    // keeps it current across tabs, token refreshes and sign-out.
+    supabase.auth.getSession().then(({ data }) => {
+      setSession(data.session);
       setLoading(false);
     });
+
+    const { data: sub } = supabase.auth.onAuthStateChange((_event, s) => {
+      setSession(s);
+      setLoading(false);
+    });
+    return () => sub.subscription.unsubscribe();
   }, []);
 
   const value = useMemo<AuthContextValue>(
     () => ({
-      user,
+      user: session?.user ?? null,
+      session,
       loading,
-      ready: isFirebaseReady && !!auth,
-      signInWithGoogle: async () => {
-        if (!auth || !googleProvider) throw new Error(NOT_CONFIGURED);
-        await signInWithPopup(auth, googleProvider);
-      },
+      ready: isSupabaseReady,
       signInWithEmail: async (email, password) => {
-        if (!auth) throw new Error(NOT_CONFIGURED);
-        await signInWithEmailAndPassword(auth, email, password);
+        const supabase = supabaseBrowser();
+        if (!supabase) throw new Error(NOT_CONFIGURED);
+        const { error } = await supabase.auth.signInWithPassword({ email, password });
+        if (error) throw error;
       },
       signUpWithEmail: async (email, password) => {
-        if (!auth) throw new Error(NOT_CONFIGURED);
-        await createUserWithEmailAndPassword(auth, email, password);
+        const supabase = supabaseBrowser();
+        if (!supabase) throw new Error(NOT_CONFIGURED);
+        const { error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            // Must match a Redirect URL allowed in the Supabase dashboard, or
+            // the confirmation link silently falls back to the Site URL.
+            emailRedirectTo:
+              typeof window !== "undefined" ? `${window.location.origin}/account` : undefined,
+          },
+        });
+        if (error) throw error;
+      },
+      signInWithGoogle: async () => {
+        const supabase = supabaseBrowser();
+        if (!supabase) throw new Error(NOT_CONFIGURED);
+        const { error } = await supabase.auth.signInWithOAuth({
+          provider: "google",
+          options: {
+            redirectTo:
+              typeof window !== "undefined" ? `${window.location.origin}/account` : undefined,
+          },
+        });
+        if (error) throw error;
       },
       resetPassword: async (email) => {
-        if (!auth) throw new Error(NOT_CONFIGURED);
-        await sendPasswordResetEmail(auth, email);
+        const supabase = supabaseBrowser();
+        if (!supabase) throw new Error(NOT_CONFIGURED);
+        const { error } = await supabase.auth.resetPasswordForEmail(email, {
+          redirectTo:
+            typeof window !== "undefined" ? `${window.location.origin}/account` : undefined,
+        });
+        if (error) throw error;
       },
       logout: async () => {
-        if (!auth) return;
-        await signOut(auth);
-      },
-      getIdToken: async () => {
-        if (!auth?.currentUser) return null;
-        return auth.currentUser.getIdToken();
+        const supabase = supabaseBrowser();
+        if (!supabase) return;
+        await supabase.auth.signOut();
       },
     }),
-    [user, loading]
+    [session, loading]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
@@ -107,30 +127,31 @@ export function useAuth() {
 }
 
 /**
- * Firebase error codes are not fit to show anyone. Map the ones people
- * actually hit; fall back to something honest rather than a code.
+ * Supabase error messages are mostly fine to show, but the common ones read
+ * better rephrased, and "Invalid login credentials" should not hint at
+ * whether the address exists.
  */
 export function authErrorMessage(err: unknown): string {
-  const code = typeof err === "object" && err && "code" in err ? String(err.code) : "";
-  switch (code) {
-    case "auth/invalid-email":
-      return "That does not look like an email address.";
-    case "auth/user-not-found":
-    case "auth/wrong-password":
-    case "auth/invalid-credential":
-      return "Email or password is not right.";
-    case "auth/email-already-in-use":
-      return "There is already an account with that email. Try signing in.";
-    case "auth/weak-password":
-      return "Pick a password of at least 6 characters.";
-    case "auth/too-many-requests":
-      return "Too many attempts. Wait a few minutes and try again.";
-    case "auth/popup-closed-by-user":
-    case "auth/cancelled-popup-request":
-      return "Sign-in window closed before finishing.";
-    case "auth/unauthorized-domain":
-      return "This site is not on the Firebase authorised domains list yet.";
-    default:
-      return err instanceof Error && err.message ? err.message : "Could not sign you in.";
+  const msg = err instanceof Error ? err.message : String(err ?? "");
+  const m = msg.toLowerCase();
+  if (m.includes("invalid login credentials")) return "Email or password is not right.";
+  if (m.includes("user already registered") || m.includes("already been registered")) {
+    return "There is already an account with that email. Try signing in.";
   }
+  if (m.includes("password should be at least")) {
+    return "Pick a password of at least 6 characters.";
+  }
+  if (m.includes("email not confirmed")) {
+    return "Check your inbox and confirm your email address first.";
+  }
+  if (m.includes("unable to validate email") || m.includes("invalid email")) {
+    return "That does not look like an email address.";
+  }
+  if (m.includes("rate limit") || m.includes("too many")) {
+    return "Too many attempts. Wait a few minutes and try again.";
+  }
+  if (m.includes("provider is not enabled")) {
+    return "That sign-in method is not switched on for this site yet.";
+  }
+  return msg || "Could not sign you in.";
 }

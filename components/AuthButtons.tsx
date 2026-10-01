@@ -36,7 +36,7 @@ export function AuthButtons() {
     >
       <UserCircle2 className="w-4 h-4" />
       <span className="hidden sm:inline max-w-[12ch] truncate">
-        {user.displayName || user.email?.split("@")[0] || "Account"}
+        {(user.user_metadata?.full_name as string) || user.email?.split("@")[0] || "Account"}
       </span>
     </Link>
   );

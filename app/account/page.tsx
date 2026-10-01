@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import { Badge } from "@/components/ui/Badge";
 import { ButtonLink } from "@/components/ui/Button";
 import { useAuth, authErrorMessage } from "@/components/AuthProvider";
+import { supabaseBrowser } from "@/lib/supabase";
 import { ArrowUpRight, Loader2, LogOut, Mail } from "lucide-react";
 
 /**
@@ -18,19 +19,20 @@ import { ArrowUpRight, Loader2, LogOut, Mail } from "lucide-react";
  * nothing else.
  */
 
+/** One row of public.my_submissions. */
 type Submission = {
   id: string;
   reference: string;
-  submittedAt: string;
+  submitted_at: string;
   name: string;
   url: string;
   tagline: string;
   category: string;
   pricing: string;
-  slug: string;
+  slug: string | null;
   status: string;
   sponsored: boolean;
-  sponsoredUntil: string;
+  sponsored_until: string | null;
 };
 
 const STATUS_STYLE: Record<string, string> = {
@@ -174,27 +176,33 @@ function SignInPanel() {
 }
 
 export default function AccountPage() {
-  const { user, loading, logout, getIdToken } = useAuth();
+  const { user, loading, logout } = useAuth();
   const [rows, setRows] = useState<Submission[] | null>(null);
   const [error, setError] = useState("");
-  const [emailVerified, setEmailVerified] = useState(true);
 
+  // Supabase tells us whether the address was actually confirmed; an
+  // unconfirmed one cannot claim submissions made before the account existed.
+  const emailVerified = Boolean(user?.email_confirmed_at);
+
+  /**
+   * Read straight from the browser. The my_submissions view is filtered to
+   * auth.uid() by RLS, so this cannot return anybody else's rows and needs no
+   * API route and no service-role key.
+   */
   const load = useCallback(async () => {
-    const token = await getIdToken();
-    if (!token) return;
+    const supabase = supabaseBrowser();
+    if (!supabase) return;
     setError("");
-    try {
-      const res = await fetch("/api/account/submissions", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Could not load your submissions.");
-      setRows(data.submissions);
-      setEmailVerified(data.emailVerified !== false);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Could not load your submissions.");
+    const { data, error: err } = await supabase
+      .from("my_submissions")
+      .select("*")
+      .order("submitted_at", { ascending: false });
+    if (err) {
+      setError(err.message || "Could not load your submissions.");
+      return;
     }
-  }, [getIdToken]);
+    setRows((data ?? []) as Submission[]);
+  }, []);
 
   useEffect(() => {
     if (user) void load();
@@ -288,11 +296,11 @@ export default function AccountPage() {
 
                         <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-zinc-500 dark:text-zinc-400">
                           <span>Ref {s.reference || "—"}</span>
-                          <span>Sent {s.submittedAt.slice(0, 10)}</span>
+                          <span>Sent {(s.submitted_at || "").slice(0, 10)}</span>
                           <span>{s.category}</span>
-                          {s.sponsored && s.sponsoredUntil && (
+                          {s.sponsored && s.sponsored_until && (
                             <span className="text-amber-700 dark:text-amber-400 font-medium">
-                              Featured until {s.sponsoredUntil}
+                              Featured until {s.sponsored_until}
                             </span>
                           )}
                           {s.status === "approved" && s.slug && (
