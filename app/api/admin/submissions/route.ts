@@ -80,6 +80,7 @@ export async function PATCH(req: Request) {
     notes?: string;
     sponsored?: boolean;
     sponsoredUntil?: string;
+    sponsoredLifetime?: boolean;
     sponsorshipNote?: string;
   };
   try {
@@ -133,6 +134,12 @@ export async function PATCH(req: Request) {
       update.sponsoredUntil = raw;
     }
   }
+  if (body.sponsoredLifetime !== undefined) {
+    if (typeof body.sponsoredLifetime !== "boolean") {
+      return NextResponse.json({ error: "sponsoredLifetime must be true or false." }, { status: 400 });
+    }
+    update.sponsoredLifetime = body.sponsoredLifetime;
+  }
   if (body.sponsorshipNote !== undefined) {
     if (typeof body.sponsorshipNote !== "string" || body.sponsorshipNote.length > 2000) {
       return NextResponse.json(
@@ -146,9 +153,10 @@ export async function PATCH(req: Request) {
   // Turning a placement on without an end date would run forever. Reject it
   // rather than inventing a date on the admin's behalf.
   if (update.sponsored === true) {
+    const lifetime = update.sponsoredLifetime === true;
     const until =
       typeof update.sponsoredUntil === "string" ? update.sponsoredUntil : undefined;
-    if (until === undefined || until === "") {
+    if (!lifetime && (until === undefined || until === "")) {
       return NextResponse.json(
         { error: "A sponsored listing needs an end date." },
         { status: 400 }

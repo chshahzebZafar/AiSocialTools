@@ -10,7 +10,7 @@ import { Reveal } from "@/components/animations/Reveal";
 import { ToolIcon } from "@/components/ToolIcon";
 import { PlatformMarquee } from "@/components/animations/PlatformMarquee";
 import { socialTools } from "@/lib/social-tools";
-import { aiDirectoryTools, isSponsored } from "@/lib/ai-directory";
+import { aiDirectoryTools, isSponsored, rotateSponsored } from "@/lib/ai-directory";
 import type { Metadata } from "next";
 import { getOGImageUrl } from "@/lib/og-image-generator";
 import { getSiteLinksSearchBoxSchema, getAuthorSchema } from "@/lib/enhanced-schemas";
@@ -104,7 +104,9 @@ export default function Home() {
   // Two separate lists rather than one sorted list, because they are labelled
   // differently in the markup and must never silently blend into each other.
   const approvedTools = aiDirectoryTools.filter((t) => t.approved);
-  const sponsoredAITools = approvedTools.filter((t) => isSponsored(t)).slice(0, 4);
+  // Rotated daily, not sliced: lifetime placements would otherwise fill the
+  // four slots permanently and leave nothing further to sell.
+  const sponsoredAITools = rotateSponsored(approvedTools.filter((t) => isSponsored(t)), 4);
   const featuredAITools = approvedTools
     .filter((t) => t.featured && !isSponsored(t))
     .slice(0, 8 - sponsoredAITools.length);

@@ -33,6 +33,7 @@ interface Submission {
   notes?: string;
   sponsored?: boolean;
   sponsoredUntil?: string;
+  sponsoredLifetime?: boolean;
   sponsorshipNote?: string;
   notifiedStatus?: string;
   notifiedAt?: string;
@@ -153,6 +154,7 @@ export default function AdminPage() {
       notes?: string;
       sponsored?: boolean;
       sponsoredUntil?: string;
+      sponsoredLifetime?: boolean;
       sponsorshipNote?: string;
     }
   ) {
@@ -370,10 +372,25 @@ export default function AdminPage() {
                           Sponsored placement
                         </label>
                         <label className="flex items-center gap-2 text-xs text-amber-900">
+                          <input
+                            type="checkbox"
+                            checked={!!s.sponsoredLifetime}
+                            onChange={(e) =>
+                              void patch(s.id, { sponsoredLifetime: e.target.checked })
+                            }
+                          />
+                          Lifetime
+                        </label>
+                        <label
+                          className={`flex items-center gap-2 text-xs text-amber-900 ${
+                            s.sponsoredLifetime ? "opacity-40" : ""
+                          }`}
+                        >
                           Runs until
                           <input
                             type="date"
                             defaultValue={s.sponsoredUntil || ""}
+                            disabled={!!s.sponsoredLifetime}
                             onBlur={(e) => {
                               if (e.target.value !== (s.sponsoredUntil || "")) {
                                 void patch(s.id, { sponsoredUntil: e.target.value });
@@ -389,7 +406,12 @@ export default function AdminPage() {
                           placement on it would show nowhere.
                         </p>
                       )}
-                      {s.sponsored && s.sponsoredUntil && (
+                      {s.sponsored && s.sponsoredLifetime && (
+                        <p className="text-xs text-amber-800 mb-2">
+                          Lifetime placement — never expires.
+                        </p>
+                      )}
+                      {s.sponsored && !s.sponsoredLifetime && s.sponsoredUntil && (
                         <p className="text-xs text-amber-800 mb-2">
                           {Date.parse(`${s.sponsoredUntil}T23:59:59Z`) < Date.now()
                             ? "Expired — no longer showing anywhere on the site."

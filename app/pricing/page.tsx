@@ -17,17 +17,16 @@ import { Check, Info, X } from "lucide-react";
  */
 
 const FEATURED_PRICE_USD = 5;
-const FEATURED_DAYS = 30;
 
 export const metadata: Metadata = {
-  title: "Pricing — Free Listing or $5 Featured Placement",
+  title: "Pricing — Free Listing or $5 Lifetime Featured Placement",
   description:
-    "Listing an AI tool is free and permanent. Featured placement is $5 for 30 days on the homepage and the top of the directory, labelled as sponsored.",
+    "Listing an AI tool is free and permanent. Featured placement is a one-off $5 for life — homepage, top of the directory, and review within 30 minutes.",
   alternates: { canonical: "https://aisocialtools.co/pricing" },
   openGraph: {
     title: "AI Directory Pricing",
     description:
-      "Free permanent listings. $5 for 30 days of featured placement, clearly labelled.",
+      "Free permanent listings. $5 once for lifetime featured placement, clearly labelled.",
     url: "https://aisocialtools.co/pricing",
     type: "website",
   },
@@ -44,11 +43,11 @@ const freeIncludes = [
 
 const featuredIncludes = [
   "Everything in the free listing",
-  `A slot in the homepage featured strip for ${FEATURED_DAYS} days`,
+  "A slot in the homepage featured strip, for the life of the listing",
   "Pinned to the top of the directory and of its category",
   "Clearly labelled as Sponsored",
-  "Priority review — 48 hours instead of 7 days",
-  `Renewable for another $${FEATURED_PRICE_USD} whenever it lapses`,
+  "Reviewed within 30 minutes, not 7 days",
+  "One payment. No renewal, no subscription, nothing to cancel",
 ];
 
 const notIncluded = [
@@ -71,7 +70,7 @@ export default function PricingPage() {
     "@context": "https://schema.org",
     "@type": "Product",
     name: "Featured AI directory listing",
-    description: `Featured placement in the aisocialtools.co AI directory for ${FEATURED_DAYS} days.`,
+    description: "Lifetime featured placement in the aisocialtools.co AI directory.",
     offers: {
       "@type": "Offer",
       price: String(FEATURED_PRICE_USD),
@@ -97,12 +96,13 @@ export default function PricingPage() {
             <Breadcrumbs embedded />
             <Badge variant="neutral" className="mb-3">Pricing</Badge>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-zinc-950 dark:text-white tracking-tight leading-tight mb-5">
-              Listing is free. Standing out costs ${FEATURED_PRICE_USD}.
+              Listing is free. Standing out costs ${FEATURED_PRICE_USD}, once.
             </h1>
             <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-2xl">
               Every tool in this directory was checked by a person before it went live, and
-              that does not change if you pay. What ${FEATURED_PRICE_USD} buys is position,
-              for {FEATURED_DAYS} days, clearly marked as paid for.
+              that does not change if you pay. What ${FEATURED_PRICE_USD} buys is position —
+              for the life of the listing, reviewed within 30 minutes, and clearly marked as
+              paid for.
             </p>
           </div>
         </section>
@@ -145,7 +145,7 @@ export default function PricingPage() {
                   ${FEATURED_PRICE_USD}
                 </p>
                 <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-6">
-                  One payment, {FEATURED_DAYS} days. Not a subscription.
+                  One payment, for life. Not a subscription.
                 </p>
                 <ul className="space-y-3 flex-1 mb-7">
                   {featuredIncludes.map((f) => (
@@ -198,9 +198,9 @@ export default function PricingPage() {
             <ol className="space-y-5">
               {[
                 ["Submit", "Free, and no account required. Tell us what the tool does and what it costs."],
-                ["We check it", "A person opens the link, confirms the pricing, and reads enough to write an honest line about it."],
+                ["We check it", "A person opens the link, confirms the pricing, and reads enough to write an honest line about it. Featured submissions are reviewed within 30 minutes."],
                 ["You hear back", "An email either way, with a reference. Approved tools go live immediately."],
-                [`Feature it for $${FEATURED_PRICE_USD}`, `Optional, and only offered once your tool is approved. ${FEATURED_DAYS} days up top, labelled as sponsored.`],
+                [`Feature it for $${FEATURED_PRICE_USD}`, "Optional, and only offered once your tool is approved. Permanently up top, labelled as sponsored."],
               ].map(([title, body], i) => (
                 <li key={title} className="flex gap-4">
                   <span className="flex-shrink-0 w-7 h-7 rounded-full border border-zinc-200 dark:border-zinc-800 flex items-center justify-center text-xs font-semibold text-zinc-500">

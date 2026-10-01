@@ -58,11 +58,17 @@ export interface AIDirectoryTool {
    */
   sponsored?: boolean;
   /**
-   * ISO date the placement runs out. Required alongside `sponsored` so a
-   * lapsed sponsor stops rendering on its own rather than sitting on the
-   * homepage forever because nobody remembered to remove it.
+   * ISO date the placement runs out. Required alongside `sponsored` unless
+   * `sponsoredLifetime` is set, so a lapsed sponsor stops rendering on its own
+   * rather than sitting on the homepage forever because nobody remembered to
+   * remove it.
    */
   sponsoredUntil?: string;
+  /**
+   * Placement never expires. Explicit rather than "no end date means forever",
+   * because a missing date is far more often a mistake than an intention.
+   */
+  sponsoredLifetime?: boolean;
   /** trending in last 30 days */
   trending?: boolean;
   /** isNew if added < 30 days ago */
@@ -6396,12 +6402,34 @@ export const aiDirectoryTools: AIDirectoryTool[] = [
  * field on its own says a placement was sold, not that it is still running.
  */
 export function isSponsored(
-  tool: Pick<AIDirectoryTool, "sponsored" | "sponsoredUntil">,
+  tool: Pick<AIDirectoryTool, "sponsored" | "sponsoredUntil" | "sponsoredLifetime">,
   now: Date = new Date()
 ): boolean {
-  if (!tool.sponsored || !tool.sponsoredUntil) return false;
+  if (!tool.sponsored) return false;
+  if (tool.sponsoredLifetime) return true;
+  if (!tool.sponsoredUntil) return false;
   const until = Date.parse(`${tool.sponsoredUntil}T23:59:59Z`);
   return Number.isFinite(until) && until >= now.getTime();
+}
+
+/**
+ * Which sponsors to show in the homepage strip, which holds only `slots`.
+ *
+ * Lifetime placements create an inventory problem: once `slots` of them are
+ * sold the strip is full for good and no further placement can be sold, which
+ * caps homepage revenue permanently. Rotating by day keeps every sponsor
+ * visible over time while leaving slots sellable forever.
+ *
+ * The offset is derived from the date rather than Math.random so the choice is
+ * stable for a whole UTC day - otherwise every ISR regeneration would reshuffle
+ * the homepage, and a sponsor checking their placement could easily not see it.
+ */
+export function rotateSponsored<T>(sponsors: T[], slots: number, now: Date = new Date()): T[] {
+  if (sponsors.length <= slots) return sponsors;
+  const dayNumber = Math.floor(now.getTime() / 86_400_000);
+  const start = (dayNumber * slots) % sponsors.length;
+  // Wrap around so the window is always full.
+  return [...sponsors, ...sponsors].slice(start, start + slots);
 }
 
 /* =====================================================================
