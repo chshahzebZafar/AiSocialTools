@@ -75,7 +75,25 @@ function splitFeatures(value: unknown): string[] {
  * Returns [] when Firestore is not configured, so the public site degrades to
  * the curated directory rather than erroring.
  */
+/**
+ * In-process cache. Every category page, detail page and API call used to run
+ * its own 500-document query, each revalidating every 5 minutes - across 27
+ * category pages that is millions of reads a day against Firestore's 50,000
+ * free-tier allowance. The quota duly ran out, the query started failing with
+ * RESOURCE_EXHAUSTED, the catch below returned [], and the public directory
+ * silently showed nothing.
+ *
+ * A warm serverless instance now does one read per TTL instead of one per
+ * render. Instances are ephemeral so this is not a guarantee, only a large
+ * reduction - the real fix is moving this data to Supabase, where it is a
+ * single indexed view rather than a full-collection scan.
+ */
+const CACHE_TTL_MS = 5 * 60 * 1000;
+let cache: { at: number; tools: LiveTool[] } | null = null;
+
 export async function getLiveApprovedTools(): Promise<LiveTool[]> {
+  if (cache && Date.now() - cache.at < CACHE_TTL_MS) return cache.tools;
+
   const db = getDb();
   if (!db) return [];
 
@@ -126,12 +144,16 @@ export async function getLiveApprovedTools(): Promise<LiveTool[]> {
         live: true,
       });
     }
+    cache = { at: Date.now(), tools: out };
     return out;
   } catch (err) {
     // A Firestore problem must not take the public directory down.
     // eslint-disable-next-line no-console
     console.warn("[directory-live] could not read approved submissions:", err);
-    return [];
+    // Serve the last good result rather than an empty directory. A quota
+    // failure is temporary; showing nothing looks like the listings were
+    // deleted, which is far worse and is exactly what happened here.
+    return cache?.tools ?? [];
   }
 }
 
