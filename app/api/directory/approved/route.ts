@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getPublishedTools } from "@/lib/directory-store";
+import { getPublishedTools, usingSupabase } from "@/lib/directory-store";
 
 export const runtime = "nodejs";
 // Cached for 5 minutes: an approval should show up quickly, but the public
@@ -18,6 +18,11 @@ export async function GET() {
   return NextResponse.json(
     {
       ok: true,
+      // Which store answered. Returned so a zero count can be diagnosed from
+      // outside without guessing at env vars: "supabase" with count 0 means
+      // the data is not migrated yet, "firestore" with count 0 means the
+      // Firestore read itself came back empty.
+      source: usingSupabase() ? "supabase" : "firestore",
       count: tools.length,
       tools: tools.map((t) => ({
         slug: t.slug,
