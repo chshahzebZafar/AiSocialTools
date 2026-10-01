@@ -29,15 +29,37 @@ const ANON =
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
   process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 
-/** True when the public keys are present, so UI can hide what cannot work. */
-export const isSupabaseReady = Boolean(URL && ANON);
+/**
+ * A present variable is not a usable one. A placeholder, a trailing comment or
+ * a half-pasted value all read as truthy, and createClient throws on a bad
+ * URL - which, during a build, fails the whole page rather than disabling one
+ * feature. Validate the shape first and treat anything else as unconfigured.
+ */
+function validUrl(value: string | undefined): value is string {
+  if (!value) return false;
+  try {
+    const u = new globalThis.URL(value);
+    return u.protocol === "https:" || u.protocol === "http:";
+  } catch {
+    return false;
+  }
+}
+
+/** True when the public config is present AND usable. */
+export const isSupabaseReady = validUrl(URL) && Boolean(ANON);
 
 let browserClient: SupabaseClient | null | undefined;
 
 /** Browser-side client. Subject to RLS. Safe to use in client components. */
 export function supabaseBrowser(): SupabaseClient | null {
   if (browserClient !== undefined) return browserClient;
-  browserClient = URL && ANON ? createClient(URL, ANON) : null;
+  try {
+    browserClient = validUrl(URL) && ANON ? createClient(URL, ANON) : null;
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error("[supabase] browser client could not be created:", err);
+    browserClient = null;
+  }
   if (!browserClient) {
     // eslint-disable-next-line no-console
     console.warn(
@@ -61,20 +83,29 @@ export function supabaseAdmin(): SupabaseClient | null {
   if (adminClient !== undefined) return adminClient;
 
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!URL || !key) {
+  if (!validUrl(URL) || !key) {
     // eslint-disable-next-line no-console
     console.warn(
       "[supabase] " +
-        `${!URL ? "NEXT_PUBLIC_SUPABASE_URL " : ""}${!key ? "SUPABASE_SERVICE_ROLE_KEY " : ""}` +
-        "not set — server-side directory storage disabled."
+        `${!validUrl(URL) ? "NEXT_PUBLIC_SUPABASE_URL (missing or not a URL) " : ""}` +
+        `${!key ? "SUPABASE_SERVICE_ROLE_KEY " : ""}` +
+        "— server-side directory storage disabled, falling back to Firestore."
     );
     adminClient = null;
     return adminClient;
   }
 
-  adminClient = createClient(URL, key, {
-    auth: { persistSession: false, autoRefreshToken: false },
-  });
+  try {
+    adminClient = createClient(URL, key, {
+      auth: { persistSession: false, autoRefreshToken: false },
+    });
+  } catch (err) {
+    // A bad value must disable Supabase, not crash every page that reads the
+    // directory. getPublishedTools() falls back to Firestore when this is null.
+    // eslint-disable-next-line no-console
+    console.error("[supabase] admin client could not be created:", err);
+    adminClient = null;
+  }
   return adminClient;
 }
 
