@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getLiveApprovedTools } from "@/lib/directory-live";
+import { getPublishedTools } from "@/lib/directory-store";
 
 export const runtime = "nodejs";
 // Cached for 5 minutes: an approval should show up quickly, but the public
@@ -14,7 +14,7 @@ export const revalidate = 300;
  * ever leave the admin API.
  */
 export async function GET() {
-  const tools = await getLiveApprovedTools();
+  const tools = await getPublishedTools();
   return NextResponse.json(
     {
       ok: true,

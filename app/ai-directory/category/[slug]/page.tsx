@@ -12,7 +12,7 @@ import {
   getCategoryBySlug,
   MIN_TOOLS_TO_INDEX,
 } from "@/lib/directory-categories";
-import { asDirectoryTool, getLiveApprovedTools } from "@/lib/directory-live";
+import { getPublishedTools } from "@/lib/directory-store";
 import { ArrowLeft, ArrowUpRight, BadgeCheck, Check } from "lucide-react";
 
 /**
@@ -38,9 +38,7 @@ async function toolsInCategory(name: string): Promise<AIDirectoryTool[]> {
   const curated = aiDirectoryTools.filter(
     (t) => t.approved && (t.category === name || t.subcategories?.includes(name as never))
   );
-  const live = (await getLiveApprovedTools())
-    .filter((t) => t.category === name)
-    .map(asDirectoryTool);
+  const live = (await getPublishedTools()).filter((t) => t.category === name);
   const taken = new Set(curated.map((t) => t.slug));
   return [...curated, ...live.filter((t) => !taken.has(t.slug))];
 }

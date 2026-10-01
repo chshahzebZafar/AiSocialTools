@@ -25,7 +25,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import type { Metadata } from "next";
-import { asDirectoryTool, getLiveToolBySlug } from "@/lib/directory-live";
+import { getPublishedToolBySlug } from "@/lib/directory-store";
 
 // Approved submissions are published from Firestore without a deploy, so this
 // route must also serve slugs that did not exist at build time. Those render on
@@ -39,8 +39,7 @@ export const revalidate = 300;
 async function resolveTool(slug: string) {
   const curated = getDirectoryToolBySlug(slug);
   if (curated) return curated;
-  const live = await getLiveToolBySlug(slug);
-  return live ? asDirectoryTool(live) : undefined;
+  return getPublishedToolBySlug(slug);
 }
 
 export async function generateStaticParams() {
