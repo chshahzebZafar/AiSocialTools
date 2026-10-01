@@ -35,6 +35,7 @@ const linkSections: FooterSection[] = [
       { href: "/ai-directory/category/chat-writing", label: "Chat & writing" },
       { href: "/ai-directory/category/image-generation", label: "Image generation" },
       { href: "/ai-directory/submit", label: "Submit a tool" },
+      { href: "/pricing", label: "Pricing" },
     ],
   },
   {
