@@ -17,7 +17,17 @@ import { createClient, type SupabaseClient } from "@supabase/supabase-js";
  */
 
 const URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const ANON = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+/**
+ * Supabase is mid-rename: older projects issue an "anon" JWT, newer ones a
+ * "publishable" key, and the dashboard's own Connect snippet hands you
+ * whichever your project uses. Accepting both names means a correct key under
+ * either variable works, instead of the app reporting "not configured" while
+ * the key sits right there under the other spelling.
+ */
+const ANON =
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 
 /** True when the public keys are present, so UI can hide what cannot work. */
 export const isSupabaseReady = Boolean(URL && ANON);
@@ -30,7 +40,10 @@ export function supabaseBrowser(): SupabaseClient | null {
   browserClient = URL && ANON ? createClient(URL, ANON) : null;
   if (!browserClient) {
     // eslint-disable-next-line no-console
-    console.warn("[supabase] NEXT_PUBLIC_SUPABASE_URL/ANON_KEY not set — accounts disabled.");
+    console.warn(
+      "[supabase] NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY " +
+        "(or _PUBLISHABLE_KEY) not set — accounts disabled."
+    );
   }
   return browserClient;
 }
