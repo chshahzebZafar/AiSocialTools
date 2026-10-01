@@ -20,9 +20,34 @@
  * It does not delete anything from Firestore. Verify Supabase first, cut the
  * app over, watch it for a few days, and only then decommission.
  */
+import { readFileSync, existsSync } from "node:fs";
 import { createClient } from "@supabase/supabase-js";
 import { cert, getApps, initializeApp } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
+
+/**
+ * Loads .env.local so credentials live in a gitignored file rather than being
+ * typed into a shell (where they end up in history) or pasted into a chat.
+ * Existing environment variables win, so CI can still override.
+ */
+const SPLIT_LINES = new RegExp(String.fromCharCode(92) + "r?" + String.fromCharCode(92) + "n");
+
+function loadEnvLocal(file = ".env.local") {
+  if (!existsSync(file)) return;
+  for (const line of readFileSync(file, "utf8").split(SPLIT_LINES)) {
+    const m = /^\s*([A-Z0-9_]+)\s*=\s*(.*)$/.exec(line);
+    if (!m) continue;
+    let v = m[2].trim();
+    if (
+      (v.startsWith('"') && v.endsWith('"')) ||
+      (v.startsWith("'") && v.endsWith("'"))
+    ) {
+      v = v.slice(1, -1);
+    }
+    if (process.env[m[1]] === undefined) process.env[m[1]] = v;
+  }
+}
+loadEnvLocal();
 
 const APPLY = process.argv.includes("--apply");
 const SUBMISSIONS = "aiDirectorySubmissions";
@@ -40,10 +65,15 @@ function fail(msg) {
   process.exit(1);
 }
 
-const rawAccount = process.env.FIREBASE_SERVICE_ACCOUNT_JSON;
+// Either the inline JSON/base64 (as in Vercel) or a path to the downloaded
+// service-account file, whichever is easier to hand.
+const accountFile = process.env.FIREBASE_SERVICE_ACCOUNT_FILE;
+const rawAccount =
+  process.env.FIREBASE_SERVICE_ACCOUNT_JSON ||
+  (accountFile && existsSync(accountFile) ? readFileSync(accountFile, "utf8") : "");
 const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-if (!rawAccount) fail("FIREBASE_SERVICE_ACCOUNT_JSON is not set.");
+if (!rawAccount) fail("Set FIREBASE_SERVICE_ACCOUNT_FILE (path to the downloaded JSON) or FIREBASE_SERVICE_ACCOUNT_JSON in .env.local.");
 if (!url || !serviceKey) fail("NEXT_PUBLIC_SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY are not set.");
 
 const account = parseServiceAccount(rawAccount);
