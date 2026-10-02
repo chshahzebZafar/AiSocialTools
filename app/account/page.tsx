@@ -55,6 +55,23 @@ function SignInPanel() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
+  const [googleEnabled, setGoogleEnabled] = useState(false);
+
+  // Supabase reports which providers are enabled. Asking it beats hard-coding,
+  // because the button then appears by itself the day Google is switched on,
+  // and never appears while it would only produce an error.
+  useEffect(() => {
+    const supabase = supabaseBrowser();
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const key =
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+      process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+    if (!supabase || !url || !key) return;
+    fetch(`${url}/auth/v1/settings`, { headers: { apikey: key } })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => setGoogleEnabled(Boolean(d?.external?.google)))
+      .catch(() => setGoogleEnabled(false));
+  }, []);
 
   async function run(fn: () => Promise<void>) {
     setBusy(true);
@@ -108,9 +125,20 @@ function SignInPanel() {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          void run(() =>
-            mode === "in" ? signInWithEmail(email, password) : signUpWithEmail(email, password)
-          );
+          void run(async () => {
+            if (mode === "in") {
+              await signInWithEmail(email, password);
+              return;
+            }
+            await signUpWithEmail(email, password);
+            // Confirmation is required, so a successful signup leaves the
+            // person signed out and nothing on screen changes. Without this
+            // the form looks broken - which is exactly how it was reported.
+            setNotice(
+              `Account created. Check ${email} for a confirmation link — you need to click it before you can sign in.`
+            );
+            setPassword("");
+          });
         }}
         className="space-y-3"
       >
@@ -143,13 +171,15 @@ function SignInPanel() {
         </button>
       </form>
 
-      <button
-        onClick={() => void run(signInWithGoogle)}
-        disabled={busy}
-        className="w-full h-10 mt-3 rounded-lg border border-zinc-300 dark:border-zinc-700 text-sm font-medium hover:bg-zinc-50 dark:hover:bg-zinc-900 disabled:opacity-60"
-      >
-        Continue with Google
-      </button>
+      {googleEnabled && (
+        <button
+          onClick={() => void run(signInWithGoogle)}
+          disabled={busy}
+          className="w-full h-10 mt-3 rounded-lg border border-zinc-300 dark:border-zinc-700 text-sm font-medium hover:bg-zinc-50 dark:hover:bg-zinc-900 disabled:opacity-60"
+        >
+          Continue with Google
+        </button>
+      )}
 
       {mode === "in" && (
         <button
