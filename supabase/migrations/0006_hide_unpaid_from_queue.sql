@@ -11,6 +11,10 @@
 --
 -- Idempotent. Run after 0005, in a separate statement from it: a new enum
 -- value cannot be used in the same transaction that added it.
+--
+-- WARNING: this drops the view before recreating it, so a create that does
+-- not land leaves no view at all and the dashboard fails with PGRST205.
+-- Check the result, and if it errored run 0007, which repairs it.
 
 drop view if exists public.my_submissions;
 
