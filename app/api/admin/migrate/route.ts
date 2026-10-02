@@ -50,6 +50,8 @@ type Mapped = {
   notes: { reference: string; notes: string; sponsorship_note: string }[];
   problems: string[];
   total: number;
+  /** Slug collisions resolved during mapping, oldest submission keeping it. */
+  renamed: string[];
 };
 
 async function readAndMap(): Promise<Mapped | { error: string }> {
@@ -111,12 +113,40 @@ async function readAndMap(): Promise<Mapped | { error: string }> {
 
   const refs = rows.map((r) => String(r.reference));
   const dupeRefs = [...new Set(refs.filter((r, i) => refs.indexOf(r) !== i))];
+  // A duplicate reference is unresolvable here - two submissions claiming the
+  // same identity needs a human - so it still blocks the write.
   if (dupeRefs.length) problems.push(`duplicate references: ${dupeRefs.join(", ")}`);
-  const slugs = rows.map((r) => r.slug).filter(Boolean) as string[];
-  const dupeSlugs = [...new Set(slugs.filter((s, i) => slugs.indexOf(s) !== i))];
-  if (dupeSlugs.length) problems.push(`duplicate slugs: ${dupeSlugs.join(", ")}`);
 
-  return { rows, notes, problems, total: snap.size };
+  // Duplicate slugs are resolvable, and must be: slug is unique in Postgres,
+  // so the write would fail partway through and leave the move half done.
+  //
+  // The oldest submission keeps the slug, later ones get a numeric suffix.
+  // That preserves whichever URL has been public longest - any link already
+  // pointing at it keeps working - and matches what the live site already
+  // shows, since the Firestore read also keeps only the first of a duplicate
+  // pair. The renames are reported so they are a visible decision, not a
+  // silent one.
+  const renamed: string[] = [];
+  const byAge = [...rows].sort((a, b) =>
+    String(a.submitted_at).localeCompare(String(b.submitted_at))
+  );
+  const takenSlugs = new Set<string>();
+  for (const r of byAge) {
+    const slug = r.slug ? String(r.slug) : "";
+    if (!slug) continue;
+    if (!takenSlugs.has(slug)) {
+      takenSlugs.add(slug);
+      continue;
+    }
+    let n = 2;
+    let candidate = `${slug}-${n}`;
+    while (takenSlugs.has(candidate)) candidate = `${slug}-${++n}`;
+    takenSlugs.add(candidate);
+    r.slug = candidate;
+    renamed.push(`${slug} -> ${candidate} (${r.reference})`);
+  }
+
+  return { rows, notes, problems, total: snap.size, renamed };
 }
 
 function summarise(m: Mapped) {
@@ -132,6 +162,7 @@ function summarise(m: Mapped) {
     published: m.rows.filter((r) => r.slug).length,
     sponsored: m.rows.filter((r) => r.sponsored).length,
     privateNotes: m.notes.length,
+    slugCollisionsResolved: m.renamed,
     problems: m.problems,
   };
 }

@@ -206,7 +206,37 @@ function SignInPanel() {
 }
 
 export default function AccountPage() {
-  const { user, loading, logout } = useAuth();
+  const { user, session, loading, logout } = useAuth();
+  const [buying, setBuying] = useState("");
+  const [buyError, setBuyError] = useState("");
+
+  /**
+   * Send the owner to Dodo checkout for this listing. The server builds the
+   * URL so the product id stays off the client, and nothing is marked paid
+   * here - the webhook does that, because a redirect proves nothing.
+   */
+  async function featureListing(reference: string) {
+    setBuying(reference);
+    setBuyError("");
+    try {
+      const res = await fetch("/api/account/checkout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...(session?.access_token
+            ? { Authorization: `Bearer ${session.access_token}` }
+            : {}),
+        },
+        body: JSON.stringify({ reference }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.url) throw new Error(data.error || "Could not start checkout.");
+      window.location.href = data.url;
+    } catch (err) {
+      setBuyError(err instanceof Error ? err.message : "Could not start checkout.");
+      setBuying("");
+    }
+  }
   const [rows, setRows] = useState<Submission[] | null>(null);
   const [error, setError] = useState("");
 
@@ -290,6 +320,7 @@ export default function AccountPage() {
                 )}
 
                 {error && <p className="text-sm text-red-600 mb-6">{error}</p>}
+                {buyError && <p className="text-sm text-red-600 mb-6">{buyError}</p>}
 
                 {rows === null ? (
                   <p className="text-sm text-zinc-500 inline-flex items-center gap-2">
@@ -342,6 +373,18 @@ export default function AccountPage() {
                             </Link>
                           )}
                         </div>
+
+                        {/* Upsell only where it can be honoured: published, and
+                            not already featured. */}
+                        {s.status === "approved" && !s.sponsored && (
+                          <button
+                            onClick={() => void featureListing(s.reference)}
+                            disabled={buying === s.reference}
+                            className="mt-3 inline-flex items-center gap-1.5 h-8 px-3 text-xs font-medium rounded-lg border border-amber-300 bg-amber-50 text-amber-900 hover:bg-amber-100 disabled:opacity-60 transition-colors"
+                          >
+                            {buying === s.reference ? "Opening checkout…" : "Feature this listing — $5 for life"}
+                          </button>
+                        )}
                       </li>
                     ))}
                   </ul>

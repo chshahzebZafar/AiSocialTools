@@ -142,6 +142,35 @@ export async function getSubmission(id: string): Promise<StoredRow | null> {
   return rowFromSupabase(data, note ?? undefined);
 }
 
+/**
+ * Look a submission up by its public reference (SC-20260920-AB12).
+ *
+ * Needed by the payment webhook, which knows the reference it put in checkout
+ * metadata but not the storage id - those differ between the two backends
+ * (Firestore uses the reference as the document id, Supabase has a uuid).
+ */
+export async function getSubmissionByReference(reference: string): Promise<StoredRow | null> {
+  const db = supabaseAdmin();
+  if (!db) {
+    const fs = getDb();
+    if (!fs) return null;
+    // Firestore keyed new submissions by reference, so try that first, then
+    // fall back to a field query for anything backfilled under another id.
+    const direct = await fs.collection(SUBMISSIONS).doc(reference).get();
+    if (direct.exists) return { id: direct.id, ...(direct.data() as object) } as StoredRow;
+    const q = await fs.collection(SUBMISSIONS).where("reference", "==", reference).limit(1).get();
+    const doc = q.docs[0];
+    return doc ? ({ id: doc.id, ...(doc.data() as object) } as StoredRow) : null;
+  }
+
+  const { data } = await db
+    .from("submissions")
+    .select("*")
+    .eq("reference", reference)
+    .maybeSingle();
+  return data ? rowFromSupabase(data) : null;
+}
+
 /** Fields the admin may change. Notes are routed to their own table. */
 export interface SubmissionPatch {
   status?: string;
