@@ -253,6 +253,17 @@ export default function AccountPage() {
     const supabase = supabaseBrowser();
     if (!supabase) return;
     setError("");
+
+    // Claim anything submitted before this account existed. Rows migrated from
+    // Firestore carry no owner, and my_submissions matches on owner_id, so
+    // without this a person who submitted last month sees an empty dashboard
+    // and concludes their tool was never received.
+    if (session?.access_token) {
+      await fetch("/api/account/claim", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${session.access_token}` },
+      }).catch(() => {});
+    }
     const { data, error: err } = await supabase
       .from("my_submissions")
       .select("*")
@@ -262,7 +273,7 @@ export default function AccountPage() {
       return;
     }
     setRows((data ?? []) as Submission[]);
-  }, []);
+  }, [session]);
 
   useEffect(() => {
     if (user) void load();
@@ -328,9 +339,12 @@ export default function AccountPage() {
                   </p>
                 ) : rows.length === 0 ? (
                   <div className="text-center py-14 border border-dashed border-zinc-200 dark:border-zinc-800 rounded-xl">
-                    <p className="text-zinc-600 dark:text-zinc-400 mb-1">Nothing submitted yet.</p>
+                    <p className="text-zinc-600 dark:text-zinc-400 mb-1">
+                      No listings under this account yet.
+                    </p>
                     <p className="text-sm text-zinc-500 mb-6">
-                      Listing is free, and we check every submission before it goes live.
+                      If you have submitted a tool before, it will appear here once your email
+                      address is confirmed and matches the one you submitted with.
                     </p>
                     <ButtonLink href="/ai-directory/submit" size="md">Submit a tool</ButtonLink>
                   </div>
