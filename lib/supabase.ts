@@ -30,6 +30,31 @@ const ANON =
   process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 
 /**
+ * Which store the directory reads and writes.
+ *
+ * Deliberately separate from whether credentials exist. Having the
+ * service-role key present used to be the switch, which meant simply adding
+ * the key to Vercel silently repointed the live site at an empty database -
+ * it took the public directory down twice before this was separated out.
+ *
+ * Credentials now only grant the ability to connect. Set
+ * DIRECTORY_STORE=supabase to actually use it, which is a deliberate act
+ * taken once the data is in place. Anything else, including unset, keeps
+ * Firestore.
+ */
+export function directoryStore(): "supabase" | "firestore" {
+  return process.env.DIRECTORY_STORE === "supabase" ? "supabase" : "firestore";
+}
+
+/**
+ * A Supabase client regardless of which store is live, for the migration and
+ * for verifying the data landed before flipping the switch.
+ */
+export function supabaseIfConfigured(): SupabaseClient | null {
+  return buildAdminClient();
+}
+
+/**
  * A present variable is not a usable one. A placeholder, a trailing comment or
  * a half-pasted value all read as truthy, and createClient throws on a bad
  * URL - which, during a build, fails the whole page rather than disabling one
@@ -80,6 +105,12 @@ let adminClient: SupabaseClient | null | undefined;
  * that silently adopted a cached session would be a confusing security bug.
  */
 export function supabaseAdmin(): SupabaseClient | null {
+  // Credentials alone must not repoint the site; the store flag decides.
+  if (directoryStore() !== "supabase") return null;
+  return buildAdminClient();
+}
+
+function buildAdminClient(): SupabaseClient | null {
   if (adminClient !== undefined) return adminClient;
 
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;

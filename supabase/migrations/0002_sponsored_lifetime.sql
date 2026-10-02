@@ -27,7 +27,15 @@ returns boolean language sql immutable as $$
 $$;
 
 -- Both views call is_sponsored, so they are rebuilt against the new signature.
-create or replace view public.published_tools as
+--
+-- Dropped rather than replaced: CREATE OR REPLACE VIEW can only append columns
+-- to the end of the list. my_submissions gains sponsored_lifetime in the
+-- middle, which Postgres reads as renaming the column that was already in that
+-- position and refuses with 42P16.
+drop view if exists public.published_tools;
+drop view if exists public.my_submissions;
+
+create view public.published_tools as
   select
     s.id,
     s.slug,
@@ -48,7 +56,7 @@ create or replace view public.published_tools as
 
 grant select on public.published_tools to anon, authenticated;
 
-create or replace view public.my_submissions
+create view public.my_submissions
 with (security_invoker = true) as
   select
     s.id,
