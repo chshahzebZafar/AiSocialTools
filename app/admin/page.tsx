@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { StatTile, SubmissionsOverTime, TopCategories } from "@/components/admin/Charts";
 
 /**
  * Submission inbox.
@@ -173,6 +174,49 @@ export default function AdminPage() {
     }
   }
 
+  /**
+   * Dashboard figures. Derived from the rows already loaded rather than
+   * fetched separately: the list is capped at a few hundred, so a second
+   * round trip would buy nothing.
+   */
+  const stats = useMemo(() => {
+    const byStatus = (st: string) => items.filter((i) => (i.status ?? "new") === st).length;
+    const featured = items.filter((i) => i.sponsored).length;
+
+    // Last 30 days, including days with nothing - a gap in a time series must
+    // read as zero, not as a missing point.
+    const days: Array<{ date: string; count: number }> = [];
+    const today = new Date();
+    for (let d = 29; d >= 0; d--) {
+      const day = new Date(today.getTime() - d * 86400000).toISOString().slice(0, 10);
+      days.push({ date: day, count: 0 });
+    }
+    const index = new Map(days.map((d, i) => [d.date, i]));
+    for (const it of items) {
+      const day = String(it.submittedAt ?? "").slice(0, 10);
+      const i = index.get(day);
+      if (i !== undefined) days[i].count += 1;
+    }
+
+    const cat = new Map<string, number>();
+    for (const it of items) {
+      const k = (it.category || "Uncategorised").trim();
+      cat.set(k, (cat.get(k) ?? 0) + 1);
+    }
+    const categories = [...cat.entries()]
+      .map(([label, count]) => ({ label, count }))
+      .sort((a, b) => b.count - a.count);
+
+    return {
+      total: items.length,
+      waiting: byStatus("new"),
+      published: byStatus("approved"),
+      featured,
+      days,
+      categories,
+    };
+  }, [items]);
+
   const counts = useMemo(() => {
     const c: Record<string, number> = { all: items.length };
     for (const s of items) c[s.status || "new"] = (c[s.status || "new"] || 0) + 1;
@@ -244,6 +288,23 @@ export default function AdminPage() {
         <div className="mb-5 p-3 rounded-md border border-red-200 bg-red-50 text-sm text-red-700">{loadError}</div>
       )}
 
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
+        <StatTile label="Total submissions" value={stats.total} />
+        <StatTile
+          label="Awaiting review"
+          value={stats.waiting}
+          tone={stats.waiting > 0 ? "attention" : "neutral"}
+          hint={stats.waiting > 0 ? "Needs a decision" : "All clear"}
+        />
+        <StatTile label="Published" value={stats.published} tone="good" />
+        <StatTile label="Featured" value={stats.featured} hint="Paid placements" />
+      </div>
+
+      <div className="grid lg:grid-cols-2 gap-3 mb-6">
+        <SubmissionsOverTime points={stats.days} />
+        <TopCategories rows={stats.categories} />
+      </div>
+
       <div className="flex items-center gap-2 mb-4 flex-wrap">
         {(["all", ...STATUSES] as const).map((s) => (
           <button
@@ -285,6 +346,12 @@ export default function AdminPage() {
                   <span className="flex-1 min-w-0">
                     <span className="font-medium text-sm">{s.name || "(no name)"}</span>
                     <span className="block text-xs text-zinc-500 truncate">{s.tagline}</span>
+                    {/* Who sent it, visible without opening the row - it is the
+                        first thing worth knowing when triaging a queue. */}
+                    <span className="block text-xs text-zinc-400 truncate mt-0.5">
+                      {s.submitterName || "Unknown"}
+                      {s.submitterEmail ? ` · ${s.submitterEmail}` : ""}
+                    </span>
                   </span>
                   <span className="text-xs text-zinc-400 whitespace-nowrap">
                     {s.submittedAt ? new Date(s.submittedAt).toLocaleDateString() : ""}
