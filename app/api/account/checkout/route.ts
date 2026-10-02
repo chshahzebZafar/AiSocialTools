@@ -41,11 +41,12 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Listing not found." }, { status: 404 });
   }
 
-  // Only a published listing can be featured; featuring something unapproved
-  // would take money for a placement that shows nowhere.
-  if (row.status !== "approved") {
+  // Two listings can be paid for: one awaiting the payment it was created
+  // for, and a published free listing being upgraded. A declined one cannot -
+  // that would take money for a placement that will never show.
+  if (row.status !== "approved" && row.status !== "awaiting_payment") {
     return NextResponse.json(
-      { error: "This listing is not published yet, so it cannot be featured." },
+      { error: "This listing cannot be featured." },
       { status: 409 }
     );
   }

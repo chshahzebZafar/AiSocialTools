@@ -1,6 +1,6 @@
 "use client";
 
-import { BadgeCheck, Clock, Star, XCircle } from "lucide-react";
+import { BadgeCheck, Clock, CreditCard, Star, XCircle } from "lucide-react";
 
 /**
  * The status a submitter sees on their own listing.
@@ -18,6 +18,12 @@ import { BadgeCheck, Clock, Star, XCircle } from "lucide-react";
 export type ListingStatusValue = "new" | "approved" | "declined" | string;
 
 const STATES: Record<string, { label: string; className: string; Icon: typeof Clock }> = {
+  awaiting_payment: {
+    label: "Payment required",
+    className:
+      "bg-indigo-50 text-indigo-700 border-indigo-200 dark:bg-indigo-500/10 dark:text-indigo-300 dark:border-indigo-500/30",
+    Icon: CreditCard,
+  },
   new: {
     label: "In review",
     className:

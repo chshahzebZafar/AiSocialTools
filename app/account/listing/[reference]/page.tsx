@@ -52,6 +52,7 @@ export default function ListingPage() {
   const [error, setError] = useState("");
   const [copied, setCopied] = useState(false);
   const [buying, setBuying] = useState(false);
+  const [switching, setSwitching] = useState(false);
 
   /**
    * How the person got here from checkout.
@@ -148,6 +149,28 @@ export default function ListingPage() {
     } catch (err) {
       setError(err instanceof Error ? err.message : "Could not start checkout.");
       setBuying(false);
+    }
+  }
+
+  async function listFree() {
+    setSwitching(true);
+    setError("");
+    try {
+      const res = await fetch("/api/account/list-free", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...(session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {}),
+        },
+        body: JSON.stringify({ reference }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Could not update the listing.");
+      await load();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Could not update the listing.");
+    } finally {
+      setSwitching(false);
     }
   }
 
@@ -261,6 +284,35 @@ export default function ListingPage() {
                 </div>
 
                 <div className="px-5 py-4">
+                  {row.status === "awaiting_payment" && (
+                    <div>
+                      <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed mb-4">
+                        This was submitted on the featured plan, but the payment was not
+                        completed — so it has not gone for review yet. Finish paying and it goes
+                        to the front of the queue, or list it free instead and it joins the normal
+                        queue.
+                      </p>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <button
+                          onClick={() => void feature()}
+                          disabled={buying || switching}
+                          className="h-10 px-4 text-sm font-medium rounded-md bg-zinc-950 dark:bg-white text-white dark:text-zinc-950 hover:bg-zinc-800 dark:hover:bg-zinc-200 disabled:opacity-60 inline-flex items-center gap-2 transition-colors"
+                        >
+                          {buying && <Loader2 className="w-4 h-4 animate-spin" />}
+                          {buying ? "Opening checkout…" : "Complete payment — $5"}
+                        </button>
+                        <button
+                          onClick={() => void listFree()}
+                          disabled={buying || switching}
+                          className="h-10 px-4 text-sm rounded-md border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white disabled:opacity-60 inline-flex items-center gap-2 transition-colors"
+                        >
+                          {switching && <Loader2 className="w-4 h-4 animate-spin" />}
+                          List it free instead
+                        </button>
+                      </div>
+                    </div>
+                  )}
+
                   {row.status === "new" && (
                     <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed inline-flex gap-2">
                       <Clock className="w-4 h-4 mt-0.5 text-amber-600 dark:text-amber-400 flex-shrink-0" />
@@ -322,7 +374,9 @@ export default function ListingPage() {
               </div>
 
               {/* Upgrade, only where it can be honoured */}
-              {!row.sponsored && row.status !== "declined" && (
+              {!row.sponsored &&
+                row.status !== "declined" &&
+                row.status !== "awaiting_payment" && (
                 <div className="rounded-xl border border-indigo-200 dark:border-indigo-500/30 bg-indigo-50/60 dark:bg-indigo-500/5 p-5 mb-6">
                   <div className="flex items-start gap-3">
                     <Star className="w-4 h-4 mt-0.5 text-indigo-600 dark:text-indigo-400 flex-shrink-0" />

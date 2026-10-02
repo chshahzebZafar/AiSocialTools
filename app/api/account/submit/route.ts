@@ -106,7 +106,11 @@ export async function POST(req: Request) {
           (who.email ?? "").split("@")[0],
         submitterRole: "",
       },
-      who.id
+      who.id,
+      // Featured starts outside the review queue. If checkout is abandoned the
+      // listing is still theirs to pay for or switch to free, but nobody
+      // reviews it and nobody can publish it for nothing.
+      plan === "featured" ? "awaiting_payment" : "new"
     );
   } catch (err) {
     return NextResponse.json(

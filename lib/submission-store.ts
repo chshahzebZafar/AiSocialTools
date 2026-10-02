@@ -103,12 +103,18 @@ export async function listSubmissions(limit = 200): Promise<StoredRow[]> {
       .orderBy("submittedAt", "desc")
       .limit(limit)
       .get();
-    return snap.docs.map((d) => ({ id: d.id, ...(d.data() as object) })) as StoredRow[];
+    return snap.docs
+      .map((d) => ({ id: d.id, ...(d.data() as object) }) as StoredRow)
+      .filter((r) => r.status !== "awaiting_payment");
   }
 
   const { data, error } = await db
     .from("submissions")
     .select("*")
+    // Unpaid featured submissions are not review work: nobody has paid for
+    // them and publishing one would give away the thing being sold. They stay
+    // visible to their owner, who is the only person who can resolve them.
+    .neq("status", "awaiting_payment")
     .order("submitted_at", { ascending: false })
     .limit(limit);
   if (error) throw new Error(error.message);
@@ -261,7 +267,13 @@ export async function updateSubmission(id: string, patch: SubmissionPatch): Prom
 export async function createSubmission(
   reference: string,
   fields: Record<string, unknown>,
-  ownerId?: string
+  ownerId?: string,
+  /**
+   * Starting status. 'awaiting_payment' keeps a featured submission out of the
+   * review queue until its payment lands - otherwise cancelling checkout
+   * leaves an unpaid listing waiting to be reviewed and published for free.
+   */
+  status: "new" | "awaiting_payment" = "new"
 ): Promise<void> {
   const db = supabaseAdmin();
   if (!db) {
@@ -272,7 +284,7 @@ export async function createSubmission(
       .doc(reference)
       .set({
         ...fields,
-        status: "new",
+        status,
         notes: "",
         source: "form",
         ...(ownerId ? { submitterUid: ownerId } : {}),
@@ -297,7 +309,7 @@ export async function createSubmission(
     submitter_name: f("submitterName"),
     submitter_email: f("submitterEmail"),
     submitter_role: f("submitterRole"),
-    status: "new",
+    status,
     source: "form",
     submitted_at: f("submittedAt") || new Date().toISOString(),
   });

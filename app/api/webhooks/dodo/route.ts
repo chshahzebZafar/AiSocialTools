@@ -84,6 +84,10 @@ export async function POST(req: Request) {
     await updateSubmission(row.id, {
       sponsored: true,
       sponsoredLifetime: true,
+      // Paying is what puts it in front of a reviewer. A row already past
+      // review keeps the status it has - a refunded-then-repaid listing must
+      // not be dragged back into the queue.
+      ...(row.status === "awaiting_payment" ? { status: "new" } : {}),
       // Recorded so a refund can find this row later. The unique index on it
       // also makes a duplicated webhook a no-op at the database level.
       sponsoredPaymentRef: event.data?.payment_id ?? null,

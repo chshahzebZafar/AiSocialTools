@@ -147,27 +147,6 @@ export default function AdminPage() {
     setAuthed(false);
   }
 
-  // One-off migration to Supabase, run from here rather than from a console:
-  // Chrome blocks pasting into DevTools by default, and telling someone to
-  // type "allow pasting" to work around a safety prompt is poor advice.
-  const [migrating, setMigrating] = useState<"" | "dry" | "write">("");
-  const [migrateResult, setMigrateResult] = useState<string>("");
-
-  async function runMigration(write: boolean) {
-    setMigrating(write ? "write" : "dry");
-    setMigrateResult("");
-    try {
-      const res = await fetch("/api/admin/migrate", { method: write ? "POST" : "GET" });
-      const data = await res.json();
-      setMigrateResult(JSON.stringify(data, null, 2));
-      if (write && data.ok) void load();
-    } catch (err) {
-      setMigrateResult(String(err));
-    } finally {
-      setMigrating("");
-    }
-  }
-
   async function patch(
     id: string,
     patchBody: {
@@ -264,44 +243,6 @@ export default function AdminPage() {
       {loadError && (
         <div className="mb-5 p-3 rounded-md border border-red-200 bg-red-50 text-sm text-red-700">{loadError}</div>
       )}
-
-      {/* Migration panel. Delete this block, and app/api/admin/migrate, once
-          the move is done and verified - a migration tool left in production
-          is a liability with no remaining purpose. */}
-      <details className="mb-5 rounded-md border border-zinc-200 bg-zinc-50">
-        <summary className="px-3 py-2 text-sm font-medium cursor-pointer select-none">
-          Move submissions to Supabase
-        </summary>
-        <div className="px-3 pb-3 space-y-3">
-          <p className="text-xs text-zinc-600 leading-relaxed">
-            Dry run reads everything and reports what it would write, changing nothing.
-            Migrate writes to Supabase, upserting on reference so it is safe to repeat.
-            Firestore is never modified, and the site keeps reading Firestore until
-            DIRECTORY_STORE is set to supabase.
-          </p>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => void runMigration(false)}
-              disabled={migrating !== ""}
-              className="h-9 px-3 text-sm rounded-md border border-zinc-300 bg-white disabled:opacity-60"
-            >
-              {migrating === "dry" ? "Reading…" : "Dry run"}
-            </button>
-            <button
-              onClick={() => void runMigration(true)}
-              disabled={migrating !== ""}
-              className="h-9 px-3 text-sm rounded-md bg-zinc-900 text-white disabled:opacity-60"
-            >
-              {migrating === "write" ? "Migrating…" : "Migrate now"}
-            </button>
-          </div>
-          {migrateResult && (
-            <pre className="text-[11px] leading-relaxed bg-white border border-zinc-200 rounded p-3 overflow-x-auto max-h-80">
-              {migrateResult}
-            </pre>
-          )}
-        </div>
-      </details>
 
       <div className="flex items-center gap-2 mb-4 flex-wrap">
         {(["all", ...STATUSES] as const).map((s) => (
