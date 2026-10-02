@@ -4,7 +4,11 @@ import {
   referenceFromEvent,
   type DodoEvent,
 } from "@/lib/payments/dodo";
-import { getSubmissionByReference, updateSubmission } from "@/lib/submission-store";
+import {
+  getSubmissionByReference,
+  getSubmissionByPaymentRef,
+  updateSubmission,
+} from "@/lib/submission-store";
 
 /**
  * Dodo Payments webhook: the only thing that may mark a placement as paid.
@@ -35,8 +39,17 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Invalid payload." }, { status: 400 });
   }
 
-  // Anything other than a completed payment is acknowledged and ignored.
-  // Returning 200 stops Dodo retrying events we will never act on.
+  // A reversed payment takes the placement back. The placement is for life,
+  // so without this someone can pay $5, keep the permanent slot, refund, and
+  // lose nothing. Handled before the success path because it is the case that
+  // costs money if missed.
+  if (event.type === "refund.succeeded") {
+    return reversePlacement(event);
+  }
+
+  // Everything else - failed and cancelled payments, every subscription and
+  // payout event - is acknowledged and ignored. A 200 stops Dodo retrying
+  // events this app will never act on.
   if (event.type !== "payment.succeeded") {
     return NextResponse.json({ ok: true, ignored: event.type ?? "unknown" });
   }
@@ -71,6 +84,9 @@ export async function POST(req: Request) {
     await updateSubmission(row.id, {
       sponsored: true,
       sponsoredLifetime: true,
+      // Recorded so a refund can find this row later. The unique index on it
+      // also makes a duplicated webhook a no-op at the database level.
+      sponsoredPaymentRef: event.data?.payment_id ?? null,
       sponsorshipNote: [
         row.sponsorshipNote,
         `Dodo ${event.data?.payment_id ?? "payment"} — ` +
@@ -87,5 +103,59 @@ export async function POST(req: Request) {
     // eslint-disable-next-line no-console
     console.error("[dodo] could not apply placement:", err);
     return NextResponse.json({ error: "Could not apply placement." }, { status: 500 });
+  }
+}
+
+/**
+ * Undo a placement whose payment was refunded.
+ *
+ * Finds the listing by the payment reference recorded when it was bought,
+ * falling back to checkout metadata where the refund carries it. Returns 200
+ * even when nothing matches: the refund is real and retrying will not make a
+ * match appear, so it is logged for a person rather than retried forever.
+ */
+const NEWLINE = String.fromCharCode(10);
+
+async function reversePlacement(event: DodoEvent) {
+  const paymentId = event.data?.payment_id ?? "";
+  const reference = referenceFromEvent(event);
+
+  try {
+    const row =
+      (paymentId ? await getSubmissionByPaymentRef(paymentId) : null) ??
+      (reference ? await getSubmissionByReference(reference) : null);
+
+    if (!row) {
+      // eslint-disable-next-line no-console
+      console.error("[dodo] refund with no matching listing:", paymentId, reference);
+      return NextResponse.json({ ok: true, warning: "no matching listing" });
+    }
+
+    if (!row.sponsored) {
+      return NextResponse.json({ ok: true, alreadyReversed: true });
+    }
+
+    await updateSubmission(row.id, {
+      sponsored: false,
+      sponsoredLifetime: false,
+      sponsoredUntil: "",
+      // Cleared so the refunded payment cannot be matched again, and so the
+      // unique index does not block a later genuine purchase of the same slot.
+      sponsoredPaymentRef: null,
+      sponsorshipNote: [
+        row.sponsorshipNote,
+        `Refunded ${paymentId || "payment"} on ${new Date().toISOString().slice(0, 10)} — placement removed`,
+      ]
+        .filter(Boolean)
+        .join(NEWLINE),
+    });
+
+    return NextResponse.json({ ok: true, reference: row.reference, reversed: true });
+  } catch (err) {
+    // 500 so Dodo retries: the money has gone back and the placement is still
+    // showing, which is the expensive direction to fail in.
+    // eslint-disable-next-line no-console
+    console.error("[dodo] could not reverse placement:", err);
+    return NextResponse.json({ error: "Could not reverse placement." }, { status: 500 });
   }
 }

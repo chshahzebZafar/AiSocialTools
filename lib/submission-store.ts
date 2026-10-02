@@ -42,6 +42,8 @@ export interface StoredRow {
   notifiedStatus?: string;
   notifiedAt?: string;
   reviewedAt?: string;
+  /** The provider payment that bought the placement, for reversing it. */
+  sponsoredPaymentRef?: string;
   /** Private. Returned to the admin only, never to a submitter. */
   notes?: string;
   sponsorshipNote?: string;
@@ -84,6 +86,7 @@ function rowFromSupabase(
     notifiedStatus: r.notified_status ? str(r.notified_status) : undefined,
     notifiedAt: r.notified_at ? str(r.notified_at) : undefined,
     reviewedAt: r.reviewed_at ? str(r.reviewed_at) : undefined,
+    sponsoredPaymentRef: r.sponsored_payment_ref ? str(r.sponsored_payment_ref) : undefined,
     notes: note ? str(note.notes) : undefined,
     sponsorshipNote: note ? str(note.sponsorship_note) : undefined,
   };
@@ -171,6 +174,24 @@ export async function getSubmissionByReference(reference: string): Promise<Store
   return data ? rowFromSupabase(data) : null;
 }
 
+/**
+ * Find a listing by the payment that bought its placement.
+ *
+ * A refund webhook names the payment it reverses, not necessarily the
+ * checkout metadata that named the listing, so this is how a refund finds
+ * what to undo.
+ */
+export async function getSubmissionByPaymentRef(ref: string): Promise<StoredRow | null> {
+  const db = supabaseAdmin();
+  if (!db) return null;
+  const { data } = await db
+    .from("submissions")
+    .select("*")
+    .eq("sponsored_payment_ref", ref)
+    .maybeSingle();
+  return data ? rowFromSupabase(data) : null;
+}
+
 /** Fields the admin may change. Notes are routed to their own table. */
 export interface SubmissionPatch {
   status?: string;
@@ -181,6 +202,7 @@ export interface SubmissionPatch {
   notifiedStatus?: string;
   notifiedAt?: string;
   reviewedAt?: string;
+  sponsoredPaymentRef?: string | null;
   notes?: string;
   sponsorshipNote?: string;
 }
@@ -206,6 +228,9 @@ export async function updateSubmission(id: string, patch: SubmissionPatch): Prom
   if (patch.notifiedStatus !== undefined) row.notified_status = patch.notifiedStatus;
   if (patch.notifiedAt !== undefined) row.notified_at = patch.notifiedAt;
   if (patch.reviewedAt !== undefined) row.reviewed_at = patch.reviewedAt;
+  if (patch.sponsoredPaymentRef !== undefined) {
+    row.sponsored_payment_ref = patch.sponsoredPaymentRef;
+  }
 
   if (Object.keys(row).length) {
     const { error } = await db.from("submissions").update(row).eq("id", id);
