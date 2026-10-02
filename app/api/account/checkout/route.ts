@@ -71,7 +71,9 @@ export async function POST(req: Request) {
   const url = dodoCheckoutUrl({
     reference,
     email: who.email ?? undefined,
-    returnTo: `${origin}/account?featured=pending`,
+    // Back to the listing, not the dashboard: it is the page that can show
+    // whether the payment landed, and the one they were upgrading.
+    returnTo: `${origin}/account/listing/${reference}`,
   });
 
   return NextResponse.json({ url });

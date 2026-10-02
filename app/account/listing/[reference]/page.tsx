@@ -10,7 +10,7 @@ import { AuthScreen } from "@/components/account/AuthScreen";
 import { ListingStatus, FeaturedBadge } from "@/components/account/ListingStatus";
 import { ToolIcon } from "@/components/ToolIcon";
 import { supabaseBrowser } from "@/lib/supabase";
-import { ArrowLeft, ArrowUpRight, Check, Clock, Copy, Loader2, Star } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Check, Clock, Copy, Loader2, Star, X } from "lucide-react";
 
 /**
  * One listing, as its owner sees it.
@@ -53,6 +53,31 @@ export default function ListingPage() {
   const [copied, setCopied] = useState(false);
   const [buying, setBuying] = useState(false);
 
+  /**
+   * How the person got here from checkout.
+   *
+   * The listing is created before payment, so cancelling leaves a perfectly
+   * good free listing and nothing explaining why the upgrade did not happen.
+   * Read from window.location rather than useSearchParams to avoid forcing a
+   * Suspense boundary on a page that is already client-rendered.
+   */
+  const [outcome, setOutcome] = useState<"paid" | "cancelled" | "">("");
+  const [confirming, setConfirming] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const q = new URLSearchParams(window.location.search);
+    const status = (q.get("status") || "").toLowerCase();
+    if (!status && !q.has("featured")) return;
+    // Dodo appends the payment outcome to the return URL. Anything that is not
+    // a success is treated as "not paid" rather than guessed at.
+    const paid = ["succeeded", "success", "active", "paid", "completed"].includes(status);
+    setOutcome(paid ? "paid" : "cancelled");
+    if (paid) setConfirming(true);
+    // Drop the parameters so a refresh does not replay the banner.
+    window.history.replaceState({}, "", window.location.pathname);
+  }, []);
+
   const load = useCallback(async () => {
     const supabase = supabaseBrowser();
     if (!supabase || !reference) return;
@@ -83,6 +108,27 @@ export default function ListingPage() {
   useEffect(() => {
     if (user) void load();
   }, [user, load]);
+
+  useEffect(() => {
+    if (!confirming) return;
+    if (row && row !== "missing" && row.sponsored) {
+      setConfirming(false);
+      return;
+    }
+    // Six tries over ~18s. The webhook is usually faster; this stops the page
+    // claiming "not featured" to somebody who has just paid, without spinning
+    // forever if the webhook never arrives.
+    let tries = 0;
+    const timer = setInterval(() => {
+      tries += 1;
+      void load();
+      if (tries >= 6) {
+        clearInterval(timer);
+        setConfirming(false);
+      }
+    }, 3000);
+    return () => clearInterval(timer);
+  }, [confirming, row, load]);
 
   async function feature() {
     setBuying(true);
@@ -152,6 +198,50 @@ export default function ListingPage() {
             </div>
           ) : (
             <>
+              {outcome === "cancelled" && (
+                <div className="mb-6 flex items-start gap-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/40 p-4">
+                  <X className="w-4 h-4 mt-0.5 text-zinc-400 flex-shrink-0" />
+                  <div className="flex-1">
+                    <p className="text-sm font-medium text-zinc-950 dark:text-white mb-0.5">
+                      Payment cancelled — nothing was charged
+                    </p>
+                    <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                      Your tool was still submitted and is in review on the free plan. You can
+                      feature it any time.
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => setOutcome("")}
+                    aria-label="Dismiss"
+                    className="text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
+              )}
+
+              {outcome === "paid" && (
+                <div className="mb-6 flex items-start gap-3 rounded-xl border border-emerald-200 dark:border-emerald-500/30 bg-emerald-50 dark:bg-emerald-500/10 p-4">
+                  {confirming ? (
+                    <Loader2 className="w-4 h-4 mt-0.5 text-emerald-700 dark:text-emerald-400 animate-spin flex-shrink-0" />
+                  ) : (
+                    <Check className="w-4 h-4 mt-0.5 text-emerald-700 dark:text-emerald-400 flex-shrink-0" strokeWidth={2.5} />
+                  )}
+                  <div className="flex-1">
+                    <p className="text-sm font-medium text-emerald-900 dark:text-emerald-200 mb-0.5">
+                      {confirming ? "Payment received — confirming your placement" : "Payment received"}
+                    </p>
+                    <p className="text-sm text-emerald-800/80 dark:text-emerald-300/80 leading-relaxed">
+                      {confirming
+                        ? "This takes a few seconds. The Featured badge appears as soon as it lands."
+                        : row.sponsored
+                          ? "This listing is featured for life."
+                          : "If the Featured badge has not appeared in a few minutes, reply to your submission email and we will sort it out."}
+                    </p>
+                  </div>
+                </div>
+              )}
+
               {/* Status first - it is why they are here */}
               <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 overflow-hidden mb-6">
                 <div
