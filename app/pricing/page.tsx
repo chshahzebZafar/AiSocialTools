@@ -5,14 +5,15 @@ import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { Badge } from "@/components/ui/Badge";
 import { ButtonLink } from "@/components/ui/Button";
-import { Check, Info, X } from "lucide-react";
+import { Check, Info } from "lucide-react";
 
 /**
  * Directory pricing: a free listing and a $5 featured placement.
  *
- * The "what this does not buy" section is not hedging - it is the part that
- * makes the page trustworthy, and it heads off the two requests that would
- * damage the directory if granted: a followed link, and guaranteed approval.
+ * Featuring applies to one specific listing, so buying starts from /account
+ * rather than from this page - there is no listing in context here. The
+ * checkout URL is built server-side so the product id stays off the client.
+ *
  * See docs/pricing-and-plans.md for the reasoning behind the price.
  */
 
@@ -50,20 +51,6 @@ const featuredIncludes = [
   "One payment. No renewal, no subscription, nothing to cancel",
 ];
 
-const notIncluded = [
-  {
-    title: "Guaranteed approval",
-    body: "Payment buys placement, not a listing. If a tool does not pass review you get a refund, not a page.",
-  },
-  {
-    title: "A followed link or an SEO boost",
-    body: "Sponsored links carry rel=\"sponsored\". Selling followed links is a link scheme under Google's spam policies and would put both your site and ours at risk. If you are buying this for SEO, it is not what you are getting.",
-  },
-  {
-    title: "Control over what we write",
-    body: "The description stays as reviewed. A paid entry that reads like an advert devalues every other listing on the page, which is the thing you are paying to appear next to.",
-  },
-];
 
 export default function PricingPage() {
   const schema = {
@@ -155,36 +142,14 @@ export default function PricingPage() {
                     </li>
                   ))}
                 </ul>
-                <ButtonLink href="/contact?subject=Featured%20listing" size="md" className="w-full justify-center">
-                  Request featured placement
+                <ButtonLink href="/account" size="md" className="w-full justify-center">
+                  Feature a listing — ${FEATURED_PRICE_USD}
                 </ButtonLink>
                 <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-3 text-center">
-                  Submit free first — featuring is offered once a tool is approved.
+                  Pick the listing you want featured from your account. Submit it free first if
+                  you have not already.
                 </p>
               </div>
-            </div>
-          </div>
-        </section>
-
-        {/* What it does not buy - the part that makes the rest credible */}
-        <section className="border-b border-zinc-200 dark:border-zinc-800">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <h2 className="text-2xl font-semibold text-zinc-950 dark:text-white tracking-tight mb-2">
-              What ${FEATURED_PRICE_USD} does not buy
-            </h2>
-            <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-7 max-w-2xl">
-              Worth saying plainly, so nobody pays for something they are not getting.
-            </p>
-            <div className="space-y-5">
-              {notIncluded.map((n) => (
-                <div key={n.title} className="flex gap-3">
-                  <X className="w-4 h-4 mt-1 text-zinc-400 flex-shrink-0" strokeWidth={2.5} />
-                  <div>
-                    <p className="font-medium text-zinc-950 dark:text-white mb-1">{n.title}</p>
-                    <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">{n.body}</p>
-                  </div>
-                </div>
-              ))}
             </div>
           </div>
         </section>
@@ -217,9 +182,8 @@ export default function PricingPage() {
             <div className="mt-8 flex gap-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/40 p-4">
               <Info className="w-4 h-4 mt-0.5 text-zinc-400 flex-shrink-0" />
               <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                Self-serve checkout is not live yet, so featured placements are arranged by
-                email for now. Nothing is charged until your tool has been approved and you
-                have said yes.
+                Payment is a one-off ${FEATURED_PRICE_USD} through Dodo Payments. Nothing is
+                charged until your tool has been approved and you choose to feature it.
               </p>
             </div>
           </div>
