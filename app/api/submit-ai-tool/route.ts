@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
-import { getDb, SUBMISSIONS, verifyIdToken } from "@/lib/firebase-admin";
+import { createSubmission } from "@/lib/submission-store";
+import { userFromRequest } from "@/lib/supabase";
+import { verifyIdToken } from "@/lib/firebase-admin";
 
 // firebase-admin requires the Node runtime.
 export const runtime = "nodejs";
@@ -424,25 +426,24 @@ ${Object.entries(summary)
   // taken from the form body - otherwise anyone could post a uid and claim
   // someone else's submission. Signing in stays optional: a failed or absent
   // token just means the submission is not linked to anybody.
+  // Supabase first, since that is where accounts now live; Firebase is tried
+  // only while the old auth is still around. An unrecognised token simply
+  // leaves the submission unlinked - never a reason to reject someone.
   let submitterUid: string | undefined;
   try {
-    const who = await verifyIdToken(req.headers.get("authorization"));
-    if (who) submitterUid = who.uid;
+    const auth = req.headers.get("authorization");
+    const who = await userFromRequest(auth);
+    if (who) submitterUid = who.id;
+    else {
+      const legacy = await verifyIdToken(auth);
+      if (legacy) submitterUid = legacy.uid;
+    }
   } catch {
-    // Not being able to identify the submitter is not a reason to reject them.
+    // Identifying the submitter is a bonus, not a requirement.
   }
 
   try {
-    const db = getDb();
-    if (db) {
-      await db.collection(SUBMISSIONS).doc(reference).set({
-        ...summary,
-        status: "new",
-        notes: "",
-        source: "form",
-        ...(submitterUid ? { submitterUid } : {}),
-      });
-    }
+    await createSubmission(reference, summary as Record<string, unknown>, submitterUid);
   } catch (err) {
     // eslint-disable-next-line no-console
     console.warn("[ai-directory submission] failed to persist:", err);

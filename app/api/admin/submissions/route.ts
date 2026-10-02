@@ -3,6 +3,12 @@ import { cookies } from "next/headers";
 import { ADMIN_COOKIE, verifySessionToken } from "@/lib/admin-auth";
 import { getDb, SUBMISSIONS, type SubmissionStatus } from "@/lib/firebase-admin";
 import { slugify } from "@/lib/directory-live";
+import {
+  listSubmissions,
+  getSubmission,
+  updateSubmission,
+  submissionsOnSupabase,
+} from "@/lib/submission-store";
 import { sendDecisionEmail } from "@/lib/submission-emails";
 import { aiDirectoryTools } from "@/lib/ai-directory";
 
@@ -50,13 +56,15 @@ export async function GET(req: Request) {
   );
 
   try {
-    const snap = await db
-      .collection(SUBMISSIONS)
-      .orderBy("submittedAt", "desc")
-      .limit(limit)
-      .get();
-    const items = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-    return NextResponse.json({ ok: true, count: items.length, items });
+    const items = await listSubmissions(limit);
+    return NextResponse.json({
+      ok: true,
+      count: items.length,
+      // Named so a zero count can be diagnosed without guessing which store
+      // answered - the same instrumentation that found the Firestore quota.
+      source: submissionsOnSupabase() ? "supabase" : "firestore",
+      items,
+    });
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error("[admin] failed to read submissions:", err);
@@ -169,8 +177,7 @@ export async function PATCH(req: Request) {
     // deciding whether this is a real decision or the same button pressed
     // twice. Without the "before" state a second click would send a second
     // email saying the same thing.
-    const snap = await db.collection(SUBMISSIONS).doc(body.id).get();
-    const data = snap.data();
+    const data = await getSubmission(body.id);
 
     // Approving publishes the tool, so it needs a stable slug. Assigned once,
     // on first approval, and kept afterwards so a published URL never moves.
@@ -195,7 +202,7 @@ export async function PATCH(req: Request) {
       (newStatus === "approved" || newStatus === "declined") &&
       data.notifiedStatus !== newStatus;
 
-    await db.collection(SUBMISSIONS).doc(body.id).update(update);
+    await updateSubmission(body.id, update);
 
     if (shouldNotify && data) {
       const outcome = await sendDecisionEmail(newStatus, {
@@ -209,11 +216,10 @@ export async function PATCH(req: Request) {
       // separately from the main update: the decision is already saved and
       // must not be rolled back because a bookkeeping write failed.
       if (outcome === "sent") {
-        await db
-          .collection(SUBMISSIONS)
-          .doc(body.id)
-          .update({ notifiedStatus: newStatus, notifiedAt: new Date().toISOString() })
-          .catch(() => {});
+        await updateSubmission(body.id, {
+          notifiedStatus: newStatus,
+          notifiedAt: new Date().toISOString(),
+        }).catch(() => {});
       }
     }
 
