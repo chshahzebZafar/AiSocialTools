@@ -117,15 +117,9 @@ export default function ListingPage() {
     );
   }
 
-  if (!user) {
-    return (
-      <div className="flex flex-col min-h-screen bg-white dark:bg-zinc-950">
-        <Header />
-        <main className="flex-1"><AuthScreen /></main>
-        <Footer />
-      </div>
-    );
-  }
+  // Signed out, the auth screen takes the whole viewport - no site header,
+  // no footer, one link home.
+  if (!user) return <AuthScreen />;
 
   const publicUrl = row && row !== "missing" && row.slug
     ? `https://aisocialtools.co/ai-directory/${row.slug}`

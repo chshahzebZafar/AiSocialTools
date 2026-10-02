@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useAuth, authErrorMessage } from "@/components/AuthProvider";
 import { supabaseBrowser } from "@/lib/supabase";
-import { BadgeCheck, Check, Loader2, Mail } from "lucide-react";
+import { ArrowLeft, BadgeCheck, Check, Loader2, Mail } from "lucide-react";
 
 /**
  * Sign in and create account.
@@ -13,6 +13,14 @@ import { BadgeCheck, Check, Loader2, Mail } from "lucide-react";
  * bother making an account, which a bare form does not. Everything here uses
  * the site's own tokens - zinc ground, indigo accent, rounded-md controls at
  * h-10 - so it reads as part of the site rather than a bolted-on auth page.
+ *
+ * Owns the whole viewport, with no site header or footer. Nav and a footer on
+ * a sign-in page are places to wander off to, and the footer in particular
+ * sat under a half-empty screen looking like a mistake. One link back home is
+ * the only way out it needs.
+ *
+ * Below lg the left panel is dropped rather than stacked: its job is
+ * persuasion, and on a phone it would push the form below the fold.
  */
 
 const REASONS = [
@@ -20,6 +28,30 @@ const REASONS = [
   "See the moment a listing goes live, with its public link",
   "Feature a listing for a one-off $5",
 ];
+
+/** One link out, top-left, clear of the form on every width. */
+function HomeLink() {
+  return (
+    <Link
+      href="/"
+      className="absolute top-5 left-5 sm:top-6 sm:left-6 inline-flex items-center gap-1.5 text-sm text-zinc-500 hover:text-zinc-950 dark:hover:text-white transition-colors"
+    >
+      <ArrowLeft className="w-4 h-4" />
+      <span className="hidden sm:inline">Back to aisocialtools.co</span>
+      <span className="sm:hidden">Home</span>
+    </Link>
+  );
+}
+
+/** Full-viewport frame for the states that have no split layout. */
+function Shell({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="relative min-h-screen flex items-center justify-center px-5 py-20 bg-white dark:bg-zinc-950">
+      <HomeLink />
+      <div className="w-full max-w-md">{children}</div>
+    </div>
+  );
+}
 
 export function AuthScreen() {
   const { ready, signInWithEmail, signUpWithEmail, signInWithGoogle, resetPassword } = useAuth();
@@ -61,11 +93,11 @@ export function AuthScreen() {
 
   if (!ready) {
     return (
-      <div className="max-w-md mx-auto px-4 py-20 text-center">
-        <p className="text-sm text-zinc-600 dark:text-zinc-400">
+      <Shell>
+        <p className="text-sm text-zinc-600 dark:text-zinc-400 text-center">
           Accounts are not switched on for this site yet.
         </p>
-      </div>
+      </Shell>
     );
   }
 
@@ -73,7 +105,8 @@ export function AuthScreen() {
   // screen has to say what happened - otherwise the form looks like it failed.
   if (sent) {
     return (
-      <div className="max-w-md mx-auto px-4 py-20 text-center">
+      <Shell>
+        <div className="text-center">
         <div className="w-12 h-12 rounded-full bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/30 flex items-center justify-center mx-auto mb-5">
           <Mail className="w-5 h-5 text-emerald-700 dark:text-emerald-400" />
         </div>
@@ -84,21 +117,22 @@ export function AuthScreen() {
           We sent a confirmation link to <span className="font-medium text-zinc-950 dark:text-white">{sent}</span>.
           Click it and you can sign in — the link has to be opened before your account works.
         </p>
-        <button
-          onClick={() => {
-            setSent("");
-            setMode("in");
-          }}
-          className="text-sm text-zinc-500 hover:text-zinc-950 dark:hover:text-white underline"
-        >
-          Back to sign in
-        </button>
-      </div>
+          <button
+            onClick={() => {
+              setSent("");
+              setMode("in");
+            }}
+            className="text-sm text-zinc-500 hover:text-zinc-950 dark:hover:text-white underline"
+          >
+            Back to sign in
+          </button>
+        </div>
+      </Shell>
     );
   }
 
   return (
-    <div className="grid lg:grid-cols-2 min-h-[calc(100vh-4rem)]">
+    <div className="grid lg:grid-cols-2 min-h-screen bg-white dark:bg-zinc-950">
       {/* Why bother making an account. A bare form answers nothing. */}
       <div className="relative hidden lg:flex flex-col justify-center overflow-hidden bg-zinc-950 px-12 xl:px-16 py-16">
         <div className="absolute inset-0 bg-dot-grid-animated opacity-[0.12]" aria-hidden />
@@ -129,7 +163,8 @@ export function AuthScreen() {
       </div>
 
       {/* The form */}
-      <div className="flex items-center justify-center px-4 sm:px-8 py-14 bg-white dark:bg-zinc-950">
+      <div className="relative flex items-center justify-center px-5 sm:px-8 py-12 sm:py-14">
+        <HomeLink />
         <div className="w-full max-w-sm">
           <h1 className="text-2xl font-semibold text-zinc-950 dark:text-white tracking-tight mb-1">
             {mode === "up" ? "Create your account" : "Welcome back"}
