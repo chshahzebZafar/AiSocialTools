@@ -72,10 +72,16 @@ async function readAndMap(): Promise<Mapped | { error: string }> {
     }
     rows.push({
       reference,
-      // Firebase uids are not Supabase uuids, and nobody ever signed in under
-      // the Firebase auth that was built, so there is no ownership to carry
-      // across. Submitters reclaim rows by verified email on first sign-in.
-      owner_id: null,
+      // owner_id, sponsored, sponsored_until and sponsored_lifetime are
+      // deliberately absent.
+      //
+      // This runs more than once - anything submitted to Firestore after the
+      // first pass needs collecting - and an upsert overwrites every column it
+      // names. Writing those four would reset ownership for anyone who had
+      // claimed a listing, and reset a paid placement back to unpaid, because
+      // Firestore does not know about either. They are Supabase-side truth
+      // now. Omitted here, the schema defaults apply on insert and existing
+      // values survive on update.
       name: String(d.name),
       url: String(d.url),
       tagline: String(d.tagline ?? ""),
@@ -92,9 +98,6 @@ async function readAndMap(): Promise<Mapped | { error: string }> {
       status: STATUSES.has(String(d.status)) ? String(d.status) : "new",
       slug: d.slug ? String(d.slug) : null,
       source: String(d.source ?? "form"),
-      sponsored: d.sponsored === true,
-      sponsored_until: dateOnly(d.sponsoredUntil),
-      sponsored_lifetime: d.sponsoredLifetime === true,
       notified_status: STATUSES.has(String(d.notifiedStatus))
         ? String(d.notifiedStatus)
         : null,
@@ -160,7 +163,6 @@ function summarise(m: Mapped) {
     mapped: m.rows.length,
     byStatus,
     published: m.rows.filter((r) => r.slug).length,
-    sponsored: m.rows.filter((r) => r.sponsored).length,
     privateNotes: m.notes.length,
     slugCollisionsResolved: m.renamed,
     problems: m.problems,
