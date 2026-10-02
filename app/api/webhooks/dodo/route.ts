@@ -9,6 +9,7 @@ import {
   getSubmissionByPaymentRef,
   updateSubmission,
 } from "@/lib/submission-store";
+import { sendSubmissionReceived, notifyReviewer } from "@/lib/submission-emails";
 
 /**
  * Dodo Payments webhook: the only thing that may mark a placement as paid.
@@ -100,6 +101,28 @@ export async function POST(req: Request) {
         .filter(Boolean)
         .join("\n"),
     });
+
+    // A featured submission only enters the queue once paid, so this is the
+    // moment to confirm it - saying "we are reviewing it" while it sat behind
+    // an unpaid checkout would not have been true.
+    if (row.status === "awaiting_payment") {
+      await Promise.allSettled([
+        sendSubmissionReceived({
+          to: row.submitterEmail,
+          toolName: row.name,
+          reference: row.reference,
+          featured: true,
+        }),
+        notifyReviewer({
+          toolName: row.name,
+          url: row.url,
+          reference: row.reference,
+          submitterEmail: row.submitterEmail,
+          category: row.category,
+          featured: true,
+        }),
+      ]);
+    }
 
     return NextResponse.json({ ok: true, reference, applied: true });
   } catch (err) {

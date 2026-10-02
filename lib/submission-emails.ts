@@ -145,3 +145,122 @@ export async function sendDecisionEmail(
     return "failed";
   }
 }
+
+/* -------------------------------------------------------------------------
+   Submission received
+   ------------------------------------------------------------------------- */
+
+export type ReceivedEmail = {
+  to: string;
+  toolName: string;
+  reference: string;
+  /** Featured submissions are reviewed faster, so the promise differs. */
+  featured?: boolean;
+};
+
+/**
+ * Confirms a submission has arrived and is in the queue.
+ *
+ * Sent when the listing actually enters review - immediately for a free
+ * submission, and only after payment for a featured one. Telling somebody
+ * "we are reviewing it" while it sits outside the queue awaiting payment
+ * would be untrue.
+ */
+export async function sendSubmissionReceived(d: ReceivedEmail): Promise<"sent" | "skipped" | "failed"> {
+  const key = process.env.RESEND_API_KEY;
+  if (!key) return "skipped";
+  if (!d.to || !d.to.includes("@")) return "skipped";
+
+  const name = escapeHtml(d.toolName);
+  const wait = d.featured
+    ? "Featured submissions are reviewed within 30 minutes."
+    : "We check every submission by hand, usually within 7 days.";
+
+  const html = shell(`
+<h2 style="font-size: 19px; margin: 0 0 16px;">We have ${name}</h2>
+<p style="margin: 0 0 16px;">
+  Thanks for sending it in. ${wait} A person opens the link, confirms the pricing and
+  reads enough to write an honest line about it.
+</p>
+<p style="margin: 0 0 16px;">
+  You will get an email either way, and you can follow it here:
+</p>
+<p style="margin: 0 0 24px;">
+  <a href="${SITE}/account" style="display: inline-block; background: #18181b; color: #fff; text-decoration: none; padding: 10px 18px; border-radius: 8px; font-weight: 500;">View your listings</a>
+</p>
+${
+  d.featured
+    ? `<p style="margin: 0 0 16px; color: #52525b;">Your featured placement is paid for and will be live as soon as the listing is approved.</p>`
+    : `<p style="margin: 0 0 16px; color: #52525b;">Want it at the top of the directory and on the homepage? Featuring is a one-off $5 from your listings page.</p>`
+}
+<p style="margin: 24px 0 0; color: #a1a1aa; font-size: 12px;">Reference ${escapeHtml(d.reference)}</p>`);
+
+  try {
+    const res = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        from: FROM,
+        to: [d.to],
+        reply_to: process.env.SUBMISSION_TO_EMAIL || undefined,
+        subject: `Submission received: ${d.toolName} (${d.reference})`,
+        html,
+      }),
+    });
+    if (!res.ok) {
+      // eslint-disable-next-line no-console
+      console.warn("[submission email] Resend failed:", res.status, await res.text());
+      return "failed";
+    }
+    return "sent";
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.warn("[submission email] send threw:", err);
+    return "failed";
+  }
+}
+
+/**
+ * Tells the reviewer something is waiting.
+ *
+ * Without it a submission only surfaces when somebody happens to open /admin,
+ * which is how a queue quietly grows to 25.
+ */
+export async function notifyReviewer(d: {
+  toolName: string;
+  url: string;
+  reference: string;
+  submitterEmail: string;
+  category: string;
+  featured?: boolean;
+}): Promise<"sent" | "skipped" | "failed"> {
+  const key = process.env.RESEND_API_KEY;
+  const to = process.env.SUBMISSION_TO_EMAIL;
+  if (!key || !to) return "skipped";
+
+  const html = shell(`
+<h2 style="font-size: 19px; margin: 0 0 12px;">${d.featured ? "PAID — " : ""}New submission: ${escapeHtml(d.toolName)}</h2>
+<p style="margin: 0 0 8px;"><a href="${escapeHtml(d.url)}">${escapeHtml(d.url)}</a></p>
+<p style="margin: 0 0 8px; color: #52525b;">${escapeHtml(d.category)} · from ${escapeHtml(d.submitterEmail)}</p>
+<p style="margin: 16px 0 0;">
+  <a href="${SITE}/admin" style="display: inline-block; background: #18181b; color: #fff; text-decoration: none; padding: 10px 18px; border-radius: 8px; font-weight: 500;">Review it</a>
+</p>
+<p style="margin: 20px 0 0; color: #a1a1aa; font-size: 12px;">Reference ${escapeHtml(d.reference)}</p>`);
+
+  try {
+    const res = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        from: FROM,
+        to: [to],
+        reply_to: d.submitterEmail || undefined,
+        subject: `${d.featured ? "PAID " : ""}New submission: ${d.toolName}`,
+        html,
+      }),
+    });
+    return res.ok ? "sent" : "failed";
+  } catch {
+    return "failed";
+  }
+}

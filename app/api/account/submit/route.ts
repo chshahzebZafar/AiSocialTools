@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { userFromRequest } from "@/lib/supabase";
 import { createSubmission, getSubmissionByReference } from "@/lib/submission-store";
 import { dodoCheckoutUrl, dodoConfigured } from "@/lib/payments/dodo";
+import { sendSubmissionReceived, notifyReviewer } from "@/lib/submission-emails";
 
 /**
  * Submitting a tool from a signed-in account.
@@ -120,6 +121,23 @@ export async function POST(req: Request) {
   }
 
   if (plan === "free") {
+    // Confirm now: a free submission is in the review queue the moment it is
+    // created. Awaited so a serverless function is not torn down mid-send, but
+    // never allowed to fail the submission - the tool is already saved.
+    await Promise.allSettled([
+      sendSubmissionReceived({
+        to: who.email ?? "",
+        toolName: fields.name,
+        reference: ref,
+      }),
+      notifyReviewer({
+        toolName: fields.name,
+        url: fields.url,
+        reference: ref,
+        submitterEmail: who.email ?? "",
+        category: fields.category,
+      }),
+    ]);
     return NextResponse.json({ ok: true, reference: ref, next: `/account/listing/${ref}` });
   }
 

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { userFromRequest } from "@/lib/supabase";
 import { getSubmissionByReference, updateSubmission } from "@/lib/submission-store";
+import { sendSubmissionReceived, notifyReviewer } from "@/lib/submission-emails";
 
 /**
  * Give up on paying and list the tool for free instead.
@@ -52,6 +53,18 @@ export async function POST(req: Request) {
       { status: 500 }
     );
   }
+
+  // Now it is in the queue, so confirm it like any other free submission.
+  await Promise.allSettled([
+    sendSubmissionReceived({ to: row.submitterEmail, toolName: row.name, reference: row.reference }),
+    notifyReviewer({
+      toolName: row.name,
+      url: row.url,
+      reference: row.reference,
+      submitterEmail: row.submitterEmail,
+      category: row.category,
+    }),
+  ]);
 
   return NextResponse.json({ ok: true, status: "new" });
 }
