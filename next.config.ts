@@ -38,6 +38,16 @@ const nextConfig: NextConfig = {
   // Redirects for URL canonicalization
   async redirects() {
     return [
+      // Submitting now requires an account, so the old anonymous form has no
+      // route to the new flow. Temporary rather than permanent: this URL has
+      // been indexed, and a 308 would hand its place to an auth-gated page.
+      // If a public "submit your tool" landing page is wanted back, it goes
+      // here and this redirect comes out.
+      {
+        source: '/ai-directory/submit',
+        destination: '/account/submit',
+        permanent: false,
+      },
       // Remove trailing slashes (except for root)
       {
         source: '/:path+/',

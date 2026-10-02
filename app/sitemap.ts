@@ -80,12 +80,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7
     },
     {
-      url: `${baseUrl}/ai-directory/submit`,
-      lastModified: STATIC_PAGE_DATE,
-      changeFrequency: 'monthly',
-      priority: 0.5
-    },
-    {
       url: `${baseUrl}/blog`,
       lastModified: CONTENT_REFRESHED,
       changeFrequency: 'weekly',
