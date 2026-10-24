@@ -135,7 +135,7 @@ export default function AboutPage() {
           <div className="aurora" aria-hidden />
           <div className="absolute inset-0 bg-dot-grid-animated opacity-50" aria-hidden />
           <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
-            <Breadcrumbs embedded />
+            <Breadcrumbs embedded schema={false} />
             <Badge variant="accent" className="mb-5">
               About
             </Badge>

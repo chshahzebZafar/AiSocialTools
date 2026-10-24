@@ -1,6 +1,10 @@
 import { NextResponse } from "next/server";
 import { userFromRequest } from "@/lib/supabase";
-import { createSubmission, getSubmissionByReference } from "@/lib/submission-store";
+import {
+  createSubmission,
+  getSubmissionByReference,
+  findDuplicate,
+} from "@/lib/submission-store";
 import { dodoCheckoutUrl, dodoConfigured } from "@/lib/payments/dodo";
 import { sendSubmissionReceived, notifyReviewer } from "@/lib/submission-emails";
 
@@ -86,6 +90,28 @@ export async function POST(req: Request) {
     return NextResponse.json(
       { error: "That does not look like a valid link. Include https://" },
       { status: 400 }
+    );
+  }
+
+  // Refuse a tool that is already here, before taking any money for it.
+  // Checked at submit rather than at review: finding out after paying $5 that
+  // the listing already existed is a refund and a complaint, and it is the
+  // kind of duplicate a reviewer has to catch by memory otherwise.
+  const duplicate = await findDuplicate(fields.url);
+  if (duplicate) {
+    const where =
+      duplicate.status === "approved" && duplicate.slug
+        ? `It is listed at /ai-directory/${duplicate.slug}.`
+        : duplicate.status === "approved"
+          ? "It is already published."
+          : "It has already been submitted and is being reviewed.";
+    return NextResponse.json(
+      {
+        error: `${duplicate.name || "That tool"} is already in the directory. ${where} If this is a different tool on the same domain, get in touch and we will sort it out.`,
+        duplicate: true,
+        slug: duplicate.slug ?? null,
+      },
+      { status: 409 }
     );
   }
 

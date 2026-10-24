@@ -9,10 +9,35 @@ interface BreadcrumbItem {
   href: string;
 }
 
+/**
+ * Proper names for path segments the title-caser gets wrong.
+ *
+ * Deriving a label from a URL segment capitalises each hyphen-separated word,
+ * which turns "ai-directory" into "Ai Directory". That reached the live
+ * BreadcrumbList markup, so it is worth a lookup table rather than cleverness.
+ */
+const SEGMENT_LABELS: Record<string, string> = {
+  tools: "Tools",
+  faq: "FAQ",
+  "ai-directory": "AI Directory",
+  "ai-tools": "AI Tools",
+  "social-media": "Social Media",
+  collections: "Collections",
+  pricing: "Pricing",
+  account: "Account",
+  blog: "Blog",
+  about: "About",
+  contact: "Contact",
+  privacy: "Privacy",
+  terms: "Terms",
+  submit: "Submit",
+};
+
 export default function Breadcrumbs({
   center = false,
   embedded = false,
-}: { center?: boolean; embedded?: boolean } = {}) {
+  schema = true,
+}: { center?: boolean; embedded?: boolean; schema?: boolean } = {}) {
   const pathname = usePathname();
 
   if (pathname === "/") return null;
@@ -24,12 +49,12 @@ export default function Breadcrumbs({
     let currentPath = "";
     paths.forEach((path) => {
       currentPath += `/${path}`;
-      let label = path
-        .split("-")
-        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(" ");
-      if (path === "tools") label = "Tools";
-      else if (path === "faq") label = "FAQ";
+      const label =
+        SEGMENT_LABELS[path] ??
+        path
+          .split("-")
+          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(" ");
       breadcrumbs.push({ label, href: currentPath });
     });
 
@@ -51,10 +76,15 @@ export default function Breadcrumbs({
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-      />
+      {/* Suppressed where the page already emits a richer BreadcrumbList of
+          its own - a tool page naming the tool, a category page naming the
+          category - so the markup never carries two. */}
+      {schema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
+      )}
       <nav
         className={
           center

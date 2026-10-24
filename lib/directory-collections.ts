@@ -141,7 +141,6 @@ export const directoryCollections: DirectoryCollection[] = [
     picks: [
       { slug: "kwaflux", why: "Video upscaling, restoration and stabilisation on your own GPU. Nothing is uploaded, which matters when the footage is a client's." },
       { slug: "puppyone", why: "Local-first workspace that keeps documents, notes and AI output together on your machine, with version history for every AI-made change." },
-      { slug: "mightymouse", why: "Dictation transcribed locally on the Mac with Whisper - speech never leaves the device, unlike most dictation tools." },
       { slug: "stable-diffusion", why: "Image generation entirely on your own hardware, with no per-image cost and no prompt log on someone else's server." },
       { slug: "slopspot-pro", why: "A Chrome extension that checks text for AI writing tells locally, so drafts you are reviewing are not sent anywhere." },
       { slug: "yuan-doctor", why: "Clinical calculators that compute in the browser with no data upload - the right design for anything touching patient information." },
@@ -165,7 +164,6 @@ export const directoryCollections: DirectoryCollection[] = [
       "Evidence behind scores where scoring is involved",
     ],
     picks: [
-      { slug: "resumerank-pro", why: "Ranks a batch of CVs against a job description and shows the skills evidence behind each score, including verified years per skill - so a shortlist can be checked rather than trusted." },
       { slug: "levelup-it", why: "A sourcing database rather than a screener: 1.2M+ IT CVs with contact details, for reaching out to people who have not applied." },
       { slug: "neverapply", why: "Sits on the candidate side, not yours - included because it is worth knowing that applications increasingly arrive from agents that tailor a CV per posting." },
       { slug: "hireez", why: "Sourcing and outreach across multiple channels, aimed at recruiters who spend most of their time finding rather than filtering." },
@@ -173,7 +171,7 @@ export const directoryCollections: DirectoryCollection[] = [
       { slug: "workable", why: "A broad ATS with wide job-board distribution - the practical choice when posting reach matters more than analytics depth." },
     ],
     caveat:
-      "Nothing here removes your responsibility for a hiring decision. If a tool ranks candidates, you need to be able to explain why someone was filtered out.",
+      "ResumeRank Pro was on this list until 2 October 2026, when its site went dark - the owner has paused the business. It has been removed rather than left pointing at a dead page. Nothing here removes your responsibility for a hiring decision either: if a tool ranks candidates, you need to be able to explain why someone was filtered out.",
   },
   {
     slug: "free-ai-tools-no-signup",

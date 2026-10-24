@@ -5688,6 +5688,10 @@ export const aiDirectoryTools: AIDirectoryTool[] = [
     founder: "StudyArena",
   },
   {
+    // DEAD. Checked 2026-10-02: resumerankpro.com returns "This site is paused -
+    // the owner has paused this business on Launchyard." Unapproved rather than
+    // deleted so the record of what was here survives, and so it can be restored
+    // if the owner brings it back. Also removed from the recruiters collection.
     slug: "resumerank-pro",
     name: "ResumeRank Pro",
     tagline:
@@ -5709,7 +5713,7 @@ export const aiDirectoryTools: AIDirectoryTool[] = [
     tags: ["recruiting", "resume screening", "hiring", "shortlist", "ats"],
     addedAt: "2026-09-10",
     isNew: true,
-    approved: true,
+    approved: false,
     founder: "ResumeRank Pro",
   },
   {
@@ -5881,19 +5885,24 @@ export const aiDirectoryTools: AIDirectoryTool[] = [
     approved: true,
   },
   {
+    // REWRITTEN 2026-10-02. The product pivoted: it was an iPhone-as-Mac-trackpad
+    // utility with local Whisper dictation, and getmightymouse.com now sells a
+    // multi-model AI app builder. The old entry described software that no longer
+    // exists. Also removed from the "runs locally" collection, whose rationale was
+    // the on-device dictation this no longer offers.
     slug: "mightymouse",
     name: "MightyMouse",
-    tagline: "Use your iPhone as a Mac trackpad, with free on-device dictation.",
+    tagline: "Build apps and media from one chat, across many AI models.",
     description:
-      "MightyMouse turns an iPhone into a remote trackpad and keyboard for a Mac: see the screen, move the cursor and type from anywhere in the room. It also adds push-to-talk dictation - hold a key, speak, and the text lands in whatever app you are in. Transcription runs locally on the Mac using Whisper, so speech is not sent anywhere. Works with the AI tools you already pay for, or a local model.",
+      "MightyMouse puts a large number of AI models behind a single chat and aims them at shipping something: a landing page, a short video ad, a checkout, a logo. You describe the job, pick from the models it offers for text, image and video, and connect the tools the result needs to run - payments, storefronts and notes among them. Available in the browser and as a Windows app, with other platforms listed. Free to start, and your work is held while you sign in. Note that this replaced an earlier product of the same name, an iPhone-as-trackpad utility with local dictation; that version is gone.",
     url: "https://getmightymouse.com",
     category: "Productivity",
     pricing: "Freemium",
     features: [
-      "See your Mac screen from an iPhone",
-      "Move the cursor and type remotely",
-      "Push-to-talk dictation, transcribed locally",
-      "Works with Claude, Codex, Gemini, OpenCode or a local model",
+      "Many text, image and video models behind one chat",
+      "Builds landing pages, ads, checkouts and logos from a description",
+      "Connects to the tools a finished app needs",
+      "Browser and Windows app",
     ],
     tags: ["mac", "iphone", "dictation", "remote control", "whisper"],
     addedAt: "2026-09-18",

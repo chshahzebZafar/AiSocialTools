@@ -5,6 +5,7 @@ import { categoryTools } from '@/lib/category-tools'
 import { aiDirectoryTools } from '@/lib/ai-directory'
 import { directoryCategories, MIN_TOOLS_TO_INDEX } from '@/lib/directory-categories'
 import { directoryCollections } from '@/lib/directory-collections'
+import { toolReviews } from '@/lib/tool-reviews'
 import { toolCategories } from '@/lib/tool-groups'
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -132,6 +133,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // When individual entries earn real review content and flip back to
   // index: true, re-add just those slugs here.
 
+  // Reviewed tool pages. Only entries with a written review in
+  // lib/tool-reviews.ts appear: the rest are noindex, and advertising a
+  // noindex URL in a sitemap sends Google contradictory signals. The same
+  // gate drives both, so this list cannot drift from what is indexable.
+  const reviewedToolPages: MetadataRoute.Sitemap = Object.entries(toolReviews).map(
+    ([slug, review]) => ({
+      url: `${baseUrl}/ai-directory/${slug}`,
+      lastModified: new Date(review.checkedAt),
+      changeFrequency: 'monthly' as const,
+      priority: 0.75,
+    })
+  )
+
   // AI directory category pages - the directory's indexable surface.
   // Only those with enough reviewed tools are listed; the rest render for
   // visitors but are noindex, so they do not belong in the sitemap either.
@@ -172,6 +186,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...staticPages,
     ...directoryCategoryPages,
     ...directoryCollectionPages,
+    ...reviewedToolPages,
     ...hubPages,
     ...liveCategoryToolPages,
     ...toolPages,

@@ -88,7 +88,7 @@ export default function SocialMediaToolsPage() {
         <div className="aurora" aria-hidden />
         <div className="absolute inset-0 bg-dot-grid-animated opacity-50" aria-hidden />
         <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24 text-center">
-          <Breadcrumbs center />
+          <Breadcrumbs center schema={false} />
           <Badge variant="accent" className="mb-6 float-soft">
             <Sparkles className="w-3 h-3" />
             Social Media · {socialTools.length} tools

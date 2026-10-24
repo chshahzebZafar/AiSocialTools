@@ -11,20 +11,8 @@ import {
   getDirectoryToolBySlug,
 } from "@/lib/ai-directory";
 import { getCategorySlug } from "@/lib/directory-categories";
-import {
-  ExternalLink,
-  Check,
-  X,
-  Sparkles,
-  TrendingUp,
-  Twitter,
-  Calendar,
-  Tag,
-  BadgeCheck,
-  ArrowUpRight,
-  ArrowLeft,
-  ArrowRight,
-} from "lucide-react";
+import { getToolReview } from "@/lib/tool-reviews";
+import { ArrowLeft, ArrowRight, ArrowUpRight, BadgeCheck, Calendar, Check, ExternalLink, Sparkles, Tag, TrendingUp, Twitter, X } from "lucide-react";
 import type { Metadata } from "next";
 import { getPublishedToolBySlug } from "@/lib/directory-store";
 
@@ -104,10 +92,14 @@ export async function generateMetadata({
     // ("Crawled — currently not indexed"); noindex makes that explicit and
     // stops 179 thin URLs consuming a very scarce crawl budget.
     //
-    // Per-page reversible: give an entry genuine review content, flip it back
-    // to index: true, and re-add that slug to app/sitemap.ts. The goal is
-    // 10-15 real reviews that rank, not 179 stubs that do not.
-    robots: { index: false, follow: true },
+    // Now automatic rather than manual: an entry with a review in
+    // lib/tool-reviews.ts carries original analysis and is indexed; everything
+    // else stays out. The gate is the review, so writing one is the only step
+    // needed to publish a page - no second edit here, and no way to index a
+    // stub by forgetting.
+    robots: getToolReview(slug)
+      ? { index: true, follow: true }
+      : { index: false, follow: true },
   };
 }
 
@@ -119,6 +111,10 @@ export default async function AIDirectoryDetailPage({
   const { slug } = await params;
   const tool = await resolveTool(slug);
   if (!tool) notFound();
+
+  // Present only for tools that have been written up; drives both the
+  // review block below and whether this page is indexable.
+  const review = getToolReview(slug);
 
   const alternatives = (tool.alternatives || [])
     .map((altSlug) => getDirectoryToolBySlug(altSlug))
@@ -190,7 +186,7 @@ export default async function AIDirectoryDetailPage({
           <div className="aurora" aria-hidden />
           <div className="absolute inset-0 bg-dot-grid-animated opacity-50" aria-hidden />
           <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-            <Breadcrumbs embedded />
+            <Breadcrumbs embedded schema={false} />
             <Link
               href="/ai-directory"
               className="inline-flex items-center gap-1.5 text-sm text-zinc-500 hover:text-zinc-950 dark:hover:text-white transition-colors mb-8"
@@ -287,6 +283,67 @@ export default async function AIDirectoryDetailPage({
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-16">
               {/* Main column */}
               <div className="lg:col-span-2 space-y-12">
+                {/* Our review. Above the vendor's own description on purpose:
+                    it is the part a reader cannot get from the tool's homepage,
+                    and the reason this page is worth indexing at all. */}
+                {review && (
+                  <div>
+                    <div className="flex flex-wrap items-center gap-3 mb-4">
+                      <h2 className="text-xl font-semibold text-zinc-950 dark:text-white tracking-tight">
+                        Our review
+                      </h2>
+                      <span className="text-xs text-zinc-500 dark:text-zinc-400">
+                        Checked {review.checkedAt}
+                      </span>
+                    </div>
+
+                    <p className="text-base sm:text-lg text-zinc-950 dark:text-white font-medium leading-relaxed mb-5">
+                      {review.verdict}
+                    </p>
+
+                    <div className="space-y-4 mb-7">
+                      {review.body.map((para, i) => (
+                        <p key={i} className="text-zinc-700 dark:text-zinc-300 leading-relaxed">
+                          {para}
+                        </p>
+                      ))}
+                    </div>
+
+                    <div className="grid sm:grid-cols-2 gap-5">
+                      <div className="rounded-xl border border-emerald-200 dark:border-emerald-500/30 bg-emerald-50/50 dark:bg-emerald-500/5 p-4">
+                        <p className="text-sm font-semibold text-emerald-900 dark:text-emerald-300 mb-2.5">
+                          Best for
+                        </p>
+                        <ul className="space-y-2">
+                          {review.bestFor.map((b) => (
+                            <li key={b} className="flex gap-2 text-sm text-zinc-700 dark:text-zinc-300 leading-relaxed">
+                              <Check className="w-4 h-4 mt-0.5 text-emerald-600 dark:text-emerald-400 flex-shrink-0" strokeWidth={2.5} />
+                              <span>{b}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      {/* The limitations are the part competitors do not
+                          publish, so they are given equal weight, not a
+                          footnote. */}
+                      <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/40 p-4">
+                        <p className="text-sm font-semibold text-zinc-900 dark:text-zinc-200 mb-2.5">
+                          Where it falls short
+                        </p>
+                        <ul className="space-y-2">
+                          {review.limitations.map((l) => (
+                            <li key={l} className="flex gap-2 text-sm text-zinc-700 dark:text-zinc-300 leading-relaxed">
+                              <X className="w-4 h-4 mt-0.5 text-zinc-400 flex-shrink-0" strokeWidth={2.5} />
+                              <span>{l}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
                 {/* About */}
                 <div>
                   <h2 className="text-xl font-semibold text-zinc-950 dark:text-white tracking-tight mb-4">

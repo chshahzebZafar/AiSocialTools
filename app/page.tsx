@@ -20,6 +20,7 @@ import {
   Zap,
   BadgeCheck,
   Shield,
+  Star,
   Heart,
   Lock,
   Layers,
@@ -109,7 +110,7 @@ export default function Home() {
   const sponsoredAITools = rotateSponsored(approvedTools.filter((t) => isSponsored(t)), 4);
   const featuredAITools = approvedTools
     .filter((t) => t.featured && !isSponsored(t))
-    .slice(0, 8 - sponsoredAITools.length);
+    .slice(0, 8);
 
   const organizationSchema = {
     "@context": "https://schema.org",
@@ -471,6 +472,78 @@ export default function Home() {
         </section>
 
         {/* ==========================================================
+             FEATURED PLACEMENTS — paid, and said so
+             ==========================================================
+
+             Its own section rather than four cards sharing a grid with the
+             editorial picks. Mixing them made the two indistinguishable at a
+             glance, which is the thing disclosure exists to prevent, and it
+             gave a paid slot no more presence than any other card.
+
+             Renders nothing when no placement is live, so the homepage never
+             shows an empty shelf advertising that nobody has bought one. */}
+        {sponsoredAITools.length > 0 && (
+          <section className="border-b border-zinc-200 dark:border-zinc-800 bg-gradient-to-b from-amber-50/40 to-transparent dark:from-amber-500/[0.04]">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+              <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
+                <div className="max-w-2xl">
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-200 dark:border-amber-500/30 bg-amber-50 dark:bg-amber-500/10 px-2.5 py-1 text-xs font-semibold uppercase tracking-wider text-amber-800 dark:text-amber-300 mb-4">
+                    <Star className="w-3 h-3" />
+                    Featured
+                  </span>
+                  <h2 className="text-3xl sm:text-4xl font-semibold text-zinc-950 dark:text-white tracking-tight mb-3">
+                    Featured tools
+                  </h2>
+                  <p className="text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                    Paid placements. Each was reviewed to the same standard as every other
+                    listing — paying moves a tool up the page, it does not change what we say
+                    about it.
+                  </p>
+                </div>
+                <Link
+                  href="/pricing"
+                  className="text-sm font-medium text-zinc-950 dark:text-white hover:text-amber-700 dark:hover:text-amber-400 transition-colors inline-flex items-center gap-1 self-start sm:self-end shrink-0"
+                >
+                  Feature your tool
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                {sponsoredAITools.map((tool, i) => (
+                  <Reveal key={tool.slug} delay={i * 70}>
+                    <Link
+                      href={`/ai-directory/${tool.slug}`}
+                      rel="sponsored"
+                      className="group relative flex flex-col h-full bg-white dark:bg-zinc-950 border border-amber-200 dark:border-amber-500/30 rounded-2xl p-6 hover:border-amber-300 dark:hover:border-amber-500/50 hover:shadow-lg hover:-translate-y-1 transition-all duration-200"
+                    >
+                      <div className="flex items-start justify-between gap-3 mb-4">
+                        <ToolIcon name={tool.name} url={tool.url} logoUrl={tool.logoUrl} size={52} />
+                        <span className="text-[10px] uppercase tracking-wider font-bold text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/30 rounded px-1.5 py-0.5">
+                          Sponsored
+                        </span>
+                      </div>
+                      <h3 className="font-semibold text-base text-zinc-950 dark:text-white mb-1.5 group-hover:text-amber-700 dark:group-hover:text-amber-400 transition-colors">
+                        {tool.name}
+                      </h3>
+                      <p className="text-sm text-zinc-600 dark:text-zinc-400 line-clamp-3 leading-relaxed flex-1">
+                        {tool.tagline}
+                      </p>
+                      <div className="flex items-center justify-between gap-2 pt-4 mt-4 border-t border-zinc-100 dark:border-zinc-800">
+                        <span className="text-xs text-zinc-500 dark:text-zinc-400">{tool.category}</span>
+                        <span className="text-[10px] uppercase tracking-wider font-bold text-zinc-400">
+                          {tool.pricing}
+                        </span>
+                      </div>
+                    </Link>
+                  </Reveal>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* ==========================================================
              AI DIRECTORY HIGHLIGHT
              ========================================================== */}
         <section className="border-b border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/40">
@@ -497,40 +570,8 @@ export default function Home() {
               </Link>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {/* Paid placements. Labelled in the card itself, not just here -
-                  a reader scrolling past the heading still has to be able to
-                  tell this apart from an editorial pick. */}
-              {sponsoredAITools.map((tool, i) => (
-                <Reveal key={tool.slug} delay={i * 60}>
-                  <Link
-                    href={`/ai-directory/${tool.slug}`}
-                    rel="sponsored"
-                    className="group relative flex flex-col h-full bg-white dark:bg-zinc-950 border border-amber-200 dark:border-amber-500/30 rounded-xl p-5 hover:border-amber-300 dark:hover:border-amber-500/50 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
-                  >
-                    <div className="flex items-start justify-between gap-3 mb-3">
-                      <ToolIcon name={tool.name} url={tool.url} logoUrl={tool.logoUrl} size={44} />
-                      <span className="text-[10px] uppercase tracking-wider font-bold text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/30 rounded px-1.5 py-0.5">
-                        Sponsored
-                      </span>
-                    </div>
-                    <h3 className="font-semibold text-[15px] text-zinc-950 dark:text-white mb-1 group-hover:text-amber-700 dark:group-hover:text-amber-400 transition-colors">
-                      {tool.name}
-                    </h3>
-                    <p className="text-sm text-zinc-500 dark:text-zinc-400 line-clamp-2 leading-relaxed flex-1">
-                      {tool.tagline}
-                    </p>
-                    <div className="flex items-center justify-between gap-2 pt-3 mt-3 border-t border-zinc-100 dark:border-zinc-800">
-                      <span className="text-xs text-zinc-400">{tool.category}</span>
-                      <span className="text-[10px] uppercase tracking-wider font-bold text-zinc-400">
-                        {tool.pricing}
-                      </span>
-                    </div>
-                  </Link>
-                </Reveal>
-              ))}
-
               {featuredAITools.map((tool, i) => (
-                <Reveal key={tool.slug} delay={(sponsoredAITools.length + i) * 60}>
+                <Reveal key={tool.slug} delay={i * 60}>
                   <Link
                     href={`/ai-directory/${tool.slug}`}
                     className="group relative flex flex-col h-full bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-xl p-5 hover:border-indigo-200 dark:hover:border-indigo-500/40 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"

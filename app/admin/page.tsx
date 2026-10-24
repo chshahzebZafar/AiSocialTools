@@ -35,6 +35,8 @@ interface Submission {
   sponsored?: boolean;
   sponsoredUntil?: string;
   sponsoredLifetime?: boolean;
+  /** Assigned on first approval; the public page lives at /ai-directory/<slug>. */
+  slug?: string;
   sponsorshipNote?: string;
   notifiedStatus?: string;
   notifiedAt?: string;
@@ -95,6 +97,9 @@ export default function AdminPage() {
   const [items, setItems] = useState<Submission[]>([]);
   const [loadError, setLoadError] = useState("");
   const [filter, setFilter] = useState<"all" | Status>("all");
+  /** Free vs paid. Separate from status: a listing can be paid and still new. */
+  const [plan, setPlan] = useState<"all" | "free" | "featured">("all");
+  const [tab, setTab] = useState<"submissions" | "users">("submissions");
   const [search, setSearch] = useState("");
   const [openId, setOpenId] = useState<string | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
@@ -179,6 +184,34 @@ export default function AdminPage() {
    * fetched separately: the list is capped at a few hundred, so a second
    * round trip would buy nothing.
    */
+  type AdminUser = {
+    id: string;
+    email: string;
+    name: string;
+    createdAt: string;
+    lastSignInAt: string;
+    confirmed: boolean;
+    submissions: number;
+    published: number;
+    featured: number;
+    unclaimed: number;
+  };
+  const [users, setUsers] = useState<AdminUser[] | null>(null);
+  const [usersError, setUsersError] = useState("");
+
+  // Loaded on first visit to the tab rather than up front: it is a separate
+  // round trip into the auth schema and most admin visits never need it.
+  useEffect(() => {
+    if (tab !== "users" || users !== null) return;
+    fetch("/api/admin/users")
+      .then((r) => r.json())
+      .then((d) => {
+        if (d.ok) setUsers(d.users);
+        else setUsersError(d.error || "Could not read users.");
+      })
+      .catch(() => setUsersError("Could not read users."));
+  }, [tab, users]);
+
   const stats = useMemo(() => {
     const byStatus = (st: string) => items.filter((i) => (i.status ?? "new") === st).length;
     const featured = items.filter((i) => i.sponsored).length;
@@ -227,6 +260,8 @@ export default function AdminPage() {
     const q = search.trim().toLowerCase();
     return items.filter((s) => {
       if (filter !== "all" && (s.status || "new") !== filter) return false;
+      if (plan === "featured" && !s.sponsored) return false;
+      if (plan === "free" && s.sponsored) return false;
       if (!q) return true;
       return [s.name, s.url, s.tagline, s.category, s.submitterName, s.submitterEmail, s.reference]
         .filter(Boolean)
@@ -234,7 +269,7 @@ export default function AdminPage() {
         .toLowerCase()
         .includes(q);
     });
-  }, [items, filter, search]);
+  }, [items, filter, plan, search]);
 
   if (authed === null) {
     return <p className="p-8 text-sm text-zinc-500">Loading…</p>;
@@ -288,6 +323,25 @@ export default function AdminPage() {
         <div className="mb-5 p-3 rounded-md border border-red-200 bg-red-50 text-sm text-red-700">{loadError}</div>
       )}
 
+      <div className="flex items-center gap-1 mb-5 p-1 rounded-lg bg-zinc-100 w-fit">
+        {(["submissions", "users"] as const).map((t) => (
+          <button
+            key={t}
+            onClick={() => setTab(t)}
+            aria-pressed={tab === t}
+            className={`h-8 px-4 text-sm font-medium rounded-md capitalize transition-colors ${
+              tab === t ? "bg-white text-zinc-950 shadow-sm" : "text-zinc-500 hover:text-zinc-900"
+            }`}
+          >
+            {t}
+          </button>
+        ))}
+      </div>
+
+      {tab === "users" ? (
+        <UsersTab users={users} error={usersError} />
+      ) : (
+      <>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
         <StatTile label="Total submissions" value={stats.total} />
         <StatTile
@@ -315,6 +369,30 @@ export default function AdminPage() {
             }`}
           >
             {s} ({counts[s] ?? 0})
+          </button>
+        ))}
+        <span className="w-px h-5 bg-zinc-200 mx-1" aria-hidden />
+        {/* Free vs paid is a different question from status - a listing can be
+            paid for and still waiting on review - so it is its own control. */}
+        {(
+          [
+            ["all", "All plans"],
+            ["free", "Free"],
+            ["featured", "Featured"],
+          ] as const
+        ).map(([key, label]) => (
+          <button
+            key={key}
+            onClick={() => setPlan(key)}
+            aria-pressed={plan === key}
+            className={`h-8 px-3 text-xs font-medium rounded-full border transition-colors ${
+              plan === key
+                ? "bg-indigo-600 text-white border-indigo-600"
+                : "bg-white text-zinc-600 border-zinc-300"
+            }`}
+          >
+            {label}
+            {key !== "all" && ` (${key === "featured" ? stats.featured : items.length - stats.featured})`}
           </button>
         ))}
         <input
@@ -360,8 +438,69 @@ export default function AdminPage() {
 
                 {open && (
                   <div className="border-t border-zinc-200 p-4 space-y-4 text-sm">
+                    {/* Where it actually landed. Knowing a tool was approved is
+                        not the same as being able to open the page it produced,
+                        and the slug alone is not a link. */}
+                    {status === "approved" && (
+                      <div className="rounded-md border border-emerald-200 bg-emerald-50 p-3">
+                        {s.slug ? (
+                          <>
+                            <p className="text-xs font-medium text-emerald-900 mb-1.5">
+                              Live in the directory
+                            </p>
+                            <div className="flex flex-wrap items-center gap-2">
+                              <a
+                                href={`https://aisocialtools.co/ai-directory/${s.slug}`}
+                                target="_blank"
+                                rel="noopener"
+                                className="text-xs font-mono text-emerald-900 underline break-all"
+                              >
+                                aisocialtools.co/ai-directory/{s.slug}
+                              </a>
+                              <button
+                                onClick={() => {
+                                  navigator.clipboard
+                                    ?.writeText(`https://aisocialtools.co/ai-directory/${s.slug}`)
+                                    .catch(() => {});
+                                }}
+                                className="h-7 px-2 text-[11px] rounded border border-emerald-300 bg-white text-emerald-900"
+                              >
+                                Copy
+                              </button>
+                              {s.category && (
+                                <a
+                                  href={`https://aisocialtools.co/ai-directory/category/${categorySlug(s.category)}`}
+                                  target="_blank"
+                                  rel="noopener"
+                                  className="h-7 px-2 inline-flex items-center text-[11px] rounded border border-emerald-300 bg-white text-emerald-900"
+                                >
+                                  In {s.category}
+                                </a>
+                              )}
+                            </div>
+                          </>
+                        ) : (
+                          <p className="text-xs text-emerald-900">
+                            Approved, but no slug was assigned — it will not appear publicly.
+                            Set the status to new and approve it again to assign one.
+                          </p>
+                        )}
+                      </div>
+                    )}
+
                     <div className="grid sm:grid-cols-2 gap-x-6 gap-y-1">
                       <Row label="Reference" value={s.reference} mono />
+                      <div className="py-1">
+                        <span className="text-zinc-500">Tool link</span>{" "}
+                        <a
+                          href={s.url}
+                          target="_blank"
+                          rel="noopener nofollow"
+                          className="text-indigo-600 underline break-all"
+                        >
+                          {s.url}
+                        </a>
+                      </div>
                       <Row label="Submitted" value={s.submittedAt} />
                       <Row label="Category" value={s.category} />
                       <Row label="Pricing" value={`${s.pricing || ""}${s.pricingDetails ? ` — ${s.pricingDetails}` : ""}`} />
@@ -524,6 +663,8 @@ export default function AdminPage() {
           })}
         </div>
       )}
+      </>
+      )}
     </div>
   );
 }
@@ -536,4 +677,130 @@ function Row({ label, value, mono }: { label: string; value?: string; mono?: boo
       <span className={mono ? "font-mono" : ""}>{value}</span>
     </p>
   );
+}
+
+/**
+ * Registered accounts.
+ *
+ * "Unclaimed" is the useful column: submissions made under this address that
+ * are not yet attached to the account, because the address has not been
+ * confirmed. A person emailing to say their tool is missing from their
+ * dashboard is almost always a row with a number in it here.
+ */
+function UsersTab({
+  users,
+  error,
+}: {
+  users: Array<{
+    id: string;
+    email: string;
+    name: string;
+    createdAt: string;
+    lastSignInAt: string;
+    confirmed: boolean;
+    submissions: number;
+    published: number;
+    featured: number;
+    unclaimed: number;
+  }> | null;
+  error: string;
+}) {
+  if (error) {
+    return (
+      <div className="p-3 rounded-md border border-red-200 bg-red-50 text-sm text-red-700">{error}</div>
+    );
+  }
+  if (users === null) {
+    return <p className="text-sm text-zinc-500 py-16 text-center">Loading users…</p>;
+  }
+  if (users.length === 0) {
+    return (
+      <p className="text-sm text-zinc-500 py-16 text-center border border-dashed border-zinc-300 rounded-lg">
+        No accounts yet.
+      </p>
+    );
+  }
+
+  const confirmed = users.filter((u) => u.confirmed).length;
+  const withSubs = users.filter((u) => u.submissions > 0).length;
+
+  return (
+    <div>
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-5">
+        <StatTile label="Accounts" value={users.length} />
+        <StatTile
+          label="Email confirmed"
+          value={confirmed}
+          hint={confirmed < users.length ? `${users.length - confirmed} not confirmed` : "All confirmed"}
+          tone={confirmed < users.length ? "attention" : "good"}
+        />
+        <StatTile label="Have submitted" value={withSubs} />
+        <StatTile
+          label="Paid placements"
+          value={users.reduce((n, u) => n + u.featured, 0)}
+        />
+      </div>
+
+      <div className="overflow-x-auto border border-zinc-200 rounded-lg">
+        <table className="w-full min-w-[720px] text-sm">
+          <thead>
+            <tr className="border-b border-zinc-200 bg-zinc-50 text-left">
+              <th className="py-2.5 px-4 font-medium text-zinc-700">Account</th>
+              <th className="py-2.5 px-4 font-medium text-zinc-700 whitespace-nowrap">Joined</th>
+              <th className="py-2.5 px-4 font-medium text-zinc-700 whitespace-nowrap">Last seen</th>
+              <th className="py-2.5 px-4 font-medium text-zinc-700 text-right whitespace-nowrap">Listings</th>
+              <th className="py-2.5 px-4 font-medium text-zinc-700 text-right whitespace-nowrap">Paid</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.map((u) => (
+              <tr key={u.id} className="border-b border-zinc-100 last:border-0 align-top">
+                <td className="py-3 px-4">
+                  <span className="block font-medium text-zinc-950">{u.name || u.email || "(no email)"}</span>
+                  {u.name && <span className="block text-xs text-zinc-500">{u.email}</span>}
+                  <span className="flex flex-wrap items-center gap-1.5 mt-1">
+                    {!u.confirmed && (
+                      <span className="text-[10px] uppercase tracking-wider font-semibold px-1.5 py-0.5 rounded-full border bg-amber-50 text-amber-700 border-amber-200">
+                        Unconfirmed
+                      </span>
+                    )}
+                    {u.unclaimed > 0 && (
+                      <span className="text-[10px] uppercase tracking-wider font-semibold px-1.5 py-0.5 rounded-full border bg-zinc-100 text-zinc-600 border-zinc-200">
+                        {u.unclaimed} unclaimed
+                      </span>
+                    )}
+                  </span>
+                </td>
+                <td className="py-3 px-4 text-zinc-600 whitespace-nowrap">
+                  {u.createdAt ? new Date(u.createdAt).toLocaleDateString() : "—"}
+                </td>
+                <td className="py-3 px-4 text-zinc-600 whitespace-nowrap">
+                  {u.lastSignInAt ? new Date(u.lastSignInAt).toLocaleDateString() : "Never"}
+                </td>
+                <td className="py-3 px-4 text-right tabular-nums text-zinc-950">
+                  {u.submissions}
+                  {u.published > 0 && (
+                    <span className="block text-xs text-zinc-500">{u.published} live</span>
+                  )}
+                </td>
+                <td className="py-3 px-4 text-right tabular-nums text-zinc-950">
+                  {u.featured || "—"}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+
+/** Mirrors lib/directory-categories slugs for linking out of the admin. */
+function categorySlug(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/&/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
 }

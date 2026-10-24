@@ -4,7 +4,7 @@ import { getOGImageUrl } from "@/lib/og-image-generator";
 export const metadata: Metadata = {
   title: "AI Tools Directory — Curated, Verified, Free to Browse",
   description:
-    "Hand-picked directory of 120+ AI tools for content, image, video, code, and more. Honest pros, cons, and pricing. Free, no signup.",
+    "Hand-picked directory of 300+ AI tools for content, image, video, code, and more. Honest pros, cons, and pricing. Free, no signup.",
   keywords: [
     "AI tools directory",
     "best AI tools 2026",
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "AI Tools Directory — Curated, Verified, Free to Browse",
     description:
-      "Hand-picked directory of 120+ AI tools with honest pros, cons, and pricing. No spam, no affiliate fluff.",
+      "Hand-picked directory of 300+ AI tools with honest pros, cons, and pricing. No spam, no affiliate fluff.",
     type: "website",
     url: "https://aisocialtools.co/ai-directory",
     siteName: "AISocialTools",
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "AI Tools Directory — Curated, Verified, Free to Browse",
     description:
-      "Hand-picked directory of 120+ AI tools with honest pros, cons, and pricing.",
+      "Hand-picked directory of 300+ AI tools with honest pros, cons, and pricing.",
     images: [getOGImageUrl("default")],
   },
   alternates: { canonical: "https://aisocialtools.co/ai-directory" },

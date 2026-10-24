@@ -429,29 +429,12 @@ export default function AIDirectoryPage() {
     },
   };
 
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://aisocialtools.co" },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "AI Directory",
-        item: "https://aisocialtools.co/ai-directory",
-      },
-    ],
-  };
 
   return (
     <div className="flex flex-col min-h-screen bg-white dark:bg-zinc-950">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <Header />
 
@@ -589,20 +572,43 @@ export default function AIDirectoryPage() {
                   className="w-full pl-9 pr-3 h-11 border border-zinc-200 dark:border-zinc-800 rounded-xl focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 text-sm bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 placeholder-zinc-400"
                 />
               </div>
-              <div className="flex flex-wrap gap-2">
-                {(["All", ...aiCategories] as Array<"All" | AICategory>).map((cat) => (
+              {/* A dropdown, not 27 chips. The same 27 category names already
+                  appear above as links to their own pages, and repeating them
+                  here as filter buttons read as the list printed twice. This
+                  keeps the filter while leaving the chip grid above as the
+                  one place those names are spelled out. */}
+              <div className="flex flex-wrap gap-2 items-center">
+                <label
+                  htmlFor="category-filter"
+                  className="text-xs uppercase tracking-wider text-zinc-400 dark:text-zinc-500"
+                >
+                  Category:
+                </label>
+                <select
+                  id="category-filter"
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(e.target.value as "All" | AICategory)}
+                  className={`h-8 px-2.5 text-xs font-medium rounded-lg border transition-colors ${
+                    selectedCategory !== "All"
+                      ? "bg-indigo-600 text-white border-indigo-600"
+                      : "bg-white dark:bg-zinc-900 text-zinc-700 dark:text-zinc-300 border-zinc-200 dark:border-zinc-800"
+                  }`}
+                >
+                  <option value="All">All categories</option>
+                  {aiCategories.map((cat) => (
+                    <option key={cat} value={cat}>
+                      {cat}
+                    </option>
+                  ))}
+                </select>
+                {selectedCategory !== "All" && (
                   <button
-                    key={cat}
-                    onClick={() => setSelectedCategory(cat)}
-                    className={`px-3 h-8 text-xs font-medium rounded-lg border transition-colors ${
-                      selectedCategory === cat
-                        ? "bg-indigo-600 text-white border-indigo-600"
-                        : "bg-white dark:bg-zinc-900 text-zinc-700 dark:text-zinc-300 border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700"
-                    }`}
+                    onClick={() => setSelectedCategory("All")}
+                    className="h-8 px-2.5 text-xs rounded-lg border border-zinc-200 dark:border-zinc-800 text-zinc-500 hover:text-zinc-950 dark:hover:text-white transition-colors"
                   >
-                    {cat}
+                    Clear
                   </button>
-                ))}
+                )}
               </div>
               <div className="flex flex-wrap gap-2 items-center">
                 <span className="text-xs uppercase tracking-wider text-zinc-400 dark:text-zinc-500 mr-1">Pricing:</span>

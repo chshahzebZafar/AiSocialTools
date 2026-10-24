@@ -1,6 +1,7 @@
 import "server-only";
 import { supabaseAdmin } from "@/lib/supabase";
 import { getDb, SUBMISSIONS } from "@/lib/firebase-admin";
+import { aiDirectoryTools } from "@/lib/ai-directory";
 
 /**
  * Submission storage: Supabase when configured, Firestore otherwise.
@@ -42,6 +43,8 @@ export interface StoredRow {
   notifiedStatus?: string;
   notifiedAt?: string;
   reviewedAt?: string;
+  /** When the owner last changed the listing content, if ever. */
+  lastEditedAt?: string;
   /** The provider payment that bought the placement, for reversing it. */
   sponsoredPaymentRef?: string;
   /** Private. Returned to the admin only, never to a submitter. */
@@ -86,6 +89,7 @@ function rowFromSupabase(
     notifiedStatus: r.notified_status ? str(r.notified_status) : undefined,
     notifiedAt: r.notified_at ? str(r.notified_at) : undefined,
     reviewedAt: r.reviewed_at ? str(r.reviewed_at) : undefined,
+    lastEditedAt: r.last_edited_at ? str(r.last_edited_at) : undefined,
     sponsoredPaymentRef: r.sponsored_payment_ref ? str(r.sponsored_payment_ref) : undefined,
     notes: note ? str(note.notes) : undefined,
     sponsorshipNote: note ? str(note.sponsorship_note) : undefined,
@@ -198,8 +202,85 @@ export async function getSubmissionByPaymentRef(ref: string): Promise<StoredRow 
   return data ? rowFromSupabase(data) : null;
 }
 
+/** Bare domain, lower case, www stripped - what "the same tool" means here. */
+export function domainOf(url: string): string {
+  try {
+    return new URL(url).hostname.replace(/^www\./, "").toLowerCase();
+  } catch {
+    return "";
+  }
+}
+
+export type DuplicateHit = {
+  where: "curated" | "submission";
+  name: string;
+  slug?: string;
+  status?: string;
+};
+
+/**
+ * Is this tool already here?
+ *
+ * Matched on domain rather than the exact URL, because the same tool arrives
+ * as https://x.com, https://www.x.com/ and https://x.com/?ref=something, and
+ * all three are one listing.
+ *
+ * A DECLINED submission never blocks: the decline email invites a resubmission
+ * once the tool has changed, and refusing it would make that an empty promise.
+ * Everything else does - approved, in review, awaiting payment, and spam.
+ * Spam blocks silently with the same wording as any other duplicate, so a
+ * spammer learns nothing about what tripped the filter.
+ */
+export async function findDuplicate(url: string): Promise<DuplicateHit | null> {
+  const domain = domainOf(url);
+  if (!domain) return null;
+
+  // The curated file is the oldest half of the directory and still the part
+  // most likely to be resubmitted.
+  const curated = aiDirectoryTools.find((t) => t.approved && domainOf(t.url) === domain);
+  if (curated) {
+    return { where: "curated", name: curated.name, slug: curated.slug, status: "approved" };
+  }
+
+  const db = supabaseAdmin();
+  if (!db) return null;
+
+  const { data } = await db
+    .from("submissions")
+    .select("name,slug,status,url")
+    .neq("status", "declined")
+    .limit(1000);
+
+  for (const row of data ?? []) {
+    if (domainOf(String(row.url ?? "")) === domain) {
+      return {
+        where: "submission",
+        name: String(row.name ?? ""),
+        slug: row.slug ? String(row.slug) : undefined,
+        status: String(row.status ?? ""),
+      };
+    }
+  }
+  return null;
+}
+
 /** Fields the admin may change. Notes are routed to their own table. */
 export interface SubmissionPatch {
+  /* --- content the owner may change. The URL is deliberately absent: it is
+     what was reviewed, and allowing it to move after approval would let a
+     listing be repointed at anything once published. --- */
+  name?: string;
+  tagline?: string;
+  description?: string;
+  category?: string;
+  pricing?: string;
+  pricingDetails?: string;
+  features?: string;
+  twitter?: string;
+  founder?: string;
+  lastEditedAt?: string;
+
+  /* --- moderation and billing: service role only --- */
   status?: string;
   slug?: string;
   sponsored?: boolean;
@@ -223,6 +304,16 @@ export async function updateSubmission(id: string, patch: SubmissionPatch): Prom
   }
 
   const row: Record<string, unknown> = {};
+  if (patch.name !== undefined) row.name = patch.name;
+  if (patch.tagline !== undefined) row.tagline = patch.tagline;
+  if (patch.description !== undefined) row.description = patch.description;
+  if (patch.category !== undefined) row.category = patch.category;
+  if (patch.pricing !== undefined) row.pricing = patch.pricing;
+  if (patch.pricingDetails !== undefined) row.pricing_details = patch.pricingDetails;
+  if (patch.features !== undefined) row.features = patch.features;
+  if (patch.twitter !== undefined) row.twitter = patch.twitter;
+  if (patch.founder !== undefined) row.founder = patch.founder;
+  if (patch.lastEditedAt !== undefined) row.last_edited_at = patch.lastEditedAt;
   if (patch.status !== undefined) row.status = patch.status;
   if (patch.slug !== undefined) row.slug = patch.slug;
   if (patch.sponsored !== undefined) row.sponsored = patch.sponsored;

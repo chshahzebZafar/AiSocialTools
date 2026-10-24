@@ -10,7 +10,8 @@ import { AuthScreen } from "@/components/account/AuthScreen";
 import { ListingStatus, FeaturedBadge } from "@/components/account/ListingStatus";
 import { ToolIcon } from "@/components/ToolIcon";
 import { supabaseBrowser } from "@/lib/supabase";
-import { ArrowLeft, ArrowUpRight, Check, Clock, Copy, Loader2, Star, X } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Check, Clock, Copy, Loader2, Pencil, Star, X } from "lucide-react";
+import { aiCategories } from "@/lib/ai-directory";
 
 /**
  * One listing, as its owner sees it.
@@ -43,6 +44,10 @@ type Listing = {
   submitted_at: string;
 };
 
+const editField =
+  "w-full px-3 text-sm rounded-md border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-zinc-950 dark:text-white placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500";
+const editLabel = "block text-sm font-medium text-zinc-900 dark:text-zinc-200 mb-1.5";
+
 export default function ListingPage() {
   const params = useParams<{ reference: string }>();
   const reference = String(params?.reference ?? "");
@@ -53,6 +58,66 @@ export default function ListingPage() {
   const [copied, setCopied] = useState(false);
   const [buying, setBuying] = useState(false);
   const [switching, setSwitching] = useState(false);
+
+  /**
+   * Editing what the listing says. The URL is not here on purpose: it is what
+   * was reviewed, and letting it move after approval would allow a published
+   * page to be repointed at anything.
+   */
+  const [editing, setEditing] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [saved, setSaved] = useState("");
+  const [form, setForm] = useState({
+    name: "", tagline: "", description: "", category: "",
+    pricing: "", pricing_details: "", features: "", twitter: "", founder: "",
+  });
+
+  function startEditing(r: Listing) {
+    setForm({
+      name: r.name ?? "", tagline: r.tagline ?? "", description: r.description ?? "",
+      category: r.category ?? "", pricing: r.pricing ?? "",
+      pricing_details: r.pricing_details ?? "", features: r.features ?? "",
+      twitter: r.twitter ?? "", founder: r.founder ?? "",
+    });
+    setSaved("");
+    setError("");
+    setEditing(true);
+  }
+
+  async function saveEdits() {
+    setSaving(true);
+    setError("");
+    try {
+      const res = await fetch("/api/account/listing", {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          ...(session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {}),
+        },
+        body: JSON.stringify({
+          reference,
+          name: form.name,
+          tagline: form.tagline,
+          description: form.description,
+          category: form.category,
+          pricing: form.pricing,
+          pricingDetails: form.pricing_details,
+          features: form.features,
+          twitter: form.twitter,
+          founder: form.founder,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Could not save your changes.");
+      setSaved(data.message || "Saved.");
+      setEditing(false);
+      await load();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Could not save your changes.");
+    } finally {
+      setSaving(false);
+    }
+  }
 
   /**
    * How the person got here from checkout.
@@ -403,16 +468,132 @@ export default function ListingPage() {
 
               {error && <p className="text-sm text-red-600 dark:text-red-400 mb-6">{error}</p>}
 
-              {/* What they submitted */}
+              {saved && (
+                <p className="mb-4 text-sm text-emerald-700 dark:text-emerald-400">{saved}</p>
+              )}
+
+              {editing ? (
+                <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 p-5 sm:p-6">
+                  <h2 className="text-lg font-semibold text-zinc-950 dark:text-white tracking-tight mb-1">
+                    Edit your listing
+                  </h2>
+                  <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-5">
+                    You can change what the listing says. The link stays as it is - it is what we
+                    checked, so it cannot be changed here.
+                  </p>
+
+                  <div className="mb-5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/40 px-3 py-2">
+                    <span className="text-xs text-zinc-500 dark:text-zinc-400">Link (cannot be changed)</span>
+                    <p className="text-sm text-zinc-600 dark:text-zinc-400 break-all">{row.url}</p>
+                  </div>
+
+                  <div className="space-y-4">
+                    <div>
+                      <label htmlFor="e-name" className={editLabel}>Tool name</label>
+                      <input id="e-name" value={form.name} maxLength={80}
+                        onChange={(e) => setForm({ ...form, name: e.target.value })}
+                        className={editField + " h-10"} />
+                    </div>
+                    <div>
+                      <label htmlFor="e-tagline" className={editLabel}>One line</label>
+                      <input id="e-tagline" value={form.tagline} maxLength={140}
+                        onChange={(e) => setForm({ ...form, tagline: e.target.value })}
+                        className={editField + " h-10"} />
+                      <p className="text-xs text-zinc-500 mt-1.5">{form.tagline.length}/140</p>
+                    </div>
+                    <div>
+                      <label htmlFor="e-desc" className={editLabel}>Description</label>
+                      <textarea id="e-desc" rows={5} value={form.description} maxLength={4000}
+                        onChange={(e) => setForm({ ...form, description: e.target.value })}
+                        className={editField + " py-2.5"} />
+                    </div>
+                    <div className="grid sm:grid-cols-2 gap-4">
+                      <div>
+                        <label htmlFor="e-cat" className={editLabel}>Category</label>
+                        <select id="e-cat" value={form.category}
+                          onChange={(e) => setForm({ ...form, category: e.target.value })}
+                          className={editField + " h-10"}>
+                          {aiCategories.map((c) => (<option key={c} value={c}>{c}</option>))}
+                        </select>
+                      </div>
+                      <div>
+                        <label htmlFor="e-price" className={editLabel}>Pricing model</label>
+                        <select id="e-price" value={form.pricing}
+                          onChange={(e) => setForm({ ...form, pricing: e.target.value })}
+                          className={editField + " h-10"}>
+                          {["Free", "Freemium", "Paid", "Open Source"].map((p) => (
+                            <option key={p} value={p}>{p}</option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+                    <div>
+                      <label htmlFor="e-pd" className={editLabel}>Pricing detail</label>
+                      <input id="e-pd" value={form.pricing_details} maxLength={300}
+                        onChange={(e) => setForm({ ...form, pricing_details: e.target.value })}
+                        className={editField + " h-10"} />
+                    </div>
+                    <div>
+                      <label htmlFor="e-feat" className={editLabel}>Key features, one per line</label>
+                      <textarea id="e-feat" rows={4} value={form.features} maxLength={1200}
+                        onChange={(e) => setForm({ ...form, features: e.target.value })}
+                        className={editField + " py-2.5"} />
+                    </div>
+                    <div className="grid sm:grid-cols-2 gap-4">
+                      <div>
+                        <label htmlFor="e-founder" className={editLabel}>Made by</label>
+                        <input id="e-founder" value={form.founder} maxLength={120}
+                          onChange={(e) => setForm({ ...form, founder: e.target.value })}
+                          className={editField + " h-10"} />
+                      </div>
+                      <div>
+                        <label htmlFor="e-tw" className={editLabel}>X / Twitter</label>
+                        <input id="e-tw" value={form.twitter} maxLength={40}
+                          onChange={(e) => setForm({ ...form, twitter: e.target.value })}
+                          className={editField + " h-10"} />
+                      </div>
+                    </div>
+                  </div>
+
+                  {row.status === "approved" && (
+                    <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-5 leading-relaxed">
+                      This listing is live. Your changes publish straight away, and we read them
+                      again afterwards.
+                    </p>
+                  )}
+
+                  <div className="flex items-center gap-2 mt-5">
+                    <button onClick={() => void saveEdits()} disabled={saving}
+                      className="h-10 px-4 text-sm font-medium rounded-md bg-zinc-950 dark:bg-white text-white dark:text-zinc-950 hover:bg-zinc-800 dark:hover:bg-zinc-200 disabled:opacity-60 inline-flex items-center gap-2 transition-colors">
+                      {saving && <Loader2 className="w-4 h-4 animate-spin" />}
+                      Save changes
+                    </button>
+                    <button onClick={() => setEditing(false)} disabled={saving}
+                      className="h-10 px-4 text-sm rounded-md border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white disabled:opacity-60 transition-colors">
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              ) : (
+              /* What they submitted */
               <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 p-5 sm:p-6">
                 <div className="flex items-start gap-4 mb-5">
                   <ToolIcon name={row.name} url={row.url} size={48} />
-                  <div className="min-w-0">
+                  <div className="min-w-0 flex-1">
                     <h1 className="text-xl font-semibold text-zinc-950 dark:text-white tracking-tight">
                       {row.name}
                     </h1>
                     <p className="text-sm text-zinc-500 dark:text-zinc-400">{row.tagline}</p>
                   </div>
+                  {row.status !== "declined" && (
+                    <button
+                      onClick={() => startEditing(row)}
+                      className="flex-shrink-0 h-9 px-3 text-sm rounded-md border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white inline-flex items-center gap-1.5 transition-colors"
+                    >
+                      <Pencil className="w-3.5 h-3.5" />
+                      Edit
+                    </button>
+                  )}
                 </div>
 
                 <dl className="grid sm:grid-cols-2 gap-x-8 gap-y-4 text-sm mb-5">
@@ -482,9 +663,11 @@ export default function ListingPage() {
                 )}
 
                 <p className="text-xs text-zinc-400 dark:text-zinc-500 mt-6 pt-5 border-t border-zinc-100 dark:border-zinc-800">
-                  Something wrong here? Reply to your submission email and we will fix it.
+                  Need the link itself changed? Reply to your submission email - the link is what
+                  we checked, so it is not editable here.
                 </p>
               </div>
+              )}
             </>
           )}
         </div>
