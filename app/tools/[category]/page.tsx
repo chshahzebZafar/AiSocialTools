@@ -11,6 +11,7 @@ import {
   toolCategories,
   getCategoryBySlug,
   getToolsInCategory,
+  isIndexableToolCategory,
 } from "@/lib/tool-groups";
 
 export const dynamicParams = false;
@@ -43,7 +44,12 @@ export async function generateMetadata({
     alternates: { canonical: url },
     openGraph: { title, description: cat.description, url, type: "website", siteName: "AISocialTools" },
     twitter: { card: "summary_large_image", title, description: cat.description },
-    robots: { index: true, follow: true },
+    // A hub with fewer than three tools still renders, but stops asking to be
+    // indexed. Six of these were serving "No tools here yet" to Google. follow
+    // stays true either way so the tools it does list keep their link equity.
+    robots: isIndexableToolCategory(category)
+      ? { index: true, follow: true }
+      : { index: false, follow: true },
   };
 }
 

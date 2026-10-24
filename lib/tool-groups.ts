@@ -146,3 +146,26 @@ export function getToolsInCategory(slug: string): SocialTool[] {
 export function categoryToolCount(slug: string): number {
   return socialTools.filter((t) => toolCategoryMap[t.id] === slug).length;
 }
+
+/**
+ * How many tools a category hub needs before it is worth indexing.
+ *
+ * Six of these pages were rendering "No tools here yet" while the sitemap
+ * submitted them to Google as worth indexing, and ten more carried two to four
+ * tools in under 120 words. Google crawled them, found a heading and a couple
+ * of links, and declined - which is the right call. A page holding two tools
+ * has no reason to outrank /tools itself.
+ *
+ * Three is the line because that is where a hub starts to say something a
+ * visitor could not get from the full list. Below it the page still renders -
+ * someone following a link should never hit a 404 - it simply stops asking to
+ * be indexed, and starts again on its own once a third tool ships.
+ *
+ * Both the page's robots tag and its sitemap entry read this one function, so
+ * the two cannot drift into telling Google different things.
+ */
+export const MIN_TOOLS_TO_INDEX_HUB = 3;
+
+export function isIndexableToolCategory(slug: string): boolean {
+  return getToolsInCategory(slug).length >= MIN_TOOLS_TO_INDEX_HUB;
+}

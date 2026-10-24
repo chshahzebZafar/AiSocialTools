@@ -2,13 +2,15 @@ import { MetadataRoute } from 'next'
 import { socialTools } from '@/lib/social-tools'
 import { blogPosts } from '@/lib/blog-posts'
 import { categoryTools } from '@/lib/category-tools'
-import { aiDirectoryTools } from '@/lib/ai-directory'
-import { directoryCategories, MIN_TOOLS_TO_INDEX } from '@/lib/directory-categories'
 import { directoryCollections } from '@/lib/directory-collections'
 import { toolReviews } from '@/lib/tool-reviews'
-import { toolCategories } from '@/lib/tool-groups'
+import { toolCategories, isIndexableToolCategory } from '@/lib/tool-groups'
+import { indexableCategorySlugs } from '@/lib/category-indexing'
 
-export default function sitemap(): MetadataRoute.Sitemap {
+// Async because the directory category counts come from the live store, so a
+// category that crosses the threshold when a tool is approved in /admin starts
+// being advertised without waiting for a deploy.
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://aisocialtools.co'
 
   // Static date groups — avoids every page appearing "modified today" on every deploy.
@@ -41,13 +43,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: post.featured ? 0.9 : 0.8,
   }))
 
-  // Category pages (platform + function) - cluster SEO plays, high priority
-  const hubPages: MetadataRoute.Sitemap = toolCategories.map((c) => ({
-    url: `${baseUrl}/tools/${c.slug}`,
-    lastModified: CONTENT_REFRESHED,
-    changeFrequency: 'weekly' as const,
-    priority: 0.9
-  }))
+  // Category pages (platform + function) - cluster SEO plays, high priority.
+  // Gated on the same isIndexableToolCategory() the page's robots tag reads,
+  // so the sitemap cannot advertise a hub that tells Google not to index it.
+  // Six of these were submitting "No tools here yet" pages for indexing.
+  const hubPages: MetadataRoute.Sitemap = toolCategories
+    .filter((c) => isIndexableToolCategory(c.slug))
+    .map((c) => ({
+      url: `${baseUrl}/tools/${c.slug}`,
+      lastModified: CONTENT_REFRESHED,
+      changeFrequency: 'weekly' as const,
+      priority: 0.9
+    }))
 
   // Static pages with optimized priorities and frequencies
   const staticPages: MetadataRoute.Sitemap = [
@@ -85,6 +92,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: CONTENT_REFRESHED,
       changeFrequency: 'weekly',
       priority: 0.85,
+    },
+    // The human sitemap. Listed because it is a genuine index page, and it is
+    // the second internal link for every article - they had exactly one each.
+    {
+      url: `${baseUrl}/site-map`,
+      lastModified: CONTENT_REFRESHED,
+      changeFrequency: 'weekly',
+      priority: 0.6,
     },
     // Medium priority pages
     {
@@ -147,20 +162,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
   )
 
   // AI directory category pages - the directory's indexable surface.
-  // Only those with enough reviewed tools are listed; the rest render for
-  // visitors but are noindex, so they do not belong in the sitemap either.
-  const directoryCategoryPages: MetadataRoute.Sitemap = directoryCategories
-    .filter(
-      (c) =>
-        aiDirectoryTools.filter((t) => t.approved && t.category === c.name).length >=
-        MIN_TOOLS_TO_INDEX
-    )
-    .map((c) => ({
-      url: `${baseUrl}/ai-directory/category/${c.slug}`,
-      lastModified: CONTENT_REFRESHED,
-      changeFrequency: 'weekly' as const,
-      priority: 0.8,
-    }))
+  // Only those with enough tools are listed; the rest render for visitors but
+  // are noindex, so they do not belong in the sitemap either.
+  //
+  // This reads indexableCategorySlugs(), the same function the category page's
+  // robots tag reads. It used to apply its own narrower filter - curated tools
+  // only, ignoring the live Supabase set and subcategory matches - so
+  // ai-models-apis and ai-agents-automation served "index, follow" with 7 and
+  // 15 tools on them while being absent from this file entirely.
+  const indexableSlugs = await indexableCategorySlugs()
+  const directoryCategoryPages: MetadataRoute.Sitemap = indexableSlugs.map((slug) => ({
+    url: `${baseUrl}/ai-directory/category/${slug}`,
+    lastModified: CONTENT_REFRESHED,
+    changeFrequency: 'weekly' as const,
+    priority: 0.8,
+  }))
 
   // AI directory collection pages - hand-written editorial lists ("best free
   // AI video generators"). Every pick carries a written reason, so unlike the

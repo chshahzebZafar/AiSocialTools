@@ -43,6 +43,9 @@ const linkSections: FooterSection[] = [
     links: [
       { href: "/about", label: "About" },
       { href: "/contact", label: "Contact" },
+      // Sitewide, so every indexable page is reachable in two clicks from
+      // anywhere. The articles had one internal link each before this.
+      { href: "/site-map", label: "Site map" },
       { href: "/privacy", label: "Privacy" },
       { href: "/terms", label: "Terms" },
     ],

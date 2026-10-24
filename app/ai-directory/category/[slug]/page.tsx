@@ -6,13 +6,13 @@ import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { Badge } from "@/components/ui/Badge";
 import { ButtonLink } from "@/components/ui/Button";
-import { aiDirectoryTools, type AIDirectoryTool } from "@/lib/ai-directory";
+import { type AIDirectoryTool } from "@/lib/ai-directory";
 import {
   directoryCategories,
   getCategoryBySlug,
   MIN_TOOLS_TO_INDEX,
 } from "@/lib/directory-categories";
-import { getPublishedTools } from "@/lib/directory-store";
+import { toolsInCategory } from "@/lib/category-indexing";
 import { ArrowLeft, ArrowUpRight, BadgeCheck, Check } from "lucide-react";
 
 /**
@@ -34,14 +34,9 @@ export function generateStaticParams() {
   return directoryCategories.map((c) => ({ slug: c.slug }));
 }
 
-async function toolsInCategory(name: string): Promise<AIDirectoryTool[]> {
-  const curated = aiDirectoryTools.filter(
-    (t) => t.approved && (t.category === name || t.subcategories?.includes(name as never))
-  );
-  const live = (await getPublishedTools()).filter((t) => t.category === name);
-  const taken = new Set(curated.map((t) => t.slug));
-  return [...curated, ...live.filter((t) => !taken.has(t.slug))];
-}
+// toolsInCategory now lives in lib/category-indexing.ts, shared with the
+// sitemap. It used to be defined here, which let the two count differently -
+// this page said "index me" while the sitemap left the URL out entirely.
 
 export async function generateMetadata({
   params,
