@@ -54,25 +54,18 @@ export function getEnhancedArticleSchema(post: BlogPost) {
   };
 }
 
-/**
- * SoftwareApplication schema for tools — no aggregateRating included because
- * fabricated review counts violate Google's structured data policy and can
- * trigger a manual action. Add real ratings only when backed by actual user data.
+/*
+ * getReviewSchema used to live here. Its aggregateRating was removed once it
+ * turned out to be a hardcoded 4.8 from 1250 reviews that never existed, which
+ * left a SoftwareApplication stub repeating the name, category and a $0 offer
+ * that ToolSchemaInjector's WebApplication already covered - a third entity for
+ * the same tool, competing with the other two. Deleted rather than left unused,
+ * because a function called getReviewSchema invites being wired back in, and
+ * the next person to do that may not know why the ratings went.
+ *
+ * Real ratings need real user data, and a schema.org Review or aggregateRating
+ * built from it. Not a constant.
  */
-export function getReviewSchema(tool: SocialTool, _rating?: number, _reviewCount?: number) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": tool.name,
-    "applicationCategory": "UtilityApplication",
-    "operatingSystem": "Web",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    }
-  };
-}
 
 /**
  * SiteLinks SearchBox Schema

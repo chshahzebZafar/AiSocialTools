@@ -77,29 +77,6 @@ export default function HashtagGeneratorPage() {
   return (
     <>
       {tool && <ToolSEO tool={tool} />}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebApplication",
-            name: "Hashtag Generator",
-            url: "https://aisocialtools.co/tools/hashtag-generator",
-            description: "Free AI hashtag generator for Instagram, Twitter, TikTok, and LinkedIn. Generate trending and relevant hashtags to boost your social media reach.",
-            applicationCategory: "Utility",
-            operatingSystem: "Web Browser",
-            offers: {
-              "@type": "Offer",
-              price: "0",
-              priceCurrency: "USD"
-            },
-            creator: {
-              "@type": "Person",
-              name: "Shahzeb Zafar"
-            }
-          }),
-        }}
-      />
       <ToolHero
         toolId={tool?.id}
         icon={Hash}

@@ -84,29 +84,6 @@ export default function ContentIdeasPage() {
   return (
     <>
       {tool && <ToolSEO tool={tool} />}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebApplication",
-            name: "Content Ideas Generator",
-            url: "https://aisocialtools.co/tools/content-ideas",
-            description: "Free AI content ideas generator for Instagram, Twitter, LinkedIn, and TikTok. Generate creative content ideas to inspire your next viral post.",
-            applicationCategory: "Utility",
-            operatingSystem: "Web Browser",
-            offers: {
-              "@type": "Offer",
-              price: "0",
-              priceCurrency: "USD"
-            },
-            creator: {
-              "@type": "Person",
-              name: "Shahzeb Zafar"
-            }
-          }),
-        }}
-      />
       <ToolHero
         toolId={tool?.id}
         icon={Lightbulb}

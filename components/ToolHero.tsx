@@ -36,7 +36,13 @@ export default function ToolHero({
       <div className="absolute inset-0 bg-dot-grid-animated opacity-50" aria-hidden />
       <div className="absolute inset-0 bg-radial-wash" aria-hidden />
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12">
-        <Breadcrumbs embedded />
+        {/* schema={false}: ToolSchemaInjector already emits a BreadcrumbList
+            for every tool page, and it builds the trail from the tool record
+            rather than from URL segments - so its last crumb reads "QR Code
+            Generator" where a segment-derived one reads "Qr Code Generator".
+            Two BreadcrumbLists on one page is a conflict Google resolves by
+            guessing; this leaves the better one standing. */}
+        <Breadcrumbs embedded schema={false} />
         <div className="flex items-start gap-4">
           <div
             className={`w-12 h-12 shrink-0 rounded-xl bg-gradient-to-br ${iconGradient} flex items-center justify-center shadow-sm`}
