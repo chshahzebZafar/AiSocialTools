@@ -19,6 +19,7 @@ import { supabaseAdmin } from "@/lib/supabase";
 
 /** Rows as the published_tools view returns them. */
 type PublishedRow = {
+  id: string;
   slug: string;
   name: string;
   tagline: string | null;
@@ -41,6 +42,7 @@ export function usingSupabase(): boolean {
 
 function rowToTool(r: PublishedRow): AIDirectoryTool {
   return {
+    submissionId: r.id,
     slug: r.slug,
     name: r.name,
     tagline: r.tagline ?? "",

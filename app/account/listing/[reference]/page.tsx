@@ -10,6 +10,7 @@ import { AuthScreen } from "@/components/account/AuthScreen";
 import { ListingStatus, FeaturedBadge } from "@/components/account/ListingStatus";
 import { ToolIcon } from "@/components/ToolIcon";
 import { supabaseBrowser } from "@/lib/supabase";
+import { ScreenshotManager } from "@/components/account/ScreenshotManager";
 import { ArrowLeft, ArrowUpRight, Check, Clock, Copy, Loader2, Pencil, Star, X } from "lucide-react";
 import { aiCategories } from "@/lib/ai-directory";
 
@@ -463,6 +464,20 @@ export default function ListingPage() {
                       </button>
                     </div>
                   </div>
+                </div>
+              )}
+
+              {/* Screenshots. Shown for every listing that is not declined:
+                  a featured one gets the uploader, and the rest get one line
+                  saying what featuring would give them - which is a more
+                  honest upsell than hiding the section entirely. */}
+              {row.status !== "declined" && row.status !== "awaiting_payment" && (
+                <div className="mb-6">
+                  <ScreenshotManager
+                    reference={reference}
+                    accessToken={session?.access_token}
+                    featured={row.sponsored}
+                  />
                 </div>
               )}
 

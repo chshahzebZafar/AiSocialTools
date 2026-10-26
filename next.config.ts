@@ -29,7 +29,22 @@ const nextConfig: NextConfig = {
   // Image optimization
   images: {
     formats: ['image/avif', 'image/webp'],
-    remotePatterns: [],
+    remotePatterns: [
+      // Listing screenshots live in Supabase Storage. Serving them through
+      // next/image means Vercel's CDN caches each file at the edge, so
+      // Supabase serves it once per cache period rather than once per page
+      // view. The free tier allows 5 GB of egress a month, which direct
+      // serving would spend in roughly 13,000 page views.
+      //
+      // Narrowed to the public object path: that is the only thing we ever
+      // want optimised from this host, and an open pattern would turn the
+      // image optimiser into a proxy for anything else served there.
+      {
+        protocol: 'https',
+        hostname: '*.supabase.co',
+        pathname: '/storage/v1/object/public/**',
+      },
+    ],
   },
   
   // Compression

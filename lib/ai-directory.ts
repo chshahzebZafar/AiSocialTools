@@ -83,6 +83,12 @@ export interface AIDirectoryTool {
   founder?: string;
   /** logo URL — fallback to first letter of name */
   logoUrl?: string;
+  /**
+   * The submissions row this came from, for user-submitted entries only.
+   * Curated entries in this file have no row and so no screenshots: the
+   * gallery is something a featured placement buys, and nobody bought these.
+   */
+  submissionId?: string;
   /** for community submissions — name of submitter */
   submittedBy?: string;
   /** moderation flag — only true entries render */

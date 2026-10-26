@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { StatTile, SubmissionsOverTime, TopCategories } from "@/components/admin/Charts";
+import { ImagesTab } from "@/components/admin/ImagesTab";
 
 /**
  * Submission inbox.
@@ -99,7 +100,7 @@ export default function AdminPage() {
   const [filter, setFilter] = useState<"all" | Status>("all");
   /** Free vs paid. Separate from status: a listing can be paid and still new. */
   const [plan, setPlan] = useState<"all" | "free" | "featured">("all");
-  const [tab, setTab] = useState<"submissions" | "users">("submissions");
+  const [tab, setTab] = useState<"submissions" | "users" | "screenshots">("submissions");
   const [search, setSearch] = useState("");
   const [openId, setOpenId] = useState<string | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
@@ -324,7 +325,7 @@ export default function AdminPage() {
       )}
 
       <div className="flex items-center gap-1 mb-5 p-1 rounded-lg bg-zinc-100 w-fit">
-        {(["submissions", "users"] as const).map((t) => (
+        {(["submissions", "users", "screenshots"] as const).map((t) => (
           <button
             key={t}
             onClick={() => setTab(t)}
@@ -338,7 +339,9 @@ export default function AdminPage() {
         ))}
       </div>
 
-      {tab === "users" ? (
+      {tab === "screenshots" ? (
+        <ImagesTab />
+      ) : tab === "users" ? (
         <UsersTab users={users} error={usersError} />
       ) : (
       <>

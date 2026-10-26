@@ -15,6 +15,8 @@ import { getToolReview } from "@/lib/tool-reviews";
 import { ArrowLeft, ArrowRight, ArrowUpRight, BadgeCheck, Calendar, Check, ExternalLink, Sparkles, Tag, TrendingUp, Twitter, X } from "lucide-react";
 import type { Metadata } from "next";
 import { getPublishedToolBySlug } from "@/lib/directory-store";
+import { approvedImages } from "@/lib/listing-images";
+import { ListingGallery } from "@/components/ListingGallery";
 
 // Approved submissions are published from Firestore without a deploy, so this
 // route must also serve slugs that did not exist at build time. Those render on
@@ -115,6 +117,13 @@ export default async function AIDirectoryDetailPage({
   // Present only for tools that have been written up; drives both the
   // review block below and whether this page is indexable.
   const review = getToolReview(slug);
+
+  // Screenshots the vendor uploaded and a reviewer approved. Only
+  // user-submitted listings have a submissions row, and only featured ones can
+  // upload, so this is empty for everything else - and approvedImages returns
+  // [] rather than throwing when the store is unreachable, because a gallery
+  // failing should never take the page down with it.
+  const screenshots = tool.submissionId ? await approvedImages(tool.submissionId) : [];
 
   const alternatives = (tool.alternatives || [])
     .map((altSlug) => getDirectoryToolBySlug(altSlug))
@@ -343,6 +352,12 @@ export default async function AIDirectoryDetailPage({
                     </div>
                   </div>
                 )}
+
+                {/* Screenshots sit above the vendor's own description for
+                    the same reason our review does: someone deciding between
+                    two tools gets more from seeing the interface than from
+                    reading what its makers say about it. */}
+                <ListingGallery images={screenshots} toolName={tool.name} />
 
                 {/* About */}
                 <div>
