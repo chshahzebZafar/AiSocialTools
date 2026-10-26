@@ -7,6 +7,7 @@
 
 import { BlogPost } from "./blog-posts";
 import { SocialTool } from "./social-tools";
+import { getToolFaqs } from "./tool-faqs";
 
 const BASE_URL = "https://aisocialtools.co";
 
@@ -88,127 +89,47 @@ export function getSiteLinksSearchBoxSchema() {
 }
 
 /**
- * Enhanced FAQPage Schema
+ * FAQPage markup, built from the FAQs the page actually shows.
+ *
+ * It used to build them from a template that ignored the page entirely. On
+ * /tools/tweet-generator the page showed seven written answers about making
+ * tweet mockups while this told Google the page answered "Is my data safe?"
+ * and six other questions that appeared nowhere on it - zero overlap, on all
+ * 56 tool pages, 392 Q&As asserted that did not exist. Google requires this
+ * markup to match visible content, and at that scale it reads as deliberate.
+ *
+ * Returns null when a tool only has generic filler. No markup is better than
+ * markup for four restatements of "it is free and needs no account".
  */
 export function getEnhancedFAQSchema(tool: SocialTool) {
-  const faqs = [
-    {
-      "@type": "Question",
-      "name": `How to use ${tool.name}?`,
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": `Our ${tool.name.toLowerCase()} is a free online tool that helps you ${tool.description.toLowerCase()}. Simply use the interface above to get started. No signup or registration required.`
-      }
-    },
-    {
-      "@type": "Question",
-      "name": `Is ${tool.name} free?`,
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": `Yes, ${tool.name} is completely free to use. No signup, no credit card, and no hidden fees. Use it as much as you want, whenever you need it.`
-      }
-    },
-    {
-      "@type": "Question",
-      "name": `What can I do with ${tool.name}?`,
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": `${tool.name} allows you to ${tool.description.toLowerCase()}. It's perfect for content creators, social media managers, marketers, and anyone looking to enhance their social media presence.`
-      }
-    },
-    {
-      "@type": "Question",
-      "name": `Do I need to create an account to use ${tool.name}?`,
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": `No, you don't need to create an account. ${tool.name} works instantly in your browser without any registration. Just visit the page and start using it immediately.`
-      }
-    },
-    {
-      "@type": "Question",
-      "name": `Is my data safe when using ${tool.name}?`,
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": `Yes, your data is completely safe. All processing happens in your browser, and we don't store any of your information. Your privacy is our top priority.`
-      }
-    },
-    {
-      "@type": "Question",
-      "name": `Can I use ${tool.name} on mobile devices?`,
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": `Yes, ${tool.name} is fully responsive and works perfectly on mobile devices, tablets, and desktops. You can use it anywhere, anytime.`
-      }
-    },
-    {
-      "@type": "Question",
-      "name": `Are there any limitations to using ${tool.name}?`,
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": `No, there are no limitations. You can use ${tool.name} as much as you want, whenever you need it. It's completely free with unlimited usage.`
-      }
-    }
-  ];
+  const faqs = getToolFaqs(tool.id);
+  if (!faqs) return null;
 
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "mainEntity": faqs
+    "mainEntity": faqs.map((f) => ({
+      "@type": "Question",
+      "name": f.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": f.answer,
+      },
+    })),
   };
 }
 
-/**
- * Enhanced HowTo Schema
+/*
+ * getEnhancedHowToSchema used to live here, and it was fabricated end to end.
+ * Every one of the 56 tool pages claimed the same four steps - "Visit the Tool
+ * Page", "Enter Your Input", "Generate or Process", "Copy or Download" - none
+ * of which appeared on any page as content a reader could see.
+ *
+ * Deleted rather than rewritten, because there is nothing to rewrite it into:
+ * Google retired HowTo rich results, so the markup could never have produced
+ * anything. It was pure risk for no benefit.
  */
-export function getEnhancedHowToSchema(tool: SocialTool) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "HowTo",
-    "name": `How to Use ${tool.name}`,
-    "description": `Step-by-step guide on how to use ${tool.name} to ${tool.description.toLowerCase()}.`,
-    "step": [
-      {
-        "@type": "HowToStep",
-        "position": 1,
-        "name": "Visit the Tool Page",
-        "text": `Navigate to the ${tool.name} page on our website.`,
-        "image": `${BASE_URL}/og-image.png`
-      },
-      {
-        "@type": "HowToStep",
-        "position": 2,
-        "name": "Enter Your Input",
-        "text": "Enter your content, text, or data in the input field provided.",
-        "image": `${BASE_URL}/og-image.png`
-      },
-      {
-        "@type": "HowToStep",
-        "position": 3,
-        "name": "Generate or Process",
-        "text": "Click the generate or process button to create your output.",
-        "image": `${BASE_URL}/og-image.png`
-      },
-      {
-        "@type": "HowToStep",
-        "position": 4,
-        "name": "Copy or Download",
-        "text": "Copy your result or download it directly. No signup required!",
-        "image": `${BASE_URL}/og-image.png`
-      }
-    ],
-    "totalTime": "PT2M",
-    "tool": [
-      {
-        "@type": "HowToTool",
-        "name": tool.name
-      }
-    ]
-  };
-}
 
-/**
- * Author Schema
- */
 export function getAuthorSchema() {
   return {
     "@context": "https://schema.org",
