@@ -32,6 +32,8 @@ import {
  * Everything lands as pending. The pipeline can prove a file is a safe image;
  * it cannot tell whether the picture belongs on a public page.
  */
+// Explicit: sharp is a native binary and cannot run on the edge runtime.
+export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 export const maxDuration = 30;
 

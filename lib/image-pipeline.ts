@@ -1,4 +1,17 @@
-import sharp, { type Metadata } from "sharp";
+import type { Metadata } from "sharp";
+
+/**
+ * sharp is loaded on first use, not at module scope.
+ *
+ * It is a native binary. Importing it at the top meant the whole route module
+ * failed to load when the binary could not be resolved, which turned every
+ * method on that route into a 500 - a GET listing somebody's existing images
+ * died because an image *encoder* would not load. Deferring it means only the
+ * operation that genuinely needs sharp can be affected by sharp.
+ */
+async function lib() {
+  return (await import("sharp")).default;
+}
 
 /**
  * Turning an untrusted upload into something safe to serve.
@@ -105,6 +118,8 @@ export async function processUpload(input: Buffer): Promise<ImageResult> {
   if (!format) {
     return { ok: false, reason: "That is not a PNG, JPEG, WebP or GIF image." };
   }
+
+  const sharp = await lib();
 
   let meta: Metadata;
   try {

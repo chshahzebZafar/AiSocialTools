@@ -26,6 +26,12 @@ const nextConfig: NextConfig = {
     return config;
   },
   
+  // sharp ships a platform-specific native binary. Bundling it produces a
+  // module that throws on import, which took down every method on the upload
+  // route - including a GET that never touches sharp. Left external, it is
+  // required from node_modules at runtime like any other native dependency.
+  serverExternalPackages: ["sharp"],
+
   // Image optimization
   images: {
     formats: ['image/avif', 'image/webp'],
